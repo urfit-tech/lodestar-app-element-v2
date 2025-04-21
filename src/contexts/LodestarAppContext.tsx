@@ -2,7 +2,7 @@ import { ThemeOverride } from '@chakra-ui/react'
 import { createContext } from 'react'
 import { ApiProvider } from './ApiContext'
 import { AppProvider } from './AppContext'
-import { AppThemeProvider } from './AppThemeContext'
+import { AppThemeProvider } from './AppThemeProvider'
 import { AuthProvider } from './AuthContext'
 import { LanguageProvider } from './LanguageContext'
 

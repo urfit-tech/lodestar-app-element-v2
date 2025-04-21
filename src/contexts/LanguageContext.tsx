@@ -35,8 +35,8 @@ export const LanguageProvider: React.FC<React.PropsWithChildren> = ({ children }
         ? typeof cachedLanguage === 'string' && supportedLanguages.includes(cachedLanguage)
           ? cachedLanguage
           : supportedLanguages.includes(browserLanguage)
-          ? browserLanguage
-          : 'zh-tw'
+            ? browserLanguage
+            : 'zh-tw'
         : 'zh-tw',
     )
   }, [enabledModules, settings])

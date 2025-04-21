@@ -63,7 +63,7 @@ export const useCurrency = (currencyId?: string, coinUnit?: string) => {
 export const getCookie = (cookieName: string) => {
   const cookie: { [name: string]: string } = {}
   document.cookie.split(';').forEach(function (el) {
-    let [key, value] = el.split('=')
+    const [key, value] = el.split('=')
     cookie[key.trim()] = value
   })
   return cookie[cookieName.trim()] || ''
@@ -71,7 +71,7 @@ export const getCookie = (cookieName: string) => {
 
 export const getResourceByProductId = (productId: string): { type: ResourceType; target: string } => {
   const [productType, productTarget] = productId.split('_')
-  var resourceType = productType
+  const resourceType = productType
     .split(/(?=[A-Z])/)
     .join('_')
     .toLowerCase() as ResourceType
