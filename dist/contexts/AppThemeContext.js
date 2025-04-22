@@ -14,7 +14,6 @@ import paletteGenerator from '@bobthered/tailwindcss-palette-generator';
 import { ChakraProvider, extendTheme, useTheme } from '@chakra-ui/react';
 import { mergeDeepRight } from 'ramda';
 import { ThemeProvider } from 'styled-components';
-import '../styles.scss';
 import { useApp } from './AppContext';
 export var AppThemeProvider = function (_a) {
     var _b = _a.extendChakraTheme, extendChakraTheme = _b === void 0 ? {} : _b, children = _a.children;
