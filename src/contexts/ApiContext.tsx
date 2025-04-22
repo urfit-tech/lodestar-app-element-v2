@@ -2,20 +2,20 @@ import { ApolloProvider } from '@apollo/client'
 import { createApolloClient } from '../helpers/apollo'
 import { useAuth } from './AuthContext'
 
-export type Endpoints = {
+export type GraphqlEndpoint = {
   envGraphqlPhEndpoint: string
   envGraphqlRhEndpoint: string
   envGraphqlWsEndpoint: string
 }
 
-export const ApiProvider: React.FC<React.PropsWithChildren & { appId: string; endpoints: Endpoints }> = ({
+export const ApiProvider: React.FC<React.PropsWithChildren & { appId: string; graphqlEndpoint: GraphqlEndpoint }> = ({
   appId,
-  endpoints,
+  graphqlEndpoint,
   children,
 }) => {
   const { authToken } = useAuth()
 
-  const apolloClient = createApolloClient({ appId, authToken }, endpoints, {
+  const apolloClient = createApolloClient({ appId, authToken }, graphqlEndpoint, {
     'invalid-jwt': typeof window !== 'undefined' ? window.location.reload : () => {},
   })
 

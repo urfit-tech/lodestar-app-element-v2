@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 var onErrorLink = function (callbacks) {
     return onError(function (_a) {
         var graphQLErrors = _a.graphQLErrors, networkError = _a.networkError;
-        graphQLErrors &&
+        if (graphQLErrors && typeof window !== 'undefined') {
             graphQLErrors.forEach(function (_a) {
                 var _b;
                 var message = _a.message, locations = _a.locations, path = _a.path, extensions = _a.extensions;
@@ -19,7 +19,9 @@ var onErrorLink = function (callbacks) {
                     setTimeout(function () { return window.location.assign('/'); }, 3000);
                 }
             });
-        networkError && console.log("[Network error]: ".concat(JSON.stringify(networkError)));
+            if (networkError)
+                console.log("[Network error]: ".concat(JSON.stringify(networkError)));
+        }
     });
 };
 var createHttpLink = function (endpoint, options) {
@@ -37,13 +39,13 @@ var createHttpLink = function (endpoint, options) {
             },
     });
 };
-var createSplitLink = function (appId, authToken) {
+var createSplitLink = function (appId, authToken, graphqlEndpoint) {
     return split(function (_a) {
         var query = _a.query;
         var definition = getMainDefinition(query);
         return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
     }, new GraphQLWsLink(createClient({
-        url: String(process.env.REACT_APP_GRAPHQL_WS_ENDPOINT),
+        url: String(graphqlEndpoint.envGraphqlWsEndpoint),
         connectionParams: {
             headers: authToken
                 ? {
@@ -67,11 +69,11 @@ var createSplitLink = function (appId, authToken) {
         return ((definition.kind === 'OperationDefinition' &&
             (((_b = definition.name) === null || _b === void 0 ? void 0 : _b.value.startsWith('Ph')) || ((_c = definition.name) === null || _c === void 0 ? void 0 : _c.value.startsWith('PH_')))) ||
             false);
-    }, createHttpLink(process.env.REACT_APP_GRAPHQL_PH_ENDPOINT, { authToken: authToken, appId: appId }), createHttpLink(process.env.REACT_APP_GRAPHQL_RH_ENDPOINT, { authToken: authToken, appId: appId })), createHttpLink(process.env.REACT_APP_GRAPHQL_PH_ENDPOINT, { authToken: authToken, appId: appId })));
+    }, createHttpLink(graphqlEndpoint.envGraphqlPhEndpoint, { authToken: authToken, appId: appId }), createHttpLink(graphqlEndpoint.envGraphqlRhEndpoint, { authToken: authToken, appId: appId })), createHttpLink(graphqlEndpoint.envGraphqlPhEndpoint, { authToken: authToken, appId: appId })));
 };
-export var createApolloClient = function (options, callbacks) {
+export var createApolloClient = function (options, graphqlEndpoint, callbacks) {
     var apolloClient = new ApolloClient({
-        link: from([onErrorLink(callbacks), createSplitLink(options.appId, options.authToken)]),
+        link: from([onErrorLink(callbacks), createSplitLink(options.appId, options.authToken, graphqlEndpoint)]),
         cache: new InMemoryCache(),
     });
     return apolloClient;

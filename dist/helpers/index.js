@@ -73,11 +73,11 @@ export var durationFullFormatter = function (seconds) {
 export var durationFormatter = function (value) {
     return typeof value === 'number' && "\u7D04 ".concat((value / 60).toFixed(0), " \u5206\u9418");
 };
-export var uploadFile = function (key, file, authToken, config) { return __awaiter(void 0, void 0, void 0, function () {
+export var uploadFile = function (key, file, authToken, envApiBaseRoot, config) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, axios
-                    .post("".concat(process.env.REACT_APP_API_BASE_ROOT, "/sys/sign-url"), {
+                    .post("".concat(envApiBaseRoot, "/sys/sign-url"), {
                     operation: 'putObject',
                     params: {
                         Key: key,
@@ -96,7 +96,6 @@ export var uploadFile = function (key, file, authToken, config) { return __await
     });
 }); };
 export var handleError = function (error) {
-    process.env.NODE_ENV === 'development' && console.error(error);
     if (error.response && error.response.data) {
         return alert(error.response.data.message);
     }
@@ -131,9 +130,14 @@ export var validationRegExp = {
 export var validateContactInfo = function (contactInfo) {
     var _a, _b;
     var errorFields = [];
-    contactInfo.name.length === 0 && errorFields.push('name');
-    (contactInfo.phone.length === 0 || !((_a = validationRegExp['phone']) === null || _a === void 0 ? void 0 : _a.test(contactInfo.phone))) && errorFields.push('phone');
-    (contactInfo.email.length === 0 || !((_b = validationRegExp['email']) === null || _b === void 0 ? void 0 : _b.test(contactInfo.email))) && errorFields.push('email');
+    if (contactInfo.name.length === 0)
+        errorFields.push('name');
+    if (contactInfo.phone.length === 0 || !((_a = validationRegExp['phone']) === null || _a === void 0 ? void 0 : _a.test(contactInfo.phone))) {
+        errorFields.push('phone');
+    }
+    if (contactInfo.email.length === 0 || !((_b = validationRegExp['email']) === null || _b === void 0 ? void 0 : _b.test(contactInfo.email))) {
+        errorFields.push('email');
+    }
     return errorFields;
 };
 export var convertPathName = function (pathName) {

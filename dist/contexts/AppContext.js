@@ -41,7 +41,7 @@ export var AppProvider = function (_a) {
     var settings = useMemo(function () { var _a; return Object.fromEntries(((_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_settings.map(function (v) { return [v.key, v.value]; })) || []); }, [(_b = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _b === void 0 ? void 0 : _b.app_settings]);
     var secrets = useMemo(function () { var _a; return Object.fromEntries(((_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_secrets.map(function (v) { return [v.key, v.value]; })) || []); }, [(_c = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _c === void 0 ? void 0 : _c.app_secrets]);
     var app = useMemo(function () {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         return (data === null || data === void 0 ? void 0 : data.app_by_pk)
             ? {
                 loading: loading,
@@ -52,8 +52,8 @@ export var AppProvider = function (_a) {
                 name: data.app_by_pk.name || '',
                 title: data.app_by_pk.title || null,
                 description: data.app_by_pk.description || null,
-                host: ((_b = (_a = data.app_by_pk.app_hosts) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.host) || window.location.host,
-                hosts: ((_c = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _c === void 0 ? void 0 : _c.app_hosts.map(function (v) { return v.host; })) || [],
+                host: (_c = (_b = (_a = data.app_by_pk.app_hosts) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.host) !== null && _c !== void 0 ? _c : (typeof window !== 'undefined' ? window.location.host : ''),
+                hosts: ((_d = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _d === void 0 ? void 0 : _d.app_hosts.map(function (v) { return v.host; })) || [],
                 enabledModules: Object.fromEntries(data.app_by_pk.app_modules.map(function (v) { return [v.module_id, true]; }) || []),
                 appPlanId: data === null || data === void 0 ? void 0 : data.app_by_pk.app_plan_id,
                 navs: data.app_by_pk.app_navs.map(function (appNav) { return ({

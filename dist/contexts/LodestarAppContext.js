@@ -6,7 +6,7 @@ import { AppThemeProvider } from './AppThemeContext';
 import { AuthProvider } from './AuthContext';
 import { LanguageProvider } from './LanguageContext';
 export var LodestarAppProvider = function (_a) {
-    var appId = _a.appId, children = _a.children, extend = _a.extend;
+    var appId = _a.appId, apiBaseRootHost = _a.apiBaseRootHost, graphqlEndpoint = _a.graphqlEndpoint, children = _a.children, extend = _a.extend;
     var LodestarAppProvider = createContext({ appId: appId });
-    return (_jsx(LodestarAppProvider.Provider, { value: { appId: appId }, children: _jsx(AuthProvider, { appId: appId, children: _jsx(ApiProvider, { appId: appId, children: _jsx(AppProvider, { appId: appId, children: _jsx(LanguageProvider, { children: _jsx(AppThemeProvider, { extendChakraTheme: extend === null || extend === void 0 ? void 0 : extend.chakraTheme, children: children }) }) }) }) }) }));
+    return (_jsx(LodestarAppProvider.Provider, { value: { appId: appId }, children: _jsx(AuthProvider, { appId: appId, apiBaseRootHost: apiBaseRootHost, envGraphqlPhEndpoint: graphqlEndpoint.envGraphqlPhEndpoint, children: _jsx(ApiProvider, { appId: appId, graphqlEndpoint: graphqlEndpoint, children: _jsx(AppProvider, { appId: appId, children: _jsx(LanguageProvider, { children: _jsx(AppThemeProvider, { extendChakraTheme: extend === null || extend === void 0 ? void 0 : extend.chakraTheme, children: children }) }) }) }) }) }));
 };

@@ -4,7 +4,7 @@ import { ContactInfo } from '../types/checkout';
 import { ProductPlan } from '../types/data';
 export declare const durationFullFormatter: (seconds: number) => string;
 export declare const durationFormatter: (value?: number | null) => string | false;
-export declare const uploadFile: (key: string, file: Blob, authToken: string | null, config?: AxiosRequestConfig) => Promise<import("axios").AxiosResponse<{
+export declare const uploadFile: (key: string, file: Blob, authToken: string | null, envApiBaseRoot: string, config?: AxiosRequestConfig) => Promise<import("axios").AxiosResponse<{
     status: number;
     data: string;
 }, any>>;
