@@ -19,14 +19,13 @@ export const useTappay = () => {
   const { settings } = useApp()
 
   const TPDirect = useMemo(() => {
-    settings['tappay.app_id'] &&
-      settings['tappay.app_key'] &&
-      _TPDirect &&
+    if (settings['tappay.app_id'] && settings['tappay.app_key'] && _TPDirect) {
       _TPDirect.setupSDK(
         settings['tappay.app_id'],
         settings['tappay.app_key'],
         settings['tappay.dry_run'] === 'true' ? 'sandbox' : 'production',
       )
+    }
     return _TPDirect
   }, [_TPDirect, settings])
 
@@ -97,7 +96,7 @@ export const useToastMessage = () => {
         duration: options.duration || 1500,
         position: options.position || 'top',
       })
-    } catch (err) {
+    } catch {
       alert(options.responseCode)
     }
   }
