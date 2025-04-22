@@ -125,7 +125,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<{ appId: string }>> =
             name: data.app_by_pk.name || '',
             title: data.app_by_pk.title || null,
             description: data.app_by_pk.description || null,
-            host: data.app_by_pk.app_hosts?.[0]?.host || window.location.host,
+            host: data.app_by_pk.app_hosts?.[0]?.host ?? (typeof window !== 'undefined' ? window.location.host : ''),
             hosts: data?.app_by_pk?.app_hosts.map(v => v.host) || [],
             enabledModules: Object.fromEntries(data.app_by_pk.app_modules.map(v => [v.module_id, true]) || []),
             appPlanId: data?.app_by_pk.app_plan_id,

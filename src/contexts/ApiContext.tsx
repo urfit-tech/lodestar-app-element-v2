@@ -8,7 +8,7 @@ export const ApiProvider: React.FC<React.PropsWithChildren & { appId: string }> 
   const apolloClient = createApolloClient(
     { appId, authToken },
     {
-      'invalid-jwt': window.location.reload,
+      'invalid-jwt': typeof window !== 'undefined' ? window.location.reload : () => {},
     },
   )
 

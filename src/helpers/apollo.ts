@@ -18,7 +18,7 @@ type ApolloCallbacks = {
 // create onError link
 const onErrorLink = (callbacks?: ApolloCallbacks) =>
   onError(({ graphQLErrors, networkError }) => {
-    graphQLErrors &&
+    if (graphQLErrors && typeof window !== 'undefined') {
       graphQLErrors.forEach(({ message, locations, path, extensions }) => {
         console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`, extensions)
         if (extensions && extensions.code === 'invalid-jwt') {
@@ -26,7 +26,8 @@ const onErrorLink = (callbacks?: ApolloCallbacks) =>
           setTimeout(() => window.location.assign('/'), 3000)
         }
       })
-    networkError && console.log(`[Network error]: ${JSON.stringify(networkError)}`)
+      if (networkError) console.log(`[Network error]: ${JSON.stringify(networkError)}`)
+    }
   })
 
 const createHttpLink = (endpoint: string | undefined, options: { authToken: string | null; appId: string }) =>

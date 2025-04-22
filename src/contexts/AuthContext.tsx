@@ -57,7 +57,9 @@ const defaultAuthContext: AuthProps = {
 }
 
 const initLodestarWindow = () => {
-  window.lodestar = window.lodestar || {}
+  if (typeof window !== 'undefined') {
+    window.lodestar = window.lodestar || {}
+  }
 }
 
 const AuthContext = createContext<AuthProps>(defaultAuthContext)
@@ -84,10 +86,12 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         }
         ReactGA.set({ userId: payload.sub })
       } catch (error) {
-        process.env.NODE_ENV === 'development' && console.error(error)
+        if (process.env.NODE_ENV === 'development') {
+          console.error(error)
+        }
       }
     }
-  }, [payload])
+  }, [payload, window])
 
   const refreshToken = useCallback(async () => {
     const fingerPrintId = await getFingerPrintId()
@@ -124,8 +128,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
   }
 
   initLodestarWindow()
-  window.lodestar.getCurrentMember = () => currentMember
-  window.lodestar.getDataLayerByEvent = (event: string) => (window as any).dataLayer.find((d: any) => d.event === event)
+  if (typeof window !== 'undefined') {
+    window.lodestar.getCurrentMember = () => currentMember
+    window.lodestar.getDataLayerByEvent = (event: string) =>
+      (window as any).dataLayer.find((d: any) => d.event === event)
+  }
 
   return (
     <AuthContext.Provider
@@ -163,37 +170,35 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
               try {
                 const currentMemberId = jwt.decode(result.authToken)?.sub
                 const phone = sessionStorage.getItem('phone')
-                if (phone) {
-                  process.env.REACT_APP_GRAPHQL_PH_ENDPOINT &&
-                    Axios.post(
-                      process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
-                      {
-                        query: `
+                if (phone && process.env.REACT_APP_GRAPHQL_PH_ENDPOINT) {
+                  Axios.post(
+                    process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
+                    {
+                      query: `
                         mutation INSERT_MEMBER_PHONE_ONE($currentMemberId: String!, $phone: String!) {
                           insert_member_phone_one(object: { member_id: $currentMemberId, phone: $phone }) {
                             id
                           }
                         }
                     `,
-                        variables: {
-                          currentMemberId,
-                          phone,
-                        },
+                      variables: {
+                        currentMemberId,
+                        phone,
                       },
-                      { headers: { Authorization: `Bearer ${result.authToken}` } },
-                    )
+                    },
+                    { headers: { Authorization: `Bearer ${result.authToken}` } },
+                  )
                 }
 
                 const categoryIds: string[] = JSON.parse(sessionStorage.getItem('categoryIds') || '[]')
                 const memberProperties: { propertyId?: string; value?: string }[] = JSON.parse(
                   sessionStorage.getItem('memberProperties') || '[]',
                 )
-                if (categoryIds.length) {
-                  process.env.REACT_APP_GRAPHQL_PH_ENDPOINT &&
-                    Axios.post(
-                      process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
-                      {
-                        query: `
+                if (categoryIds.length && process.env.REACT_APP_GRAPHQL_PH_ENDPOINT) {
+                  Axios.post(
+                    process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
+                    {
+                      query: `
                         mutation INSERT_MEMBER_CATEGORIES($memberProperties: [member_property_insert_input!]!, $data: [member_category_insert_input!]!) {
                           insert_member_property(objects: $memberProperties) {
                             affected_rows
@@ -203,42 +208,41 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
                           }
                         }
                       `,
-                        variables: {
-                          memberProperties: memberProperties.map(v => ({
-                            member_id: currentMemberId,
-                            property_id: v.propertyId,
-                            value: v.value,
-                          })),
-                          data: categoryIds.map((categoryId, index) => ({
-                            member_id: currentMemberId,
-                            category_id: categoryId,
-                            position: index,
-                          })),
-                        },
+                      variables: {
+                        memberProperties: memberProperties.map(v => ({
+                          member_id: currentMemberId,
+                          property_id: v.propertyId,
+                          value: v.value,
+                        })),
+                        data: categoryIds.map((categoryId, index) => ({
+                          member_id: currentMemberId,
+                          category_id: categoryId,
+                          position: index,
+                        })),
                       },
-                      { headers: { Authorization: `Bearer ${result.authToken}` } },
-                    )
+                    },
+                    { headers: { Authorization: `Bearer ${result.authToken}` } },
+                  )
                 }
                 const star = sessionStorage.getItem('star')
-                if (star) {
-                  process.env.REACT_APP_GRAPHQL_PH_ENDPOINT &&
-                    Axios.post(
-                      process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
-                      {
-                        query: `
+                if (star && process.env.REACT_APP_GRAPHQL_PH_ENDPOINT) {
+                  Axios.post(
+                    process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
+                    {
+                      query: `
                         mutation SET_MEMBER_STAR($memberId: String!, $star: numeric!) {
                           update_member(where: {id: {_eq: $memberId}}, _set: {star: $star}) {
                             affected_rows
                           }
                         }                      
                       `,
-                        variables: {
-                          memberId: currentMemberId,
-                          star: parseInt(star),
-                        },
+                      variables: {
+                        memberId: currentMemberId,
+                        star: parseInt(star),
                       },
-                      { headers: { Authorization: `Bearer ${result.authToken}` } },
-                    )
+                    },
+                    { headers: { Authorization: `Bearer ${result.authToken}` } },
+                  )
                 }
                 return result.authToken
               } catch {}
@@ -250,31 +254,27 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         login: async ({ account, password, accountLinkToken }) => {
           const fingerPrintId = await getFingerPrintId()
           const { ip, country, countryCode } = await fetchCurrentGeolocation()
-          try {
-            const {
-              data: { code, message, result },
-            } = await Axios.post(
-              `${process.env.REACT_APP_API_BASE_ROOT}/auth/general-login`,
-              { appId, account, password, fingerPrintId, geoLocation: { ip, country, countryCode } },
-              { withCredentials: true },
-            )
 
-            if (code === 'SUCCESS') {
-              setAuthToken(result.authToken)
-              if (accountLinkToken && result.authToken) {
-                window.location.assign(`/line-binding?accountLinkToken=${accountLinkToken}`)
-              }
-            } else if (code === 'I_RESET_PASSWORD') {
-              window.location.assign(`/check-email?email=${account}&type=reset-password`)
-            } else {
-              setAuthToken(null)
-              throw getBackendServerError(code, message, result)
+          const {
+            data: { code, message, result },
+          } = await Axios.post(
+            `${process.env.REACT_APP_API_BASE_ROOT}/auth/general-login`,
+            { appId, account, password, fingerPrintId, geoLocation: { ip, country, countryCode } },
+            { withCredentials: true },
+          )
+
+          if (code === 'SUCCESS') {
+            setAuthToken(result.authToken)
+            if (accountLinkToken && result.authToken) {
+              window.location.assign(`/line-binding?accountLinkToken=${accountLinkToken}`)
             }
-
-            return { code }
-          } catch (error) {
-            throw error
+          } else if (code === 'I_RESET_PASSWORD') {
+            window.location.assign(`/check-email?email=${account}&type=reset-password`)
+          } else {
+            setAuthToken(null)
+            throw getBackendServerError(code, message, result)
           }
+          return { code }
         },
         socialLogin: async ({ provider, providerToken, accountLinkToken, isForceLogin }) =>
           Axios.post(
@@ -308,7 +308,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
               memberId,
             },
             { withCredentials: true, headers: { Authorization: 'Bearer ' + authToken } },
-          ).then(({ data: { code, message, result } }) => {
+          ).then(({ data: { code, _, result } }) => {
             if (code === 'SUCCESS') {
               setAuthToken(result.authToken)
             } else {
@@ -318,7 +318,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         },
         logout: async () => {
           localStorage.clear()
-          window.location.assign(`${process.env.REACT_APP_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`)
+          if (typeof window !== 'undefined') {
+            window.location.assign(
+              `${process.env.REACT_APP_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`,
+            )
+          }
         },
         sendSmsCode: async ({ phoneNumber }) =>
           Axios.post(
@@ -328,7 +332,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
               phoneNumber,
             },
             { withCredentials: true },
-          ).then(({ data: { code, message, result } }) => {
+          ).then(({ data: { code } }) => {
             if (code !== 'SUCCESS') {
               throw new Error(code)
             }
@@ -342,7 +346,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
               code,
             },
             { withCredentials: true },
-          ).then(({ data: { code, message, result } }) => {
+          ).then(({ data: { code, _, result } }) => {
             if (code !== 'SUCCESS' || !result?.codeValid) {
               throw new Error(code)
             }
@@ -356,10 +360,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
             .then(({ data: { code, result } }) => {
               if (code === 'SUCCESS') {
                 setAuthToken(result.authToken)
-                if (accountLinkToken && result.authToken) {
+                if (accountLinkToken && result.authToken && typeof window !== 'undefined') {
                   window.location.assign(`/line-binding?accountLinkToken=${accountLinkToken}`)
                 }
-              } else if (code === 'I_RESET_PASSWORD') {
+              } else if (code === 'I_RESET_PASSWORD' && typeof window !== 'undefined') {
                 window.location.assign(`/check-email?email=${account}&type=reset-password`)
               } else {
                 setAuthToken(null)
