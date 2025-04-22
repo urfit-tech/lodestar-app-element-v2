@@ -2,12 +2,14 @@
   "name": "lodestar-app-element-v2",
   "version": "0.1.0",
   "private": true,
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist-types/index.d.ts",
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "build": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "@apollo/client": "^3.13.7",
