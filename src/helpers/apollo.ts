@@ -53,7 +53,7 @@ const createSplitLink = (appId: string, authToken: string | null) =>
     },
     new GraphQLWsLink(
       createClient({
-        url: String(process.env.REACT_APP_GRAPHQL_WS_ENDPOINT),
+        url: String(process.env.NEXT_PUBLIC_GRAPHQL_WS_ENDPOINT),
         connectionParams: {
           headers: authToken
             ? {
@@ -82,10 +82,10 @@ const createSplitLink = (appId: string, authToken: string | null) =>
             false
           )
         },
-        createHttpLink(process.env.REACT_APP_GRAPHQL_PH_ENDPOINT, { authToken, appId }),
-        createHttpLink(process.env.REACT_APP_GRAPHQL_RH_ENDPOINT, { authToken, appId }),
+        createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken, appId }),
+        createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_RH_ENDPOINT, { authToken, appId }),
       ),
-      createHttpLink(process.env.REACT_APP_GRAPHQL_PH_ENDPOINT, { authToken, appId }),
+      createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken, appId }),
     ),
   )
 

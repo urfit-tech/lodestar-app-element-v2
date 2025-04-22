@@ -99,7 +99,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
     const {
       data: { code, result },
     } = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_ROOT}/auth/refresh-token`,
+      `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/refresh-token`,
       { appId, fingerPrintId, geoLocation: { ip, country, countryCode } },
       {
         method: 'POST',
@@ -153,7 +153,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         refreshToken,
         register: async data =>
           Axios.post(
-            `${process.env.REACT_APP_API_BASE_ROOT}/auth/register`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/register`,
             {
               appId: data.appId || appId,
               username: data.username,
@@ -170,9 +170,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
               try {
                 const currentMemberId = jwt.decode(result.authToken)?.sub
                 const phone = sessionStorage.getItem('phone')
-                if (phone && process.env.REACT_APP_GRAPHQL_PH_ENDPOINT) {
+                if (phone && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
                   Axios.post(
-                    process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
+                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
                     {
                       query: `
                         mutation INSERT_MEMBER_PHONE_ONE($currentMemberId: String!, $phone: String!) {
@@ -194,9 +194,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
                 const memberProperties: { propertyId?: string; value?: string }[] = JSON.parse(
                   sessionStorage.getItem('memberProperties') || '[]',
                 )
-                if (categoryIds.length && process.env.REACT_APP_GRAPHQL_PH_ENDPOINT) {
+                if (categoryIds.length && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
                   Axios.post(
-                    process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
+                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
                     {
                       query: `
                         mutation INSERT_MEMBER_CATEGORIES($memberProperties: [member_property_insert_input!]!, $data: [member_category_insert_input!]!) {
@@ -225,9 +225,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
                   )
                 }
                 const star = sessionStorage.getItem('star')
-                if (star && process.env.REACT_APP_GRAPHQL_PH_ENDPOINT) {
+                if (star && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
                   Axios.post(
-                    process.env.REACT_APP_GRAPHQL_PH_ENDPOINT,
+                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
                     {
                       query: `
                         mutation SET_MEMBER_STAR($memberId: String!, $star: numeric!) {
@@ -258,7 +258,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           const {
             data: { code, message, result },
           } = await Axios.post(
-            `${process.env.REACT_APP_API_BASE_ROOT}/auth/general-login`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/general-login`,
             { appId, account, password, fingerPrintId, geoLocation: { ip, country, countryCode } },
             { withCredentials: true },
           )
@@ -278,7 +278,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         },
         socialLogin: async ({ provider, providerToken, accountLinkToken, isForceLogin }) =>
           Axios.post(
-            `${process.env.REACT_APP_API_BASE_ROOT}/auth/social-login`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/social-login`,
             {
               appId,
               provider,
@@ -303,7 +303,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           }),
         switchMember: async ({ memberId }) => {
           return Axios.post(
-            `${process.env.REACT_APP_API_BASE_ROOT}/auth/switch-member`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/switch-member`,
             {
               memberId,
             },
@@ -320,13 +320,13 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           localStorage.clear()
           if (typeof window !== 'undefined') {
             window.location.assign(
-              `${process.env.REACT_APP_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`,
+              `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`,
             )
           }
         },
         sendSmsCode: async ({ phoneNumber }) =>
           Axios.post(
-            `${process.env.REACT_APP_API_BASE_ROOT}/sms/send-code`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/send-code`,
             {
               appId,
               phoneNumber,
@@ -339,7 +339,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           }),
         verifySmsCode: async ({ phoneNumber, code }) =>
           Axios.post(
-            `${process.env.REACT_APP_API_BASE_ROOT}/sms/verify-code`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/verify-code`,
             {
               appId,
               phoneNumber,
@@ -353,7 +353,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           }),
         forceLogin: async ({ account, password, accountLinkToken }) => {
           return Axios.post(
-            `${process.env.REACT_APP_API_BASE_ROOT}/auth/force-login`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/force-login`,
             { appId, account, password },
             { withCredentials: true },
           )

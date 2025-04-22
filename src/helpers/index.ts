@@ -38,7 +38,7 @@ export const durationFormatter = (value?: number | null) => {
 export const uploadFile = async (key: string, file: Blob, authToken: string | null, config?: AxiosRequestConfig) =>
   await axios
     .post(
-      `${process.env.REACT_APP_API_BASE_ROOT}/sys/sign-url`,
+      `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sys/sign-url`,
       {
         operation: 'putObject',
         params: {
