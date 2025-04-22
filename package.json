@@ -2,6 +2,7 @@
   "name": "lodestar-app-element-v2",
   "version": "0.1.0",
   "private": true,
+  "types": "index.d.ts",
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
