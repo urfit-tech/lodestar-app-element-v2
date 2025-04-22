@@ -65,7 +65,9 @@ const initLodestarWindow = () => {
 const AuthContext = createContext<AuthProps>(defaultAuthContext)
 export const useAuth = () => useContext(AuthContext)
 
-export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> = ({ appId, children }) => {
+export const AuthProvider: React.FC<
+  React.PropsWithChildren<{ appId: string; apiBaseRootHost: string; graphqlPHEndpointHost: string }>
+> = ({ appId, apiBaseRootHost, graphqlPHEndpointHost, children }) => {
   const [isAuthenticating, setIsAuthenticating] = useState(defaultAuthContext.isAuthenticating)
   const [authToken, setAuthToken] = useState<string | null>((window as any).AUTH_TOKEN || null)
   const payload = useMemo(() => (authToken ? parsePayload(authToken) : null), [authToken])
@@ -99,7 +101,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
     const {
       data: { code, result },
     } = await Axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/refresh-token`,
+      `${apiBaseRootHost}/auth/refresh-token`,
       { appId, fingerPrintId, geoLocation: { ip, country, countryCode } },
       {
         method: 'POST',
@@ -153,7 +155,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         refreshToken,
         register: async data =>
           Axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/register`,
+            `${apiBaseRootHost}/auth/register`,
             {
               appId: data.appId || appId,
               username: data.username,
@@ -170,9 +172,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
               try {
                 const currentMemberId = jwt.decode(result.authToken)?.sub
                 const phone = sessionStorage.getItem('phone')
-                if (phone && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
+                if (phone && graphqlPHEndpointHost) {
                   Axios.post(
-                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
+                    graphqlPHEndpointHost,
                     {
                       query: `
                         mutation INSERT_MEMBER_PHONE_ONE($currentMemberId: String!, $phone: String!) {
@@ -194,9 +196,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
                 const memberProperties: { propertyId?: string; value?: string }[] = JSON.parse(
                   sessionStorage.getItem('memberProperties') || '[]',
                 )
-                if (categoryIds.length && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
+                if (categoryIds.length && graphqlPHEndpointHost) {
                   Axios.post(
-                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
+                    graphqlPHEndpointHost,
                     {
                       query: `
                         mutation INSERT_MEMBER_CATEGORIES($memberProperties: [member_property_insert_input!]!, $data: [member_category_insert_input!]!) {
@@ -225,9 +227,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
                   )
                 }
                 const star = sessionStorage.getItem('star')
-                if (star && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
+                if (star && graphqlPHEndpointHost) {
                   Axios.post(
-                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
+                    graphqlPHEndpointHost,
                     {
                       query: `
                         mutation SET_MEMBER_STAR($memberId: String!, $star: numeric!) {
@@ -258,7 +260,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           const {
             data: { code, message, result },
           } = await Axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/general-login`,
+            `${apiBaseRootHost}/auth/general-login`,
             { appId, account, password, fingerPrintId, geoLocation: { ip, country, countryCode } },
             { withCredentials: true },
           )
@@ -278,7 +280,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         },
         socialLogin: async ({ provider, providerToken, accountLinkToken, isForceLogin }) =>
           Axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/social-login`,
+            `${apiBaseRootHost}/auth/social-login`,
             {
               appId,
               provider,
@@ -303,7 +305,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           }),
         switchMember: async ({ memberId }) => {
           return Axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/switch-member`,
+            `${apiBaseRootHost}/auth/switch-member`,
             {
               memberId,
             },
@@ -319,14 +321,12 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         logout: async () => {
           localStorage.clear()
           if (typeof window !== 'undefined') {
-            window.location.assign(
-              `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`,
-            )
+            window.location.assign(`${apiBaseRootHost}/auth/logout?redirect=${window.location.href}`)
           }
         },
         sendSmsCode: async ({ phoneNumber }) =>
           Axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/send-code`,
+            `${apiBaseRootHost}/sms/send-code`,
             {
               appId,
               phoneNumber,
@@ -339,7 +339,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           }),
         verifySmsCode: async ({ phoneNumber, code }) =>
           Axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/verify-code`,
+            `${apiBaseRootHost}/sms/verify-code`,
             {
               appId,
               phoneNumber,
@@ -353,7 +353,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
           }),
         forceLogin: async ({ account, password, accountLinkToken }) => {
           return Axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/force-login`,
+            `${apiBaseRootHost}/auth/force-login`,
             { appId, account, password },
             { withCredentials: true },
           )

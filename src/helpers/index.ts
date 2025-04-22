@@ -35,10 +35,16 @@ export const durationFormatter = (value?: number | null) => {
   return typeof value === 'number' && `約 ${(value / 60).toFixed(0)} 分鐘`
 }
 
-export const uploadFile = async (key: string, file: Blob, authToken: string | null, config?: AxiosRequestConfig) =>
+export const uploadFile = async (
+  key: string,
+  file: Blob,
+  authToken: string | null,
+  envApiBaseRoot: string,
+  config?: AxiosRequestConfig,
+) =>
   await axios
     .post(
-      `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sys/sign-url`,
+      `${envApiBaseRoot}/sys/sign-url`,
       {
         operation: 'putObject',
         params: {
@@ -63,7 +69,6 @@ export const uploadFile = async (key: string, file: Blob, authToken: string | nu
     })
 
 export const handleError = (error: any) => {
-  process.env.NODE_ENV === 'development' && console.error(error)
   if (error.response && error.response.data) {
     return alert(error.response.data.message)
   }
@@ -112,9 +117,13 @@ export const validationRegExp: { [fieldId: string]: RegExp } = {
 
 export const validateContactInfo: (contactInfo: ContactInfo) => string[] = contactInfo => {
   const errorFields: string[] = []
-  contactInfo.name.length === 0 && errorFields.push('name')
-  ;(contactInfo.phone.length === 0 || !validationRegExp['phone']?.test(contactInfo.phone)) && errorFields.push('phone')
-  ;(contactInfo.email.length === 0 || !validationRegExp['email']?.test(contactInfo.email)) && errorFields.push('email')
+  if (contactInfo.name.length === 0) errorFields.push('name')
+  if (contactInfo.phone.length === 0 || !validationRegExp['phone']?.test(contactInfo.phone)) {
+    errorFields.push('phone')
+  }
+  if (contactInfo.email.length === 0 || !validationRegExp['email']?.test(contactInfo.email)) {
+    errorFields.push('email')
+  }
   return errorFields
 }
 

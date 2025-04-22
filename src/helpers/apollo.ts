@@ -5,6 +5,7 @@ import { getMainDefinition } from '@apollo/client/utilities'
 import { OperationTypeNode } from 'graphql'
 import { createClient } from 'graphql-ws'
 import { v4 as uuidv4 } from 'uuid'
+import { Endpoints } from '../contexts/ApiContext'
 
 type ApolloClientOptions = {
   appId: string
@@ -45,7 +46,7 @@ const createHttpLink = (endpoint: string | undefined, options: { authToken: stri
         },
   })
 
-const createSplitLink = (appId: string, authToken: string | null) =>
+const createSplitLink = (appId: string, authToken: string | null, endpoints: Endpoints) =>
   split(
     ({ query }) => {
       const definition = getMainDefinition(query)
@@ -53,7 +54,7 @@ const createSplitLink = (appId: string, authToken: string | null) =>
     },
     new GraphQLWsLink(
       createClient({
-        url: String(process.env.NEXT_PUBLIC_GRAPHQL_WS_ENDPOINT),
+        url: String(endpoints.envGraphqlWsEndpoint),
         connectionParams: {
           headers: authToken
             ? {
@@ -82,16 +83,16 @@ const createSplitLink = (appId: string, authToken: string | null) =>
             false
           )
         },
-        createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken, appId }),
-        createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_RH_ENDPOINT, { authToken, appId }),
+        createHttpLink(endpoints.envGraphqlPhEndpoint, { authToken, appId }),
+        createHttpLink(endpoints.envGraphqlRhEndpoint, { authToken, appId }),
       ),
-      createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken, appId }),
+      createHttpLink(endpoints.envGraphqlPhEndpoint, { authToken, appId }),
     ),
   )
 
-export const createApolloClient = (options: ApolloClientOptions, callbacks?: ApolloCallbacks) => {
+export const createApolloClient = (options: ApolloClientOptions, endpoints: Endpoints, callbacks?: ApolloCallbacks) => {
   const apolloClient = new ApolloClient({
-    link: from([onErrorLink(callbacks), createSplitLink(options.appId, options.authToken)]),
+    link: from([onErrorLink(callbacks), createSplitLink(options.appId, options.authToken, endpoints)]),
     cache: new InMemoryCache(),
   })
   return apolloClient
