@@ -39,13 +39,13 @@ var createHttpLink = function (endpoint, options) {
             },
     });
 };
-var createSplitLink = function (appId, authToken, graphqlEndpoint) {
+var createSplitLink = function (appId, authToken) {
     return split(function (_a) {
         var query = _a.query;
         var definition = getMainDefinition(query);
         return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
     }, new GraphQLWsLink(createClient({
-        url: String(graphqlEndpoint.envGraphqlWsEndpoint),
+        url: String(process.env.NEXT_PUBLIC_GRAPHQL_WS_ENDPOINT),
         connectionParams: {
             headers: authToken
                 ? {
@@ -69,11 +69,11 @@ var createSplitLink = function (appId, authToken, graphqlEndpoint) {
         return ((definition.kind === 'OperationDefinition' &&
             (((_b = definition.name) === null || _b === void 0 ? void 0 : _b.value.startsWith('Ph')) || ((_c = definition.name) === null || _c === void 0 ? void 0 : _c.value.startsWith('PH_')))) ||
             false);
-    }, createHttpLink(graphqlEndpoint.envGraphqlPhEndpoint, { authToken: authToken, appId: appId }), createHttpLink(graphqlEndpoint.envGraphqlRhEndpoint, { authToken: authToken, appId: appId })), createHttpLink(graphqlEndpoint.envGraphqlPhEndpoint, { authToken: authToken, appId: appId })));
+    }, createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken: authToken, appId: appId }), createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_RH_ENDPOINT, { authToken: authToken, appId: appId })), createHttpLink(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken: authToken, appId: appId })));
 };
-export var createApolloClient = function (options, graphqlEndpoint, callbacks) {
+export var createApolloClient = function (options, callbacks) {
     var apolloClient = new ApolloClient({
-        link: from([onErrorLink(callbacks), createSplitLink(options.appId, options.authToken, graphqlEndpoint)]),
+        link: from([onErrorLink(callbacks), createSplitLink(options.appId, options.authToken)]),
         cache: new InMemoryCache(),
     });
     return apolloClient;

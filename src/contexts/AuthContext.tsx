@@ -65,9 +65,11 @@ const initLodestarWindow = () => {
 const AuthContext = createContext<AuthProps>(defaultAuthContext)
 export const useAuth = () => useContext(AuthContext)
 
-export const AuthProvider: React.FC<
-  React.PropsWithChildren<{ appId: string; apiBaseRootHost: string; envGraphqlPhEndpoint: string }>
-> = ({ appId, apiBaseRootHost, envGraphqlPhEndpoint, children }) => {
+export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; apiBaseRootHost: string }>> = ({
+  appId,
+  apiBaseRootHost,
+  children,
+}) => {
   const [isAuthenticating, setIsAuthenticating] = useState(defaultAuthContext.isAuthenticating)
   const [authToken, setAuthToken] = useState<string | null>((window as any).AUTH_TOKEN || null)
   const payload = useMemo(() => (authToken ? parsePayload(authToken) : null), [authToken])
@@ -172,9 +174,9 @@ export const AuthProvider: React.FC<
               try {
                 const currentMemberId = jwt.decode(result.authToken)?.sub
                 const phone = sessionStorage.getItem('phone')
-                if (phone && envGraphqlPhEndpoint) {
+                if (phone && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
                   Axios.post(
-                    envGraphqlPhEndpoint,
+                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
                     {
                       query: `
                         mutation INSERT_MEMBER_PHONE_ONE($currentMemberId: String!, $phone: String!) {
@@ -196,9 +198,9 @@ export const AuthProvider: React.FC<
                 const memberProperties: { propertyId?: string; value?: string }[] = JSON.parse(
                   sessionStorage.getItem('memberProperties') || '[]',
                 )
-                if (categoryIds.length && envGraphqlPhEndpoint) {
+                if (categoryIds.length && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
                   Axios.post(
-                    envGraphqlPhEndpoint,
+                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
                     {
                       query: `
                         mutation INSERT_MEMBER_CATEGORIES($memberProperties: [member_property_insert_input!]!, $data: [member_category_insert_input!]!) {
@@ -227,9 +229,9 @@ export const AuthProvider: React.FC<
                   )
                 }
                 const star = sessionStorage.getItem('star')
-                if (star && envGraphqlPhEndpoint) {
+                if (star && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
                   Axios.post(
-                    envGraphqlPhEndpoint,
+                    process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT,
                     {
                       query: `
                         mutation SET_MEMBER_STAR($memberId: String!, $star: numeric!) {

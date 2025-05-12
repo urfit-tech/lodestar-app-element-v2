@@ -61,7 +61,7 @@ var AuthContext = createContext(defaultAuthContext);
 export var useAuth = function () { return useContext(AuthContext); };
 export var AuthProvider = function (_a) {
     var _b;
-    var appId = _a.appId, apiBaseRootHost = _a.apiBaseRootHost, envGraphqlPhEndpoint = _a.envGraphqlPhEndpoint, children = _a.children;
+    var appId = _a.appId, apiBaseRootHost = _a.apiBaseRootHost, children = _a.children;
     var _c = useState(defaultAuthContext.isAuthenticating), isAuthenticating = _c[0], setIsAuthenticating = _c[1];
     var _d = useState(window.AUTH_TOKEN || null), authToken = _d[0], setAuthToken = _d[1];
     var payload = useMemo(function () { return (authToken ? parsePayload(authToken) : null); }, [authToken]);
@@ -168,8 +168,8 @@ export var AuthProvider = function (_a) {
                                 try {
                                     var currentMemberId_1 = (_b = jwt.decode(result.authToken)) === null || _b === void 0 ? void 0 : _b.sub;
                                     var phone = sessionStorage.getItem('phone');
-                                    if (phone && envGraphqlPhEndpoint) {
-                                        Axios.post(envGraphqlPhEndpoint, {
+                                    if (phone && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
+                                        Axios.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
                                             query: "\n                        mutation INSERT_MEMBER_PHONE_ONE($currentMemberId: String!, $phone: String!) {\n                          insert_member_phone_one(object: { member_id: $currentMemberId, phone: $phone }) {\n                            id\n                          }\n                        }\n                    ",
                                             variables: {
                                                 currentMemberId: currentMemberId_1,
@@ -179,8 +179,8 @@ export var AuthProvider = function (_a) {
                                     }
                                     var categoryIds = JSON.parse(sessionStorage.getItem('categoryIds') || '[]');
                                     var memberProperties = JSON.parse(sessionStorage.getItem('memberProperties') || '[]');
-                                    if (categoryIds.length && envGraphqlPhEndpoint) {
-                                        Axios.post(envGraphqlPhEndpoint, {
+                                    if (categoryIds.length && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
+                                        Axios.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
                                             query: "\n                        mutation INSERT_MEMBER_CATEGORIES($memberProperties: [member_property_insert_input!]!, $data: [member_category_insert_input!]!) {\n                          insert_member_property(objects: $memberProperties) {\n                            affected_rows\n                          }\n                          insert_member_category(objects: $data) {\n                            affected_rows\n                          }\n                        }\n                      ",
                                             variables: {
                                                 memberProperties: memberProperties.map(function (v) { return ({
@@ -197,8 +197,8 @@ export var AuthProvider = function (_a) {
                                         }, { headers: { Authorization: "Bearer ".concat(result.authToken) } });
                                     }
                                     var star = sessionStorage.getItem('star');
-                                    if (star && envGraphqlPhEndpoint) {
-                                        Axios.post(envGraphqlPhEndpoint, {
+                                    if (star && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
+                                        Axios.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
                                             query: "\n                        mutation SET_MEMBER_STAR($memberId: String!, $star: numeric!) {\n                          update_member(where: {id: {_eq: $memberId}}, _set: {star: $star}) {\n                            affected_rows\n                          }\n                        }                      \n                      ",
                                             variables: {
                                                 memberId: currentMemberId_1,
