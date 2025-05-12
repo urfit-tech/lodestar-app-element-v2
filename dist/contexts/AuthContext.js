@@ -61,7 +61,7 @@ var AuthContext = createContext(defaultAuthContext);
 export var useAuth = function () { return useContext(AuthContext); };
 export var AuthProvider = function (_a) {
     var _b;
-    var appId = _a.appId, apiBaseRootHost = _a.apiBaseRootHost, children = _a.children;
+    var appId = _a.appId, children = _a.children;
     var _c = useState(defaultAuthContext.isAuthenticating), isAuthenticating = _c[0], setIsAuthenticating = _c[1];
     var _d = useState(window.AUTH_TOKEN || null), authToken = _d[0], setAuthToken = _d[1];
     var payload = useMemo(function () { return (authToken ? parsePayload(authToken) : null); }, [authToken]);
@@ -98,7 +98,7 @@ export var AuthProvider = function (_a) {
                     return [4 /*yield*/, fetchCurrentGeolocation()];
                 case 2:
                     _a = _c.sent(), ip = _a.ip, country = _a.country, countryCode = _a.countryCode;
-                    return [4 /*yield*/, Axios.post("".concat(apiBaseRootHost, "/auth/refresh-token"), { appId: appId, fingerPrintId: fingerPrintId, geoLocation: { ip: ip, country: country, countryCode: countryCode } }, {
+                    return [4 /*yield*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/auth/refresh-token"), { appId: appId, fingerPrintId: fingerPrintId, geoLocation: { ip: ip, country: country, countryCode: countryCode } }, {
                             method: 'POST',
                             withCredentials: true,
                         })];
@@ -152,7 +152,7 @@ export var AuthProvider = function (_a) {
             register: function (data) { return __awaiter(void 0, void 0, void 0, function () {
                 var _a;
                 return __generator(this, function (_b) {
-                    return [2 /*return*/, Axios.post("".concat(apiBaseRootHost, "/auth/register"), {
+                    return [2 /*return*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/auth/register"), {
                             appId: data.appId || appId,
                             username: data.username,
                             email: data.email,
@@ -228,7 +228,7 @@ export var AuthProvider = function (_a) {
                             return [4 /*yield*/, fetchCurrentGeolocation()];
                         case 2:
                             _c = _e.sent(), ip = _c.ip, country = _c.country, countryCode = _c.countryCode;
-                            return [4 /*yield*/, Axios.post("".concat(apiBaseRootHost, "/auth/general-login"), { appId: appId, account: account, password: password, fingerPrintId: fingerPrintId, geoLocation: { ip: ip, country: country, countryCode: countryCode } }, { withCredentials: true })];
+                            return [4 /*yield*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/auth/general-login"), { appId: appId, account: account, password: password, fingerPrintId: fingerPrintId, geoLocation: { ip: ip, country: country, countryCode: countryCode } }, { withCredentials: true })];
                         case 3:
                             _d = (_e.sent()).data, code = _d.code, message = _d.message, result = _d.result;
                             if (code === 'SUCCESS') {
@@ -251,7 +251,7 @@ export var AuthProvider = function (_a) {
             socialLogin: function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
                 var provider = _b.provider, providerToken = _b.providerToken, accountLinkToken = _b.accountLinkToken, isForceLogin = _b.isForceLogin;
                 return __generator(this, function (_c) {
-                    return [2 /*return*/, Axios.post("".concat(apiBaseRootHost, "/auth/social-login"), {
+                    return [2 /*return*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/auth/social-login"), {
                             appId: appId,
                             provider: provider,
                             providerToken: providerToken,
@@ -282,7 +282,7 @@ export var AuthProvider = function (_a) {
             switchMember: function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
                 var memberId = _b.memberId;
                 return __generator(this, function (_c) {
-                    return [2 /*return*/, Axios.post("".concat(apiBaseRootHost, "/auth/switch-member"), {
+                    return [2 /*return*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/auth/switch-member"), {
                             memberId: memberId,
                         }, { withCredentials: true, headers: { Authorization: 'Bearer ' + authToken } }).then(function (_a) {
                             var _b = _a.data, code = _b.code, _ = _b._, result = _b.result;
@@ -299,7 +299,7 @@ export var AuthProvider = function (_a) {
                 return __generator(this, function (_a) {
                     localStorage.clear();
                     if (typeof window !== 'undefined') {
-                        window.location.assign("".concat(apiBaseRootHost, "/auth/logout?redirect=").concat(window.location.href));
+                        window.location.assign("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/auth/logout?redirect=").concat(window.location.href));
                     }
                     return [2 /*return*/];
                 });
@@ -307,7 +307,7 @@ export var AuthProvider = function (_a) {
             sendSmsCode: function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
                 var phoneNumber = _b.phoneNumber;
                 return __generator(this, function (_c) {
-                    return [2 /*return*/, Axios.post("".concat(apiBaseRootHost, "/sms/send-code"), {
+                    return [2 /*return*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/sms/send-code"), {
                             appId: appId,
                             phoneNumber: phoneNumber,
                         }, { withCredentials: true }).then(function (_a) {
@@ -321,7 +321,7 @@ export var AuthProvider = function (_a) {
             verifySmsCode: function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
                 var phoneNumber = _b.phoneNumber, code = _b.code;
                 return __generator(this, function (_c) {
-                    return [2 /*return*/, Axios.post("".concat(apiBaseRootHost, "/sms/verify-code"), {
+                    return [2 /*return*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/sms/verify-code"), {
                             appId: appId,
                             phoneNumber: phoneNumber,
                             code: code,
@@ -336,7 +336,7 @@ export var AuthProvider = function (_a) {
             forceLogin: function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
                 var account = _b.account, password = _b.password, accountLinkToken = _b.accountLinkToken;
                 return __generator(this, function (_c) {
-                    return [2 /*return*/, Axios.post("".concat(apiBaseRootHost, "/auth/force-login"), { appId: appId, account: account, password: password }, { withCredentials: true })
+                    return [2 /*return*/, Axios.post("".concat(process.env.NEXT_PUBLIC_API_BASE_ROOT, "/auth/force-login"), { appId: appId, account: account, password: password }, { withCredentials: true })
                             .then(function (_a) {
                             var _b = _a.data, code = _b.code, result = _b.result;
                             if (code === 'SUCCESS') {

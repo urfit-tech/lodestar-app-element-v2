@@ -65,9 +65,8 @@ const initLodestarWindow = () => {
 const AuthContext = createContext<AuthProps>(defaultAuthContext)
 export const useAuth = () => useContext(AuthContext)
 
-export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; apiBaseRootHost: string }>> = ({
+export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> = ({
   appId,
-  apiBaseRootHost,
   children,
 }) => {
   const [isAuthenticating, setIsAuthenticating] = useState(defaultAuthContext.isAuthenticating)
@@ -103,7 +102,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
     const {
       data: { code, result },
     } = await Axios.post(
-      `${apiBaseRootHost}/auth/refresh-token`,
+      `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/refresh-token`,
       { appId, fingerPrintId, geoLocation: { ip, country, countryCode } },
       {
         method: 'POST',
@@ -157,7 +156,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
         refreshToken,
         register: async data =>
           Axios.post(
-            `${apiBaseRootHost}/auth/register`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/register`,
             {
               appId: data.appId || appId,
               username: data.username,
@@ -262,7 +261,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
           const {
             data: { code, message, result },
           } = await Axios.post(
-            `${apiBaseRootHost}/auth/general-login`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/general-login`,
             { appId, account, password, fingerPrintId, geoLocation: { ip, country, countryCode } },
             { withCredentials: true },
           )
@@ -282,7 +281,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
         },
         socialLogin: async ({ provider, providerToken, accountLinkToken, isForceLogin }) =>
           Axios.post(
-            `${apiBaseRootHost}/auth/social-login`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/social-login`,
             {
               appId,
               provider,
@@ -307,7 +306,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
           }),
         switchMember: async ({ memberId }) => {
           return Axios.post(
-            `${apiBaseRootHost}/auth/switch-member`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/switch-member`,
             {
               memberId,
             },
@@ -323,12 +322,12 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
         logout: async () => {
           localStorage.clear()
           if (typeof window !== 'undefined') {
-            window.location.assign(`${apiBaseRootHost}/auth/logout?redirect=${window.location.href}`)
+            window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`)
           }
         },
         sendSmsCode: async ({ phoneNumber }) =>
           Axios.post(
-            `${apiBaseRootHost}/sms/send-code`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/send-code`,
             {
               appId,
               phoneNumber,
@@ -341,7 +340,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
           }),
         verifySmsCode: async ({ phoneNumber, code }) =>
           Axios.post(
-            `${apiBaseRootHost}/sms/verify-code`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/verify-code`,
             {
               appId,
               phoneNumber,
@@ -355,7 +354,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string; api
           }),
         forceLogin: async ({ account, password, accountLinkToken }) => {
           return Axios.post(
-            `${apiBaseRootHost}/auth/force-login`,
+            `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/force-login`,
             { appId, account, password },
             { withCredentials: true },
           )

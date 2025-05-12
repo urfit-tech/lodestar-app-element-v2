@@ -9,14 +9,13 @@ import { LanguageProvider } from './LanguageContext'
 export const LodestarAppProvider: React.FC<
   React.PropsWithChildren & {
     appId: string
-    apiBaseRootHost: string
     extend?: { chakraTheme?: ThemeOverride }
   }
-> = ({ appId, apiBaseRootHost, children, extend }) => {
+> = ({ appId, children, extend }) => {
   const LodestarAppProvider = createContext({ appId })
   return (
     <LodestarAppProvider.Provider value={{ appId }}>
-      <AuthProvider appId={appId} apiBaseRootHost={apiBaseRootHost}>
+      <AuthProvider appId={appId}>
         <ApiProvider appId={appId}>
           <AppProvider appId={appId}>
             <LanguageProvider>

@@ -55,6 +55,5 @@ type AuthProps = {
 export declare const useAuth: () => AuthProps;
 export declare const AuthProvider: React.FC<React.PropsWithChildren<{
     appId: string;
-    apiBaseRootHost: string;
 }>>;
 export {};
