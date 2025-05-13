@@ -12,9 +12,9 @@ export const LodestarAppProvider: React.FC<
     extend?: { chakraTheme?: ThemeOverride }
   }
 > = ({ appId, children, extend }) => {
-  const LodestarAppProvider = createContext({ appId })
+  const LodestarAppContext = createContext({ appId })
   return (
-    <LodestarAppProvider.Provider value={{ appId }}>
+    <LodestarAppContext.Provider value={{ appId }}>
       <AuthProvider appId={appId}>
         <ApiProvider appId={appId}>
           <AppProvider appId={appId}>
@@ -24,6 +24,6 @@ export const LodestarAppProvider: React.FC<
           </AppProvider>
         </ApiProvider>
       </AuthProvider>
-    </LodestarAppProvider.Provider>
+    </LodestarAppContext.Provider>
   )
 }

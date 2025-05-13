@@ -3,45 +3,28 @@ import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import Ajv, { JSONSchemaType } from 'ajv'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
-import { useContext, useMemo } from 'react'
+import { useContext } from 'react'
 import { useIntl } from 'react-intl'
-import { useApp } from '../contexts/AppContext'
-import LanguageContext from '../contexts/LanguageContext'
 import { codeMessages } from '../helpers/translation'
 import { Member } from '../types/data'
 import { IpApiResponseFail, IpApiResponseSuccess } from '../types/general'
 import { ResourceType } from './resource'
+import { Currency } from '../types/app'
 const ajv = new Ajv()
 
-// TODO: should be context
-export const useTappay = () => {
-  const _TPDirect = (window as any)['TPDirect']
-  const { settings } = useApp()
-
-  const TPDirect = useMemo(() => {
-    if (settings['tappay.app_id'] && settings['tappay.app_key'] && _TPDirect) {
-      _TPDirect.setupSDK(
-        settings['tappay.app_id'],
-        settings['tappay.app_key'],
-        settings['tappay.dry_run'] === 'true' ? 'sandbox' : 'production',
-      )
-    }
-    return _TPDirect
-  }, [_TPDirect, settings])
-
-  return { TPDirect }
-}
-
-export const useCurrency = (currencyId?: string, coinUnit?: string) => {
-  const { locale } = useContext(LanguageContext)
-  const { currencies, settings } = useApp()
-
+export const useCurrency = (
+  locale: string,
+  currency: Currency,
+  settingCurrencyId?: string,
+  settingCoinUnit?: string,
+  currencyId?: string,
+  coinUnit?: string,
+) => {
   const formatCurrency = (value: number) => {
-    const currentCurrencyId = currencyId || settings['currency_id'] || 'TWD'
-    const currency = currencies[currentCurrencyId]
+    const currentCurrencyId = currencyId || settingCurrencyId || 'TWD'
 
     if (currentCurrencyId === 'LSC') {
-      return `${value} ${settings['coin.unit'] || coinUnit || 'Coins'}`
+      return `${value} ${settingCoinUnit || coinUnit || 'Coins'}`
     }
 
     return (
@@ -174,7 +157,7 @@ export const parsePayload = (authToken: string) => {
   // validate is a type guard for MyData - type is inferred from schema type
   const validate = ajv.compile(schema)
   if (validate(payload)) {
-    return payload
+    return payload as AuthTokenPayload
   } else {
     console.error(`validate error: ${validate.errors?.join('\n')}`)
     return null

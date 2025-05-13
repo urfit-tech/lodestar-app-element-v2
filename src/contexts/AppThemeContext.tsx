@@ -183,7 +183,11 @@ export const AppThemeProvider: React.FC<React.PropsWithChildren<{ extendChakraTh
 
   return (
     <ChakraProvider theme={theme}>
-      {children ? <ThemeProvider theme={themeVars}>{children}</ThemeProvider> : null}
+      {children ? (
+        <ThemeProvider theme={themeVars}>
+          <>{children}</>
+        </ThemeProvider>
+      ) : null}
     </ChakraProvider>
   )
 }

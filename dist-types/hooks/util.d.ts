@@ -1,9 +1,7 @@
 import { Member } from '../types/data';
 import { ResourceType } from './resource';
-export declare const useTappay: () => {
-    TPDirect: any;
-};
-export declare const useCurrency: (currencyId?: string, coinUnit?: string) => {
+import { Currency } from '../types/app';
+export declare const useCurrency: (locale: string, currency: Currency, settingCurrencyId?: string, settingCoinUnit?: string, currencyId?: string, coinUnit?: string) => {
     formatCurrency: (value: number) => string;
 };
 export declare const getCookie: (cookieName: string) => string;

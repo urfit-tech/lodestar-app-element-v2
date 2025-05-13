@@ -12,5 +12,9 @@ export const ApiProvider: React.FC<React.PropsWithChildren & { appId: string }> 
     },
   )
 
-  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+  return (
+    <ApolloProvider client={apolloClient}>
+      <>{children}</>
+    </ApolloProvider>
+  )
 }

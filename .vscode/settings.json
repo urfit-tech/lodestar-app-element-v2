@@ -1,5 +1,12 @@
 {
-  "cSpell.words": ["accum", "bobthered", "Chakra", "commonhealth", "kolable"],
+  "cSpell.words": [
+    "accum",
+    "bobthered",
+    "Chakra",
+    "commonhealth",
+    "kolable",
+    "tappay"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }

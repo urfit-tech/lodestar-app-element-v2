@@ -4,7 +4,7 @@ import parsePhoneNumber from 'libphonenumber-js'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
 import { getBackendServerError } from '../helpers'
-import { fetchCurrentGeolocation, getFingerPrintId, parsePayload } from '../hooks/util'
+import { AuthTokenPayload, fetchCurrentGeolocation, getFingerPrintId, parsePayload } from '../hooks/util'
 import { Permission } from '../types/app'
 import { Member, UserRole } from '../types/data'
 import { LodestarWindow } from '../types/lodestar.window'
@@ -65,10 +65,7 @@ const initLodestarWindow = () => {
 const AuthContext = createContext<AuthProps>(defaultAuthContext)
 export const useAuth = () => useContext(AuthContext)
 
-export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> = ({
-  appId,
-  children,
-}) => {
+export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> = ({ appId, children }) => {
   const [isAuthenticating, setIsAuthenticating] = useState(defaultAuthContext.isAuthenticating)
   const [authToken, setAuthToken] = useState<string | null>((window as any).AUTH_TOKEN || null)
   const payload = useMemo(() => (authToken ? parsePayload(authToken) : null), [authToken])
@@ -76,7 +73,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
   useEffect(() => {
     if (payload) {
       try {
-        const phoneNumber = payload.phoneNumber ? parsePhoneNumber(payload.phoneNumber, 'TW') : null
+        const phoneNumber = payload?.phoneNumber ? parsePhoneNumber(payload.phoneNumber, 'TW') : null
         const _window = window as any
         _window.insider_object = {
           user: {
@@ -322,7 +319,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{ appId: string }>> 
         logout: async () => {
           localStorage.clear()
           if (typeof window !== 'undefined') {
-            window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`)
+            window.location.assign(
+              `${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`,
+            )
           }
         },
         sendSmsCode: async ({ phoneNumber }) =>
