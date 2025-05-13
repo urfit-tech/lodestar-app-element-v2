@@ -1,22 +1,17 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-import { jsx as _jsx } from "react/jsx-runtime";
-import MediaQuery from 'react-responsive';
-var Responsive = {
-    Default: function (props) { return (_jsx(MediaQuery, __assign({}, props, { maxWidth: TABLET_BREAK_POINT - 1 }))); },
-    Tablet: function (props) { return (_jsx(MediaQuery, __assign({}, props, { minWidth: TABLET_BREAK_POINT, maxWidth: DESKTOP_BREAK_POINT - 1 }))); },
-    Desktop: function (props) { return _jsx(MediaQuery, __assign({}, props, { minWidth: DESKTOP_BREAK_POINT })); },
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BREAK_POINT = exports.DESKTOP_BREAK_POINT = exports.TABLET_BREAK_POINT = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_responsive_1 = __importDefault(require("react-responsive"));
+const Responsive = {
+    Default: (props) => ((0, jsx_runtime_1.jsx)(react_responsive_1.default, { ...props, maxWidth: exports.TABLET_BREAK_POINT - 1 })),
+    Tablet: (props) => ((0, jsx_runtime_1.jsx)(react_responsive_1.default, { ...props, minWidth: exports.TABLET_BREAK_POINT, maxWidth: exports.DESKTOP_BREAK_POINT - 1 })),
+    Desktop: (props) => (0, jsx_runtime_1.jsx)(react_responsive_1.default, { ...props, minWidth: exports.DESKTOP_BREAK_POINT }),
 };
-export var TABLET_BREAK_POINT = 576;
-export var DESKTOP_BREAK_POINT = 992;
-export var BREAK_POINT = 992;
-export default Responsive;
+exports.TABLET_BREAK_POINT = 576;
+exports.DESKTOP_BREAK_POINT = 992;
+exports.BREAK_POINT = 992;
+exports.default = Responsive;

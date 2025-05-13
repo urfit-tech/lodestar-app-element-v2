@@ -1,9 +1,12 @@
-import { defineMessages } from 'react-intl';
-export var commonMessages = {
-    unknown: defineMessages({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.codeMessages = exports.checkoutMessages = exports.certificateMessages = exports.craftPageMessages = exports.projectMessages = exports.productMessages = exports.commonMessages = void 0;
+const react_intl_1 = require("react-intl");
+exports.commonMessages = {
+    unknown: (0, react_intl_1.defineMessages)({
         period: { id: 'common.unknown.period', defaultMessage: '未知週期' },
     }),
-    unit: defineMessages({
+    unit: (0, react_intl_1.defineMessages)({
         min: { id: 'common.unit.min', defaultMessage: '分' },
         sec: { id: 'common.unit.sec', defaultMessage: '秒' },
         hour: { id: 'common.unit.hour', defaultMessage: '時' },
@@ -13,10 +16,10 @@ export var commonMessages = {
         monthWithQuantifier: { id: 'common.unit.monthWithQuantifier', defaultMessage: '個月' },
         year: { id: 'common.unit.year', defaultMessage: '年' },
     }),
-    title: defineMessages({
+    title: (0, react_intl_1.defineMessages)({
         podcastSubscription: { id: 'common.title.podcast.subscribe', defaultMessage: '訂閱廣播頻道' },
     }),
-    label: defineMessages({
+    label: (0, react_intl_1.defineMessages)({
         listPrice: { id: 'common.label.listPrice', defaultMessage: '定價' },
         free: { id: 'common.label.free', defaultMessage: '免費' },
         firstPeriod: { id: 'common.label.firstPeriod', defaultMessage: '首期' },
@@ -27,7 +30,7 @@ export var commonMessages = {
         referrer: { id: 'common.label.referrer', defaultMessage: '推薦人' },
         referrerEmail: { id: 'common.label.referrerEmail', defaultMessage: '請輸入推薦人的註冊信箱' },
     }),
-    ui: defineMessages({
+    ui: (0, react_intl_1.defineMessages)({
         uploadImage: { id: 'common.ui.uploadImage', defaultMessage: '上傳圖片' },
         upload: { id: 'common.ui.upload', defaultMessage: '上傳' },
         selectImage: { id: 'common.ui.selectImage', defaultMessage: '選擇圖片' },
@@ -37,27 +40,27 @@ export var commonMessages = {
         add: { id: 'common.ui.add', defaultMessage: '新增' },
         delete: { id: 'common.ui.delete', defaultMessage: '刪除' },
     }),
-    button: defineMessages({
+    button: (0, react_intl_1.defineMessages)({
         allCategory: { id: 'common.button.allCategory', defaultMessage: '全部分類' },
         add: { id: 'common.button.add', defaultMessage: '新增' },
         subscribeNow: { id: 'common.subscribe.now', defaultMessage: '立即訂閱' },
     }),
-    content: defineMessages({
+    content: (0, react_intl_1.defineMessages)({
         noPeriod: { id: 'common.content.noPeriod', defaultMessage: '無使用期限' },
     }),
-    text: defineMessages({
+    text: (0, react_intl_1.defineMessages)({
         selfReferringIsNotAllowed: { id: 'common.text.selfReferringIsNotAllowed', defaultMessage: '不可填寫自己的信箱' },
         notFoundMemberEmail: { id: 'common.text.notFoundMemberEmail', defaultMessage: '找不到這個註冊信箱' },
         emailFormatError: { id: 'common.text.emailFormatError', defaultMessage: '請輸入正確信箱格式' },
     }),
 };
-export var productMessages = {
+exports.productMessages = {
     activity: {
-        content: defineMessages({
+        content: (0, react_intl_1.defineMessages)({
             remaining: { id: 'product.activity.content.remaining', defaultMessage: '剩餘' },
         }),
     },
-    label: defineMessages({
+    label: (0, react_intl_1.defineMessages)({
         availableForLimitTime: {
             id: 'programPackage.label.availableForLimitTime',
             defaultMessage: '可觀看 {amount} {unit}',
@@ -72,12 +75,12 @@ export var productMessages = {
         },
     }),
 };
-export var projectMessages = {
-    label: defineMessages({
+exports.projectMessages = {
+    label: (0, react_intl_1.defineMessages)({
         isExpired: { id: 'project.label.isExpired', defaultMessage: '已結束' },
         isExpiredFunding: { id: 'project.label.isExpiredFunding', defaultMessage: '專案結束' },
     }),
-    text: defineMessages({
+    text: (0, react_intl_1.defineMessages)({
         people: { id: 'project.text.people', defaultMessage: '{count} {count, plural, one {人} other {人}}' },
         preOrderCountDownDays: {
             id: 'project.text.preOrderCountDownDays',
@@ -93,8 +96,8 @@ export var projectMessages = {
         },
     }),
 };
-export var craftPageMessages = {
-    ui: defineMessages({
+exports.craftPageMessages = {
+    ui: (0, react_intl_1.defineMessages)({
         createPage: { id: 'craft.ui.createPage', defaultMessage: '建立頁面' },
         deleteAllBlock: { id: 'craft.ui.deleteAllBlock', defaultMessage: '移除整個區塊' },
         deleteBlock: { id: 'craft.ui.deleteBlock', defaultMessage: '移除區塊' },
@@ -103,7 +106,7 @@ export var craftPageMessages = {
         image: { id: 'craft.ui.image', defaultMessage: '圖片' },
         solidColor: { id: 'craft.ui.solidColor', defaultMessage: '純色' },
     }),
-    label: defineMessages({
+    label: (0, react_intl_1.defineMessages)({
         emptyPage: { id: 'craft.label.emptyPage', defaultMessage: '空白頁' },
         settings: { id: 'craft.label.settings', defaultMessage: '基本設定' },
         pageEditor: { id: 'craft.label.pageEditor', defaultMessage: '首頁 - 編輯頁面' },
@@ -207,7 +210,7 @@ export var craftPageMessages = {
         currentPrice: { id: 'program.ProgramCollectionSelector.currentPrice', defaultMessage: '依產品價錢' },
         popular: { id: 'craft.label.popular', defaultMessage: '依熱門程度' },
     }),
-    text: defineMessages({
+    text: (0, react_intl_1.defineMessages)({
         chooseCategories: {
             id: 'craft.text.chooseCategories',
             defaultMessage: '選擇分類',
@@ -250,8 +253,8 @@ export var craftPageMessages = {
         },
     }),
 };
-export var certificateMessages = {
-    CertificateContent: defineMessages({
+exports.certificateMessages = {
+    CertificateContent: (0, react_intl_1.defineMessages)({
         number: { id: 'certificate.CertificateContent.number', defaultMessage: '證書編號：{number}' },
         expiredTime: { id: 'certificate.CertificateContent.expiredTime', defaultMessage: '證書效期：{expiredTime} 止' },
         deliveredAt: {
@@ -264,29 +267,29 @@ export var certificateMessages = {
         },
     }),
 };
-export var checkoutMessages = {
-    unit: defineMessages({
+exports.checkoutMessages = {
+    unit: (0, react_intl_1.defineMessages)({
         piece: { id: 'checkout.piece', defaultMessage: '張' },
     }),
     form: {
-        label: defineMessages({
+        label: (0, react_intl_1.defineMessages)({
             cardNo: { id: 'checkout.form.label.cardNo', defaultMessage: '卡號' },
             cardExp: { id: 'checkout.form.label.cardExp', defaultMessage: '有效期' },
         }),
     },
-    coupon: defineMessages({
+    coupon: (0, react_intl_1.defineMessages)({
         fromNow: { id: 'checkout.coupon.fromNow', defaultMessage: '即日起' },
         noPeriod: { id: 'checkout.coupon.noPeriod', defaultMessage: '無使用期限' },
     }),
-    content: defineMessages({
+    content: (0, react_intl_1.defineMessages)({
         discountDirectly: { id: 'checkout.discount.directly', defaultMessage: '直接折抵' },
     }),
-    title: defineMessages({
+    title: (0, react_intl_1.defineMessages)({
         cart: { id: 'checkout.title.cart', defaultMessage: '購物清單' },
         chooseCoupon: { id: 'checkout.title.chooseCoupon', defaultMessage: '選擇折價券' },
         chooseMemberCard: { id: 'checkout.title.chooseMemberCard', defaultMessage: '選擇會員卡' },
     }),
-    label: defineMessages({
+    label: (0, react_intl_1.defineMessages)({
         email: { id: 'checkout.label.email', defaultMessage: '聯絡信箱' },
         phone: { id: 'checkout.label.phone', defaultMessage: '手機' },
         name: { id: 'checkout.label.name', defaultMessage: '姓名' },
@@ -362,7 +365,7 @@ export var checkoutMessages = {
         approved: { id: 'checkout.label.approved', defaultMessage: '我同意' },
         creditLastFour: { id: 'checkout.label.creditLastFour', defaultMessage: '末四碼' },
     }),
-    message: defineMessages({
+    message: (0, react_intl_1.defineMessages)({
         phone: { id: 'checkout.message.phone', defaultMessage: '手機' },
         errorName: { id: 'checkout.message.errorName', defaultMessage: '請輸入姓名' },
         errorEmail: { id: 'checkout.message.errorEmail', defaultMessage: '信箱格式錯誤' },
@@ -408,7 +411,7 @@ export var checkoutMessages = {
             defaultMessage: '代幣不足',
         },
     }),
-    shipping: defineMessages({
+    shipping: (0, react_intl_1.defineMessages)({
         sevenEleven: { id: 'checkout.label.sevenEleven', defaultMessage: '7-11超商取貨' },
         familyMart: { id: 'checkout.label.familyMart', defaultMessage: '全家超商取貨' },
         hiLife: { id: 'checkout.label.hiLife', defaultMessage: '萊爾富超商取貨' },
@@ -417,16 +420,16 @@ export var checkoutMessages = {
         homeDelivery: { id: 'checkout.label.homeDelivery', defaultMessage: '宅配' },
         other: { id: 'checkout.label.other', defaultMessage: '其他' },
     }),
-    button: defineMessages({
+    button: (0, react_intl_1.defineMessages)({
         reselectCoupon: { id: 'checkout.button.reselectCoupon', defaultMessage: '重新選擇' },
         chooseCoupon: { id: 'checkout.button.chooseCoupon.', defaultMessage: '選擇折價券' },
         cartSubmit: { id: 'checkout.cart.cartSubmit', defaultMessage: '前往結帳' },
     }),
-    placeholder: defineMessages({
+    placeholder: (0, react_intl_1.defineMessages)({
         enterCouponCode: { id: 'checkout.placeholder.enterCouponCode', defaultMessage: '輸入折扣碼' },
         nameText: { id: 'checkout.placeholder.nameText', defaultMessage: '真實姓名' },
     }),
-    text: defineMessages({
+    text: (0, react_intl_1.defineMessages)({
         groupBuyingRuleLink: {
             id: 'checkout.text.groupBuyingRuleLink',
             defaultMessage: '規定與退費',
@@ -497,7 +500,7 @@ export var checkoutMessages = {
         },
     }),
 };
-export var codeMessages = defineMessages({
+exports.codeMessages = (0, react_intl_1.defineMessages)({
     SUCCESS: {
         id: 'code.SUCCESS',
         defaultMessage: '成功',

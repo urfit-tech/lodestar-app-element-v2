@@ -1,24 +1,18 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-import { jsx as _jsx } from "react/jsx-runtime";
-import paletteGenerator from '@bobthered/tailwindcss-palette-generator';
-import { ChakraProvider, extendTheme, useTheme } from '@chakra-ui/react';
-import { mergeDeepRight } from 'ramda';
-import { ThemeProvider } from 'styled-components';
-import { useApp } from './AppContext';
-export var AppThemeProvider = function (_a) {
-    var _b = _a.extendChakraTheme, extendChakraTheme = _b === void 0 ? {} : _b, children = _a.children;
-    var settings = useApp().settings;
-    var theme = extendTheme(mergeDeepRight({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useAppTheme = exports.AppThemeProvider = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const tailwindcss_palette_generator_1 = __importDefault(require("@bobthered/tailwindcss-palette-generator"));
+const react_1 = require("@chakra-ui/react");
+const ramda_1 = require("ramda");
+const styled_components_1 = require("styled-components");
+const AppContext_1 = require("./AppContext");
+const AppThemeProvider = ({ extendChakraTheme = {}, children, }) => {
+    const { settings } = (0, AppContext_1.useApp)();
+    const theme = (0, react_1.extendTheme)((0, ramda_1.mergeDeepRight)({
         components: {
             Button: {
                 baseStyle: {
@@ -76,30 +70,30 @@ export var AppThemeProvider = function (_a) {
             },
             Input: {
                 variants: {
-                    outline: function () { return ({
+                    outline: () => ({
                         field: {
                             borderColor: 'var(--gray)',
                             _focus: {
                                 borderColor: settings['theme.@primary-color'],
                             },
                         },
-                    }); },
+                    }),
                 },
             },
             Select: {
                 variants: {
-                    outline: function () { return ({
+                    outline: () => ({
                         field: {
                             borderColor: '#ccc',
                         },
-                    }); },
+                    }),
                 },
             },
             Textarea: {
                 variants: {
-                    outline: function () { return ({
+                    outline: () => ({
                         borderColor: 'var(--gray)',
-                    }); },
+                    }),
                 },
             },
             Radio: {
@@ -120,10 +114,10 @@ export var AppThemeProvider = function (_a) {
                 baseStyle: {
                     item: {
                         _active: {
-                            bg: "".concat(settings['theme.@primary-color'], "1a"),
+                            bg: `${settings['theme.@primary-color']}1a`,
                         },
                         _focus: {
-                            bg: "".concat(settings['theme.@primary-color'], "1a"),
+                            bg: `${settings['theme.@primary-color']}1a`,
                         },
                     },
                 },
@@ -153,7 +147,12 @@ export var AppThemeProvider = function (_a) {
                 },
             },
         },
-        colors: __assign(__assign({}, paletteGenerator(settings['theme.@primary-color'] || '#2d313a')), { danger: __assign({}, paletteGenerator('#ff7d62').primary), gray: {
+        colors: {
+            ...(0, tailwindcss_palette_generator_1.default)(settings['theme.@primary-color'] || '#2d313a'),
+            danger: {
+                ...(0, tailwindcss_palette_generator_1.default)('#ff7d62').primary,
+            },
+            gray: {
                 100: 'rgba(0, 0, 0, 0.1)',
                 200: '#f7f8f8',
                 300: '#ececec',
@@ -163,17 +162,19 @@ export var AppThemeProvider = function (_a) {
                 700: '#585858',
                 800: '#4a4a4a',
                 900: 'rgba(0, 0, 0, 0.45)',
-            } }),
+            },
+        },
     }, extendChakraTheme));
-    var themeVars = Object.keys(settings)
-        .filter(function (key) { return key.split('.')[0] === 'theme'; })
-        .map(function (key) { return key.split('.')[1]; })
-        .reduce(function (vars, themeKey) {
-        vars[themeKey] = settings["theme.".concat(themeKey)];
+    const themeVars = Object.keys(settings)
+        .filter(key => key.split('.')[0] === 'theme')
+        .map(key => key.split('.')[1])
+        .reduce((vars, themeKey) => {
+        vars[themeKey] = settings[`theme.${themeKey}`];
         return vars;
     }, {
         '@primary-color': '#2d313a',
     });
-    return (_jsx(ChakraProvider, { theme: theme, children: children ? _jsx(ThemeProvider, { theme: themeVars, children: children }) : null }));
+    return ((0, jsx_runtime_1.jsx)(react_1.ChakraProvider, { theme: theme, children: children ? (0, jsx_runtime_1.jsx)(styled_components_1.ThemeProvider, { theme: themeVars, children: children }) : null }));
 };
-export var useAppTheme = useTheme;
+exports.AppThemeProvider = AppThemeProvider;
+exports.useAppTheme = react_1.useTheme;

@@ -1,90 +1,59 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var BackendServerError = /** @class */ (function (_super) {
-    __extends(BackendServerError, _super);
-    function BackendServerError(code, message, result) {
-        var _this = _super.call(this, message) || this;
-        _this.code = code;
-        _this.result = result;
-        return _this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LoginDeviceError = exports.BindDeviceError = exports.NoMemberError = exports.PasswordError = exports.SendEmailError = exports.NoModuleError = exports.SessionError = exports.InputError = exports.BackendServerError = void 0;
+class BackendServerError extends Error {
+    constructor(code, message, result) {
+        super(message);
+        this.code = code;
+        this.result = result;
     }
-    return BackendServerError;
-}(Error));
-export { BackendServerError };
-var InputError = /** @class */ (function (_super) {
-    __extends(InputError, _super);
-    function InputError(message, result) {
-        return _super.call(this, 'E_INPUT', message, result) || this;
+}
+exports.BackendServerError = BackendServerError;
+class InputError extends BackendServerError {
+    constructor(message, result) {
+        super('E_INPUT', message, result);
     }
-    return InputError;
-}(BackendServerError));
-export { InputError };
-var SessionError = /** @class */ (function (_super) {
-    __extends(SessionError, _super);
-    function SessionError(message, result) {
-        return _super.call(this, 'E_SESSION', message, result) || this;
+}
+exports.InputError = InputError;
+class SessionError extends BackendServerError {
+    constructor(message, result) {
+        super('E_SESSION', message, result);
     }
-    return SessionError;
-}(BackendServerError));
-export { SessionError };
-var NoModuleError = /** @class */ (function (_super) {
-    __extends(NoModuleError, _super);
-    function NoModuleError(message, result) {
-        return _super.call(this, 'E_NO_MODULE', message, result) || this;
+}
+exports.SessionError = SessionError;
+class NoModuleError extends BackendServerError {
+    constructor(message, result) {
+        super('E_NO_MODULE', message, result);
     }
-    return NoModuleError;
-}(BackendServerError));
-export { NoModuleError };
-var SendEmailError = /** @class */ (function (_super) {
-    __extends(SendEmailError, _super);
-    function SendEmailError(message, result) {
-        return _super.call(this, 'E_SEND_EMAIL', message, result) || this;
+}
+exports.NoModuleError = NoModuleError;
+class SendEmailError extends BackendServerError {
+    constructor(message, result) {
+        super('E_SEND_EMAIL', message, result);
     }
-    return SendEmailError;
-}(BackendServerError));
-export { SendEmailError };
-var PasswordError = /** @class */ (function (_super) {
-    __extends(PasswordError, _super);
-    function PasswordError(message, result) {
-        return _super.call(this, 'E_PASSWORD', message, result) || this;
+}
+exports.SendEmailError = SendEmailError;
+class PasswordError extends BackendServerError {
+    constructor(message, result) {
+        super('E_PASSWORD', message, result);
     }
-    return PasswordError;
-}(BackendServerError));
-export { PasswordError };
-var NoMemberError = /** @class */ (function (_super) {
-    __extends(NoMemberError, _super);
-    function NoMemberError(message, result) {
-        return _super.call(this, 'E_NO_MEMBER', message, result) || this;
+}
+exports.PasswordError = PasswordError;
+class NoMemberError extends BackendServerError {
+    constructor(message, result) {
+        super('E_NO_MEMBER', message, result);
     }
-    return NoMemberError;
-}(BackendServerError));
-export { NoMemberError };
-var BindDeviceError = /** @class */ (function (_super) {
-    __extends(BindDeviceError, _super);
-    function BindDeviceError(message, result) {
-        return _super.call(this, 'E_BIND_DEVICE', message, result) || this;
+}
+exports.NoMemberError = NoMemberError;
+class BindDeviceError extends BackendServerError {
+    constructor(message, result) {
+        super('E_BIND_DEVICE', message, result);
     }
-    return BindDeviceError;
-}(BackendServerError));
-export { BindDeviceError };
-var LoginDeviceError = /** @class */ (function (_super) {
-    __extends(LoginDeviceError, _super);
-    function LoginDeviceError(message, result) {
-        return _super.call(this, 'E_LOGIN_DEVICE', message, result) || this;
+}
+exports.BindDeviceError = BindDeviceError;
+class LoginDeviceError extends BackendServerError {
+    constructor(message, result) {
+        super('E_LOGIN_DEVICE', message, result);
     }
-    return LoginDeviceError;
-}(BackendServerError));
-export { LoginDeviceError };
+}
+exports.LoginDeviceError = LoginDeviceError;
