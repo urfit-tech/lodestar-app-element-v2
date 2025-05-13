@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppProvider = exports.useApp = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const client_1 = require("@apollo/client");
-const react_1 = require("react");
-const AuthContext_1 = require("./AuthContext");
+import { jsx as _jsx } from "react/jsx-runtime";
+import { gql, useQuery } from '@apollo/client';
+import { createContext, useContext, useEffect, useMemo } from 'react';
+import { useAuth } from './AuthContext';
 const defaultAppContextProps = {
     id: '',
     orgId: null,
@@ -27,13 +24,12 @@ const defaultAppContextProps = {
     },
     endedAt: null,
 };
-const AppContext = (0, react_1.createContext)(defaultAppContextProps);
-const useApp = () => (0, react_1.useContext)(AppContext);
-exports.useApp = useApp;
-const AppProvider = ({ appId, children }) => {
+const AppContext = createContext(defaultAppContextProps);
+export const useApp = () => useContext(AppContext);
+export const AppProvider = ({ appId, children }) => {
     var _a, _b;
-    const { authToken, refreshToken } = (0, AuthContext_1.useAuth)();
-    const { data, loading, error, refetch } = (0, client_1.useQuery)((0, client_1.gql) `
+    const { authToken, refreshToken } = useAuth();
+    const { data, loading, error, refetch } = useQuery(gql `
       query GET_APP($appId: String!) {
         currency {
           id
@@ -97,9 +93,9 @@ const AppProvider = ({ appId, children }) => {
         variables: { appId },
         context: { important: true },
     });
-    const settings = (0, react_1.useMemo)(() => { var _a; return Object.fromEntries(((_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_settings.map(v => [v.key, v.value])) || []); }, [(_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_settings]);
-    const secrets = (0, react_1.useMemo)(() => { var _a; return Object.fromEntries(((_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_secrets.map(v => [v.key, v.value])) || []); }, [(_b = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _b === void 0 ? void 0 : _b.app_secrets]);
-    const app = (0, react_1.useMemo)(() => {
+    const settings = useMemo(() => { var _a; return Object.fromEntries(((_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_settings.map(v => [v.key, v.value])) || []); }, [(_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_settings]);
+    const secrets = useMemo(() => { var _a; return Object.fromEntries(((_a = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _a === void 0 ? void 0 : _a.app_secrets.map(v => [v.key, v.value])) || []); }, [(_b = data === null || data === void 0 ? void 0 : data.app_by_pk) === null || _b === void 0 ? void 0 : _b.app_secrets]);
+    const app = useMemo(() => {
         var _a, _b, _c, _d;
         return (data === null || data === void 0 ? void 0 : data.app_by_pk)
             ? {
@@ -157,11 +153,10 @@ const AppProvider = ({ appId, children }) => {
             }
             : defaultAppContextProps;
     }, [data === null || data === void 0 ? void 0 : data.app_by_pk, data === null || data === void 0 ? void 0 : data.currency, error, loading, refetch, secrets, settings]);
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         if (!authToken) {
             refreshToken === null || refreshToken === void 0 ? void 0 : refreshToken();
         }
     }, [appId, authToken, refreshToken]);
-    return (0, jsx_runtime_1.jsx)(AppContext.Provider, { value: app, children: children });
+    return _jsx(AppContext.Provider, { value: app, children: children });
 };
-exports.AppProvider = AppProvider;

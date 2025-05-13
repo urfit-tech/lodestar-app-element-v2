@@ -1,30 +1,24 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.LanguageProvider = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const dayjs_1 = __importDefault(require("dayjs"));
-require("dayjs/locale/zh-tw");
-require("dayjs/locale/zh-cn");
-require("dayjs/locale/en");
-require("dayjs/locale/vi");
-const react_1 = require("react");
-const react_intl_1 = require("react-intl");
-const AppContext_1 = require("./AppContext");
+import { jsx as _jsx } from "react/jsx-runtime";
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-tw';
+import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/en';
+import 'dayjs/locale/vi';
+import { createContext, useEffect, useState } from 'react';
+import { IntlProvider } from 'react-intl';
+import { useApp } from './AppContext';
 const supportedLanguages = ['zh-tw', 'zh-cn', 'en-us', 'vi', 'acsi'];
 const defaultLanguage = {
     currentLanguage: 'zh-tw',
     locale: 'zh-tw',
 };
-const LanguageContext = (0, react_1.createContext)(defaultLanguage);
-const LanguageProvider = ({ children }) => {
-    const { enabledModules, settings } = (0, AppContext_1.useApp)();
-    const [currentLanguage, setCurrentLanguage] = (0, react_1.useState)('zh-tw');
-    const [locale, setLocale] = (0, react_1.useState)('zh-tw');
-    dayjs_1.default.locale('zh-tw');
-    (0, react_1.useEffect)(() => {
+const LanguageContext = createContext(defaultLanguage);
+export const LanguageProvider = ({ children }) => {
+    const { enabledModules, settings } = useApp();
+    const [currentLanguage, setCurrentLanguage] = useState('zh-tw');
+    const [locale, setLocale] = useState('zh-tw');
+    dayjs.locale('zh-tw');
+    useEffect(() => {
         const browserLanguage = settings['language'] || navigator.language.split('-')[0];
         const cachedLanguage = localStorage.getItem('kolable.app.language');
         setCurrentLanguage(enabledModules.locale
@@ -35,16 +29,16 @@ const LanguageProvider = ({ children }) => {
                     : 'zh-tw'
             : 'zh-tw');
     }, [enabledModules, settings]);
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         switch (currentLanguage) {
             case 'zh-tw':
             case 'acsi':
                 setLocale('zh-tw');
-                dayjs_1.default.locale('zh-tw');
+                dayjs.locale('zh-tw');
                 break;
             default:
                 setLocale(currentLanguage);
-                dayjs_1.default.locale('zh-tw');
+                dayjs.locale('zh-tw');
         }
     }, [currentLanguage]);
     let messages = {};
@@ -54,7 +48,7 @@ const LanguageProvider = ({ children }) => {
         }
     }
     catch { }
-    return ((0, jsx_runtime_1.jsx)(LanguageContext.Provider, { value: {
+    return (_jsx(LanguageContext.Provider, { value: {
             currentLanguage,
             locale,
             setCurrentLanguage: (newLanguage) => {
@@ -63,7 +57,6 @@ const LanguageProvider = ({ children }) => {
                     setCurrentLanguage(newLanguage);
                 }
             },
-        }, children: (0, jsx_runtime_1.jsx)(react_intl_1.IntlProvider, { defaultLocale: "zh-tw", locale: locale, messages: messages, children: children }) }));
+        }, children: _jsx(IntlProvider, { defaultLocale: "zh-tw", locale: locale, messages: messages, children: children }) }));
 };
-exports.LanguageProvider = LanguageProvider;
-exports.default = LanguageContext;
+export default LanguageContext;

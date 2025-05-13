@@ -1,18 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useAppTheme = exports.AppThemeProvider = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const tailwindcss_palette_generator_1 = __importDefault(require("@bobthered/tailwindcss-palette-generator"));
-const react_1 = require("@chakra-ui/react");
-const ramda_1 = require("ramda");
-const styled_components_1 = require("styled-components");
-const AppContext_1 = require("./AppContext");
-const AppThemeProvider = ({ extendChakraTheme = {}, children, }) => {
-    const { settings } = (0, AppContext_1.useApp)();
-    const theme = (0, react_1.extendTheme)((0, ramda_1.mergeDeepRight)({
+import { jsx as _jsx } from "react/jsx-runtime";
+import paletteGenerator from '@bobthered/tailwindcss-palette-generator';
+import { ChakraProvider, extendTheme, useTheme } from '@chakra-ui/react';
+import { mergeDeepRight } from 'ramda';
+import { ThemeProvider } from 'styled-components';
+import { useApp } from './AppContext';
+export const AppThemeProvider = ({ extendChakraTheme = {}, children, }) => {
+    const { settings } = useApp();
+    const theme = extendTheme(mergeDeepRight({
         components: {
             Button: {
                 baseStyle: {
@@ -148,9 +142,9 @@ const AppThemeProvider = ({ extendChakraTheme = {}, children, }) => {
             },
         },
         colors: {
-            ...(0, tailwindcss_palette_generator_1.default)(settings['theme.@primary-color'] || '#2d313a'),
+            ...paletteGenerator(settings['theme.@primary-color'] || '#2d313a'),
             danger: {
-                ...(0, tailwindcss_palette_generator_1.default)('#ff7d62').primary,
+                ...paletteGenerator('#ff7d62').primary,
             },
             gray: {
                 100: 'rgba(0, 0, 0, 0.1)',
@@ -174,7 +168,6 @@ const AppThemeProvider = ({ extendChakraTheme = {}, children, }) => {
     }, {
         '@primary-color': '#2d313a',
     });
-    return ((0, jsx_runtime_1.jsx)(react_1.ChakraProvider, { theme: theme, children: children ? (0, jsx_runtime_1.jsx)(styled_components_1.ThemeProvider, { theme: themeVars, children: children }) : null }));
+    return (_jsx(ChakraProvider, { theme: theme, children: children ? _jsx(ThemeProvider, { theme: themeVars, children: children }) : null }));
 };
-exports.AppThemeProvider = AppThemeProvider;
-exports.useAppTheme = react_1.useTheme;
+export const useAppTheme = useTheme;

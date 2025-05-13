@@ -1,25 +1,19 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.parsePayload = exports.fetchCurrentGeolocation = exports.getFingerPrintId = exports.useToastMessage = exports.getResourceByProductId = exports.getCookie = exports.useCurrency = exports.useTappay = void 0;
-const react_1 = require("@chakra-ui/react");
-const fingerprintjs_1 = __importDefault(require("@fingerprintjs/fingerprintjs"));
-const ajv_1 = __importDefault(require("ajv"));
-const axios_1 = __importDefault(require("axios"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const react_2 = require("react");
-const react_intl_1 = require("react-intl");
-const AppContext_1 = require("../contexts/AppContext");
-const LanguageContext_1 = __importDefault(require("../contexts/LanguageContext"));
-const translation_1 = require("../helpers/translation");
-const ajv = new ajv_1.default();
+import { useToast } from '@chakra-ui/react';
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import Ajv from 'ajv';
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import { useContext, useMemo } from 'react';
+import { useIntl } from 'react-intl';
+import { useApp } from '../contexts/AppContext';
+import LanguageContext from '../contexts/LanguageContext';
+import { codeMessages } from '../helpers/translation';
+const ajv = new Ajv();
 // TODO: should be context
-const useTappay = () => {
+export const useTappay = () => {
     const _TPDirect = window['TPDirect'];
-    const { settings } = (0, AppContext_1.useApp)();
-    const TPDirect = (0, react_2.useMemo)(() => {
+    const { settings } = useApp();
+    const TPDirect = useMemo(() => {
         if (settings['tappay.app_id'] && settings['tappay.app_key'] && _TPDirect) {
             _TPDirect.setupSDK(settings['tappay.app_id'], settings['tappay.app_key'], settings['tappay.dry_run'] === 'true' ? 'sandbox' : 'production');
         }
@@ -27,10 +21,9 @@ const useTappay = () => {
     }, [_TPDirect, settings]);
     return { TPDirect };
 };
-exports.useTappay = useTappay;
-const useCurrency = (currencyId, coinUnit) => {
-    const { locale } = (0, react_2.useContext)(LanguageContext_1.default);
-    const { currencies, settings } = (0, AppContext_1.useApp)();
+export const useCurrency = (currencyId, coinUnit) => {
+    const { locale } = useContext(LanguageContext);
+    const { currencies, settings } = useApp();
     const formatCurrency = (value) => {
         const currentCurrencyId = currencyId || settings['currency_id'] || 'TWD';
         const currency = currencies[currentCurrencyId];
@@ -48,8 +41,7 @@ const useCurrency = (currencyId, coinUnit) => {
         formatCurrency,
     };
 };
-exports.useCurrency = useCurrency;
-const getCookie = (cookieName) => {
+export const getCookie = (cookieName) => {
     const cookie = {};
     document.cookie.split(';').forEach(function (el) {
         const [key, value] = el.split('=');
@@ -57,8 +49,7 @@ const getCookie = (cookieName) => {
     });
     return cookie[cookieName.trim()] || '';
 };
-exports.getCookie = getCookie;
-const getResourceByProductId = (productId) => {
+export const getResourceByProductId = (productId) => {
     const [productType, productTarget] = productId.split('_');
     const resourceType = productType
         .split(/(?=[A-Z])/)
@@ -66,15 +57,14 @@ const getResourceByProductId = (productId) => {
         .toLowerCase();
     return { type: resourceType, target: productTarget };
 };
-exports.getResourceByProductId = getResourceByProductId;
-const useToastMessage = () => {
-    const { formatMessage } = (0, react_intl_1.useIntl)();
-    const toast = (0, react_1.useToast)();
+export const useToastMessage = () => {
+    const { formatMessage } = useIntl();
+    const toast = useToast();
     const toastMessage = (options) => {
         try {
             toast({
                 title: options.responseCode
-                    ? `${formatMessage(translation_1.codeMessages[options.responseCode])}`
+                    ? `${formatMessage(codeMessages[options.responseCode])}`
                     : options.title,
                 status: options.status || 'success',
                 duration: options.duration || 1500,
@@ -87,20 +77,18 @@ const useToastMessage = () => {
     };
     return toastMessage;
 };
-exports.useToastMessage = useToastMessage;
-const fpPromise = fingerprintjs_1.default.load();
-const getFingerPrintId = async () => {
+const fpPromise = FingerprintJS.load();
+export const getFingerPrintId = async () => {
     const fp = await fpPromise;
     const result = await fp.get();
-    const fingerPrintId = (0, exports.getCookie)('fingerPrintId');
+    const fingerPrintId = getCookie('fingerPrintId');
     const visitorId = fingerPrintId.length > 0 ? fingerPrintId : result.visitorId;
     return visitorId;
 };
-exports.getFingerPrintId = getFingerPrintId;
-const fetchCurrentGeolocation = async () => {
+export const fetchCurrentGeolocation = async () => {
     var _a;
     try {
-        const getGeolocationRequest = await axios_1.default.get(`https://ipapi.co/json/`);
+        const getGeolocationRequest = await axios.get(`https://ipapi.co/json/`);
         if ((_a = getGeolocationRequest.data) === null || _a === void 0 ? void 0 : _a.error) {
             throw new Error(getGeolocationRequest.data.reason);
         }
@@ -115,10 +103,9 @@ const fetchCurrentGeolocation = async () => {
         return { ip: null, country: null, countryCode: null, error };
     }
 };
-exports.fetchCurrentGeolocation = fetchCurrentGeolocation;
-const parsePayload = (authToken) => {
+export const parsePayload = (authToken) => {
     var _a;
-    const payload = jsonwebtoken_1.default.decode(authToken);
+    const payload = jwt.decode(authToken);
     const schema = {
         type: 'object',
         properties: {
@@ -149,4 +136,3 @@ const parsePayload = (authToken) => {
         return null;
     }
 };
-exports.parsePayload = parsePayload;

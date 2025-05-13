@@ -1,20 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.currencyFormatter = exports.getTrackingCookie = exports.getBackendServerError = exports.checkUniformNumber = exports.isHTMLString = exports.convertPathName = exports.validateContactInfo = exports.validationRegExp = exports.desktopViewMixin = exports.findCheapestPlan = exports.getCurrentPrice = exports.dateFormatter = exports.rgba = exports.notEmpty = exports.handleError = exports.uploadFile = exports.durationFormatter = exports.durationFullFormatter = void 0;
-exports.zipWith = zipWith;
-exports.add = add;
-exports.multiply = multiply;
-const axios_1 = __importDefault(require("axios"));
-const dayjs_1 = __importDefault(require("dayjs"));
-const js_cookie_1 = __importDefault(require("js-cookie"));
-const query_string_1 = __importDefault(require("query-string"));
-const styled_components_1 = require("styled-components");
-const Responsive_1 = require("../components/common/Responsive");
-const error_1 = require("./error");
-const durationFullFormatter = (seconds) => {
+import axios from 'axios';
+import dayjs from 'dayjs';
+import Cookies from 'js-cookie';
+import queryString from 'query-string';
+import { css } from 'styled-components';
+import { BREAK_POINT } from '../components/common/Responsive';
+import { BindDeviceError, InputError, LoginDeviceError, NoMemberError, NoModuleError, PasswordError, SendEmailError, SessionError, } from './error';
+export const durationFullFormatter = (seconds) => {
     if (seconds >= 3600) {
         const remainSeconds = seconds % 3600;
         return `HOURS:MINUTES:SECONDS`
@@ -28,12 +19,10 @@ const durationFullFormatter = (seconds) => {
             .replace('SECONDS', `${Math.floor(seconds % 60)}`.padStart(2, '0'));
     }
 };
-exports.durationFullFormatter = durationFullFormatter;
-const durationFormatter = (value) => {
+export const durationFormatter = (value) => {
     return typeof value === 'number' && `約 ${(value / 60).toFixed(0)} 分鐘`;
 };
-exports.durationFormatter = durationFormatter;
-const uploadFile = async (key, file, authToken, envApiBaseRoot, config) => await axios_1.default
+export const uploadFile = async (key, file, authToken, envApiBaseRoot, config) => await axios
     .post(`${envApiBaseRoot}/sys/sign-url`, {
     operation: 'putObject',
     params: {
@@ -45,8 +34,8 @@ const uploadFile = async (key, file, authToken, envApiBaseRoot, config) => await
 })
     .then(res => res.data.result)
     .then(url => {
-    const { query } = query_string_1.default.parseUrl(url);
-    return axios_1.default.put(url, file, {
+    const { query } = queryString.parseUrl(url);
+    return axios.put(url, file, {
         ...config,
         headers: {
             ...query,
@@ -54,87 +43,76 @@ const uploadFile = async (key, file, authToken, envApiBaseRoot, config) => await
         },
     });
 });
-exports.uploadFile = uploadFile;
-const handleError = (error) => {
+export const handleError = (error) => {
     if (error.response && error.response.data) {
         return alert(error.response.data.message);
     }
     return alert(error.message);
 };
-exports.handleError = handleError;
-const notEmpty = (value) => {
+export const notEmpty = (value) => {
     return value !== null && value !== undefined;
 };
-exports.notEmpty = notEmpty;
-const rgba = (hexCode, alpha) => {
+export const rgba = (hexCode, alpha) => {
     const hexColor = (hexCode || '#2d313a').replace('#', '');
     const r = parseInt(hexColor.slice(0, 2), 16);
     const g = parseInt(hexColor.slice(2, 4), 16);
     const b = parseInt(hexColor.slice(4, 6), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
-exports.rgba = rgba;
-const dateFormatter = (value, format) => (0, dayjs_1.default)(value).format(format || `YYYY/MM/DD HH:mm`);
-exports.dateFormatter = dateFormatter;
-const getCurrentPrice = (plan) => (plan.soldAt && (0, dayjs_1.default)() < (0, dayjs_1.default)(plan.soldAt) ? plan.salePrice : plan.listPrice) || 0;
-exports.getCurrentPrice = getCurrentPrice;
-const findCheapestPlan = (plans) => plans
+export const dateFormatter = (value, format) => dayjs(value).format(format || `YYYY/MM/DD HH:mm`);
+export const getCurrentPrice = (plan) => (plan.soldAt && dayjs() < dayjs(plan.soldAt) ? plan.salePrice : plan.listPrice) || 0;
+export const findCheapestPlan = (plans) => plans
     .filter(plan => plan.publishedAt !== null)
-    .reduce((accum, plan) => (accum === null ? plan : (0, exports.getCurrentPrice)(plan) < (0, exports.getCurrentPrice)(accum) ? plan : accum), null);
-exports.findCheapestPlan = findCheapestPlan;
-const desktopViewMixin = (children) => (0, styled_components_1.css) `
-  @media (min-width: ${Responsive_1.BREAK_POINT}px) {
+    .reduce((accum, plan) => (accum === null ? plan : getCurrentPrice(plan) < getCurrentPrice(accum) ? plan : accum), null);
+export const desktopViewMixin = (children) => css `
+  @media (min-width: ${BREAK_POINT}px) {
     ${children}
   }
 `;
-exports.desktopViewMixin = desktopViewMixin;
-exports.validationRegExp = {
+export const validationRegExp = {
     phone: /^((?:\+|00)[17](?: |-)?|(?:\+|00)[1-9]\d{0,2}(?: |-)?|(?:\+|00)1-\d{3}(?: |-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |-)[0-9]{3}(?: |-)[0-9]{4})|([0-9]{7}))$/,
     email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     phoneBarCode: /^\/{1}[0-9A-Z+-.]{7}$/,
     citizenCode: /^[A-Z]{2}[0-9]{14}$/,
 };
-const validateContactInfo = contactInfo => {
+export const validateContactInfo = contactInfo => {
     var _a, _b;
     const errorFields = [];
     if (contactInfo.name.length === 0)
         errorFields.push('name');
-    if (contactInfo.phone.length === 0 || !((_a = exports.validationRegExp['phone']) === null || _a === void 0 ? void 0 : _a.test(contactInfo.phone))) {
+    if (contactInfo.phone.length === 0 || !((_a = validationRegExp['phone']) === null || _a === void 0 ? void 0 : _a.test(contactInfo.phone))) {
         errorFields.push('phone');
     }
-    if (contactInfo.email.length === 0 || !((_b = exports.validationRegExp['email']) === null || _b === void 0 ? void 0 : _b.test(contactInfo.email))) {
+    if (contactInfo.email.length === 0 || !((_b = validationRegExp['email']) === null || _b === void 0 ? void 0 : _b.test(contactInfo.email))) {
         errorFields.push('email');
     }
     return errorFields;
 };
-exports.validateContactInfo = validateContactInfo;
-const convertPathName = (pathName) => {
+export const convertPathName = (pathName) => {
     const pathList = pathName.split('/').filter(p => p !== '');
     return pathList.join('_') || '_';
 };
-exports.convertPathName = convertPathName;
-const isHTMLString = (str) => !(str || '')
+export const isHTMLString = (str) => !(str || '')
     // replace html tag with content
     .replace(/<([^>]+?)([^>]*?)>(.*?)<\/\1>/gi, '')
     // remove remaining self closing tags
     .replace(/(<([^>]+)>)/gi, '')
     // remove extra space at start and end
     .trim();
-exports.isHTMLString = isHTMLString;
-function zipWith(a1, a2, f) {
+export function zipWith(a1, a2, f) {
     const length = Math.min(a1.length, a2.length);
     const result = [];
     for (let i = 0; i < length; i++)
         result[i] = f(a1[i], a2[i]);
     return result;
 }
-function add(a, b) {
+export function add(a, b) {
     return a + b;
 }
-function multiply(a, b) {
+export function multiply(a, b) {
     return a * b;
 }
-const checkUniformNumber = (input, options = {}) => {
+export const checkUniformNumber = (input, options = {}) => {
     const { applyOldRules = false } = options;
     if (typeof input !== 'string' && typeof input !== 'number')
         return false;
@@ -185,45 +163,43 @@ const checkUniformNumber = (input, options = {}) => {
     const divisor = applyOldRules ? 10 : 5;
     return checksum % divisor === 0 || (parseInt(n.charAt(6), intRadix) === 7 && (checksum + 1) % divisor === 0);
 };
-exports.checkUniformNumber = checkUniformNumber;
-const getBackendServerError = (code, message, result) => {
+export const getBackendServerError = (code, message, result) => {
     let errorObject;
     switch (code) {
         case 'E_INPUT':
-            errorObject = new error_1.InputError(message, result);
+            errorObject = new InputError(message, result);
             break;
         case 'E_SESSION':
-            errorObject = new error_1.SessionError(message, result);
+            errorObject = new SessionError(message, result);
             break;
         case 'E_NO_MODULE':
-            errorObject = new error_1.NoModuleError(message, result);
+            errorObject = new NoModuleError(message, result);
             break;
         case 'E_SEND_EMAIL':
-            errorObject = new error_1.SendEmailError(message, result);
+            errorObject = new SendEmailError(message, result);
             break;
         case 'E_PASSWORD':
-            errorObject = new error_1.PasswordError(message, result);
+            errorObject = new PasswordError(message, result);
             break;
         case 'E_NO_MEMBER':
-            errorObject = new error_1.NoMemberError(message, result);
+            errorObject = new NoMemberError(message, result);
             break;
         case 'E_BIND_DEVICE':
-            errorObject = new error_1.BindDeviceError(message, result);
+            errorObject = new BindDeviceError(message, result);
             break;
         case 'E_LOGIN_DEVICE':
-            errorObject = new error_1.LoginDeviceError(message, result);
+            errorObject = new LoginDeviceError(message, result);
             break;
         default:
             errorObject = new Error(message);
     }
     return errorObject;
 };
-exports.getBackendServerError = getBackendServerError;
-const getTrackingCookie = () => {
-    const fbc = js_cookie_1.default.get('_fbc'); // dmpId
-    const fbp = js_cookie_1.default.get('_fbp'); // dmpId
-    const dmpId = js_cookie_1.default.get('__eruid'); // dmpId
-    let utm = js_cookie_1.default.get('utm');
+export const getTrackingCookie = () => {
+    const fbc = Cookies.get('_fbc'); // dmpId
+    const fbp = Cookies.get('_fbp'); // dmpId
+    const dmpId = Cookies.get('__eruid'); // dmpId
+    let utm = Cookies.get('utm');
     utm = utm ? JSON.parse(utm) : null;
     const trackingCookie = {};
     if (utm)
@@ -236,8 +212,7 @@ const getTrackingCookie = () => {
         Object.assign(trackingCookie, { fbp });
     return trackingCookie;
 };
-exports.getTrackingCookie = getTrackingCookie;
-const currencyFormatter = (value, currencyId, coinUnit) => {
+export const currencyFormatter = (value, currencyId, coinUnit) => {
     if (value === null || value === undefined) {
         return;
     }
@@ -248,4 +223,3 @@ const currencyFormatter = (value, currencyId, coinUnit) => {
         return `NT$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 };
-exports.currencyFormatter = currencyFormatter;

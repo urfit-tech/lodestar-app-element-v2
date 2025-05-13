@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useResourceCollection = exports.getResourceCollection = void 0;
-const client_1 = require("@apollo/client");
-const react_1 = require("react");
+import { gql, useQuery } from '@apollo/client';
+import { useMemo } from 'react';
 const composeResourceCollection = (urns, data, withProducts = false) => {
     const resources = (data === null || data === void 0 ? void 0 : data.resource.filter(v => v.id !== null).map(v => {
         const resourceUrn = v.id;
@@ -38,7 +35,7 @@ const composeResourceCollection = (urns, data, withProducts = false) => {
     }
     return filteredResources;
 };
-const getResourceCollection = async (apolloClient, urns, withProductType) => {
+export const getResourceCollection = async (apolloClient, urns, withProductType) => {
     const { data } = await apolloClient.query({
         query: GET_RESOURCE_COLLECTION,
         variables: { urns },
@@ -46,19 +43,17 @@ const getResourceCollection = async (apolloClient, urns, withProductType) => {
     const resourceCollection = composeResourceCollection(urns, data, withProductType);
     return resourceCollection;
 };
-exports.getResourceCollection = getResourceCollection;
-const useResourceCollection = (urns, withProducts = false) => {
-    const { data, loading } = (0, client_1.useQuery)(GET_RESOURCE_COLLECTION, {
+export const useResourceCollection = (urns, withProducts = false) => {
+    const { data, loading } = useQuery(GET_RESOURCE_COLLECTION, {
         variables: { urns },
     });
-    const resourceCollection = (0, react_1.useMemo)(() => composeResourceCollection(urns, data, withProducts), [data, urns, withProducts]);
+    const resourceCollection = useMemo(() => composeResourceCollection(urns, data, withProducts), [data, urns, withProducts]);
     return {
         loading,
         resourceCollection,
     };
 };
-exports.useResourceCollection = useResourceCollection;
-const GET_RESOURCE_COLLECTION = (0, client_1.gql) `
+const GET_RESOURCE_COLLECTION = gql `
   query GET_RESOURCE_COLLECTION($urns: [String!]!) {
     resource(where: { _or: [{ id: { _in: $urns } }, { meta_id: { _in: $urns } }] }) {
       id

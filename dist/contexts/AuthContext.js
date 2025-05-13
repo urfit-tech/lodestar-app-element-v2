@@ -1,17 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthProvider = exports.useAuth = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const axios_1 = __importDefault(require("axios"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const libphonenumber_js_1 = __importDefault(require("libphonenumber-js"));
-const react_1 = require("react");
-const react_ga_1 = __importDefault(require("react-ga"));
-const helpers_1 = require("../helpers");
-const util_1 = require("../hooks/util");
+import { jsx as _jsx } from "react/jsx-runtime";
+import Axios from 'axios';
+import jwt from 'jsonwebtoken';
+import parsePhoneNumber from 'libphonenumber-js';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import ReactGA from 'react-ga';
+import { getBackendServerError } from '../helpers';
+import { fetchCurrentGeolocation, getFingerPrintId, parsePayload } from '../hooks/util';
 const defaultAuthContext = {
     isAuthenticating: window.AUTH_TOKEN ? false : true,
     isAuthenticated: false,
@@ -27,18 +21,17 @@ const initLodestarWindow = () => {
         window.lodestar = window.lodestar || {};
     }
 };
-const AuthContext = (0, react_1.createContext)(defaultAuthContext);
-const useAuth = () => (0, react_1.useContext)(AuthContext);
-exports.useAuth = useAuth;
-const AuthProvider = ({ appId, children, }) => {
+const AuthContext = createContext(defaultAuthContext);
+export const useAuth = () => useContext(AuthContext);
+export const AuthProvider = ({ appId, children, }) => {
     var _a;
-    const [isAuthenticating, setIsAuthenticating] = (0, react_1.useState)(defaultAuthContext.isAuthenticating);
-    const [authToken, setAuthToken] = (0, react_1.useState)(window.AUTH_TOKEN || null);
-    const payload = (0, react_1.useMemo)(() => (authToken ? (0, util_1.parsePayload)(authToken) : null), [authToken]);
-    (0, react_1.useEffect)(() => {
+    const [isAuthenticating, setIsAuthenticating] = useState(defaultAuthContext.isAuthenticating);
+    const [authToken, setAuthToken] = useState(window.AUTH_TOKEN || null);
+    const payload = useMemo(() => (authToken ? parsePayload(authToken) : null), [authToken]);
+    useEffect(() => {
         if (payload) {
             try {
-                const phoneNumber = payload.phoneNumber ? (0, libphonenumber_js_1.default)(payload.phoneNumber, 'TW') : null;
+                const phoneNumber = payload.phoneNumber ? parsePhoneNumber(payload.phoneNumber, 'TW') : null;
                 const _window = window;
                 _window.insider_object = {
                     user: {
@@ -49,7 +42,7 @@ const AuthProvider = ({ appId, children, }) => {
                         email_optin: true,
                     },
                 };
-                react_ga_1.default.set({ userId: payload.sub });
+                ReactGA.set({ userId: payload.sub });
             }
             catch (error) {
                 if (process.env.NODE_ENV === 'development') {
@@ -58,10 +51,10 @@ const AuthProvider = ({ appId, children, }) => {
             }
         }
     }, [payload, window]);
-    const refreshToken = (0, react_1.useCallback)(async () => {
-        const fingerPrintId = await (0, util_1.getFingerPrintId)();
-        const { ip, country, countryCode } = await (0, util_1.fetchCurrentGeolocation)();
-        const { data: { code, result }, } = await axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/refresh-token`, { appId, fingerPrintId, geoLocation: { ip, country, countryCode } }, {
+    const refreshToken = useCallback(async () => {
+        const fingerPrintId = await getFingerPrintId();
+        const { ip, country, countryCode } = await fetchCurrentGeolocation();
+        const { data: { code, result }, } = await Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/refresh-token`, { appId, fingerPrintId, geoLocation: { ip, country, countryCode } }, {
             method: 'POST',
             withCredentials: true,
         });
@@ -91,7 +84,7 @@ const AuthProvider = ({ appId, children, }) => {
         window.lodestar.getCurrentMember = () => currentMember;
         window.lodestar.getDataLayerByEvent = (event) => window.dataLayer.find((d) => d.event === event);
     }
-    return ((0, jsx_runtime_1.jsx)(AuthContext.Provider, { value: {
+    return (_jsx(AuthContext.Provider, { value: {
             isAuthenticating,
             isAuthenticated: Boolean(authToken),
             currentUserRole: (payload === null || payload === void 0 ? void 0 : payload.role) || 'anonymous',
@@ -107,7 +100,7 @@ const AuthProvider = ({ appId, children, }) => {
             refreshToken,
             register: async (data) => {
                 var _a;
-                return axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/register`, {
+                return Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/register`, {
                     appId: data.appId || appId,
                     username: data.username,
                     email: data.email,
@@ -120,10 +113,10 @@ const AuthProvider = ({ appId, children, }) => {
                             setAuthToken(result.authToken);
                         }
                         try {
-                            const currentMemberId = (_a = jsonwebtoken_1.default.decode(result.authToken)) === null || _a === void 0 ? void 0 : _a.sub;
+                            const currentMemberId = (_a = jwt.decode(result.authToken)) === null || _a === void 0 ? void 0 : _a.sub;
                             const phone = sessionStorage.getItem('phone');
                             if (phone && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
-                                axios_1.default.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
+                                Axios.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
                                     query: `
                         mutation INSERT_MEMBER_PHONE_ONE($currentMemberId: String!, $phone: String!) {
                           insert_member_phone_one(object: { member_id: $currentMemberId, phone: $phone }) {
@@ -140,7 +133,7 @@ const AuthProvider = ({ appId, children, }) => {
                             const categoryIds = JSON.parse(sessionStorage.getItem('categoryIds') || '[]');
                             const memberProperties = JSON.parse(sessionStorage.getItem('memberProperties') || '[]');
                             if (categoryIds.length && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
-                                axios_1.default.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
+                                Axios.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
                                     query: `
                         mutation INSERT_MEMBER_CATEGORIES($memberProperties: [member_property_insert_input!]!, $data: [member_category_insert_input!]!) {
                           insert_member_property(objects: $memberProperties) {
@@ -167,7 +160,7 @@ const AuthProvider = ({ appId, children, }) => {
                             }
                             const star = sessionStorage.getItem('star');
                             if (star && process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT) {
-                                axios_1.default.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
+                                Axios.post(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, {
                                     query: `
                         mutation SET_MEMBER_STAR($memberId: String!, $star: numeric!) {
                           update_member(where: {id: {_eq: $memberId}}, _set: {star: $star}) {
@@ -192,9 +185,9 @@ const AuthProvider = ({ appId, children, }) => {
                 });
             },
             login: async ({ account, password, accountLinkToken }) => {
-                const fingerPrintId = await (0, util_1.getFingerPrintId)();
-                const { ip, country, countryCode } = await (0, util_1.fetchCurrentGeolocation)();
-                const { data: { code, message, result }, } = await axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/general-login`, { appId, account, password, fingerPrintId, geoLocation: { ip, country, countryCode } }, { withCredentials: true });
+                const fingerPrintId = await getFingerPrintId();
+                const { ip, country, countryCode } = await fetchCurrentGeolocation();
+                const { data: { code, message, result }, } = await Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/general-login`, { appId, account, password, fingerPrintId, geoLocation: { ip, country, countryCode } }, { withCredentials: true });
                 if (code === 'SUCCESS') {
                     setAuthToken(result.authToken);
                     if (accountLinkToken && result.authToken) {
@@ -206,11 +199,11 @@ const AuthProvider = ({ appId, children, }) => {
                 }
                 else {
                     setAuthToken(null);
-                    throw (0, helpers_1.getBackendServerError)(code, message, result);
+                    throw getBackendServerError(code, message, result);
                 }
                 return { code };
             },
-            socialLogin: async ({ provider, providerToken, accountLinkToken, isForceLogin }) => axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/social-login`, {
+            socialLogin: async ({ provider, providerToken, accountLinkToken, isForceLogin }) => Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/social-login`, {
                 appId,
                 provider,
                 providerToken,
@@ -218,7 +211,7 @@ const AuthProvider = ({ appId, children, }) => {
             }, { withCredentials: true }).then(async ({ data: { code, message, result } }) => {
                 if (code === 'SUCCESS') {
                     setAuthToken(result.authToken);
-                    const decodedToken = (0, util_1.parsePayload)(result.authToken);
+                    const decodedToken = parsePayload(result.authToken);
                     if (!decodedToken) {
                         throw new Error('no auth token');
                     }
@@ -228,11 +221,11 @@ const AuthProvider = ({ appId, children, }) => {
                 }
                 else {
                     setAuthToken(null);
-                    throw (0, helpers_1.getBackendServerError)(code, message, result);
+                    throw getBackendServerError(code, message, result);
                 }
             }),
             switchMember: async ({ memberId }) => {
-                return axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/switch-member`, {
+                return Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/switch-member`, {
                     memberId,
                 }, { withCredentials: true, headers: { Authorization: 'Bearer ' + authToken } }).then(({ data: { code, _, result } }) => {
                     if (code === 'SUCCESS') {
@@ -249,7 +242,7 @@ const AuthProvider = ({ appId, children, }) => {
                     window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/logout?redirect=${window.location.href}`);
                 }
             },
-            sendSmsCode: async ({ phoneNumber }) => axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/send-code`, {
+            sendSmsCode: async ({ phoneNumber }) => Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/send-code`, {
                 appId,
                 phoneNumber,
             }, { withCredentials: true }).then(({ data: { code } }) => {
@@ -257,7 +250,7 @@ const AuthProvider = ({ appId, children, }) => {
                     throw new Error(code);
                 }
             }),
-            verifySmsCode: async ({ phoneNumber, code }) => axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/verify-code`, {
+            verifySmsCode: async ({ phoneNumber, code }) => Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/sms/verify-code`, {
                 appId,
                 phoneNumber,
                 code,
@@ -267,7 +260,7 @@ const AuthProvider = ({ appId, children, }) => {
                 }
             }),
             forceLogin: async ({ account, password, accountLinkToken }) => {
-                return axios_1.default.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/force-login`, { appId, account, password }, { withCredentials: true })
+                return Axios.post(`${process.env.NEXT_PUBLIC_API_BASE_ROOT}/auth/force-login`, { appId, account, password }, { withCredentials: true })
                     .then(({ data: { code, result } }) => {
                     if (code === 'SUCCESS') {
                         setAuthToken(result.authToken);
@@ -289,4 +282,3 @@ const AuthProvider = ({ appId, children, }) => {
             },
         }, children: children }));
 };
-exports.AuthProvider = AuthProvider;
