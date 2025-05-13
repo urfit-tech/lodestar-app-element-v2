@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});var e,n;function i(){if(n)return e;n=1;var r=function(o,t){Error.call(this,o),Error.captureStackTrace&&Error.captureStackTrace(this,this.constructor),this.name="JsonWebTokenError",this.message=o,t&&(this.inner=t)};return r.prototype=Object.create(Error.prototype),r.prototype.constructor=r,e=r,e}exports.__require=i;
+//# sourceMappingURL=index.cjs52.js.map

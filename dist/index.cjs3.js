@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=require("./index.cjs15.js"),r=require("@apollo/client"),l=require("./index.cjs9.js"),s=require("./index.cjs6.js"),u=({appId:t,children:o})=>{const{authToken:n}=s.useAuth(),i=l.createApolloClient({appId:t,authToken:n},{"invalid-jwt":typeof window<"u"?window.location.reload:()=>{}});return e.jsxRuntimeExports.jsx(r.ApolloProvider,{client:i,children:e.jsxRuntimeExports.jsx(e.jsxRuntimeExports.Fragment,{children:o})})};exports.ApiProvider=u;
+//# sourceMappingURL=index.cjs3.js.map

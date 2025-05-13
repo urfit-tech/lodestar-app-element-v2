@@ -1,0 +1,1 @@
+{"version":3,"file":"index.es123.js","sources":["../node_modules/jsonwebtoken/lib/rsaPssKeyDetailsSupported.js"],"sourcesContent":["const semver = require('semver');\n\nmodule.exports = semver.satisfies(process.version, '>=16.9.0');\n"],"names":["rsaPssKeyDetailsSupported","require$$0"],"mappings":";;;sBAEcA,IAFCC,EAAiB,EAER,UAAU,QAAQ,SAAS,UAAU;;","x_google_ignoreList":[0]}

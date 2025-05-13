@@ -2,22 +2,24 @@
   "name": "lodestar-app-element-v2",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
-  "main": "dist/index.mjs",
-  "types": "dist-types/index.d.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist-types/index.d.ts"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "clean": "rm -rf dist dist-types",
-    "build": "tsc --project tsconfig.json && rollup -c && find dist -name '*.js' -exec bash -c 'mv \"$0\" \"${0%.js}.mjs\"' {} \\;"
+    "build": "vite build"
   },
   "dependencies": {
     "@bobthered/tailwindcss-palette-generator": "^4.0.0",
@@ -33,20 +35,17 @@
     "ramda": "^0.30.1",
     "react-ga": "^3.3.1",
     "react-responsive": "^10.0.1",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "use-query-params": "^2.2.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.3",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rollup/plugin-typescript": "^12.1.2",
-    "ajv": "^8.17.1",
+    "@vitejs/plugin-react": "^4.4.1",
     "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "rollup": "^4.40.2"
+    "rollup": "^4.40.2",
+    "vite": "^6.3.5"
   },
   "peerDependencies": {
     "@apollo/client": "^3.0.0",

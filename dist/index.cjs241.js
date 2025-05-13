@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});function w(e,n){e=e||10;const u=new Array(e),f=new Array(e);let t=0,r=0,o;return n=n!==void 0?n:1e3,function(s){const d=Date.now(),c=f[r];o||(o=d),u[t]=s,f[t]=d;let i=r,a=0;for(;i!==t;)a+=u[i++],i=i%e;if(t=(t+1)%e,t===r&&(r=(r+1)%e),d-o<n)return;const l=c&&d-c;return l?Math.round(a*1e3/l):void 0}}exports.default=w;
+//# sourceMappingURL=index.cjs241.js.map

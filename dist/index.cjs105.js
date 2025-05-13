@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const n=require("./index.cjs153.js");var t=new WeakSet;function l(e){e.size<=(e.max||-1)||t.has(e)||(t.add(e),setTimeout(function(){e.clean(),t.delete(e)},100))}var s=function(e,r){var a=new n.WeakCache(e,r);return a.set=function(u,i){var o=n.WeakCache.prototype.set.call(this,u,i);return l(this),o},a};exports.AutoCleanedWeakCache=s;
+//# sourceMappingURL=index.cjs105.js.map

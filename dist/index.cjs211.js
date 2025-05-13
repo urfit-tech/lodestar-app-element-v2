@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=require("./index.cjs238.js"),t=require("./index.cjs239.js"),r=require("./index.cjs240.js"),a={isBrowser:!0,classes:{URLSearchParams:e.default,FormData:t.default,Blob:r.default},protocols:["http","https","file","blob","url","data"]};exports.default=a;
+//# sourceMappingURL=index.cjs211.js.map

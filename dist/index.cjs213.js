@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const u=require("./index.cjs96.js");function i(e,l,t){const a=t.config.validateStatus;!t.status||!a||a(t.status)?e(t):l(new u.default("Request failed with status code "+t.status,[u.default.ERR_BAD_REQUEST,u.default.ERR_BAD_RESPONSE][Math.floor(t.status/100)-4],t.config,t.request,t))}exports.default=i;
+//# sourceMappingURL=index.cjs213.js.map

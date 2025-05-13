@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const t=require("./index.cjs119.js"),n=require("./index.cjs120.js"),u=require("./index.cjs118.js");function f(r,a,d){if(t.default.randomUUID&&!r)return t.default.randomUUID();r=r||{};const e=r.random??r.rng?.()??n.default();if(e.length<16)throw new Error("Random bytes length must be >= 16");return e[6]=e[6]&15|64,e[8]=e[8]&63|128,u.unsafeStringify(e)}exports.default=f;
+//# sourceMappingURL=index.cjs30.js.map

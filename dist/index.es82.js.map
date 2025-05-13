@@ -1,0 +1,1 @@
+{"version":3,"file":"index.es82.js","sources":["../node_modules/ramda/es/internal/_isObject.js"],"sourcesContent":["export default function _isObject(x) {\n  return Object.prototype.toString.call(x) === '[object Object]';\n}"],"names":["_isObject","x"],"mappings":"AAAe,SAASA,EAAUC,GAAG;AACnC,SAAO,OAAO,UAAU,SAAS,KAAKA,CAAC,MAAM;AAC/C;","x_google_ignoreList":[0]}

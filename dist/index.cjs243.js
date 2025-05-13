@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const t=require("./index.cjs141.js"),a=t.default.hasStandardBrowserEnv?((o,r)=>e=>(e=new URL(e,t.default.origin),o.protocol===e.protocol&&o.host===e.host&&(r||o.port===e.port)))(new URL(t.default.origin),t.default.navigator&&/(msie|trident)/i.test(t.default.navigator.userAgent)):()=>!0;exports.default=a;
+//# sourceMappingURL=index.cjs243.js.map
