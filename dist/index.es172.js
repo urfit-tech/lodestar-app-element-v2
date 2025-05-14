@@ -1,32 +1,55 @@
-import r from "./index.es228.js";
-import p from "./index.es121.js";
-import o from "./index.es117.js";
-import l from "./index.es119.js";
-import a from "./index.es127.js";
-import m from "./index.es128.js";
-function d(e) {
-  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
-    throw new l(null, e);
+import { VERSION as w } from "./index.es93.js";
+import s from "./index.es95.js";
+const l = {};
+["object", "boolean", "number", "function", "string", "symbol"].forEach((n, t) => {
+  l[n] = function(o) {
+    return typeof o === n || "a" + (t < 1 ? "n " : " ") + n;
+  };
+});
+const f = {};
+l.transitional = function(t, i, o) {
+  function a(r, e) {
+    return "[Axios v" + w + "] Transitional option '" + r + "'" + e + (o ? ". " + o : "");
+  }
+  return (r, e, u) => {
+    if (t === !1)
+      throw new s(
+        a(e, " has been removed" + (i ? " in " + i : "")),
+        s.ERR_DEPRECATED
+      );
+    return i && !f[e] && (f[e] = !0, console.warn(
+      a(
+        e,
+        " has been deprecated since v" + i + " and will be removed in the near future"
+      )
+    )), t ? t(r, e, u) : !0;
+  };
+};
+l.spelling = function(t) {
+  return (i, o) => (console.warn(`${o} is likely a misspelling of ${t}`), !0);
+};
+function b(n, t, i) {
+  if (typeof n != "object")
+    throw new s("options must be an object", s.ERR_BAD_OPTION_VALUE);
+  const o = Object.keys(n);
+  let a = o.length;
+  for (; a-- > 0; ) {
+    const r = o[a], e = t[r];
+    if (e) {
+      const u = n[r], c = u === void 0 || e(u, r, n);
+      if (c !== !0)
+        throw new s("option " + r + " must be " + c, s.ERR_BAD_OPTION_VALUE);
+      continue;
+    }
+    if (i !== !0)
+      throw new s("Unknown option " + r, s.ERR_BAD_OPTION);
+  }
 }
-function q(e) {
-  return d(e), e.headers = a.from(e.headers), e.data = r.call(
-    e,
-    e.transformRequest
-  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
-    return d(e), t.data = r.call(
-      e,
-      e.transformResponse,
-      t
-    ), t.headers = a.from(t.headers), t;
-  }, function(t) {
-    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
-      e,
-      e.transformResponse,
-      t.response
-    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
-  });
-}
+const m = {
+  assertOptions: b,
+  validators: l
+};
 export {
-  q as default
+  m as default
 };
 //# sourceMappingURL=index.es172.js.map

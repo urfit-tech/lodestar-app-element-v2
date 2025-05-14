@@ -1,5 +1,15 @@
-var e = {};
+import { canUseAsyncIteratorSymbol as e } from "./index.es121.js";
+function o(t) {
+  var r = {
+    next: function() {
+      return t.read();
+    }
+  };
+  return e && (r[Symbol.asyncIterator] = function() {
+    return this;
+  }), r;
+}
 export {
-  e as __exports
+  o as default
 };
 //# sourceMappingURL=index.es308.js.map

@@ -1,12 +1,12 @@
-import { invariant as e } from "./index.es70.js";
-import "./index.es71.js";
-import { r as n } from "./index.es207.js";
-import { getApolloContext as i } from "./index.es206.js";
-function c(o) {
-  var r = n.useContext(i()), t = o || r.client;
-  return e(!!t, 49), t;
+import { __require as p } from "./index.es207.js";
+var r, e;
+function t() {
+  if (e) return r;
+  e = 1;
+  const o = p();
+  return r = (a, c, m) => o(c, a, m), r;
 }
 export {
-  c as useApolloClient
+  t as __require
 };
 //# sourceMappingURL=index.es208.js.map

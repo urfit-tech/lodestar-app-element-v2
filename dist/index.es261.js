@@ -1,17 +1,10 @@
-var n, o;
-function f() {
-  if (o) return n;
-  o = 1;
-  const s = /^[0-9]+$/, c = (e, r) => {
-    const i = s.test(e), t = s.test(r);
-    return i && t && (e = +e, r = +r), e === r ? 0 : i && !t ? -1 : t && !i ? 1 : e < r ? -1 : 1;
-  };
-  return n = {
-    compareIdentifiers: c,
-    rcompareIdentifiers: (e, r) => c(r, e)
-  }, n;
-}
+import { newInvariantError as e } from "./index.es117.js";
+import "./index.es118.js";
+var n = function(r) {
+  if (!r && typeof fetch > "u")
+    throw e(37);
+};
 export {
-  f as __require
+  n as checkFetcher
 };
 //# sourceMappingURL=index.es261.js.map

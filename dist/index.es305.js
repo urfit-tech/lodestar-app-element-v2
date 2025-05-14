@@ -1,9 +1,14 @@
-import o from "./index.es177.js";
-const n = o.hasStandardBrowserEnv ? /* @__PURE__ */ ((r, e) => (t) => (t = new URL(t, o.origin), r.protocol === t.protocol && r.host === t.host && (e || r.port === t.port)))(
-  new URL(o.origin),
-  o.navigator && /(msie|trident)/i.test(o.navigator.userAgent)
-) : () => !0;
+function a(r) {
+  var t, n = r[Symbol.asyncIterator]();
+  return t = {
+    next: function() {
+      return n.next();
+    }
+  }, t[Symbol.asyncIterator] = function() {
+    return this;
+  }, t;
+}
 export {
-  n as default
+  a as default
 };
 //# sourceMappingURL=index.es305.js.map

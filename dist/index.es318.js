@@ -1,11 +1,9 @@
-var r, t;
-function i() {
-  if (t) return r;
-  t = 1;
-  const s = Object.freeze({ loose: !0 }), n = Object.freeze({});
-  return r = (e) => e ? typeof e != "object" ? s : e : n, r;
-}
+import o from "./index.es175.js";
+const n = o.hasStandardBrowserEnv ? /* @__PURE__ */ ((r, e) => (t) => (t = new URL(t, o.origin), r.protocol === t.protocol && r.host === t.host && (e || r.port === t.port)))(
+  new URL(o.origin),
+  o.navigator && /(msie|trident)/i.test(o.navigator.userAgent)
+) : () => !0;
 export {
-  i as __require
+  n as default
 };
 //# sourceMappingURL=index.es318.js.map

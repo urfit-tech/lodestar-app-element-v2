@@ -1,33 +1,33 @@
-var s, i;
-function u() {
-  if (i) return s;
-  i = 1;
-  class r {
-    constructor() {
-      this.max = 1e3, this.map = /* @__PURE__ */ new Map();
-    }
-    get(e) {
-      const t = this.map.get(e);
-      if (t !== void 0)
-        return this.map.delete(e), this.map.set(e, t), t;
-    }
-    delete(e) {
-      return this.map.delete(e);
-    }
-    set(e, t) {
-      if (!this.delete(e) && t !== void 0) {
-        if (this.map.size >= this.max) {
-          const a = this.map.keys().next().value;
-          this.delete(a);
-        }
-        this.map.set(e, t);
-      }
-      return this;
+import r from "./index.es84.js";
+import c from "./index.es175.js";
+const p = c.hasStandardBrowserEnv ? (
+  // Standard browser envs support document.cookie
+  {
+    write(e, t, n, i, s, u) {
+      const o = [e + "=" + encodeURIComponent(t)];
+      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
+    },
+    read(e) {
+      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
+      return t ? decodeURIComponent(t[3]) : null;
+    },
+    remove(e) {
+      this.write(e, "", Date.now() - 864e5);
     }
   }
-  return s = r, s;
-}
+) : (
+  // Non-standard browser env (web workers, react-native) lack needed support.
+  {
+    write() {
+    },
+    read() {
+      return null;
+    },
+    remove() {
+    }
+  }
+);
 export {
-  u as __require
+  p as default
 };
 //# sourceMappingURL=index.es319.js.map

@@ -1,71 +1,46 @@
-import i from "./index.es113.js";
-import h from "./index.es127.js";
-const c = (s) => s instanceof h ? { ...s } : s;
-function C(s, a) {
-  a = a || {};
-  const u = {};
-  function d(t, e, r, o) {
-    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: o }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
-  }
-  function l(t, e, r, o) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t, r, o);
-    } else return d(t, e, r, o);
-  }
-  function f(t, e) {
-    if (!i.isUndefined(e))
-      return d(void 0, e);
-  }
-  function n(t, e) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t);
-    } else return d(void 0, e);
-  }
-  function m(t, e, r) {
-    if (r in a)
-      return d(t, e);
-    if (r in s)
-      return d(void 0, t);
-  }
-  const g = {
-    url: f,
-    method: f,
-    data: f,
-    baseURL: n,
-    transformRequest: n,
-    transformResponse: n,
-    paramsSerializer: n,
-    timeout: n,
-    timeoutMessage: n,
-    withCredentials: n,
-    withXSRFToken: n,
-    adapter: n,
-    responseType: n,
-    xsrfCookieName: n,
-    xsrfHeaderName: n,
-    onUploadProgress: n,
-    onDownloadProgress: n,
-    decompress: n,
-    maxContentLength: n,
-    maxBodyLength: n,
-    beforeRedirect: n,
-    transport: n,
-    httpAgent: n,
-    httpsAgent: n,
-    cancelToken: n,
-    socketPath: n,
-    responseEncoding: n,
-    validateStatus: m,
-    headers: (t, e, r) => l(c(t), c(e), r, !0)
-  };
-  return i.forEach(Object.keys(Object.assign({}, s, a)), function(e) {
-    const r = g[e] || l, o = r(s[e], a[e], e);
-    i.isUndefined(o) && r !== m || (u[e] = o);
-  }), u;
+import { invariant as v } from "./index.es117.js";
+import "./index.es118.js";
+import { visit as l, BREAK as f } from "graphql";
+function p(e, r) {
+  var i = e.directives;
+  return !i || !i.length ? !0 : m(i).every(function(n) {
+    var a = n.directive, u = n.ifArgument, t = !1;
+    return u.value.kind === "Variable" ? (t = r && r[u.value.name.value], v(t !== void 0, 69, a.name.value)) : t = u.value.value, a.name.value === "skip" ? !t : t;
+  });
+}
+function o(e, r, i) {
+  var n = new Set(e), a = n.size;
+  return l(r, {
+    Directive: function(u) {
+      if (n.delete(u.name.value) && (!i || !n.size))
+        return f;
+    }
+  }), i ? !n.size : n.size < a;
+}
+function h(e) {
+  return e && o(["client", "export"], e, !0);
+}
+function s(e) {
+  var r = e.name.value;
+  return r === "skip" || r === "include";
+}
+function m(e) {
+  var r = [];
+  return e && e.length && e.forEach(function(i) {
+    if (s(i)) {
+      var n = i.arguments, a = i.name.value;
+      v(n && n.length === 1, 70, a);
+      var u = n[0];
+      v(u.name && u.name.value === "if", 71, a);
+      var t = u.value;
+      v(t && (t.kind === "Variable" || t.kind === "BooleanValue"), 72, a), r.push({ directive: i, ifArgument: u });
+    }
+  }), r;
 }
 export {
-  C as default
+  m as getInclusionDirectives,
+  h as hasClientExports,
+  o as hasDirectives,
+  p as shouldInclude
 };
 //# sourceMappingURL=index.es116.js.map

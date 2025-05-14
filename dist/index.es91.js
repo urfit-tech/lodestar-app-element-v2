@@ -1,50 +1,78 @@
-import "./index.es57.js";
-import { Observable as s } from "./index.es56.js";
-function x(f, a, l) {
-  return new s(function(n) {
-    var t = {
-      // Normally we would initialize promiseQueue to Promise.resolve(), but
-      // in this case, for backwards compatibility, we need to be careful to
-      // invoke the first callback synchronously.
-      then: function(r) {
-        return new Promise(function(e) {
-          return e(r());
-        });
-      }
-    };
-    function c(r, e) {
-      return function(o) {
-        if (r) {
-          var i = function() {
-            return n.closed ? (
-              /* will be swallowed */
-              0
-            ) : r(o);
-          };
-          t = t.then(i, i).then(function(u) {
-            return n.next(u);
-          }, function(u) {
-            return n.error(u);
-          });
-        } else
-          n[e](o);
-      };
+import u from "./index.es90.js";
+class c {
+  constructor(e) {
+    if (typeof e != "function")
+      throw new TypeError("executor must be a function.");
+    let t;
+    this.promise = new Promise(function(r) {
+      t = r;
+    });
+    const s = this;
+    this.promise.then((n) => {
+      if (!s._listeners) return;
+      let r = s._listeners.length;
+      for (; r-- > 0; )
+        s._listeners[r](n);
+      s._listeners = null;
+    }), this.promise.then = (n) => {
+      let r;
+      const o = new Promise((i) => {
+        s.subscribe(i), r = i;
+      }).then(n);
+      return o.cancel = function() {
+        s.unsubscribe(r);
+      }, o;
+    }, e(function(r, o, i) {
+      s.reason || (s.reason = new u(r, o, i), t(s.reason));
+    });
+  }
+  /**
+   * Throws a `CanceledError` if cancellation has been requested.
+   */
+  throwIfRequested() {
+    if (this.reason)
+      throw this.reason;
+  }
+  /**
+   * Subscribe to the cancel signal
+   */
+  subscribe(e) {
+    if (this.reason) {
+      e(this.reason);
+      return;
     }
-    var m = {
-      next: c(a, "next"),
-      error: c(l, "error"),
-      complete: function() {
-        t.then(function() {
-          return n.complete();
-        });
-      }
-    }, p = f.subscribe(m);
-    return function() {
-      return p.unsubscribe();
+    this._listeners ? this._listeners.push(e) : this._listeners = [e];
+  }
+  /**
+   * Unsubscribe from the cancel signal
+   */
+  unsubscribe(e) {
+    if (!this._listeners)
+      return;
+    const t = this._listeners.indexOf(e);
+    t !== -1 && this._listeners.splice(t, 1);
+  }
+  toAbortSignal() {
+    const e = new AbortController(), t = (s) => {
+      e.abort(s);
     };
-  });
+    return this.subscribe(t), e.signal.unsubscribe = () => this.unsubscribe(t), e.signal;
+  }
+  /**
+   * Returns an object that contains a new `CancelToken` and a function that, when called,
+   * cancels the `CancelToken`.
+   */
+  static source() {
+    let e;
+    return {
+      token: new c(function(n) {
+        e = n;
+      }),
+      cancel: e
+    };
+  }
 }
 export {
-  x as asyncMap
+  c as default
 };
 //# sourceMappingURL=index.es91.js.map

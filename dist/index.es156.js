@@ -1,17 +1,5 @@
-var r, e;
-function b() {
-  if (e) return r;
-  e = 1;
-  var t = "[object Boolean]", n = Object.prototype, i = n.toString;
-  function a(o) {
-    return o === !0 || o === !1 || s(o) && i.call(o) == t;
-  }
-  function s(o) {
-    return !!o && typeof o == "object";
-  }
-  return r = a, r;
-}
+const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
 export {
-  b as __require
+  t as default
 };
 //# sourceMappingURL=index.es156.js.map

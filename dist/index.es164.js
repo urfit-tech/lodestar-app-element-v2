@@ -1,10 +1,12 @@
-import n from "./index.es225.js";
-import m from "./index.es226.js";
-function g() {
-  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
-  return r && (e = m(t)), a && (e = n(e)), e;
+var e;
+(function(l) {
+  l[l.loading = 1] = "loading", l[l.setVariables = 2] = "setVariables", l[l.fetchMore = 3] = "fetchMore", l[l.refetch = 4] = "refetch", l[l.poll = 6] = "poll", l[l.ready = 7] = "ready", l[l.error = 8] = "error";
+})(e || (e = {}));
+function i(l) {
+  return l ? l < 7 : !1;
 }
 export {
-  g as default
+  e as NetworkStatus,
+  i as isNetworkRequestInFlight
 };
 //# sourceMappingURL=index.es164.js.map

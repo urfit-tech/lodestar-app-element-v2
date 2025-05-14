@@ -1,16 +1,12 @@
-import o from "./index.es300.js";
-import r from "./index.es301.js";
-import t from "./index.es302.js";
-const l = {
-  isBrowser: !0,
-  classes: {
-    URLSearchParams: o,
-    FormData: r,
-    Blob: t
-  },
-  protocols: ["http", "https", "file", "blob", "url", "data"]
-};
+import { __require as s } from "./index.es229.js";
+var r, e;
+function q() {
+  if (e) return r;
+  e = 1;
+  const t = s();
+  return r = (i, u, o) => t(i, u, "<", o), r;
+}
 export {
-  l as default
+  q as __require
 };
 //# sourceMappingURL=index.es231.js.map

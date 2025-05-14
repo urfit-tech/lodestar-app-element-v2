@@ -1,12 +1,10 @@
-import { __require as a } from "./index.es271.js";
-var r, e;
-function s() {
-  if (e) return r;
-  e = 1;
-  const t = a();
-  return r = (i, o, u) => t(i, o, u) > 0, r;
-}
+const e = typeof window < "u" && typeof document < "u", o = typeof navigator == "object" && navigator || void 0, n = e && (!o || ["ReactNative", "NativeScript", "NS"].indexOf(o.product) < 0), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
+self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
 export {
-  s as __require
+  e as hasBrowserEnv,
+  n as hasStandardBrowserEnv,
+  t as hasStandardBrowserWebWorkerEnv,
+  o as navigator,
+  r as origin
 };
 //# sourceMappingURL=index.es277.js.map

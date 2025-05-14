@@ -1,46 +1,31 @@
-import { invariant as v } from "./index.es70.js";
-import "./index.es71.js";
-import { visit as l, BREAK as f } from "graphql";
-function p(e, r) {
-  var i = e.directives;
-  return !i || !i.length ? !0 : m(i).every(function(n) {
-    var a = n.directive, u = n.ifArgument, t = !1;
-    return u.value.kind === "Variable" ? (t = r && r[u.value.name.value], v(t !== void 0, 69, a.name.value)) : t = u.value.value, a.name.value === "skip" ? !t : t;
-  });
-}
-function o(e, r, i) {
-  var n = new Set(e), a = n.size;
-  return l(r, {
-    Directive: function(u) {
-      if (n.delete(u.name.value) && (!i || !n.size))
-        return f;
-    }
-  }), i ? !n.size : n.size < a;
-}
-function h(e) {
-  return e && o(["client", "export"], e, !0);
-}
-function s(e) {
-  var r = e.name.value;
-  return r === "skip" || r === "include";
-}
-function m(e) {
-  var r = [];
-  return e && e.length && e.forEach(function(i) {
-    if (s(i)) {
-      var n = i.arguments, a = i.name.value;
-      v(n && n.length === 1, 70, a);
-      var u = n[0];
-      v(u.name && u.name.value === "if", 71, a);
-      var t = u.value;
-      v(t && (t.kind === "Variable" || t.kind === "BooleanValue"), 72, a), r.push({ directive: i, ifArgument: u });
-    }
-  }), r;
+import { __exports as r } from "./index.es151.js";
+import { __require as u } from "./index.es152.js";
+import { __require as f } from "./index.es153.js";
+var t;
+function c() {
+  if (t) return r;
+  t = 1;
+  var S = u(), e = f(), a = [
+    "HS256",
+    "HS384",
+    "HS512",
+    "RS256",
+    "RS384",
+    "RS512",
+    "PS256",
+    "PS384",
+    "PS512",
+    "ES256",
+    "ES384",
+    "ES512"
+  ];
+  return r.ALGORITHMS = a, r.sign = S.sign, r.verify = e.verify, r.decode = e.decode, r.isValid = e.isValid, r.createSign = function(i) {
+    return new S(i);
+  }, r.createVerify = function(i) {
+    return new e(i);
+  }, r;
 }
 export {
-  m as getInclusionDirectives,
-  h as hasClientExports,
-  o as hasDirectives,
-  p as shouldInclude
+  c as __require
 };
 //# sourceMappingURL=index.es72.js.map

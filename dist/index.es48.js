@@ -1,25 +1,13 @@
-import { __module as t } from "./index.es49.js";
-import { __require as s } from "./index.es44.js";
-var u = t.exports, m;
-function h() {
-  return m ? t.exports : (m = 1, function(d, l) {
-    (function(Y, e) {
-      d.exports = e(s());
-    })(u, function(Y) {
-      function e(_) {
-        return _ && typeof _ == "object" && "default" in _ ? _ : { default: _ };
-      }
-      var o = e(Y), i = { name: "zh-cn", weekdays: "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"), weekdaysShort: "周日_周一_周二_周三_周四_周五_周六".split("_"), weekdaysMin: "日_一_二_三_四_五_六".split("_"), months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"), monthsShort: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"), ordinal: function(_, n) {
-        return n === "W" ? _ + "周" : _ + "日";
-      }, weekStart: 1, yearStart: 4, formats: { LT: "HH:mm", LTS: "HH:mm:ss", L: "YYYY/MM/DD", LL: "YYYY年M月D日", LLL: "YYYY年M月D日Ah点mm分", LLLL: "YYYY年M月D日ddddAh点mm分", l: "YYYY/M/D", ll: "YYYY年M月D日", lll: "YYYY年M月D日 HH:mm", llll: "YYYY年M月D日dddd HH:mm" }, relativeTime: { future: "%s内", past: "%s前", s: "几秒", m: "1 分钟", mm: "%d 分钟", h: "1 小时", hh: "%d 小时", d: "1 天", dd: "%d 天", M: "1 个月", MM: "%d 个月", y: "1 年", yy: "%d 年" }, meridiem: function(_, n) {
-        var r = 100 * _ + n;
-        return r < 600 ? "凌晨" : r < 900 ? "早上" : r < 1100 ? "上午" : r < 1300 ? "中午" : r < 1800 ? "下午" : "晚上";
-      } };
-      return o.default.locale(i, null, !0), i;
-    });
-  }(t), t.exports);
+var o, n;
+function c() {
+  if (n) return o;
+  n = 1;
+  var r = function(e, t) {
+    Error.call(this, e), Error.captureStackTrace && Error.captureStackTrace(this, this.constructor), this.name = "JsonWebTokenError", this.message = e, t && (this.inner = t);
+  };
+  return r.prototype = Object.create(Error.prototype), r.prototype.constructor = r, o = r, o;
 }
 export {
-  h as __require
+  c as __require
 };
 //# sourceMappingURL=index.es48.js.map

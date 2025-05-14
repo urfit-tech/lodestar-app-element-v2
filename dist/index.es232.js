@@ -1,10 +1,12 @@
-const e = typeof window < "u" && typeof document < "u", o = typeof navigator == "object" && navigator || void 0, n = e && (!o || ["ReactNative", "NativeScript", "NS"].indexOf(o.product) < 0), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
-self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
+import { __require as c } from "./index.es222.js";
+var n, i;
+function q() {
+  if (i) return n;
+  i = 1;
+  const s = c();
+  return n = (e, r, t) => (e = new s(e, t), r = new s(r, t), e.intersects(r, t)), n;
+}
 export {
-  e as hasBrowserEnv,
-  n as hasStandardBrowserEnv,
-  t as hasStandardBrowserWebWorkerEnv,
-  o as navigator,
-  r as origin
+  q as __require
 };
 //# sourceMappingURL=index.es232.js.map

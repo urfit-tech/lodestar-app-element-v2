@@ -1,112 +1,33 @@
-import { invariant as J } from "./index.es70.js";
-import "./index.es71.js";
-import { hasOwn as N } from "./index.es188.js";
-import { isNonEmptyArray as h, isArray as l } from "./index.es85.js";
-import { argumentsObjectFromField as w } from "./index.es80.js";
-import { DeepMerger as C } from "./index.es87.js";
-import { isNonNullObject as I } from "./index.es60.js";
-var S = /* @__PURE__ */ Object.create(null);
-function v(r) {
-  var e = JSON.stringify(r);
-  return S[e] || (S[e] = /* @__PURE__ */ Object.create(null));
-}
-function G(r) {
-  var e = v(r);
-  return e.keyFieldsFn || (e.keyFieldsFn = function(f, n) {
-    var i = function(t, u) {
-      return n.readField(u, t);
-    }, o = n.keyObject = m(r, function(t) {
-      var u = c(
-        n.storeObject,
-        t,
-        // Using context.readField to extract paths from context.storeObject
-        // allows the extraction to see through Reference objects and respect
-        // custom read functions.
-        i
-      );
-      return u === void 0 && f !== n.storeObject && N.call(f, t[0]) && (u = c(f, t, b)), J(u !== void 0, 4, t.join("."), f), u;
-    });
-    return "".concat(n.typename, ":").concat(JSON.stringify(o));
-  });
-}
-function H(r) {
-  var e = v(r);
-  return e.keyArgsFn || (e.keyArgsFn = function(f, n) {
-    var i = n.field, o = n.variables, t = n.fieldName, u = m(r, function(a) {
-      var s = a[0], d = s.charAt(0);
-      if (d === "@") {
-        if (i && h(i.directives)) {
-          var A = s.slice(1), F = i.directives.find(function(E) {
-            return E.name.value === A;
-          }), O = F && w(F, o);
-          return O && c(
-            O,
-            // If keyPath.length === 1, this code calls extractKeyPath with an
-            // empty path, which works because it uses directiveArgs as the
-            // extracted value.
-            a.slice(1)
-          );
-        }
-        return;
-      }
-      if (d === "$") {
-        var g = s.slice(1);
-        if (o && N.call(o, g)) {
-          var y = a.slice(0);
-          return y[0] = g, c(o, y);
-        }
-        return;
-      }
-      if (f)
-        return c(f, a);
-    }), p = JSON.stringify(u);
-    return (f || p !== "{}") && (t += ":" + p), t;
-  });
-}
-function m(r, e) {
-  var f = new C();
-  return k(r).reduce(function(n, i) {
-    var o, t = e(i);
-    if (t !== void 0) {
-      for (var u = i.length - 1; u >= 0; --u)
-        t = (o = {}, o[i[u]] = t, o);
-      n = f.merge(n, t);
-    }
-    return n;
-  }, /* @__PURE__ */ Object.create(null));
-}
-function k(r) {
-  var e = v(r);
-  if (!e.paths) {
-    var f = e.paths = [], n = [];
-    r.forEach(function(i, o) {
-      l(i) ? (k(i).forEach(function(t) {
-        return f.push(n.concat(t));
-      }), n.length = 0) : (n.push(i), l(r[o + 1]) || (f.push(n.slice(0)), n.length = 0));
-    });
-  }
-  return e.paths;
-}
-function b(r, e) {
-  return r[e];
-}
-function c(r, e, f) {
-  return f = f || b, j(e.reduce(function n(i, o) {
-    return l(i) ? i.map(function(t) {
-      return n(t, o);
-    }) : i && f(i, o);
-  }, r));
-}
-function j(r) {
-  return I(r) ? l(r) ? r.map(j) : m(Object.keys(r).sort(), function(e) {
-    return c(r, e);
-  }) : r;
+import { __module as T } from "./index.es292.js";
+import { __require as X } from "./index.es195.js";
+import { __require as c } from "./index.es293.js";
+var D;
+function f() {
+  return D ? T.exports : (D = 1, function(C, N) {
+    const {
+      MAX_SAFE_COMPONENT_LENGTH: e,
+      MAX_SAFE_BUILD_LENGTH: r,
+      MAX_LENGTH: P
+    } = X(), F = c();
+    N = C.exports = {};
+    const t = N.re = [], G = N.safeRe = [], E = N.src = [], n = N.safeSrc = [], I = N.t = {};
+    let U = 0;
+    const S = "[a-zA-Z0-9-]", M = [
+      ["\\s", 1],
+      ["\\d", P],
+      [S, r]
+    ], o = (O) => {
+      for (const [L, A] of M)
+        O = O.split(`${L}*`).join(`${L}{0,${A}}`).split(`${L}+`).join(`${L}{1,${A}}`);
+      return O;
+    }, R = (O, L, A) => {
+      const s = o(L), $ = U++;
+      F(O, $, L), I[O] = $, E[$] = L, n[$] = s, t[$] = new RegExp(L, A ? "g" : void 0), G[$] = new RegExp(s, A ? "g" : void 0);
+    };
+    R("NUMERICIDENTIFIER", "0|[1-9]\\d*"), R("NUMERICIDENTIFIERLOOSE", "\\d+"), R("NONNUMERICIDENTIFIER", `\\d*[a-zA-Z-]${S}*`), R("MAINVERSION", `(${E[I.NUMERICIDENTIFIER]})\\.(${E[I.NUMERICIDENTIFIER]})\\.(${E[I.NUMERICIDENTIFIER]})`), R("MAINVERSIONLOOSE", `(${E[I.NUMERICIDENTIFIERLOOSE]})\\.(${E[I.NUMERICIDENTIFIERLOOSE]})\\.(${E[I.NUMERICIDENTIFIERLOOSE]})`), R("PRERELEASEIDENTIFIER", `(?:${E[I.NUMERICIDENTIFIER]}|${E[I.NONNUMERICIDENTIFIER]})`), R("PRERELEASEIDENTIFIERLOOSE", `(?:${E[I.NUMERICIDENTIFIERLOOSE]}|${E[I.NONNUMERICIDENTIFIER]})`), R("PRERELEASE", `(?:-(${E[I.PRERELEASEIDENTIFIER]}(?:\\.${E[I.PRERELEASEIDENTIFIER]})*))`), R("PRERELEASELOOSE", `(?:-?(${E[I.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${E[I.PRERELEASEIDENTIFIERLOOSE]})*))`), R("BUILDIDENTIFIER", `${S}+`), R("BUILD", `(?:\\+(${E[I.BUILDIDENTIFIER]}(?:\\.${E[I.BUILDIDENTIFIER]})*))`), R("FULLPLAIN", `v?${E[I.MAINVERSION]}${E[I.PRERELEASE]}?${E[I.BUILD]}?`), R("FULL", `^${E[I.FULLPLAIN]}$`), R("LOOSEPLAIN", `[v=\\s]*${E[I.MAINVERSIONLOOSE]}${E[I.PRERELEASELOOSE]}?${E[I.BUILD]}?`), R("LOOSE", `^${E[I.LOOSEPLAIN]}$`), R("GTLT", "((?:<|>)?=?)"), R("XRANGEIDENTIFIERLOOSE", `${E[I.NUMERICIDENTIFIERLOOSE]}|x|X|\\*`), R("XRANGEIDENTIFIER", `${E[I.NUMERICIDENTIFIER]}|x|X|\\*`), R("XRANGEPLAIN", `[v=\\s]*(${E[I.XRANGEIDENTIFIER]})(?:\\.(${E[I.XRANGEIDENTIFIER]})(?:\\.(${E[I.XRANGEIDENTIFIER]})(?:${E[I.PRERELEASE]})?${E[I.BUILD]}?)?)?`), R("XRANGEPLAINLOOSE", `[v=\\s]*(${E[I.XRANGEIDENTIFIERLOOSE]})(?:\\.(${E[I.XRANGEIDENTIFIERLOOSE]})(?:\\.(${E[I.XRANGEIDENTIFIERLOOSE]})(?:${E[I.PRERELEASELOOSE]})?${E[I.BUILD]}?)?)?`), R("XRANGE", `^${E[I.GTLT]}\\s*${E[I.XRANGEPLAIN]}$`), R("XRANGELOOSE", `^${E[I.GTLT]}\\s*${E[I.XRANGEPLAINLOOSE]}$`), R("COERCEPLAIN", `(^|[^\\d])(\\d{1,${e}})(?:\\.(\\d{1,${e}}))?(?:\\.(\\d{1,${e}}))?`), R("COERCE", `${E[I.COERCEPLAIN]}(?:$|[^\\d])`), R("COERCEFULL", E[I.COERCEPLAIN] + `(?:${E[I.PRERELEASE]})?(?:${E[I.BUILD]})?(?:$|[^\\d])`), R("COERCERTL", E[I.COERCE], !0), R("COERCERTLFULL", E[I.COERCEFULL], !0), R("LONETILDE", "(?:~>?)"), R("TILDETRIM", `(\\s*)${E[I.LONETILDE]}\\s+`, !0), N.tildeTrimReplace = "$1~", R("TILDE", `^${E[I.LONETILDE]}${E[I.XRANGEPLAIN]}$`), R("TILDELOOSE", `^${E[I.LONETILDE]}${E[I.XRANGEPLAINLOOSE]}$`), R("LONECARET", "(?:\\^)"), R("CARETTRIM", `(\\s*)${E[I.LONECARET]}\\s+`, !0), N.caretTrimReplace = "$1^", R("CARET", `^${E[I.LONECARET]}${E[I.XRANGEPLAIN]}$`), R("CARETLOOSE", `^${E[I.LONECARET]}${E[I.XRANGEPLAINLOOSE]}$`), R("COMPARATORLOOSE", `^${E[I.GTLT]}\\s*(${E[I.LOOSEPLAIN]})$|^$`), R("COMPARATOR", `^${E[I.GTLT]}\\s*(${E[I.FULLPLAIN]})$|^$`), R("COMPARATORTRIM", `(\\s*)${E[I.GTLT]}\\s*(${E[I.LOOSEPLAIN]}|${E[I.XRANGEPLAIN]})`, !0), N.comparatorTrimReplace = "$1$2$3", R("HYPHENRANGE", `^\\s*(${E[I.XRANGEPLAIN]})\\s+-\\s+(${E[I.XRANGEPLAIN]})\\s*$`), R("HYPHENRANGELOOSE", `^\\s*(${E[I.XRANGEPLAINLOOSE]})\\s+-\\s+(${E[I.XRANGEPLAINLOOSE]})\\s*$`), R("STAR", "(<|>)?=?\\s*\\*"), R("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$"), R("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
+  }(T, T.exports), T.exports);
 }
 export {
-  m as collectSpecifierPaths,
-  c as extractKeyPath,
-  k as getSpecifierPaths,
-  H as keyArgsFnFromSpecifier,
-  G as keyFieldsFnFromSpecifier
+  f as __require
 };
 //# sourceMappingURL=index.es194.js.map

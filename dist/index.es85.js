@@ -1,9 +1,9 @@
-var y = Array.isArray;
-function a(r) {
-  return Array.isArray(r) && r.length > 0;
+function u(n, r) {
+  return function() {
+    return n.apply(r, arguments);
+  };
 }
 export {
-  y as isArray,
-  a as isNonEmptyArray
+  u as default
 };
 //# sourceMappingURL=index.es85.js.map

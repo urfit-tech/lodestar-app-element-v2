@@ -1,29 +1,16 @@
-var E, _;
-function A() {
-  if (_) return E;
-  _ = 1;
-  const n = "2.0.0", r = 256, t = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
-  9007199254740991, e = 16, o = r - 6;
-  return E = {
-    MAX_LENGTH: r,
-    MAX_SAFE_COMPONENT_LENGTH: e,
-    MAX_SAFE_BUILD_LENGTH: o,
-    MAX_SAFE_INTEGER: t,
-    RELEASE_TYPES: [
-      "major",
-      "premajor",
-      "minor",
-      "preminor",
-      "patch",
-      "prepatch",
-      "prerelease"
-    ],
-    SEMVER_SPEC_VERSION: n,
-    FLAG_INCLUDE_PRERELEASE: 1,
-    FLAG_LOOSE: 2
-  }, E;
-}
+import { newInvariantError as n } from "./index.es117.js";
+import "./index.es118.js";
+var s = function(a, i) {
+  var r;
+  try {
+    r = JSON.stringify(a);
+  } catch (t) {
+    var e = n(39, i, t.message);
+    throw e.parseError = t, e;
+  }
+  return r;
+};
 export {
-  A as __require
+  s as serializeFetchParameter
 };
 //# sourceMappingURL=index.es259.js.map

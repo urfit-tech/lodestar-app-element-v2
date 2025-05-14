@@ -1,72 +1,25 @@
-import { invariant as l, newInvariantError as h } from "./index.es70.js";
-import "./index.es71.js";
-import { Observable as i } from "./index.es56.js";
-import "./index.es57.js";
-import { createOperation as q } from "./index.es142.js";
-import { transformOperation as w } from "./index.es143.js";
-import { validateOperation as g } from "./index.es144.js";
-function m(t, r) {
-  return r ? r(t) : i.of();
+import { __module as r } from "./index.es56.js";
+import { __require as s } from "./index.es53.js";
+var u = r.exports, n;
+function p() {
+  return n ? r.exports : (n = 1, function(d, l) {
+    (function(i, t) {
+      d.exports = t(s());
+    })(u, function(i) {
+      function t(_) {
+        return _ && typeof _ == "object" && "default" in _ ? _ : { default: _ };
+      }
+      var o = t(i), m = { name: "zh-tw", weekdays: "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"), weekdaysShort: "週日_週一_週二_週三_週四_週五_週六".split("_"), weekdaysMin: "日_一_二_三_四_五_六".split("_"), months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"), monthsShort: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"), ordinal: function(_, Y) {
+        return Y === "W" ? _ + "週" : _ + "日";
+      }, formats: { LT: "HH:mm", LTS: "HH:mm:ss", L: "YYYY/MM/DD", LL: "YYYY年M月D日", LLL: "YYYY年M月D日 HH:mm", LLLL: "YYYY年M月D日dddd HH:mm", l: "YYYY/M/D", ll: "YYYY年M月D日", lll: "YYYY年M月D日 HH:mm", llll: "YYYY年M月D日dddd HH:mm" }, relativeTime: { future: "%s內", past: "%s前", s: "幾秒", m: "1 分鐘", mm: "%d 分鐘", h: "1 小時", hh: "%d 小時", d: "1 天", dd: "%d 天", M: "1 個月", MM: "%d 個月", y: "1 年", yy: "%d 年" }, meridiem: function(_, Y) {
+        var e = 100 * _ + Y;
+        return e < 600 ? "凌晨" : e < 900 ? "早上" : e < 1100 ? "上午" : e < 1300 ? "中午" : e < 1800 ? "下午" : "晚上";
+      } };
+      return o.default.locale(m, null, !0), m;
+    });
+  }(r), r.exports);
 }
-function s(t) {
-  return typeof t == "function" ? new v(t) : t;
-}
-function a(t) {
-  return t.request.length <= 1;
-}
-var v = (
-  /** @class */
-  function() {
-    function t(r) {
-      r && (this.request = r);
-    }
-    return t.empty = function() {
-      return new t(function() {
-        return i.of();
-      });
-    }, t.from = function(r) {
-      return r.length === 0 ? t.empty() : r.map(s).reduce(function(n, e) {
-        return n.concat(e);
-      });
-    }, t.split = function(r, n, e) {
-      var u = s(n), f = s(e || new t(m)), c;
-      return a(u) && a(f) ? c = new t(function(o) {
-        return r(o) ? u.request(o) || i.of() : f.request(o) || i.of();
-      }) : c = new t(function(o, p) {
-        return r(o) ? u.request(o, p) || i.of() : f.request(o, p) || i.of();
-      }), Object.assign(c, { left: u, right: f });
-    }, t.execute = function(r, n) {
-      return r.request(q(n.context, w(g(n)))) || i.of();
-    }, t.concat = function(r, n) {
-      var e = s(r);
-      if (a(e))
-        return globalThis.__DEV__ !== !1 && l.warn(35, e), e;
-      var u = s(n), f;
-      return a(u) ? f = new t(function(c) {
-        return e.request(c, function(o) {
-          return u.request(o) || i.of();
-        }) || i.of();
-      }) : f = new t(function(c, o) {
-        return e.request(c, function(p) {
-          return u.request(p, o) || i.of();
-        }) || i.of();
-      }), Object.assign(f, { left: e, right: u });
-    }, t.prototype.split = function(r, n, e) {
-      return this.concat(t.split(r, n, e || new t(m)));
-    }, t.prototype.concat = function(r) {
-      return t.concat(this, r);
-    }, t.prototype.request = function(r, n) {
-      throw h(36);
-    }, t.prototype.onError = function(r, n) {
-      if (n && n.error)
-        return n.error(r), !1;
-      throw r;
-    }, t.prototype.setOnError = function(r) {
-      return this.onError = r, this;
-    }, t;
-  }()
-);
 export {
-  v as ApolloLink
+  p as __require
 };
 //# sourceMappingURL=index.es55.js.map

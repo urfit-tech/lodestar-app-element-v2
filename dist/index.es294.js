@@ -1,12 +1,11 @@
-import { __require as s } from "./index.es293.js";
-var r, e;
-function q() {
-  if (e) return r;
-  e = 1;
-  const t = s();
-  return r = (i, u, o) => t(i, u, ">", o), r;
+var r, t;
+function i() {
+  if (t) return r;
+  t = 1;
+  const s = Object.freeze({ loose: !0 }), n = Object.freeze({});
+  return r = (e) => e ? typeof e != "object" ? s : e : n, r;
 }
 export {
-  q as __require
+  i as __require
 };
 //# sourceMappingURL=index.es294.js.map

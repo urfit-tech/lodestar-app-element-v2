@@ -1,16 +1,15 @@
-import { newInvariantError as n } from "./index.es70.js";
-import "./index.es71.js";
-var s = function(a, i) {
-  var r;
-  try {
-    r = JSON.stringify(a);
-  } catch (t) {
-    var e = n(39, i, t.message);
-    throw e.parseError = t, e;
-  }
-  return r;
-};
+import { __require as t } from "./index.es198.js";
+var r, n;
+function l() {
+  if (n) return r;
+  n = 1;
+  const a = t();
+  return r = (i, s) => {
+    const e = a(i.trim().replace(/^[=v]+/, ""), s);
+    return e ? e.version : null;
+  }, r;
+}
 export {
-  s as serializeFetchParameter
+  l as __require
 };
 //# sourceMappingURL=index.es200.js.map

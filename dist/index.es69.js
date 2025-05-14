@@ -1,7 +1,7 @@
-function r(t, e) {
-  return Object.prototype.hasOwnProperty.call(e, t);
+function e(t) {
+  return t !== null && typeof t == "object";
 }
 export {
-  r as default
+  e as isNonNullObject
 };
 //# sourceMappingURL=index.es69.js.map

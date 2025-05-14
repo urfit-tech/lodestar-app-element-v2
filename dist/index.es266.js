@@ -1,25 +1,16 @@
-import { __require as h } from "./index.es262.js";
-var o, u;
-function v() {
-  if (u) return o;
-  u = 1;
-  const t = h();
-  return o = (p, m) => {
-    const r = t(p, null, !0), e = t(m, null, !0), a = r.compare(e);
-    if (a === 0)
-      return null;
-    const s = a > 0, f = s ? r : e, n = s ? e : r, c = !!f.prerelease.length;
-    if (!!n.prerelease.length && !c) {
-      if (!n.patch && !n.minor)
-        return "major";
-      if (n.compareMain(f) === 0)
-        return n.minor && !n.patch ? "minor" : "patch";
+import { __assign as o } from "./index.es63.js";
+import { visit as f } from "graphql";
+function m(i, a) {
+  var t = o({}, i), n = new Set(Object.keys(i));
+  return f(a, {
+    Variable: function(e, u, r) {
+      r && r.kind !== "VariableDefinition" && n.delete(e.name.value);
     }
-    const i = c ? "pre" : "";
-    return r.major !== e.major ? i + "major" : r.minor !== e.minor ? i + "minor" : r.patch !== e.patch ? i + "patch" : "prerelease";
-  }, o;
+  }), n.forEach(function(e) {
+    delete t[e];
+  }), t;
 }
 export {
-  v as __require
+  m as filterOperationVariables
 };
 //# sourceMappingURL=index.es266.js.map

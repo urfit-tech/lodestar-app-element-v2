@@ -1,10 +1,9 @@
-function a(t) {
-  try {
-    return t();
-  } catch {
-  }
+function u(n) {
+  return function(r) {
+    return n.apply(null, r);
+  };
 }
 export {
-  a as maybe
+  u as default
 };
 //# sourceMappingURL=index.es96.js.map

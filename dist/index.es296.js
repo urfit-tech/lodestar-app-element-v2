@@ -1,12 +1,14 @@
-import { __require as c } from "./index.es286.js";
-var n, i;
-function q() {
-  if (i) return n;
-  i = 1;
-  const s = c();
-  return n = (e, r, t) => (e = new s(e, t), r = new s(r, t), e.intersects(r, t)), n;
+const { hasOwnProperty: t } = Object.prototype, c = Array.from || function(r) {
+  const o = [];
+  return r.forEach((n) => o.push(n)), o;
+};
+function s(r) {
+  const { unsubscribe: o } = r;
+  typeof o == "function" && (r.unsubscribe = void 0, o());
 }
 export {
-  q as __require
+  c as arrayFromSet,
+  t as hasOwnProperty,
+  s as maybeUnsubscribe
 };
 //# sourceMappingURL=index.es296.js.map

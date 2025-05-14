@@ -1,4 +1,4 @@
-import { ApolloLink as o } from "./index.es55.js";
+import { ApolloLink as o } from "./index.es64.js";
 var m = o.from;
 export {
   m as from

@@ -1,36 +1,39 @@
-import i from "./index.es303.js";
-import m from "./index.es304.js";
-import f from "./index.es113.js";
-const h = (t, o, a = 3) => {
-  let r = 0;
-  const c = i(50, 250);
-  return m((s) => {
-    const n = s.loaded, e = s.lengthComputable ? s.total : void 0, l = n - r, d = c(l), p = n <= e;
-    r = n;
-    const u = {
-      loaded: n,
-      total: e,
-      progress: e ? n / e : void 0,
-      bytes: l,
-      rate: d || void 0,
-      estimated: d && e && p ? (e - n) / d : void 0,
-      event: s,
-      lengthComputable: e != null,
-      [o ? "download" : "upload"]: !0
+import { __module as a } from "./index.es297.js";
+import { __require as s } from "./index.es298.js";
+/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
+var l;
+function w() {
+  return l ? a.exports : (l = 1, function(p, i) {
+    var n = s(), e = n.Buffer;
+    function m(r, f) {
+      for (var u in r)
+        f[u] = r[u];
+    }
+    e.from && e.alloc && e.allocUnsafe && e.allocUnsafeSlow ? p.exports = n : (m(n, i), i.Buffer = o);
+    function o(r, f, u) {
+      return e(r, f, u);
+    }
+    o.prototype = Object.create(e.prototype), m(e, o), o.from = function(r, f, u) {
+      if (typeof r == "number")
+        throw new TypeError("Argument must not be a number");
+      return e(r, f, u);
+    }, o.alloc = function(r, f, u) {
+      if (typeof r != "number")
+        throw new TypeError("Argument must be a number");
+      var t = e(r);
+      return f !== void 0 ? typeof u == "string" ? t.fill(f, u) : t.fill(f) : t.fill(0), t;
+    }, o.allocUnsafe = function(r) {
+      if (typeof r != "number")
+        throw new TypeError("Argument must be a number");
+      return e(r);
+    }, o.allocUnsafeSlow = function(r) {
+      if (typeof r != "number")
+        throw new TypeError("Argument must be a number");
+      return n.SlowBuffer(r);
     };
-    t(u);
-  }, a);
-}, v = (t, o) => {
-  const a = t != null;
-  return [(r) => o[0]({
-    lengthComputable: a,
-    total: t,
-    loaded: r
-  }), o[1]];
-}, C = (t) => (...o) => f.asap(() => t(...o));
+  }(a, a.exports), a.exports);
+}
 export {
-  C as asyncDecorator,
-  v as progressEventDecorator,
-  h as progressEventReducer
+  w as __require
 };
 //# sourceMappingURL=index.es235.js.map

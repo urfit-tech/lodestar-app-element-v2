@@ -1,9 +1,12 @@
-import { getDefaultExportFromCjs as r } from "./index.es63.js";
-import { __require as e } from "./index.es244.js";
-var t = e();
-const s = /* @__PURE__ */ r(t);
+import { __require as n } from "./index.es196.js";
+var r, m;
+function c() {
+  if (m) return r;
+  m = 1;
+  const e = n();
+  return r = (o, i, a) => new e(o, a).compare(new e(i, a)), r;
+}
 export {
-  s as default,
-  t as r
+  c as __require
 };
 //# sourceMappingURL=index.es207.js.map

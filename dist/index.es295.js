@@ -1,12 +1,33 @@
-import { __require as s } from "./index.es293.js";
-var r, e;
-function q() {
-  if (e) return r;
-  e = 1;
-  const t = s();
-  return r = (i, u, o) => t(i, u, "<", o), r;
+var s, i;
+function u() {
+  if (i) return s;
+  i = 1;
+  class r {
+    constructor() {
+      this.max = 1e3, this.map = /* @__PURE__ */ new Map();
+    }
+    get(e) {
+      const t = this.map.get(e);
+      if (t !== void 0)
+        return this.map.delete(e), this.map.set(e, t), t;
+    }
+    delete(e) {
+      return this.map.delete(e);
+    }
+    set(e, t) {
+      if (!this.delete(e) && t !== void 0) {
+        if (this.map.size >= this.max) {
+          const a = this.map.keys().next().value;
+          this.delete(a);
+        }
+        this.map.set(e, t);
+      }
+      return this;
+    }
+  }
+  return s = r, s;
 }
 export {
-  q as __require
+  u as __require
 };
 //# sourceMappingURL=index.es295.js.map

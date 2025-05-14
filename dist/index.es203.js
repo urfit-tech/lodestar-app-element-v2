@@ -1,8 +1,12 @@
-var u = function(t, e) {
-  var n = t.getContext(), r = n.uri;
-  return r || (typeof e == "function" ? e(t) : e || "/graphql");
-};
+import { __require as m } from "./index.es196.js";
+var r, e;
+function t() {
+  if (e) return r;
+  e = 1;
+  const o = m();
+  return r = (a, i) => new o(a, i).major, r;
+}
 export {
-  u as selectURI
+  t as __require
 };
 //# sourceMappingURL=index.es203.js.map

@@ -1,20 +1,9 @@
-import { newInvariantError as a } from "./index.es70.js";
-import "./index.es71.js";
-function f(e) {
-  for (var o = [
-    "query",
-    "operationName",
-    "variables",
-    "extensions",
-    "context"
-  ], r = 0, t = Object.keys(e); r < t.length; r++) {
-    var n = t[r];
-    if (o.indexOf(n) < 0)
-      throw a(43, n);
-  }
-  return e;
+var a = /* @__PURE__ */ new Map();
+function c(t) {
+  var n = a.get(t) || 1;
+  return a.set(t, n + 1), "".concat(t, ":").concat(n, ":").concat(Math.random().toString(36).slice(2));
 }
 export {
-  f as validateOperation
+  c as makeUniqueId
 };
 //# sourceMappingURL=index.es144.js.map

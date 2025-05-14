@@ -1,10 +1,29 @@
-const i = [];
-for (let n = 0; n < 256; ++n)
-  i.push((n + 256).toString(16).slice(1));
-function c(n, u = 0) {
-  return (i[n[u + 0]] + i[n[u + 1]] + i[n[u + 2]] + i[n[u + 3]] + "-" + i[n[u + 4]] + i[n[u + 5]] + "-" + i[n[u + 6]] + i[n[u + 7]] + "-" + i[n[u + 8]] + i[n[u + 9]] + "-" + i[n[u + 10]] + i[n[u + 11]] + i[n[u + 12]] + i[n[u + 13]] + i[n[u + 14]] + i[n[u + 15]]).toLowerCase();
+var u = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+function f(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+}
+function l(e) {
+  if (Object.prototype.hasOwnProperty.call(e, "__esModule")) return e;
+  var r = e.default;
+  if (typeof r == "function") {
+    var t = function o() {
+      return this instanceof o ? Reflect.construct(r, arguments, this.constructor) : r.apply(this, arguments);
+    };
+    t.prototype = r.prototype;
+  } else t = {};
+  return Object.defineProperty(t, "__esModule", { value: !0 }), Object.keys(e).forEach(function(o) {
+    var n = Object.getOwnPropertyDescriptor(e, o);
+    Object.defineProperty(t, o, n.get ? n : {
+      enumerable: !0,
+      get: function() {
+        return e[o];
+      }
+    });
+  }), t;
 }
 export {
-  c as unsafeStringify
+  u as commonjsGlobal,
+  l as getAugmentedNamespace,
+  f as getDefaultExportFromCjs
 };
 //# sourceMappingURL=index.es101.js.map

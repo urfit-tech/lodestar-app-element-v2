@@ -1,14 +1,15 @@
-import { getOperationName as a } from "./index.es36.js";
-function t(r) {
-  var e = {
-    variables: r.variables || {},
-    extensions: r.extensions || {},
-    operationName: r.operationName,
-    query: r.query
-  };
-  return e.operationName || (e.operationName = typeof e.query != "string" ? a(e.query) || void 0 : ""), e;
+function u() {
+  for (var e = [], r = 0; r < arguments.length; r++)
+    e[r] = arguments[r];
+  var n = /* @__PURE__ */ Object.create(null);
+  return e.forEach(function(t) {
+    t && Object.keys(t).forEach(function(a) {
+      var c = t[a];
+      c !== void 0 && (n[a] = c);
+    });
+  }), n;
 }
 export {
-  t as transformOperation
+  u as compact
 };
 //# sourceMappingURL=index.es143.js.map

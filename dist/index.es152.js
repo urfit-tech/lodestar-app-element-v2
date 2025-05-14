@@ -1,47 +1,49 @@
-import { __require as d } from "./index.es221.js";
-import { __require as E } from "./index.es222.js";
-var i, c;
-function A() {
-  if (c) return i;
-  c = 1;
-  const m = d(), u = E(), l = {
-    ec: ["ES256", "ES384", "ES512"],
-    rsa: ["RS256", "PS256", "RS384", "PS384", "RS512", "PS512"],
-    "rsa-pss": ["PS256", "PS384", "PS512"]
-  }, p = {
-    ES256: "prime256v1",
-    ES384: "secp384r1",
-    ES512: "secp521r1"
-  };
-  return i = function(e, t) {
-    if (!e || !t) return;
-    const r = t.asymmetricKeyType;
-    if (!r) return;
-    const s = l[r];
-    if (!s)
-      throw new Error(`Unknown key type "${r}".`);
-    if (!s.includes(e))
-      throw new Error(`"alg" parameter for "${r}" key type must be one of: ${s.join(", ")}.`);
-    if (m)
-      switch (r) {
-        case "ec":
-          const y = t.asymmetricKeyDetails.namedCurve, o = p[e];
-          if (y !== o)
-            throw new Error(`"alg" parameter "${e}" requires curve "${o}".`);
-          break;
-        case "rsa-pss":
-          if (u) {
-            const a = parseInt(e.slice(-3), 10), { hashAlgorithm: n, mgf1HashAlgorithm: f, saltLength: S } = t.asymmetricKeyDetails;
-            if (n !== `sha${a}` || f !== n)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameters do not meet the requirements of "alg" ${e}.`);
-            if (S !== void 0 && S > a >> 3)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameter saltLength does not meet the requirements of "alg" ${e}.`);
-          }
-          break;
-      }
-  }, i;
+import { __require as b } from "./index.es235.js";
+import { __require as q } from "./index.es236.js";
+import { __require as _ } from "./index.es237.js";
+import w from "./index.es76.js";
+import { __require as K } from "./index.es238.js";
+import { __require as j } from "./index.es239.js";
+var o, l;
+function H() {
+  if (l) return o;
+  l = 1;
+  var m = b().Buffer, u = q(), v = _(), g = w, d = K(), t = j();
+  function h(e, r) {
+    return m.from(e, r).toString("base64").replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+  }
+  function y(e, r, a) {
+    a = a || "utf8";
+    var s = h(d(e), "binary"), n = h(d(r), a);
+    return t.format("%s.%s", s, n);
+  }
+  function c(e) {
+    var r = e.header, a = e.payload, s = e.secret || e.privateKey, n = e.encoding, p = v(r.alg), f = y(r, a, n), S = p.sign(f, s);
+    return t.format("%s.%s", f, S);
+  }
+  function i(e) {
+    var r = e.secret || e.privateKey || e.key, a = new u(r);
+    this.readable = !0, this.header = e.header, this.encoding = e.encoding, this.secret = this.privateKey = this.key = a, this.payload = new u(e.payload), this.secret.once("close", function() {
+      !this.payload.writable && this.readable && this.sign();
+    }.bind(this)), this.payload.once("close", function() {
+      !this.secret.writable && this.readable && this.sign();
+    }.bind(this));
+  }
+  return t.inherits(i, g), i.prototype.sign = function() {
+    try {
+      var r = c({
+        header: this.header,
+        payload: this.payload.buffer,
+        secret: this.secret.buffer,
+        encoding: this.encoding
+      });
+      return this.emit("done", r), this.emit("data", r), this.emit("end"), this.readable = !1, r;
+    } catch (a) {
+      this.readable = !1, this.emit("error", a), this.emit("close");
+    }
+  }, i.sign = c, o = i, o;
 }
 export {
-  A as __require
+  H as __require
 };
 //# sourceMappingURL=index.es152.js.map

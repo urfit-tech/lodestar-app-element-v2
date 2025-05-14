@@ -1,20 +1,23 @@
-function y(t, n) {
-  t = t || 10;
-  const c = new Array(t), o = new Array(t);
-  let e = 0, r = 0, i;
-  return n = n !== void 0 ? n : 1e3, function(h) {
-    const d = Date.now(), a = o[r];
-    i || (i = d), c[e] = h, o[e] = d;
-    let f = r, u = 0;
-    for (; f !== e; )
-      u += c[f++], f = f % t;
-    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
-      return;
-    const w = a && d - a;
-    return w ? Math.round(u * 1e3 / w) : void 0;
-  };
+import { __module as t } from "./index.es325.js";
+var n;
+function s() {
+  return n ? t.exports : (n = 1, typeof Object.create == "function" ? t.exports = function(e, r) {
+    e.super_ = r, e.prototype = Object.create(r.prototype, {
+      constructor: {
+        value: e,
+        enumerable: !1,
+        writable: !0,
+        configurable: !0
+      }
+    });
+  } : t.exports = function(e, r) {
+    e.super_ = r;
+    var o = function() {
+    };
+    o.prototype = r.prototype, e.prototype = new o(), e.prototype.constructor = e;
+  }, t.exports);
 }
 export {
-  y as default
+  s as __require
 };
 //# sourceMappingURL=index.es303.js.map

@@ -1,12 +1,16 @@
-import { __require as a } from "./index.es274.js";
-var r, e;
-function _() {
-  if (e) return r;
-  e = 1;
-  const o = a();
-  return r = (t, s) => t.sort((i, u) => o(u, i, s)), r;
-}
+import o from "./index.es313.js";
+import r from "./index.es314.js";
+import t from "./index.es315.js";
+const l = {
+  isBrowser: !0,
+  classes: {
+    URLSearchParams: o,
+    FormData: r,
+    Blob: t
+  },
+  protocols: ["http", "https", "file", "blob", "url", "data"]
+};
 export {
-  _ as __require
+  l as default
 };
 //# sourceMappingURL=index.es276.js.map

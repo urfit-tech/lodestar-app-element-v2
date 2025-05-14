@@ -1,9 +1,15 @@
-var w = Symbol.for("apollo.hook.wrappers");
-function l(o, r, n) {
-  var a = n.queryManager, p = a && a[w], e = p && p[o];
-  return e ? e(r) : r;
+import { __require as c } from "./index.es196.js";
+var r, n;
+function s() {
+  if (n) return r;
+  n = 1;
+  const e = c();
+  return r = (a, m, i) => {
+    const o = new e(a, i), u = new e(m, i);
+    return o.compare(u) || o.compareBuild(u);
+  }, r;
 }
 export {
-  l as wrapHook
+  s as __require
 };
 //# sourceMappingURL=index.es210.js.map

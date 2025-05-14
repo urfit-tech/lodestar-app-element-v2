@@ -1,174 +1,95 @@
-import i from "./index.es113.js";
-import S from "./index.es178.js";
-const h = Symbol("internals");
-function l(r) {
-  return r && String(r).trim().toLowerCase();
+import { __assign as c, __spreadArray as i } from "./index.es63.js";
+import { cacheSizes as g } from "./index.es123.js";
+var t = {};
+function M(e, r) {
+  t[e] = r;
 }
-function p(r) {
-  return r === !1 || r == null ? r : i.isArray(r) ? r.map(p) : String(r);
+var b = globalThis.__DEV__ !== !1 ? h : void 0, I = globalThis.__DEV__ !== !1 ? v : void 0, C = globalThis.__DEV__ !== !1 ? d : void 0;
+function y() {
+  var e = {
+    parser: 1e3,
+    canonicalStringify: 1e3,
+    print: 2e3,
+    "documentTransform.cache": 2e3,
+    "queryManager.getDocumentInfo": 2e3,
+    "PersistedQueryLink.persistedQueryHashes": 2e3,
+    "fragmentRegistry.transform": 2e3,
+    "fragmentRegistry.lookup": 1e3,
+    "fragmentRegistry.findFragmentSpreads": 4e3,
+    "cache.fragmentQueryDocuments": 1e3,
+    "removeTypenameFromVariables.getVariableDefinitions": 2e3,
+    "inMemoryCache.maybeBroadcastWatch": 5e3,
+    "inMemoryCache.executeSelectionSet": 5e4,
+    "inMemoryCache.executeSubSelectedArray": 1e4
+  };
+  return Object.fromEntries(Object.entries(e).map(function(r) {
+    var a = r[0], o = r[1];
+    return [
+      a,
+      g[a] || o
+    ];
+  }));
 }
-function d(r) {
-  const t = /* @__PURE__ */ Object.create(null), n = /([^\s,;=]+)\s*(?:=\s*([^,;]+))?/g;
-  let s;
-  for (; s = n.exec(r); )
-    t[s[1]] = s[2];
-  return t;
-}
-const A = (r) => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(r.trim());
-function g(r, t, n, s, e) {
-  if (i.isFunction(s))
-    return s.call(this, t, n);
-  if (e && (t = n), !!i.isString(t)) {
-    if (i.isString(s))
-      return t.indexOf(s) !== -1;
-    if (i.isRegExp(s))
-      return s.test(t);
-  }
-}
-function E(r) {
-  return r.trim().toLowerCase().replace(/([a-z\d])(\w*)/g, (t, n, s) => n.toUpperCase() + s);
-}
-function H(r, t) {
-  const n = i.toCamelCase(" " + t);
-  ["get", "set", "has"].forEach((s) => {
-    Object.defineProperty(r, s + n, {
-      value: function(e, o, f) {
-        return this[s].call(this, t, e, o, f);
-      },
-      configurable: !0
-    });
-  });
-}
-class b {
-  constructor(t) {
-    t && this.set(t);
-  }
-  set(t, n, s) {
-    const e = this;
-    function o(c, u, a) {
-      const y = l(u);
-      if (!y)
-        throw new Error("header name must be a non-empty string");
-      const m = i.findKey(e, y);
-      (!m || e[m] === void 0 || a === !0 || a === void 0 && e[m] !== !1) && (e[m || u] = p(c));
-    }
-    const f = (c, u) => i.forEach(c, (a, y) => o(a, y, u));
-    if (i.isPlainObject(t) || t instanceof this.constructor)
-      f(t, n);
-    else if (i.isString(t) && (t = t.trim()) && !A(t))
-      f(S(t), n);
-    else if (i.isHeaders(t))
-      for (const [c, u] of t.entries())
-        o(u, c, s);
-    else
-      t != null && o(n, t, s);
-    return this;
-  }
-  get(t, n) {
-    if (t = l(t), t) {
-      const s = i.findKey(this, t);
-      if (s) {
-        const e = this[s];
-        if (!n)
-          return e;
-        if (n === !0)
-          return d(e);
-        if (i.isFunction(n))
-          return n.call(this, e, s);
-        if (i.isRegExp(n))
-          return n.exec(e);
-        throw new TypeError("parser must be boolean|regexp|function");
-      }
-    }
-  }
-  has(t, n) {
-    if (t = l(t), t) {
-      const s = i.findKey(this, t);
-      return !!(s && this[s] !== void 0 && (!n || g(this, this[s], s, n)));
-    }
-    return !1;
-  }
-  delete(t, n) {
-    const s = this;
-    let e = !1;
-    function o(f) {
-      if (f = l(f), f) {
-        const c = i.findKey(s, f);
-        c && (!n || g(s, s[c], c, n)) && (delete s[c], e = !0);
-      }
-    }
-    return i.isArray(t) ? t.forEach(o) : o(t), e;
-  }
-  clear(t) {
-    const n = Object.keys(this);
-    let s = n.length, e = !1;
-    for (; s--; ) {
-      const o = n[s];
-      (!t || g(this, this[o], o, t, !0)) && (delete this[o], e = !0);
-    }
-    return e;
-  }
-  normalize(t) {
-    const n = this, s = {};
-    return i.forEach(this, (e, o) => {
-      const f = i.findKey(s, o);
-      if (f) {
-        n[f] = p(e), delete n[o];
-        return;
-      }
-      const c = t ? E(o) : String(o).trim();
-      c !== o && delete n[o], n[c] = p(e), s[c] = !0;
-    }), this;
-  }
-  concat(...t) {
-    return this.constructor.concat(this, ...t);
-  }
-  toJSON(t) {
-    const n = /* @__PURE__ */ Object.create(null);
-    return i.forEach(this, (s, e) => {
-      s != null && s !== !1 && (n[e] = t && i.isArray(s) ? s.join(", ") : s);
-    }), n;
-  }
-  [Symbol.iterator]() {
-    return Object.entries(this.toJSON())[Symbol.iterator]();
-  }
-  toString() {
-    return Object.entries(this.toJSON()).map(([t, n]) => t + ": " + n).join(`
-`);
-  }
-  get [Symbol.toStringTag]() {
-    return "AxiosHeaders";
-  }
-  static from(t) {
-    return t instanceof this ? t : new this(t);
-  }
-  static concat(t, ...n) {
-    const s = new this(t);
-    return n.forEach((e) => s.set(e)), s;
-  }
-  static accessor(t) {
-    const s = (this[h] = this[h] = {
-      accessors: {}
-    }).accessors, e = this.prototype;
-    function o(f) {
-      const c = l(f);
-      s[c] || (H(e, f), s[c] = !0);
-    }
-    return i.isArray(t) ? t.forEach(o) : o(t), this;
-  }
-}
-b.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-i.reduceDescriptors(b.prototype, ({ value: r }, t) => {
-  let n = t[0].toUpperCase() + t.slice(1);
+function h() {
+  var e, r, a, o, l;
+  if (globalThis.__DEV__ === !1)
+    throw new Error("only supported in development mode");
   return {
-    get: () => r,
-    set(s) {
-      this[n] = s;
+    limits: y(),
+    sizes: c({ print: (e = t.print) === null || e === void 0 ? void 0 : e.call(t), parser: (r = t.parser) === null || r === void 0 ? void 0 : r.call(t), canonicalStringify: (a = t.canonicalStringify) === null || a === void 0 ? void 0 : a.call(t), links: s(this.link), queryManager: {
+      getDocumentInfo: this.queryManager.transformCache.size,
+      documentTransforms: f(this.queryManager.documentTransform)
+    } }, (l = (o = this.cache).getMemoryInternals) === null || l === void 0 ? void 0 : l.call(o))
+  };
+}
+function d() {
+  return {
+    cache: {
+      fragmentQueryDocuments: n(this.getFragmentDoc)
     }
   };
-});
-i.freezeMethods(b);
+}
+function v() {
+  var e = this.config.fragments;
+  return c(c({}, d.apply(this)), { addTypenameDocumentTransform: f(this.addTypenameTransform), inMemoryCache: {
+    executeSelectionSet: n(this.storeReader.executeSelectionSet),
+    executeSubSelectedArray: n(this.storeReader.executeSubSelectedArray),
+    maybeBroadcastWatch: n(this.maybeBroadcastWatch)
+  }, fragmentRegistry: {
+    findFragmentSpreads: n(e?.findFragmentSpreads),
+    lookup: n(e?.lookup),
+    transform: n(e?.transform)
+  } });
+}
+function p(e) {
+  return !!e && "dirtyKey" in e;
+}
+function n(e) {
+  return p(e) ? e.size : void 0;
+}
+function m(e) {
+  return e != null;
+}
+function f(e) {
+  return u(e).map(function(r) {
+    return { cache: r };
+  });
+}
+function u(e) {
+  return e ? i(i([
+    n(e?.performWork)
+  ], u(e?.left), !0), u(e?.right), !0).filter(m) : [];
+}
+function s(e) {
+  var r;
+  return e ? i(i([
+    (r = e?.getMemoryInternals) === null || r === void 0 ? void 0 : r.call(e)
+  ], s(e?.left), !0), s(e?.right), !0).filter(m) : [];
+}
 export {
-  b as default
+  C as getApolloCacheMemoryInternals,
+  b as getApolloClientMemoryInternals,
+  I as getInMemoryCacheMemoryInternals,
+  M as registerGlobalCache
 };
 //# sourceMappingURL=index.es127.js.map

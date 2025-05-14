@@ -1,23 +1,18 @@
-import { print as i } from "graphql";
-import { registerGlobalCache as n } from "./index.es81.js";
-import { AutoCleanedWeakCache as o } from "./index.es82.js";
-import { cacheSizes as a } from "./index.es77.js";
-var r, p = Object.assign(function(t) {
-  var e = r.get(t);
-  return e || (e = i(t), r.set(t, e)), e;
-}, {
-  reset: function() {
-    r = new o(
-      a.print || 2e3
-      /* defaultCacheSizes.print */
-    );
-  }
-});
-p.reset();
-globalThis.__DEV__ !== !1 && n("print", function() {
-  return r ? r.size : 0;
-});
+import { __module as e } from "./index.es60.js";
+var a = e.exports, u;
+function i() {
+  return u ? e.exports : (u = 1, function(_, o) {
+    (function(n, r) {
+      _.exports = r();
+    })(a, function() {
+      return { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(n) {
+        var r = ["th", "st", "nd", "rd"], t = n % 100;
+        return "[" + n + (r[(t - 20) % 10] || r[t] || r[0]) + "]";
+      } };
+    });
+  }(e), e.exports);
+}
 export {
-  p as print
+  i as __require
 };
 //# sourceMappingURL=index.es59.js.map

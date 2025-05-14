@@ -1,14 +1,14 @@
-import { __assign as n } from "./index.es54.js";
-import { invariant as f, newInvariantError as D } from "./index.es70.js";
-import "./index.es71.js";
-import { version as Q } from "./index.es130.js";
-import { QueryManager as x } from "./index.es131.js";
-import { LocalState as P } from "./index.es132.js";
-import { getApolloClientMemoryInternals as L } from "./index.es81.js";
-import { mergeOptions as d } from "./index.es100.js";
-import { execute as R } from "./index.es133.js";
+import { __assign as n } from "./index.es63.js";
+import { invariant as f, newInvariantError as D } from "./index.es117.js";
+import "./index.es118.js";
+import { version as Q } from "./index.es158.js";
+import { QueryManager as x } from "./index.es159.js";
+import { LocalState as P } from "./index.es160.js";
+import { getApolloClientMemoryInternals as L } from "./index.es127.js";
+import { mergeOptions as d } from "./index.es146.js";
+import { execute as R } from "./index.es161.js";
 import { HttpLink as A } from "./index.es38.js";
-import { ApolloLink as E } from "./index.es55.js";
+import { ApolloLink as E } from "./index.es64.js";
 var w = !1, I = (
   /** @class */
   function() {

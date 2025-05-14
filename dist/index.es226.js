@@ -1,11 +1,23 @@
-import e from "./index.es166.js";
-var t = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
-function u(o) {
-  return e(o).replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(r, s, a) {
-    return s > 0 && s + r.length !== a.length && r.search(t) > -1 && a.charAt(s - 2) !== ":" && (a.charAt(s + r.length) !== "-" || a.charAt(s - 1) === "-") && a.charAt(s - 1).search(/[^\s-]/) < 0 ? r.toLowerCase() : r.substr(1).search(/[A-Z]|\../) > -1 ? r : r.charAt(0).toUpperCase() + r.substr(1);
-  });
+import { __require as o } from "./index.es196.js";
+import { __require as c } from "./index.es222.js";
+var i, u;
+function _() {
+  if (u) return i;
+  u = 1;
+  const f = o(), m = c();
+  return i = (s, l, n) => {
+    let r = null, t = null, a = null;
+    try {
+      a = new m(l, n);
+    } catch {
+      return null;
+    }
+    return s.forEach((e) => {
+      a.test(e) && (!r || t.compare(e) === 1) && (r = e, t = new f(r, n));
+    }), r;
+  }, i;
 }
 export {
-  u as default
+  _ as __require
 };
 //# sourceMappingURL=index.es226.js.map

@@ -1,14 +1,12 @@
-const { hasOwnProperty: t } = Object.prototype, c = Array.from || function(r) {
-  const o = [];
-  return r.forEach((n) => o.push(n)), o;
-};
-function s(r) {
-  const { unsubscribe: o } = r;
-  typeof o == "function" && (r.unsubscribe = void 0, o());
+import { __require as u } from "./index.es207.js";
+var e, r;
+function s() {
+  if (r) return e;
+  r = 1;
+  const q = u();
+  return e = (n, i, o) => q(n, i, o) !== 0, e;
 }
 export {
-  c as arrayFromSet,
-  t as hasOwnProperty,
-  s as maybeUnsubscribe
+  s as __require
 };
 //# sourceMappingURL=index.es216.js.map

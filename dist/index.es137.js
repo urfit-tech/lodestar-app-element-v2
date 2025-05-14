@@ -1,63 +1,50 @@
-import { __rest as D } from "./index.es54.js";
-import { equal as M } from "./index.es135.js";
-import { createFragmentMap as S, getFragmentFromSelection as N } from "./index.es79.js";
-import { getFragmentDefinitions as q, getMainDefinition as A } from "./index.es36.js";
-import { shouldInclude as B } from "./index.es72.js";
-import { isField as d, resultKeyNameFromField as w } from "./index.es80.js";
-function I(e, a, t, n) {
-  var v = a.data, r = D(a, ["data"]), o = t.data, i = D(t, ["data"]);
-  return M(r, i) && u(A(e).selectionSet, v, o, {
-    fragmentMap: S(q(e)),
-    variables: n
-  });
-}
-function u(e, a, t, n) {
-  if (a === t)
-    return !0;
-  var v = /* @__PURE__ */ new Set();
-  return e.selections.every(function(r) {
-    if (v.has(r) || (v.add(r), !B(r, n.variables)) || s(r))
-      return !0;
-    if (d(r)) {
-      var o = w(r), i = a && a[o], f = t && t[o], p = r.selectionSet;
-      if (!p)
-        return M(i, f);
-      var F = Array.isArray(i), c = Array.isArray(f);
-      if (F !== c)
-        return !1;
-      if (F && c) {
-        var y = i.length;
-        if (f.length !== y)
-          return !1;
-        for (var m = 0; m < y; ++m)
-          if (!u(p, i[m], f[m], n))
-            return !1;
-        return !0;
+import "./index.es66.js";
+import { Observable as s } from "./index.es65.js";
+function x(f, a, l) {
+  return new s(function(n) {
+    var t = {
+      // Normally we would initialize promiseQueue to Promise.resolve(), but
+      // in this case, for backwards compatibility, we need to be careful to
+      // invoke the first callback synchronously.
+      then: function(r) {
+        return new Promise(function(e) {
+          return e(r());
+        });
       }
-      return u(p, i, f, n);
-    } else {
-      var g = N(r, n.fragmentMap);
-      if (g)
-        return s(g) ? !0 : u(
-          g.selectionSet,
-          // Notice that we reuse the same aResult and bResult values here,
-          // since the fragment ...spread does not specify a field name, but
-          // consists of multiple fields (within the fragment's selection set)
-          // that should be applied to the current result value(s).
-          a,
-          t,
-          n
-        );
+    };
+    function c(r, e) {
+      return function(o) {
+        if (r) {
+          var i = function() {
+            return n.closed ? (
+              /* will be swallowed */
+              0
+            ) : r(o);
+          };
+          t = t.then(i, i).then(function(u) {
+            return n.next(u);
+          }, function(u) {
+            return n.error(u);
+          });
+        } else
+          n[e](o);
+      };
     }
+    var m = {
+      next: c(a, "next"),
+      error: c(l, "error"),
+      complete: function() {
+        t.then(function() {
+          return n.complete();
+        });
+      }
+    }, p = f.subscribe(m);
+    return function() {
+      return p.unsubscribe();
+    };
   });
-}
-function s(e) {
-  return !!e.directives && e.directives.some(H);
-}
-function H(e) {
-  return e.name.value === "nonreactive";
 }
 export {
-  I as equalByQuery
+  x as asyncMap
 };
 //# sourceMappingURL=index.es137.js.map

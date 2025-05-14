@@ -1,20 +1,9 @@
-function s(o) {
-  var b, e = o.Symbol;
-  if (typeof e == "function")
-    if (e.observable)
-      b = e.observable;
-    else {
-      typeof e.for == "function" ? b = e.for("https://github.com/benlesh/symbol-observable") : b = e("https://github.com/benlesh/symbol-observable");
-      try {
-        e.observable = b;
-      } catch {
-      }
-    }
-  else
-    b = "@@observable";
-  return b;
+import { __require as s } from "./index.es150.js";
+var e, r;
+function a() {
+  return r || (r = 1, e = s().satisfies(process.version, ">=16.9.0")), e;
 }
 export {
-  s as default
+  a as __require
 };
 //# sourceMappingURL=index.es149.js.map

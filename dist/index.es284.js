@@ -1,34 +1,55 @@
-import { __require as C } from "./index.es260.js";
-import { __require as g } from "./index.es262.js";
-import { __require as q } from "./index.es258.js";
-var a, i;
-function L() {
-  if (i) return a;
-  i = 1;
-  const f = C(), m = g(), { safeRe: c, t: n } = q();
-  return a = (r, t) => {
-    if (r instanceof f)
-      return r;
-    if (typeof r == "number" && (r = String(r)), typeof r != "string")
-      return null;
-    t = t || {};
-    let e = null;
-    if (!t.rtl)
-      e = r.match(t.includePrerelease ? c[n.COERCEFULL] : c[n.COERCE]);
-    else {
-      const u = t.includePrerelease ? c[n.COERCERTLFULL] : c[n.COERCERTL];
-      let l;
-      for (; (l = u.exec(r)) && (!e || e.index + e[0].length !== r.length); )
-        (!e || l.index + l[0].length !== e.index + e[0].length) && (e = l), u.lastIndex = l.index + l[1].length + l[2].length;
-      u.lastIndex = -1;
+import { __require as E } from "./index.es282.js";
+import { __require as _ } from "./index.es283.js";
+var f, v;
+function P() {
+  if (v) return f;
+  v = 1;
+  var o = function() {
+  };
+  if (process.env.NODE_ENV !== "production") {
+    var y = /* @__PURE__ */ E(), t = {}, d = /* @__PURE__ */ _();
+    o = function(n) {
+      var a = "Warning: " + n;
+      typeof console < "u" && console.error(a);
+      try {
+        throw new Error(a);
+      } catch {
+      }
+    };
+  }
+  function u(n, a, i, s, c) {
+    if (process.env.NODE_ENV !== "production") {
+      for (var e in n)
+        if (d(n, e)) {
+          var r;
+          try {
+            if (typeof n[e] != "function") {
+              var h = Error(
+                (s || "React class") + ": " + i + " type `" + e + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof n[e] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
+              );
+              throw h.name = "Invariant Violation", h;
+            }
+            r = n[e](a, e, s, i, null, y);
+          } catch (l) {
+            r = l;
+          }
+          if (r && !(r instanceof Error) && o(
+            (s || "React class") + ": type specification of " + i + " `" + e + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof r + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
+          ), r instanceof Error && !(r.message in t)) {
+            t[r.message] = !0;
+            var p = c ? c() : "";
+            o(
+              "Failed " + i + " type: " + r.message + (p ?? "")
+            );
+          }
+        }
     }
-    if (e === null)
-      return null;
-    const s = e[2], d = e[3] || "0", h = e[4] || "0", R = t.includePrerelease && e[5] ? `-${e[5]}` : "", x = t.includePrerelease && e[6] ? `+${e[6]}` : "";
-    return m(`${s}.${d}.${h}${R}${x}`, t);
-  }, a;
+  }
+  return u.resetWarningCache = function() {
+    process.env.NODE_ENV !== "production" && (t = {});
+  }, f = u, f;
 }
 export {
-  L as __require
+  P as __require
 };
 //# sourceMappingURL=index.es284.js.map

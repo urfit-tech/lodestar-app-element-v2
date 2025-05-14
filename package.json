@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "types": "dist-types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
@@ -19,7 +19,8 @@
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build": "vite build"
+    "build:types": "tsc -p tsconfig.json",
+    "build": "vite build && npm run build:types"
   },
   "dependencies": {
     "@bobthered/tailwindcss-palette-generator": "^4.0.0",

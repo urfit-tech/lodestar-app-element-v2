@@ -1,12 +1,12 @@
-function o(n, e, f) {
-  var t = [];
-  n.forEach(function(r) {
-    return r[e] && t.push(r);
-  }), t.forEach(function(r) {
-    return r[e](f);
-  });
+import r from "./index.es95.js";
+import i from "./index.es84.js";
+function l(o, t, e) {
+  r.call(this, o ?? "canceled", r.ERR_CANCELED, t, e), this.name = "CanceledError";
 }
+i.inherits(l, r, {
+  __CANCEL__: !0
+});
 export {
-  o as iterateObserversSafely
+  l as default
 };
 //# sourceMappingURL=index.es90.js.map

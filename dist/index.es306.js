@@ -1,32 +1,53 @@
-import r from "./index.es113.js";
-import c from "./index.es177.js";
-const p = c.hasStandardBrowserEnv ? (
-  // Standard browser envs support document.cookie
-  {
-    write(e, t, n, i, s, u) {
-      const o = [e + "=" + encodeURIComponent(t)];
-      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
-    },
-    read(e) {
-      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
-      return t ? decodeURIComponent(t[3]) : null;
-    },
-    remove(e) {
-      this.write(e, "", Date.now() - 864e5);
+import { canUseAsyncIteratorSymbol as h } from "./index.es121.js";
+function p(e) {
+  var o = null, u = null, f = !1, a = [], i = [];
+  function l(n) {
+    if (!u) {
+      if (i.length) {
+        var r = i.shift();
+        if (Array.isArray(r) && r[0])
+          return r[0]({ value: n, done: !1 });
+      }
+      a.push(n);
     }
   }
-) : (
-  // Non-standard browser env (web workers, react-native) lack needed support.
-  {
-    write() {
-    },
-    read() {
-      return null;
-    },
-    remove() {
-    }
+  function c(n) {
+    u = n;
+    var r = i.slice();
+    r.forEach(function(s) {
+      s[1](n);
+    }), !o || o();
   }
-);
+  function t() {
+    f = !0;
+    var n = i.slice();
+    n.forEach(function(r) {
+      r[0]({ value: void 0, done: !0 });
+    }), !o || o();
+  }
+  o = function() {
+    o = null, e.removeListener("data", l), e.removeListener("error", c), e.removeListener("end", t), e.removeListener("finish", t), e.removeListener("close", t);
+  }, e.on("data", l), e.on("error", c), e.on("end", t), e.on("finish", t), e.on("close", t);
+  function d() {
+    return new Promise(function(n, r) {
+      if (u)
+        return r(u);
+      if (a.length)
+        return n({ value: a.shift(), done: !1 });
+      if (f)
+        return n({ value: void 0, done: !0 });
+      i.push([n, r]);
+    });
+  }
+  var v = {
+    next: function() {
+      return d();
+    }
+  };
+  return h && (v[Symbol.asyncIterator] = function() {
+    return this;
+  }), v;
+}
 export {
   p as default
 };

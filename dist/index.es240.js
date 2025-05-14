@@ -1,14 +1,19 @@
-function a(r) {
-  var t, n = r[Symbol.asyncIterator]();
-  return t = {
-    next: function() {
-      return n.next();
-    }
-  }, t[Symbol.asyncIterator] = function() {
-    return this;
-  }, t;
+import { __assign as t } from "./index.es63.js";
+function c(o, n) {
+  var e = t({}, o), f = function(r) {
+    typeof r == "function" ? e = t(t({}, e), r(e)) : e = t(t({}, e), r);
+  }, a = function() {
+    return t({}, e);
+  };
+  return Object.defineProperty(n, "setContext", {
+    enumerable: !1,
+    value: f
+  }), Object.defineProperty(n, "getContext", {
+    enumerable: !1,
+    value: a
+  }), n;
 }
 export {
-  a as default
+  c as createOperation
 };
 //# sourceMappingURL=index.es240.js.map

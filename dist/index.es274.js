@@ -1,15 +1,7 @@
-import { __require as c } from "./index.es260.js";
-var r, n;
-function s() {
-  if (n) return r;
-  n = 1;
-  const e = c();
-  return r = (a, m, i) => {
-    const o = new e(a, i), u = new e(m, i);
-    return o.compare(u) || o.compareBuild(u);
-  }, r;
+function e(t) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
 }
 export {
-  s as __require
+  e as default
 };
 //# sourceMappingURL=index.es274.js.map

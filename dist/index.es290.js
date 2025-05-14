@@ -1,23 +1,64 @@
-import { __require as o } from "./index.es260.js";
-import { __require as c } from "./index.es286.js";
-var i, u;
-function _() {
-  if (u) return i;
-  u = 1;
-  const f = o(), m = c();
-  return i = (s, l, n) => {
-    let r = null, t = null, a = null;
-    try {
-      a = new m(l, n);
-    } catch {
-      return null;
+const f = function* (e, t) {
+  let n = e.byteLength;
+  if (n < t) {
+    yield e;
+    return;
+  }
+  let a = 0, r;
+  for (; a < n; )
+    r = a + t, yield e.slice(a, r), a = r;
+}, w = async function* (e, t) {
+  for await (const n of b(e))
+    yield* f(n, t);
+}, b = async function* (e) {
+  if (e[Symbol.asyncIterator]) {
+    yield* e;
+    return;
+  }
+  const t = e.getReader();
+  try {
+    for (; ; ) {
+      const { done: n, value: a } = await t.read();
+      if (n)
+        break;
+      yield a;
     }
-    return s.forEach((e) => {
-      a.test(e) && (!r || t.compare(e) === 1) && (r = e, t = new f(r, n));
-    }), r;
-  }, i;
-}
+  } finally {
+    await t.cancel();
+  }
+}, h = (e, t, n, a) => {
+  const r = w(e, t);
+  let d = 0, o, c = (l) => {
+    o || (o = !0, a && a(l));
+  };
+  return new ReadableStream({
+    async pull(l) {
+      try {
+        const { done: i, value: y } = await r.next();
+        if (i) {
+          c(), l.close();
+          return;
+        }
+        let s = y.byteLength;
+        if (n) {
+          let u = d += s;
+          n(u);
+        }
+        l.enqueue(new Uint8Array(y));
+      } catch (i) {
+        throw c(i), i;
+      }
+    },
+    cancel(l) {
+      return c(l), r.return();
+    }
+  }, {
+    highWaterMark: 2
+  });
+};
 export {
-  _ as __require
+  w as readBytes,
+  f as streamChunk,
+  h as trackStream
 };
 //# sourceMappingURL=index.es290.js.map

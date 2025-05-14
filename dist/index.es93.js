@@ -1,13 +1,5 @@
-import "./index.es57.js";
-import { canUseSymbol as i } from "./index.es75.js";
-import { Observable as t } from "./index.es56.js";
-function p(e) {
-  function o(r) {
-    Object.defineProperty(e, r, { value: t });
-  }
-  return i && Symbol.species && o(Symbol.species), o("@@species"), e;
-}
+const o = "1.8.4";
 export {
-  p as fixObservableSubclass
+  o as VERSION
 };
 //# sourceMappingURL=index.es93.js.map

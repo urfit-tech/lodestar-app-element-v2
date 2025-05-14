@@ -1,63 +1,52 @@
-import { __assign as i, __spreadArray as l } from "./index.es54.js";
-import { newInvariantError as c, invariant as o } from "./index.es70.js";
-import "./index.es71.js";
-function p(n, r) {
-  var e = r, a = [];
-  n.definitions.forEach(function(t) {
-    if (t.kind === "OperationDefinition")
-      throw c(
-        73,
-        t.operation,
-        t.name ? " named '".concat(t.name.value, "'") : ""
-      );
-    t.kind === "FragmentDefinition" && a.push(t);
-  }), typeof e > "u" && (o(a.length === 1, 74, a.length), e = a[0].name.value);
-  var u = i(i({}, n), { definitions: l([
-    {
-      kind: "OperationDefinition",
-      // OperationTypeNode is an enum
-      operation: "query",
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "FragmentSpread",
-            name: {
-              kind: "Name",
-              value: e
-            }
-          }
-        ]
-      }
-    }
-  ], n.definitions, !0) });
-  return u;
-}
-function d(n) {
-  n === void 0 && (n = []);
-  var r = {};
-  return n.forEach(function(e) {
-    r[e.name.value] = e;
-  }), r;
-}
-function s(n, r) {
-  switch (n.kind) {
-    case "InlineFragment":
-      return n;
-    case "FragmentSpread": {
-      var e = n.name.value;
-      if (typeof r == "function")
-        return r(e);
-      var a = r && r[e];
-      return o(a, 75, e), a || null;
-    }
-    default:
-      return null;
+var i, f;
+function q() {
+  if (f) return i;
+  f = 1;
+  var s = 1 / 0, c = 17976931348623157e292, e = NaN, b = "[object Symbol]", y = /^\s+|\s+$/g, p = /^[-+]0x[0-9a-f]+$/i, I = /^0b[01]+$/i, g = /^0o[0-7]+$/i, m = parseInt, j = Object.prototype, d = j.toString;
+  function N(r) {
+    return typeof r == "number" && r == S(r);
   }
+  function o(r) {
+    var t = typeof r;
+    return !!r && (t == "object" || t == "function");
+  }
+  function O(r) {
+    return !!r && typeof r == "object";
+  }
+  function _(r) {
+    return typeof r == "symbol" || O(r) && d.call(r) == b;
+  }
+  function T(r) {
+    if (!r)
+      return r === 0 ? r : 0;
+    if (r = $(r), r === s || r === -1 / 0) {
+      var t = r < 0 ? -1 : 1;
+      return t * c;
+    }
+    return r === r ? r : 0;
+  }
+  function S(r) {
+    var t = T(r), n = t % 1;
+    return t === t ? n ? t - n : t : 0;
+  }
+  function $(r) {
+    if (typeof r == "number")
+      return r;
+    if (_(r))
+      return e;
+    if (o(r)) {
+      var t = typeof r.valueOf == "function" ? r.valueOf() : r;
+      r = o(t) ? t + "" : t;
+    }
+    if (typeof r != "string")
+      return r === 0 ? r : +r;
+    r = r.replace(y, "");
+    var n = I.test(r);
+    return n || g.test(r) ? m(r.slice(2), n ? 2 : 8) : p.test(r) ? e : +r;
+  }
+  return i = N, i;
 }
 export {
-  d as createFragmentMap,
-  s as getFragmentFromSelection,
-  p as getFragmentQueryDocument
+  q as __require
 };
 //# sourceMappingURL=index.es79.js.map

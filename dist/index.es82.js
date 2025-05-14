@@ -1,26 +1,17 @@
-import { WeakCache as i } from "./index.es78.js";
-import { StrongCache as s } from "./index.es148.js";
-var u = /* @__PURE__ */ new WeakSet();
-function l(e) {
-  e.size <= (e.max || -1) || u.has(e) || (u.add(e), setTimeout(function() {
-    e.clean(), u.delete(e);
-  }, 100));
+var t, i;
+function g() {
+  if (i) return t;
+  i = 1;
+  var n = "[object String]", o = Object.prototype, e = o.toString, s = Array.isArray;
+  function a(r) {
+    return !!r && typeof r == "object";
+  }
+  function c(r) {
+    return typeof r == "string" || !s(r) && a(r) && e.call(r) == n;
+  }
+  return t = c, t;
 }
-var d = function(e, r) {
-  var t = new i(e, r);
-  return t.set = function(n, a) {
-    var o = i.prototype.set.call(this, n, a);
-    return l(this), o;
-  }, t;
-}, h = function(e, r) {
-  var t = new s(e, r);
-  return t.set = function(n, a) {
-    var o = s.prototype.set.call(this, n, a);
-    return l(this), o;
-  }, t;
-};
 export {
-  h as AutoCleanedStrongCache,
-  d as AutoCleanedWeakCache
+  g as __require
 };
 //# sourceMappingURL=index.es82.js.map

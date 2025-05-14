@@ -1,78 +1,59 @@
-import u from "./index.es119.js";
-class c {
-  constructor(e) {
-    if (typeof e != "function")
-      throw new TypeError("executor must be a function.");
-    let t;
-    this.promise = new Promise(function(r) {
-      t = r;
-    });
-    const s = this;
-    this.promise.then((n) => {
-      if (!s._listeners) return;
-      let r = s._listeners.length;
-      for (; r-- > 0; )
-        s._listeners[r](n);
-      s._listeners = null;
-    }), this.promise.then = (n) => {
-      let r;
-      const o = new Promise((i) => {
-        s.subscribe(i), r = i;
-      }).then(n);
-      return o.cancel = function() {
-        s.unsubscribe(r);
-      }, o;
-    }, e(function(r, o, i) {
-      s.reason || (s.reason = new u(r, o, i), t(s.reason));
-    });
+const l = () => /* @__PURE__ */ Object.create(null), { forEach: h, slice: o } = Array.prototype, { hasOwnProperty: c } = Object.prototype;
+class i {
+  constructor(e = !0, t = l) {
+    this.weakness = e, this.makeData = t;
   }
-  /**
-   * Throws a `CanceledError` if cancellation has been requested.
-   */
-  throwIfRequested() {
-    if (this.reason)
-      throw this.reason;
+  lookup() {
+    return this.lookupArray(arguments);
   }
-  /**
-   * Subscribe to the cancel signal
-   */
-  subscribe(e) {
-    if (this.reason) {
-      e(this.reason);
-      return;
+  lookupArray(e) {
+    let t = this;
+    return h.call(e, (a) => t = t.getChildTrie(a)), c.call(t, "data") ? t.data : t.data = this.makeData(o.call(e));
+  }
+  peek() {
+    return this.peekArray(arguments);
+  }
+  peekArray(e) {
+    let t = this;
+    for (let a = 0, s = e.length; t && a < s; ++a) {
+      const r = t.mapFor(e[a], !1);
+      t = r && r.get(e[a]);
     }
-    this._listeners ? this._listeners.push(e) : this._listeners = [e];
+    return t && t.data;
   }
-  /**
-   * Unsubscribe from the cancel signal
-   */
-  unsubscribe(e) {
-    if (!this._listeners)
-      return;
-    const t = this._listeners.indexOf(e);
-    t !== -1 && this._listeners.splice(t, 1);
+  remove() {
+    return this.removeArray(arguments);
   }
-  toAbortSignal() {
-    const e = new AbortController(), t = (s) => {
-      e.abort(s);
-    };
-    return this.subscribe(t), e.signal.unsubscribe = () => this.unsubscribe(t), e.signal;
+  removeArray(e) {
+    let t;
+    if (e.length) {
+      const a = e[0], s = this.mapFor(a, !1), r = s && s.get(a);
+      r && (t = r.removeArray(o.call(e, 1)), !r.data && !r.weak && !(r.strong && r.strong.size) && s.delete(a));
+    } else
+      t = this.data, delete this.data;
+    return t;
   }
-  /**
-   * Returns an object that contains a new `CancelToken` and a function that, when called,
-   * cancels the `CancelToken`.
-   */
-  static source() {
-    let e;
-    return {
-      token: new c(function(n) {
-        e = n;
-      }),
-      cancel: e
-    };
+  getChildTrie(e) {
+    const t = this.mapFor(e, !0);
+    let a = t.get(e);
+    return a || t.set(e, a = new i(this.weakness, this.makeData)), a;
+  }
+  mapFor(e, t) {
+    return this.weakness && u(e) ? this.weak || (t ? this.weak = /* @__PURE__ */ new WeakMap() : void 0) : this.strong || (t ? this.strong = /* @__PURE__ */ new Map() : void 0);
   }
 }
+function u(n) {
+  switch (typeof n) {
+    case "object":
+      if (n === null)
+        break;
+    // Fall through to return true...
+    case "function":
+      return !0;
+  }
+  return !1;
+}
 export {
-  c as default
+  i as Trie
 };
 //# sourceMappingURL=index.es120.js.map

@@ -1,5 +1,5 @@
-import { getDefaultExportFromCjs as r } from "./index.es63.js";
-import { __require as o } from "./index.es44.js";
+import { getDefaultExportFromCjs as r } from "./index.es101.js";
+import { __require as o } from "./index.es53.js";
 var t = o();
 const s = /* @__PURE__ */ r(t);
 export {

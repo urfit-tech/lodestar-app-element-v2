@@ -1,12 +1,11 @@
-import { __require as a } from "./index.es271.js";
 var e, r;
-function s() {
+function _() {
   if (r) return e;
   r = 1;
-  const t = a();
-  return e = (i, o, u) => t(i, o, u) <= 0, e;
+  var t = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
+  return e = t, e;
 }
 export {
-  s as __require
+  _ as __require
 };
 //# sourceMappingURL=index.es282.js.map

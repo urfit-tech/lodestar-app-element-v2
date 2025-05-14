@@ -1,21 +1,10 @@
-import { __require as o } from "./index.es105.js";
-import { __require as i } from "./index.es106.js";
-import { __require as n } from "./index.es107.js";
-import { __require as u } from "./index.es108.js";
-import { __require as q } from "./index.es109.js";
-import { __require as t } from "./index.es110.js";
-var r, e;
-function E() {
-  return e || (e = 1, r = {
-    decode: o(),
-    verify: i(),
-    sign: n(),
-    JsonWebTokenError: u(),
-    NotBeforeError: q(),
-    TokenExpiredError: t()
-  }), r;
+import n from "./index.es180.js";
+import m from "./index.es181.js";
+function g() {
+  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
+  return r && (e = m(t)), a && (e = n(e)), e;
 }
 export {
-  E as __require
+  g as default
 };
 //# sourceMappingURL=index.es104.js.map

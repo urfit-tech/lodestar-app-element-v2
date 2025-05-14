@@ -1,12 +1,7 @@
-import { __require as a } from "./index.es274.js";
-var r, e;
-function _() {
-  if (e) return r;
-  e = 1;
-  const o = a();
-  return r = (t, i) => t.sort((u, s) => o(u, s, i)), r;
+function n(e, c) {
+  return c ? e.replace(/\/?\/$/, "") + "/" + c.replace(/^\/+/, "") : e;
 }
 export {
-  _ as __require
+  n as default
 };
 //# sourceMappingURL=index.es275.js.map

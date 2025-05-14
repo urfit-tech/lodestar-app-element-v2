@@ -1,23 +1,31 @@
-import { __require as o } from "./index.es260.js";
-import { __require as c } from "./index.es286.js";
-var a, u;
-function q() {
-  if (u) return a;
-  u = 1;
-  const f = o(), m = c();
-  return a = (s, l, i) => {
-    let r = null, n = null, t = null;
-    try {
-      t = new m(l, i);
-    } catch {
-      return null;
-    }
-    return s.forEach((e) => {
-      t.test(e) && (!r || n.compare(e) === -1) && (r = e, n = new f(r, i));
-    }), r;
-  }, a;
-}
+import a from "./index.es90.js";
+import s from "./index.es95.js";
+import m from "./index.es84.js";
+const h = (e, t) => {
+  const { length: l } = e = e ? e.filter(Boolean) : [];
+  if (t || l) {
+    let u = new AbortController(), f;
+    const n = function(r) {
+      if (!f) {
+        f = !0, i();
+        const o = r instanceof Error ? r : this.reason;
+        u.abort(o instanceof s ? o : new a(o instanceof Error ? o.message : o));
+      }
+    };
+    let c = t && setTimeout(() => {
+      c = null, n(new s(`timeout ${t} of ms exceeded`, s.ETIMEDOUT));
+    }, t);
+    const i = () => {
+      e && (c && clearTimeout(c), c = null, e.forEach((r) => {
+        r.unsubscribe ? r.unsubscribe(n) : r.removeEventListener("abort", n);
+      }), e = null);
+    };
+    e.forEach((r) => r.addEventListener("abort", n));
+    const { signal: b } = u;
+    return b.unsubscribe = () => m.asap(i), b;
+  }
+};
 export {
-  q as __require
+  h as default
 };
 //# sourceMappingURL=index.es289.js.map

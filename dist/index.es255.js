@@ -1,151 +1,112 @@
-import { __require as G } from "./index.es311.js";
-import { __require as j } from "./index.es253.js";
-import C from "./index.es154.js";
-import { __require as M } from "./index.es312.js";
-import { __require as O } from "./index.es257.js";
-var _, w;
-function z() {
-  if (w) return _;
-  w = 1;
-  var P = G(), u = j().Buffer, o = C, m = M(), y = O(), b = `"%s" is not a valid algorithm.
-  Supported algorithms are:
-  "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "ES256", "ES384", "ES512" and "none".`, s = "secret must be a string or buffer", c = "key must be a string or a buffer", q = "key must be a string, a buffer or an object", v = typeof o.createPublicKey == "function";
-  v && (c += " or a KeyObject", s += "or a KeyObject");
-  function E(r) {
-    if (!u.isBuffer(r) && typeof r != "string" && (!v || typeof r != "object" || typeof r.type != "string" || typeof r.asymmetricKeyType != "string" || typeof r.export != "function"))
-      throw a(c);
-  }
-  function A(r) {
-    if (!u.isBuffer(r) && typeof r != "string" && typeof r != "object")
-      throw a(q);
-  }
-  function h(r) {
-    if (!u.isBuffer(r)) {
-      if (typeof r == "string")
-        return r;
-      if (!v || typeof r != "object" || r.type !== "secret" || typeof r.export != "function")
-        throw a(s);
+import { invariant as J } from "./index.es117.js";
+import "./index.es118.js";
+import { hasOwn as N } from "./index.es249.js";
+import { isNonEmptyArray as h, isArray as l } from "./index.es131.js";
+import { argumentsObjectFromField as w } from "./index.es126.js";
+import { DeepMerger as C } from "./index.es133.js";
+import { isNonNullObject as I } from "./index.es69.js";
+var S = /* @__PURE__ */ Object.create(null);
+function v(r) {
+  var e = JSON.stringify(r);
+  return S[e] || (S[e] = /* @__PURE__ */ Object.create(null));
+}
+function G(r) {
+  var e = v(r);
+  return e.keyFieldsFn || (e.keyFieldsFn = function(f, n) {
+    var i = function(t, u) {
+      return n.readField(u, t);
+    }, o = n.keyObject = m(r, function(t) {
+      var u = c(
+        n.storeObject,
+        t,
+        // Using context.readField to extract paths from context.storeObject
+        // allows the extraction to see through Reference objects and respect
+        // custom read functions.
+        i
+      );
+      return u === void 0 && f !== n.storeObject && N.call(f, t[0]) && (u = c(f, t, b)), J(u !== void 0, 4, t.join("."), f), u;
+    });
+    return "".concat(n.typename, ":").concat(JSON.stringify(o));
+  });
+}
+function H(r) {
+  var e = v(r);
+  return e.keyArgsFn || (e.keyArgsFn = function(f, n) {
+    var i = n.field, o = n.variables, t = n.fieldName, u = m(r, function(a) {
+      var s = a[0], d = s.charAt(0);
+      if (d === "@") {
+        if (i && h(i.directives)) {
+          var A = s.slice(1), F = i.directives.find(function(E) {
+            return E.name.value === A;
+          }), O = F && w(F, o);
+          return O && c(
+            O,
+            // If keyPath.length === 1, this code calls extractKeyPath with an
+            // empty path, which works because it uses directiveArgs as the
+            // extracted value.
+            a.slice(1)
+          );
+        }
+        return;
+      }
+      if (d === "$") {
+        var g = s.slice(1);
+        if (o && N.call(o, g)) {
+          var y = a.slice(0);
+          return y[0] = g, c(o, y);
+        }
+        return;
+      }
+      if (f)
+        return c(f, a);
+    }), p = JSON.stringify(u);
+    return (f || p !== "{}") && (t += ":" + p), t;
+  });
+}
+function m(r, e) {
+  var f = new C();
+  return k(r).reduce(function(n, i) {
+    var o, t = e(i);
+    if (t !== void 0) {
+      for (var u = i.length - 1; u >= 0; --u)
+        t = (o = {}, o[i[u]] = t, o);
+      n = f.merge(n, t);
     }
+    return n;
+  }, /* @__PURE__ */ Object.create(null));
+}
+function k(r) {
+  var e = v(r);
+  if (!e.paths) {
+    var f = e.paths = [], n = [];
+    r.forEach(function(i, o) {
+      l(i) ? (k(i).forEach(function(t) {
+        return f.push(n.concat(t));
+      }), n.length = 0) : (n.push(i), l(r[o + 1]) || (f.push(n.slice(0)), n.length = 0));
+    });
   }
-  function g(r) {
-    return r.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
-  }
-  function l(r) {
-    r = r.toString();
-    var i = 4 - r.length % 4;
-    if (i !== 4)
-      for (var e = 0; e < i; ++e)
-        r += "=";
-    return r.replace(/\-/g, "+").replace(/_/g, "/");
-  }
-  function a(r) {
-    var i = [].slice.call(arguments, 1), e = y.format.bind(y, r).apply(null, i);
-    return new TypeError(e);
-  }
-  function D(r) {
-    return u.isBuffer(r) || typeof r == "string";
-  }
-  function S(r) {
-    return D(r) || (r = JSON.stringify(r)), r;
-  }
-  function d(r) {
-    return function(e, t) {
-      h(t), e = S(e);
-      var n = o.createHmac("sha" + r, t), f = (n.update(e), n.digest("base64"));
-      return g(f);
-    };
-  }
-  function H(r) {
-    return function(e, t, n) {
-      var f = d(r)(e, n);
-      return P(u.from(t), u.from(f));
-    };
-  }
-  function I(r) {
-    return function(e, t) {
-      A(t), e = S(e);
-      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign(t, "base64"));
-      return g(f);
-    };
-  }
-  function R(r) {
-    return function(e, t, n) {
-      E(n), e = S(e), t = l(t);
-      var f = o.createVerify("RSA-SHA" + r);
-      return f.update(e), f.verify(n, t, "base64");
-    };
-  }
-  function K(r) {
-    return function(e, t) {
-      A(t), e = S(e);
-      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign({
-        key: t,
-        padding: o.constants.RSA_PKCS1_PSS_PADDING,
-        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
-      }, "base64"));
-      return g(f);
-    };
-  }
-  function L(r) {
-    return function(e, t, n) {
-      E(n), e = S(e), t = l(t);
-      var f = o.createVerify("RSA-SHA" + r);
-      return f.update(e), f.verify({
-        key: n,
-        padding: o.constants.RSA_PKCS1_PSS_PADDING,
-        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
-      }, t, "base64");
-    };
-  }
-  function N(r) {
-    var i = I(r);
-    return function() {
-      var t = i.apply(null, arguments);
-      return t = m.derToJose(t, "ES" + r), t;
-    };
-  }
-  function V(r) {
-    var i = R(r);
-    return function(t, n, f) {
-      n = m.joseToDer(n, "ES" + r).toString("base64");
-      var p = i(t, n, f);
-      return p;
-    };
-  }
-  function T() {
-    return function() {
-      return "";
-    };
-  }
-  function B() {
-    return function(i, e) {
-      return e === "";
-    };
-  }
-  return _ = function(i) {
-    var e = {
-      hs: d,
-      rs: I,
-      ps: K,
-      es: N,
-      none: T
-    }, t = {
-      hs: H,
-      rs: R,
-      ps: L,
-      es: V,
-      none: B
-    }, n = i.match(/^(RS|PS|ES|HS)(256|384|512)$|^(none)$/i);
-    if (!n)
-      throw a(b, i);
-    var f = (n[1] || n[3]).toLowerCase(), p = n[2];
-    return {
-      sign: e[f](p),
-      verify: t[f](p)
-    };
-  }, _;
+  return e.paths;
+}
+function b(r, e) {
+  return r[e];
+}
+function c(r, e, f) {
+  return f = f || b, j(e.reduce(function n(i, o) {
+    return l(i) ? i.map(function(t) {
+      return n(t, o);
+    }) : i && f(i, o);
+  }, r));
+}
+function j(r) {
+  return I(r) ? l(r) ? r.map(j) : m(Object.keys(r).sort(), function(e) {
+    return c(r, e);
+  }) : r;
 }
 export {
-  z as __require
+  m as collectSpecifierPaths,
+  c as extractKeyPath,
+  k as getSpecifierPaths,
+  H as keyArgsFnFromSpecifier,
+  G as keyFieldsFnFromSpecifier
 };
 //# sourceMappingURL=index.es255.js.map

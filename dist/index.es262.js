@@ -1,22 +1,8 @@
-import { __require as i } from "./index.es260.js";
-var e, a;
-function o() {
-  if (a) return e;
-  a = 1;
-  const t = i();
-  return e = (r, u, n = !1) => {
-    if (r instanceof t)
-      return r;
-    try {
-      return new t(r, u);
-    } catch (s) {
-      if (!n)
-        return null;
-      throw s;
-    }
-  }, e;
-}
+var u = function(t, e) {
+  var n = t.getContext(), r = n.uri;
+  return r || (typeof e == "function" ? e(t) : e || "/graphql");
+};
 export {
-  o as __require
+  u as selectURI
 };
 //# sourceMappingURL=index.es262.js.map
