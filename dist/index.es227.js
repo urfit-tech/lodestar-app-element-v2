@@ -1,43 +1,40 @@
-import { __require as p } from "./index.es196.js";
-import { __require as q } from "./index.es222.js";
-import { __require as _ } from "./index.es213.js";
-var u, c;
-function d() {
-  if (c) return u;
+import { __require as p } from "./index.es223.js";
+import { __require as _ } from "./index.es224.js";
+import { __require as a } from "./index.es221.js";
+import { __require as v } from "./index.es225.js";
+import { __require as y } from "./index.es222.js";
+import { __require as j } from "./index.es226.js";
+var i, c;
+function L() {
+  if (c) return i;
   c = 1;
-  const n = p(), f = q(), a = _();
-  return u = (r, l) => {
-    r = new f(r, l);
-    let e = new n("0.0.0");
-    if (r.test(e) || (e = new n("0.0.0-0"), r.test(e)))
-      return e;
-    e = null;
-    for (let s = 0; s < r.set.length; ++s) {
-      const m = r.set[s];
-      let i = null;
-      m.forEach((o) => {
-        const t = new n(o.semver.version);
-        switch (o.operator) {
-          case ">":
-            t.prerelease.length === 0 ? t.patch++ : t.prerelease.push(0), t.raw = t.format();
-          /* fallthrough */
-          case "":
-          case ">=":
-            (!i || a(t, i)) && (i = t);
-            break;
-          case "<":
-          case "<=":
-            break;
-          /* istanbul ignore next */
-          default:
-            throw new Error(`Unexpected operation: ${o.operator}`);
-        }
-      }), i && (!e || a(e, i)) && (e = i);
+  const n = p(), o = _(), s = a(), q = v(), f = y(), m = j();
+  return i = (r, u, e, t) => {
+    switch (u) {
+      case "===":
+        return typeof r == "object" && (r = r.version), typeof e == "object" && (e = e.version), r === e;
+      case "!==":
+        return typeof r == "object" && (r = r.version), typeof e == "object" && (e = e.version), r !== e;
+      case "":
+      case "=":
+      case "==":
+        return n(r, e, t);
+      case "!=":
+        return o(r, e, t);
+      case ">":
+        return s(r, e, t);
+      case ">=":
+        return q(r, e, t);
+      case "<":
+        return f(r, e, t);
+      case "<=":
+        return m(r, e, t);
+      default:
+        throw new TypeError(`Invalid operator: ${u}`);
     }
-    return e && r.test(e) ? e : null;
-  }, u;
+  }, i;
 }
 export {
-  d as __require
+  L as __require
 };
 //# sourceMappingURL=index.es227.js.map

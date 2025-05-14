@@ -1,12 +1,22 @@
-import { __module as e } from "./index.es310.js";
-import E from "react";
-var r;
-function N() {
-  return r ? e.exports : (r = 1, function(_) {
-    _.exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = void 0, _.exports.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, _.exports.__SERVER_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, Object.assign(_.exports, E);
-  }(e), e.exports);
+import { canUseAsyncIteratorSymbol as u } from "./index.es121.js";
+function f(t) {
+  var e = !1, r = {
+    next: function() {
+      return e ? Promise.resolve({
+        value: void 0,
+        done: !0
+      }) : (e = !0, new Promise(function(n, o) {
+        t.then(function(a) {
+          n({ value: a, done: !1 });
+        }).catch(o);
+      }));
+    }
+  };
+  return u && (r[Symbol.asyncIterator] = function() {
+    return this;
+  }), r;
 }
 export {
-  N as __require
+  f as default
 };
 //# sourceMappingURL=index.es309.js.map

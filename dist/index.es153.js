@@ -1,85 +1,86 @@
-import { __require as W } from "./index.es235.js";
-import { __require as I } from "./index.es236.js";
-import { __require as w } from "./index.es237.js";
-import A from "./index.es76.js";
-import { __require as F } from "./index.es238.js";
-import { __require as k } from "./index.es239.js";
-var n, d;
-function M() {
-  if (d) return n;
+var o, d;
+function w() {
+  if (d) return o;
   d = 1;
-  var u = W().Buffer, s = I(), y = w(), v = A, f = F(), b = k(), p = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/;
-  function _(r) {
-    return Object.prototype.toString.call(r) === "[object Object]";
-  }
-  function q(r) {
-    if (_(r))
-      return r;
-    try {
-      return JSON.parse(r);
-    } catch {
-      return;
-    }
-  }
-  function o(r) {
-    var e = r.split(".", 1)[0];
-    return q(u.from(e, "base64").toString("binary"));
-  }
-  function S(r) {
-    return r.split(".", 2).join(".");
-  }
-  function c(r) {
-    return r.split(".")[2];
-  }
-  function J(r, e) {
-    e = e || "utf8";
-    var t = r.split(".")[1];
-    return u.from(t, "base64").toString(e);
-  }
-  function h(r) {
-    return p.test(r) && !!o(r);
-  }
-  function m(r, e, t) {
-    if (!e) {
-      var i = new Error("Missing algorithm parameter for jws.verify");
-      throw i.code = "MISSING_ALGORITHM", i;
-    }
-    r = f(r);
-    var g = c(r), O = S(r), V = y(e);
-    return V.verify(O, g, t);
-  }
-  function l(r, e) {
-    if (e = e || {}, r = f(r), !h(r))
-      return null;
-    var t = o(r);
-    if (!t)
-      return null;
-    var i = J(r);
-    return (t.typ === "JWT" || e.json) && (i = JSON.parse(i, e.encoding)), {
-      header: t,
-      payload: i,
-      signature: c(r)
-    };
-  }
-  function a(r) {
+  var n = 1e3, t = n * 60, c = t * 60, a = c * 24, f = a * 7, h = a * 365.25;
+  o = function(e, r) {
     r = r || {};
-    var e = r.secret || r.publicKey || r.key, t = new s(e);
-    this.readable = !0, this.algorithm = r.algorithm, this.encoding = r.encoding, this.secret = this.publicKey = this.key = t, this.signature = new s(r.signature), this.secret.once("close", function() {
-      !this.signature.writable && this.readable && this.verify();
-    }.bind(this)), this.signature.once("close", function() {
-      !this.secret.writable && this.readable && this.verify();
-    }.bind(this));
-  }
-  return b.inherits(a, v), a.prototype.verify = function() {
-    try {
-      var e = m(this.signature.buffer, this.algorithm, this.key.buffer), t = l(this.signature.buffer, this.encoding);
-      return this.emit("done", e, t), this.emit("data", e), this.emit("end"), this.readable = !1, e;
-    } catch (i) {
-      this.readable = !1, this.emit("error", i), this.emit("close");
+    var s = typeof e;
+    if (s === "string" && e.length > 0)
+      return m(e);
+    if (s === "number" && isFinite(e))
+      return r.long ? l(e) : y(e);
+    throw new Error(
+      "val is not a non-empty string or a valid number. val=" + JSON.stringify(e)
+    );
+  };
+  function m(e) {
+    if (e = String(e), !(e.length > 100)) {
+      var r = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
+        e
+      );
+      if (r) {
+        var s = parseFloat(r[1]), i = (r[2] || "ms").toLowerCase();
+        switch (i) {
+          case "years":
+          case "year":
+          case "yrs":
+          case "yr":
+          case "y":
+            return s * h;
+          case "weeks":
+          case "week":
+          case "w":
+            return s * f;
+          case "days":
+          case "day":
+          case "d":
+            return s * a;
+          case "hours":
+          case "hour":
+          case "hrs":
+          case "hr":
+          case "h":
+            return s * c;
+          case "minutes":
+          case "minute":
+          case "mins":
+          case "min":
+          case "m":
+            return s * t;
+          case "seconds":
+          case "second":
+          case "secs":
+          case "sec":
+          case "s":
+            return s * n;
+          case "milliseconds":
+          case "millisecond":
+          case "msecs":
+          case "msec":
+          case "ms":
+            return s;
+          default:
+            return;
+        }
+      }
     }
-  }, a.decode = l, a.isValid = h, a.verify = m, n = a, n;
+  }
+  function y(e) {
+    var r = Math.abs(e);
+    return r >= a ? Math.round(e / a) + "d" : r >= c ? Math.round(e / c) + "h" : r >= t ? Math.round(e / t) + "m" : r >= n ? Math.round(e / n) + "s" : e + "ms";
+  }
+  function l(e) {
+    var r = Math.abs(e);
+    return r >= a ? u(e, r, a, "day") : r >= c ? u(e, r, c, "hour") : r >= t ? u(e, r, t, "minute") : r >= n ? u(e, r, n, "second") : e + " ms";
+  }
+  function u(e, r, s, i) {
+    var v = r >= s * 1.5;
+    return Math.round(e / s) + " " + i + (v ? "s" : "");
+  }
+  return o;
 }
 export {
-  M as __require
+  w as __require
 };
 //# sourceMappingURL=index.es153.js.map

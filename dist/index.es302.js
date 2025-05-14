@@ -1,10 +1,11 @@
-var r, f;
-function t() {
-  return f || (f = 1, r = function(e) {
-    return e && typeof e == "object" && typeof e.copy == "function" && typeof e.fill == "function" && typeof e.readUInt8 == "function";
-  }), r;
+var r, t;
+function i() {
+  if (t) return r;
+  t = 1;
+  const s = Object.freeze({ loose: !0 }), n = Object.freeze({});
+  return r = (e) => e ? typeof e != "object" ? s : e : n, r;
 }
 export {
-  t as __require
+  i as __require
 };
 //# sourceMappingURL=index.es302.js.map

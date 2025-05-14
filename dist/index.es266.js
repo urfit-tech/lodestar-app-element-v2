@@ -1,16 +1,10 @@
-import { __assign as o } from "./index.es63.js";
-import { visit as f } from "graphql";
-function m(i, a) {
-  var t = o({}, i), n = new Set(Object.keys(i));
-  return f(a, {
-    Variable: function(e, u, r) {
-      r && r.kind !== "VariableDefinition" && n.delete(e.name.value);
-    }
-  }), n.forEach(function(e) {
-    delete t[e];
-  }), t;
-}
+import { newInvariantError as e } from "./index.es116.js";
+import "./index.es117.js";
+var n = function(r) {
+  if (!r && typeof fetch > "u")
+    throw e(37);
+};
 export {
-  m as filterOperationVariables
+  n as checkFetcher
 };
 //# sourceMappingURL=index.es266.js.map

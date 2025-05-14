@@ -1,55 +1,90 @@
-import a from "./index.es84.js";
-function e(t, i, o, E, r) {
-  Error.call(this), Error.captureStackTrace ? Error.captureStackTrace(this, this.constructor) : this.stack = new Error().stack, this.message = t, this.name = "AxiosError", i && (this.code = i), o && (this.config = o), E && (this.request = E), r && (this.response = r, this.status = r.status ? r.status : null);
+import t from "./index.es91.js";
+import p from "./index.es102.js";
+import u from "./index.es175.js";
+import S from "./index.es101.js";
+import h from "./index.es176.js";
+import l from "./index.es177.js";
+import O from "./index.es96.js";
+function y(i, r, e) {
+  if (t.isString(i))
+    try {
+      return (r || JSON.parse)(i), t.trim(i);
+    } catch (n) {
+      if (n.name !== "SyntaxError")
+        throw n;
+    }
+  return (e || JSON.stringify)(i);
 }
-a.inherits(e, Error, {
-  toJSON: function() {
-    return {
-      // Standard
-      message: this.message,
-      name: this.name,
-      // Microsoft
-      description: this.description,
-      number: this.number,
-      // Mozilla
-      fileName: this.fileName,
-      lineNumber: this.lineNumber,
-      columnNumber: this.columnNumber,
-      stack: this.stack,
-      // Axios
-      config: a.toJSONObject(this.config),
-      code: this.code,
-      status: this.status
-    };
+const a = {
+  transitional: u,
+  adapter: ["xhr", "http", "fetch"],
+  transformRequest: [function(r, e) {
+    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
+    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
+      return s ? JSON.stringify(O(r)) : r;
+    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
+      return r;
+    if (t.isArrayBufferView(r))
+      return r.buffer;
+    if (t.isURLSearchParams(r))
+      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
+    let o;
+    if (f) {
+      if (n.indexOf("application/x-www-form-urlencoded") > -1)
+        return h(r, this.formSerializer).toString();
+      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
+        const c = this.env && this.env.FormData;
+        return S(
+          o ? { "files[]": r } : r,
+          c && new c(),
+          this.formSerializer
+        );
+      }
+    }
+    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
+  }],
+  transformResponse: [function(r) {
+    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
+    if (t.isResponse(r) || t.isReadableStream(r))
+      return r;
+    if (r && t.isString(r) && (n && !this.responseType || s)) {
+      const m = !(e && e.silentJSONParsing) && s;
+      try {
+        return JSON.parse(r);
+      } catch (o) {
+        if (m)
+          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
+      }
+    }
+    return r;
+  }],
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: {
+    FormData: l.classes.FormData,
+    Blob: l.classes.Blob
+  },
+  validateStatus: function(r) {
+    return r >= 200 && r < 300;
+  },
+  headers: {
+    common: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": void 0
+    }
   }
-});
-const R = e.prototype, u = {};
-[
-  "ERR_BAD_OPTION_VALUE",
-  "ERR_BAD_OPTION",
-  "ECONNABORTED",
-  "ETIMEDOUT",
-  "ERR_NETWORK",
-  "ERR_FR_TOO_MANY_REDIRECTS",
-  "ERR_DEPRECATED",
-  "ERR_BAD_RESPONSE",
-  "ERR_BAD_REQUEST",
-  "ERR_CANCELED",
-  "ERR_NOT_SUPPORT",
-  "ERR_INVALID_URL"
-  // eslint-disable-next-line func-names
-].forEach((t) => {
-  u[t] = { value: t };
-});
-Object.defineProperties(e, u);
-Object.defineProperty(R, "isAxiosError", { value: !0 });
-e.from = (t, i, o, E, r, c) => {
-  const s = Object.create(R);
-  return a.toFlatObject(t, s, function(h) {
-    return h !== Error.prototype;
-  }, (n) => n !== "isAxiosError"), e.call(s, t.message, i, o, E, r), s.cause = t, s.name = t.name, c && Object.assign(s, c), s;
 };
+t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
+  a.headers[i] = {};
+});
 export {
-  e as default
+  a as default
 };
 //# sourceMappingURL=index.es95.js.map

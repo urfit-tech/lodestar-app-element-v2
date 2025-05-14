@@ -1,36 +1,63 @@
-import { __extends as u } from "./index.es63.js";
-var i = "Invariant Violation", a = Object.setPrototypeOf, c = a === void 0 ? function(r, o) {
-  return r.__proto__ = o, r;
-} : a, p = (
-  /** @class */
-  function(r) {
-    u(o, r);
-    function o(t) {
-      t === void 0 && (t = i);
-      var n = r.call(this, typeof t == "number" ? i + ": " + t + " (see https://github.com/apollographql/invariant-packages)" : t) || this;
-      return n.framesToPop = 1, n.name = i, c(n, o.prototype), n;
-    }
-    return o;
-  }(Error)
-);
-function l(r, o) {
-  if (!r)
-    throw new p(o);
+import { __rest as D } from "./index.es63.js";
+import { equal as M } from "./index.es164.js";
+import { createFragmentMap as S, getFragmentFromSelection as N } from "./index.es125.js";
+import { getFragmentDefinitions as q, getMainDefinition as A } from "./index.es36.js";
+import { shouldInclude as B } from "./index.es118.js";
+import { isField as d, resultKeyNameFromField as w } from "./index.es126.js";
+function I(e, a, t, n) {
+  var v = a.data, r = D(a, ["data"]), o = t.data, i = D(t, ["data"]);
+  return M(r, i) && u(A(e).selectionSet, v, o, {
+    fragmentMap: S(q(e)),
+    variables: n
+  });
 }
-var f = ["debug", "log", "warn", "error", "silent"], v = f.indexOf("log");
-function e(r) {
-  return function() {
-    if (f.indexOf(r) >= v) {
-      var o = console[r] || console.log;
-      return o.apply(console, arguments);
+function u(e, a, t, n) {
+  if (a === t)
+    return !0;
+  var v = /* @__PURE__ */ new Set();
+  return e.selections.every(function(r) {
+    if (v.has(r) || (v.add(r), !B(r, n.variables)) || s(r))
+      return !0;
+    if (d(r)) {
+      var o = w(r), i = a && a[o], f = t && t[o], p = r.selectionSet;
+      if (!p)
+        return M(i, f);
+      var F = Array.isArray(i), c = Array.isArray(f);
+      if (F !== c)
+        return !1;
+      if (F && c) {
+        var y = i.length;
+        if (f.length !== y)
+          return !1;
+        for (var m = 0; m < y; ++m)
+          if (!u(p, i[m], f[m], n))
+            return !1;
+        return !0;
+      }
+      return u(p, i, f, n);
+    } else {
+      var g = N(r, n.fragmentMap);
+      if (g)
+        return s(g) ? !0 : u(
+          g.selectionSet,
+          // Notice that we reuse the same aResult and bResult values here,
+          // since the fragment ...spread does not specify a field name, but
+          // consists of multiple fields (within the fragment's selection set)
+          // that should be applied to the current result value(s).
+          a,
+          t,
+          n
+        );
     }
-  };
+  });
 }
-(function(r) {
-  r.debug = e("debug"), r.log = e("log"), r.warn = e("warn"), r.error = e("error");
-})(l || (l = {}));
+function s(e) {
+  return !!e.directives && e.directives.some(H);
+}
+function H(e) {
+  return e.name.value === "nonreactive";
+}
 export {
-  p as InvariantError,
-  l as invariant
+  I as equalByQuery
 };
 //# sourceMappingURL=index.es166.js.map

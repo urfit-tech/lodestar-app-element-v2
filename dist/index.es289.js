@@ -1,31 +1,11 @@
-import a from "./index.es90.js";
-import s from "./index.es95.js";
-import m from "./index.es84.js";
-const h = (e, t) => {
-  const { length: l } = e = e ? e.filter(Boolean) : [];
-  if (t || l) {
-    let u = new AbortController(), f;
-    const n = function(r) {
-      if (!f) {
-        f = !0, i();
-        const o = r instanceof Error ? r : this.reason;
-        u.abort(o instanceof s ? o : new a(o instanceof Error ? o.message : o));
-      }
-    };
-    let c = t && setTimeout(() => {
-      c = null, n(new s(`timeout ${t} of ms exceeded`, s.ETIMEDOUT));
-    }, t);
-    const i = () => {
-      e && (c && clearTimeout(c), c = null, e.forEach((r) => {
-        r.unsubscribe ? r.unsubscribe(n) : r.removeEventListener("abort", n);
-      }), e = null);
-    };
-    e.forEach((r) => r.addEventListener("abort", n));
-    const { signal: b } = u;
-    return b.unsubscribe = () => m.asap(i), b;
-  }
-};
+var e, r;
+function _() {
+  if (r) return e;
+  r = 1;
+  var t = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
+  return e = t, e;
+}
 export {
-  h as default
+  _ as __require
 };
 //# sourceMappingURL=index.es289.js.map

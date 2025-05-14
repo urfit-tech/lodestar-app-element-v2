@@ -1,7 +1,9 @@
-function t(n) {
-  return !!(n && n.__CANCEL__);
+function u(n, r) {
+  return function() {
+    return n.apply(r, arguments);
+  };
 }
 export {
-  t as default
+  u as default
 };
 //# sourceMappingURL=index.es92.js.map

@@ -1,12 +1,8 @@
-import { invariant as e } from "./index.es117.js";
-import "./index.es118.js";
-import { r as n } from "./index.es268.js";
-import { getApolloContext as i } from "./index.es269.js";
-function c(o) {
-  var r = n.useContext(i()), t = o || r.client;
-  return e(!!t, 49), t;
-}
+var u = function(t, e) {
+  var n = t.getContext(), r = n.uri;
+  return r || (typeof e == "function" ? e(t) : e || "/graphql");
+};
 export {
-  c as useApolloClient
+  u as selectURI
 };
 //# sourceMappingURL=index.es267.js.map

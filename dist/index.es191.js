@@ -1,10 +1,20 @@
-import { bind as p, noContext as x } from "./index.es254.js";
-import { Slot as t } from "./index.es253.js";
-const n = new t();
+import { newInvariantError as a } from "./index.es116.js";
+import "./index.es117.js";
+function f(e) {
+  for (var o = [
+    "query",
+    "operationName",
+    "variables",
+    "extensions",
+    "context"
+  ], r = 0, t = Object.keys(e); r < t.length; r++) {
+    var n = t[r];
+    if (o.indexOf(n) < 0)
+      throw a(43, n);
+  }
+  return e;
+}
 export {
-  t as Slot,
-  p as bindContext,
-  x as noContext,
-  n as parentEntrySlot
+  f as validateOperation
 };
 //# sourceMappingURL=index.es191.js.map

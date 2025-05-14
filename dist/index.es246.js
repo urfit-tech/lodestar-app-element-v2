@@ -1,22 +1,34 @@
-import { __extends as p } from "./index.es63.js";
-var l = (
-  /** @class */
-  function(a) {
-    p(i, a);
-    function i(e, n, o, h) {
-      var s, r = a.call(this, e) || this;
-      if (r.message = e, r.path = n, r.query = o, r.variables = h, Array.isArray(r.path)) {
-        r.missing = r.message;
-        for (var t = r.path.length - 1; t >= 0; --t)
-          r.missing = (s = {}, s[r.path[t]] = r.missing, s);
-      } else
-        r.missing = r.path;
-      return r.__proto__ = i.prototype, r;
-    }
-    return i;
-  }(Error)
-);
+import { invariant as c } from "./index.es116.js";
+import "./index.es117.js";
+import * as l from "./index.es244.js";
+import { r as o } from "./index.es244.js";
+import { canUseLayoutEffect as v } from "./index.es121.js";
+var u = !1, h = "useSyncExternalStore", S = l[h], g = S || function(a, e, f) {
+  var r = e();
+  // DEVIATION: Using __DEV__
+  globalThis.__DEV__ !== !1 && !u && // DEVIATION: Not using Object.is because we know our snapshots will never
+  // be exotic primitive values like NaN, which is !== itself.
+  r !== e() && (u = !0, globalThis.__DEV__ !== !1 && c.error(59));
+  var s = o.useState({
+    inst: { value: r, getSnapshot: e }
+  }), t = s[0].inst, n = s[1];
+  return v ? o.useLayoutEffect(function() {
+    Object.assign(t, { value: r, getSnapshot: e }), i(t) && n({ inst: t });
+  }, [a, r, e]) : Object.assign(t, { value: r, getSnapshot: e }), o.useEffect(function() {
+    return i(t) && n({ inst: t }), a(function() {
+      i(t) && n({ inst: t });
+    });
+  }, [a]), r;
+};
+function i(a) {
+  var e = a.value, f = a.getSnapshot;
+  try {
+    return e !== f();
+  } catch {
+    return !0;
+  }
+}
 export {
-  l as MissingFieldError
+  g as useSyncExternalStore
 };
 //# sourceMappingURL=index.es246.js.map

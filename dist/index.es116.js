@@ -1,46 +1,59 @@
-import { invariant as v } from "./index.es117.js";
-import "./index.es118.js";
-import { visit as l, BREAK as f } from "graphql";
-function p(e, r) {
-  var i = e.directives;
-  return !i || !i.length ? !0 : m(i).every(function(n) {
-    var a = n.directive, u = n.ifArgument, t = !1;
-    return u.value.kind === "Variable" ? (t = r && r[u.value.name.value], v(t !== void 0, 69, a.name.value)) : t = u.value.value, a.name.value === "skip" ? !t : t;
-  });
-}
-function o(e, r, i) {
-  var n = new Set(e), a = n.size;
-  return l(r, {
-    Directive: function(u) {
-      if (n.delete(u.name.value) && (!i || !n.size))
-        return f;
+import { invariant as i, InvariantError as d } from "./index.es167.js";
+import { version as c } from "./index.es159.js";
+import u from "./index.es117.js";
+import { stringifyForDisplay as g } from "./index.es145.js";
+function e(n) {
+  return function(r) {
+    for (var o = [], t = 1; t < arguments.length; t++)
+      o[t - 1] = arguments[t];
+    if (typeof r == "number") {
+      var a = r;
+      r = f(a), r || (r = l(a, o), o = []);
     }
-  }), i ? !n.size : n.size < a;
+    n.apply(void 0, [r].concat(o));
+  };
 }
-function h(e) {
-  return e && o(["client", "export"], e, !0);
+var E = Object.assign(function(r, o) {
+  for (var t = [], a = 2; a < arguments.length; a++)
+    t[a - 2] = arguments[a];
+  r || i(r, f(o, t) || l(o, t));
+}, {
+  debug: e(i.debug),
+  log: e(i.log),
+  warn: e(i.warn),
+  error: e(i.error)
+});
+function w(n) {
+  for (var r = [], o = 1; o < arguments.length; o++)
+    r[o - 1] = arguments[o];
+  return new d(f(n, r) || l(n, r));
 }
-function s(e) {
-  var r = e.name.value;
-  return r === "skip" || r === "include";
+var v = Symbol.for("ApolloErrorMessageHandler_" + c);
+function p(n) {
+  if (typeof n == "string")
+    return n;
+  try {
+    return g(n, 2).slice(0, 1e3);
+  } catch {
+    return "<non-serializable>";
+  }
 }
-function m(e) {
-  var r = [];
-  return e && e.length && e.forEach(function(i) {
-    if (s(i)) {
-      var n = i.arguments, a = i.name.value;
-      v(n && n.length === 1, 70, a);
-      var u = n[0];
-      v(u.name && u.name.value === "if", 71, a);
-      var t = u.value;
-      v(t && (t.kind === "Variable" || t.kind === "BooleanValue"), 72, a), r.push({ directive: i, ifArgument: u });
-    }
-  }), r;
+function f(n, r) {
+  if (r === void 0 && (r = []), !!n)
+    return u[v] && u[v](n, r.map(p));
+}
+function l(n, r) {
+  if (r === void 0 && (r = []), !!n)
+    return "An error occurred! For more details, see the full error text at https://go.apollo.dev/c/err#".concat(encodeURIComponent(JSON.stringify({
+      version: c,
+      message: n,
+      args: r.map(p)
+    })));
 }
 export {
-  m as getInclusionDirectives,
-  h as hasClientExports,
-  o as hasDirectives,
-  p as shouldInclude
+  v as ApolloErrorMessageHandler,
+  d as InvariantError,
+  E as invariant,
+  w as newInvariantError
 };
 //# sourceMappingURL=index.es116.js.map

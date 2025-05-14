@@ -1,5 +1,5 @@
 import { WeakCache as i } from "./index.es124.js";
-import { StrongCache as s } from "./index.es192.js";
+import { StrongCache as s } from "./index.es195.js";
 var u = /* @__PURE__ */ new WeakSet();
 function l(e) {
   e.size <= (e.max || -1) || u.has(e) || (u.add(e), setTimeout(function() {

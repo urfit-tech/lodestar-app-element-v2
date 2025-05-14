@@ -1,24 +1,10 @@
-import o from "./index.es187.js";
-import u from "./index.es188.js";
-function s(e) {
-  return function c(r, n) {
-    switch (arguments.length) {
-      case 0:
-        return c;
-      case 1:
-        return u(r) ? c : o(function(t) {
-          return e(r, t);
-        });
-      default:
-        return u(r) && u(n) ? c : u(r) ? o(function(t) {
-          return e(t, n);
-        }) : u(n) ? o(function(t) {
-          return e(r, t);
-        }) : e(r, n);
-    }
-  };
+import n from "./index.es182.js";
+import m from "./index.es183.js";
+function g() {
+  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
+  return r && (e = m(t)), a && (e = n(e)), e;
 }
 export {
-  s as default
+  g as default
 };
 //# sourceMappingURL=index.es110.js.map

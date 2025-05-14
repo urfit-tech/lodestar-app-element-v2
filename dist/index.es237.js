@@ -1,151 +1,45 @@
-import { __require as G } from "./index.es299.js";
-import { __require as j } from "./index.es235.js";
-import C from "./index.es76.js";
-import { __require as M } from "./index.es300.js";
-import { __require as O } from "./index.es239.js";
-var _, w;
-function z() {
-  if (w) return _;
-  w = 1;
-  var P = G(), u = j().Buffer, o = C, m = M(), y = O(), b = `"%s" is not a valid algorithm.
-  Supported algorithms are:
-  "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "ES256", "ES384", "ES512" and "none".`, s = "secret must be a string or buffer", c = "key must be a string or a buffer", q = "key must be a string, a buffer or an object", v = typeof o.createPublicKey == "function";
-  v && (c += " or a KeyObject", s += "or a KeyObject");
-  function E(r) {
-    if (!u.isBuffer(r) && typeof r != "string" && (!v || typeof r != "object" || typeof r.type != "string" || typeof r.asymmetricKeyType != "string" || typeof r.export != "function"))
-      throw a(c);
-  }
-  function A(r) {
-    if (!u.isBuffer(r) && typeof r != "string" && typeof r != "object")
-      throw a(q);
-  }
-  function h(r) {
-    if (!u.isBuffer(r)) {
-      if (typeof r == "string")
-        return r;
-      if (!v || typeof r != "object" || r.type !== "secret" || typeof r.export != "function")
-        throw a(s);
+import { __require as C } from "./index.es204.js";
+import { __require as E } from "./index.es229.js";
+import { __require as G } from "./index.es230.js";
+import { __require as L } from "./index.es231.js";
+import { __require as O } from "./index.es221.js";
+import { __require as x } from "./index.es222.js";
+import { __require as y } from "./index.es226.js";
+import { __require as A } from "./index.es225.js";
+var q, d;
+function F() {
+  if (d) return q;
+  d = 1;
+  const h = C(), _ = E(), { ANY: v } = _, w = G(), g = L(), c = O(), p = x(), R = y(), S = A();
+  return q = (s, i, b, u) => {
+    s = new h(s, u), i = new w(i, u);
+    let m, a, o, f, l;
+    switch (b) {
+      case ">":
+        m = c, a = R, o = p, f = ">", l = ">=";
+        break;
+      case "<":
+        m = p, a = S, o = c, f = "<", l = "<=";
+        break;
+      default:
+        throw new TypeError('Must provide a hilo val of "<" or ">"');
     }
-  }
-  function g(r) {
-    return r.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
-  }
-  function l(r) {
-    r = r.toString();
-    var i = 4 - r.length % 4;
-    if (i !== 4)
-      for (var e = 0; e < i; ++e)
-        r += "=";
-    return r.replace(/\-/g, "+").replace(/_/g, "/");
-  }
-  function a(r) {
-    var i = [].slice.call(arguments, 1), e = y.format.bind(y, r).apply(null, i);
-    return new TypeError(e);
-  }
-  function D(r) {
-    return u.isBuffer(r) || typeof r == "string";
-  }
-  function S(r) {
-    return D(r) || (r = JSON.stringify(r)), r;
-  }
-  function d(r) {
-    return function(e, t) {
-      h(t), e = S(e);
-      var n = o.createHmac("sha" + r, t), f = (n.update(e), n.digest("base64"));
-      return g(f);
-    };
-  }
-  function H(r) {
-    return function(e, t, n) {
-      var f = d(r)(e, n);
-      return P(u.from(t), u.from(f));
-    };
-  }
-  function I(r) {
-    return function(e, t) {
-      A(t), e = S(e);
-      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign(t, "base64"));
-      return g(f);
-    };
-  }
-  function R(r) {
-    return function(e, t, n) {
-      E(n), e = S(e), t = l(t);
-      var f = o.createVerify("RSA-SHA" + r);
-      return f.update(e), f.verify(n, t, "base64");
-    };
-  }
-  function K(r) {
-    return function(e, t) {
-      A(t), e = S(e);
-      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign({
-        key: t,
-        padding: o.constants.RSA_PKCS1_PSS_PADDING,
-        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
-      }, "base64"));
-      return g(f);
-    };
-  }
-  function L(r) {
-    return function(e, t, n) {
-      E(n), e = S(e), t = l(t);
-      var f = o.createVerify("RSA-SHA" + r);
-      return f.update(e), f.verify({
-        key: n,
-        padding: o.constants.RSA_PKCS1_PSS_PADDING,
-        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
-      }, t, "base64");
-    };
-  }
-  function N(r) {
-    var i = I(r);
-    return function() {
-      var t = i.apply(null, arguments);
-      return t = m.derToJose(t, "ES" + r), t;
-    };
-  }
-  function V(r) {
-    var i = R(r);
-    return function(t, n, f) {
-      n = m.joseToDer(n, "ES" + r).toString("base64");
-      var p = i(t, n, f);
-      return p;
-    };
-  }
-  function T() {
-    return function() {
-      return "";
-    };
-  }
-  function B() {
-    return function(i, e) {
-      return e === "";
-    };
-  }
-  return _ = function(i) {
-    var e = {
-      hs: d,
-      rs: I,
-      ps: K,
-      es: N,
-      none: T
-    }, t = {
-      hs: H,
-      rs: R,
-      ps: L,
-      es: V,
-      none: B
-    }, n = i.match(/^(RS|PS|ES|HS)(256|384|512)$|^(none)$/i);
-    if (!n)
-      throw a(b, i);
-    var f = (n[1] || n[3]).toLowerCase(), p = n[2];
-    return {
-      sign: e[f](p),
-      verify: t[f](p)
-    };
-  }, _;
+    if (g(s, i, u))
+      return !1;
+    for (let n = 0; n < i.set.length; ++n) {
+      const k = i.set[n];
+      let t = null, e = null;
+      if (k.forEach((r) => {
+        r.semver === v && (r = new _(">=0.0.0")), t = t || r, e = e || r, m(r.semver, t.semver, u) ? t = r : o(r.semver, e.semver, u) && (e = r);
+      }), t.operator === f || t.operator === l || (!e.operator || e.operator === f) && a(s, e.semver))
+        return !1;
+      if (e.operator === l && o(s, e.semver))
+        return !1;
+    }
+    return !0;
+  }, q;
 }
 export {
-  z as __require
+  F as __require
 };
 //# sourceMappingURL=index.es237.js.map

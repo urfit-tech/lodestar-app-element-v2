@@ -1,9 +1,5 @@
-import { __require as s } from "./index.es150.js";
-var e, r;
-function m() {
-  return r || (r = 1, e = s().satisfies(process.version, ">=15.7.0")), e;
-}
+const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
 export {
-  m as __require
+  t as default
 };
 //# sourceMappingURL=index.es148.js.map

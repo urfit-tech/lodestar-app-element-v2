@@ -1,5 +1,10 @@
-const t = null;
+import o from "./index.es276.js";
+import * as t from "./index.es277.js";
+const m = {
+  ...t,
+  ...o
+};
 export {
-  t as default
+  m as default
 };
 //# sourceMappingURL=index.es177.js.map

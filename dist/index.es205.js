@@ -1,12 +1,17 @@
-import { __require as i } from "./index.es196.js";
-var r, e;
-function n() {
-  if (e) return r;
-  e = 1;
-  const t = i();
-  return r = (a, c) => new t(a, c).patch, r;
+var n, o;
+function f() {
+  if (o) return n;
+  o = 1;
+  const s = /^[0-9]+$/, c = (e, r) => {
+    const i = s.test(e), t = s.test(r);
+    return i && t && (e = +e, r = +r), e === r ? 0 : i && !t ? -1 : t && !i ? 1 : e < r ? -1 : 1;
+  };
+  return n = {
+    compareIdentifiers: c,
+    rcompareIdentifiers: (e, r) => c(r, e)
+  }, n;
 }
 export {
-  n as __require
+  f as __require
 };
 //# sourceMappingURL=index.es205.js.map

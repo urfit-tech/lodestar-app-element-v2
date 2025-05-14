@@ -1,5 +1,5 @@
-import { newInvariantError as u, invariant as r } from "./index.es117.js";
-import "./index.es118.js";
+import { newInvariantError as u, invariant as r } from "./index.es116.js";
+import "./index.es117.js";
 import { valueToObjectRepresentation as l } from "./index.es126.js";
 function o(t) {
   r(t && t.kind === "Document", 76);

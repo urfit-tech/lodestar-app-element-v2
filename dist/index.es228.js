@@ -1,18 +1,34 @@
-import { __require as t } from "./index.es222.js";
-var r, e;
-function o() {
-  if (e) return r;
-  e = 1;
-  const a = t();
-  return r = (n, i) => {
-    try {
-      return new a(n, i).range || "*";
-    } catch {
+import { __require as C } from "./index.es204.js";
+import { __require as g } from "./index.es206.js";
+import { __require as q } from "./index.es202.js";
+var a, i;
+function L() {
+  if (i) return a;
+  i = 1;
+  const f = C(), m = g(), { safeRe: c, t: n } = q();
+  return a = (r, t) => {
+    if (r instanceof f)
+      return r;
+    if (typeof r == "number" && (r = String(r)), typeof r != "string")
       return null;
+    t = t || {};
+    let e = null;
+    if (!t.rtl)
+      e = r.match(t.includePrerelease ? c[n.COERCEFULL] : c[n.COERCE]);
+    else {
+      const u = t.includePrerelease ? c[n.COERCERTLFULL] : c[n.COERCERTL];
+      let l;
+      for (; (l = u.exec(r)) && (!e || e.index + e[0].length !== r.length); )
+        (!e || l.index + l[0].length !== e.index + e[0].length) && (e = l), u.lastIndex = l.index + l[1].length + l[2].length;
+      u.lastIndex = -1;
     }
-  }, r;
+    if (e === null)
+      return null;
+    const s = e[2], d = e[3] || "0", h = e[4] || "0", R = t.includePrerelease && e[5] ? `-${e[5]}` : "", x = t.includePrerelease && e[6] ? `+${e[6]}` : "";
+    return m(`${s}.${d}.${h}${R}${x}`, t);
+  }, a;
 }
 export {
-  o as __require
+  L as __require
 };
 //# sourceMappingURL=index.es228.js.map

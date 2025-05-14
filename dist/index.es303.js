@@ -1,23 +1,33 @@
-import { __module as t } from "./index.es325.js";
-var n;
-function s() {
-  return n ? t.exports : (n = 1, typeof Object.create == "function" ? t.exports = function(e, r) {
-    e.super_ = r, e.prototype = Object.create(r.prototype, {
-      constructor: {
-        value: e,
-        enumerable: !1,
-        writable: !0,
-        configurable: !0
+var s, i;
+function u() {
+  if (i) return s;
+  i = 1;
+  class r {
+    constructor() {
+      this.max = 1e3, this.map = /* @__PURE__ */ new Map();
+    }
+    get(e) {
+      const t = this.map.get(e);
+      if (t !== void 0)
+        return this.map.delete(e), this.map.set(e, t), t;
+    }
+    delete(e) {
+      return this.map.delete(e);
+    }
+    set(e, t) {
+      if (!this.delete(e) && t !== void 0) {
+        if (this.map.size >= this.max) {
+          const a = this.map.keys().next().value;
+          this.delete(a);
+        }
+        this.map.set(e, t);
       }
-    });
-  } : t.exports = function(e, r) {
-    e.super_ = r;
-    var o = function() {
-    };
-    o.prototype = r.prototype, e.prototype = new o(), e.prototype.constructor = e;
-  }, t.exports);
+      return this;
+    }
+  }
+  return s = r, s;
 }
 export {
-  s as __require
+  u as __require
 };
 //# sourceMappingURL=index.es303.js.map

@@ -1,55 +1,34 @@
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-var f, i;
-function p() {
-  if (i) return f;
-  i = 1;
-  var u = Object.getOwnPropertySymbols, b = Object.prototype.hasOwnProperty, l = Object.prototype.propertyIsEnumerable;
-  function O(n) {
-    if (n == null)
-      throw new TypeError("Object.assign cannot be called with null or undefined");
-    return Object(n);
-  }
-  function j() {
-    try {
-      if (!Object.assign)
-        return !1;
-      var n = new String("abc");
-      if (n[5] = "de", Object.getOwnPropertyNames(n)[0] === "5")
-        return !1;
-      for (var s = {}, r = 0; r < 10; r++)
-        s["_" + String.fromCharCode(r)] = r;
-      var a = Object.getOwnPropertyNames(s).map(function(e) {
-        return s[e];
-      });
-      if (a.join("") !== "0123456789")
-        return !1;
-      var t = {};
-      return "abcdefghijklmnopqrst".split("").forEach(function(e) {
-        t[e] = e;
-      }), Object.keys(Object.assign({}, t)).join("") === "abcdefghijklmnopqrst";
-    } catch {
-      return !1;
+import n from "./index.es177.js";
+import l from "./index.es91.js";
+import h from "./index.es316.js";
+import c from "./index.es317.js";
+import w from "./index.es173.js";
+import C from "./index.es94.js";
+import b from "./index.es105.js";
+import S from "./index.es170.js";
+const v = (s) => {
+  const e = C({}, s);
+  let { data: p, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
+  e.headers = r = b.from(r), e.url = S(w(e.baseURL, e.url, e.allowAbsoluteUrls), s.params, s.paramsSerializer), t && r.set(
+    "Authorization",
+    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
+  );
+  let i;
+  if (l.isFormData(p)) {
+    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
+      r.setContentType(void 0);
+    else if ((i = r.getContentType()) !== !1) {
+      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
+      r.setContentType([a || "multipart/form-data", ...d].join("; "));
     }
   }
-  return f = j() ? Object.assign : function(n, s) {
-    for (var r, a = O(n), t, e = 1; e < arguments.length; e++) {
-      r = Object(arguments[e]);
-      for (var c in r)
-        b.call(r, c) && (a[c] = r[c]);
-      if (u) {
-        t = u(r);
-        for (var o = 0; o < t.length; o++)
-          l.call(r, t[o]) && (a[t[o]] = r[t[o]]);
-      }
-    }
-    return a;
-  }, f;
-}
+  if (n.hasStandardBrowserEnv && (o && l.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
+    const a = m && f && c.read(f);
+    a && r.set(m, a);
+  }
+  return e;
+};
 export {
-  p as __require
+  v as default
 };
 //# sourceMappingURL=index.es281.js.map

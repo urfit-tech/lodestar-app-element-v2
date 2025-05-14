@@ -1,6 +1,6 @@
-import i from "./index.es84.js";
-import m from "./index.es88.js";
-import s from "./index.es98.js";
+import i from "./index.es91.js";
+import m from "./index.es95.js";
+import s from "./index.es105.js";
 function h(f, t) {
   const o = this || m, r = t || o, n = s.from(r.headers);
   let a = r.data;

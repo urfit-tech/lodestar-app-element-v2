@@ -1,10 +1,13 @@
-import { __require as a } from "./index.es207.js";
-var e, r;
+import { __require as c } from "./index.es204.js";
+var r, n;
 function s() {
-  if (r) return e;
-  r = 1;
-  const t = a();
-  return e = (i, o, u) => t(i, o, u) <= 0, e;
+  if (n) return r;
+  n = 1;
+  const e = c();
+  return r = (a, m, i) => {
+    const o = new e(a, i), u = new e(m, i);
+    return o.compare(u) || o.compareBuild(u);
+  }, r;
 }
 export {
   s as __require

@@ -1,8 +1,8 @@
-var a = function(e, o, t) {
-  var r = new Error(t);
-  throw r.name = "ServerError", r.response = e, r.statusCode = e.status, r.result = o, r;
-};
+import { Slot as o } from "./index.es257.js";
+const { bind: n, noContext: r } = o;
 export {
-  a as throwServerError
+  o as Slot,
+  n as bind,
+  r as noContext
 };
 //# sourceMappingURL=index.es258.js.map

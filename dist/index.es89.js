@@ -1,32 +1,15 @@
-import u from "./index.es84.js";
-function f(e) {
-  return u.matchAll(/\w+|\[(\w*)]/g, e).map((o) => o[0] === "[]" ? "" : o[1] || o[0]);
-}
-function y(e) {
-  const o = {}, r = Object.keys(e);
-  let i;
-  const n = r.length;
-  let c;
-  for (i = 0; i < n; i++)
-    c = r[i], o[c] = e[c];
-  return o;
-}
-function m(e) {
-  function o(r, i, n, c) {
-    let s = r[c++];
-    if (s === "__proto__") return !0;
-    const t = Number.isFinite(+s), l = c >= r.length;
-    return s = !s && u.isArray(n) ? n.length : s, l ? (u.hasOwnProp(n, s) ? n[s] = [n[s], i] : n[s] = i, !t) : ((!n[s] || !u.isObject(n[s])) && (n[s] = []), o(r, i, n[s], c) && u.isArray(n[s]) && (n[s] = y(n[s])), !t);
-  }
-  if (u.isFormData(e) && u.isFunction(e.entries)) {
-    const r = {};
-    return u.forEachEntry(e, (i, n) => {
-      o(f(i), n, r, 0);
-    }), r;
-  }
-  return null;
-}
+import a from "./index.es87.js";
+import f from "./index.es90.js";
+var h = /* @__PURE__ */ a(function(o, i, e) {
+  var t = {}, r;
+  i = i || {}, e = e || {};
+  for (r in i)
+    f(r, i) && (t[r] = f(r, e) ? o(r, i[r], e[r]) : i[r]);
+  for (r in e)
+    f(r, e) && !f(r, t) && (t[r] = e[r]);
+  return t;
+});
 export {
-  m as default
+  h as default
 };
 //# sourceMappingURL=index.es89.js.map

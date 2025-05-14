@@ -19,8 +19,9 @@
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build:types": "tsc -p tsconfig.json",
-    "build": "vite build && npm run build:types"
+    "clean": "rm -rf dist dist-types",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist-types",
+    "build": "npm run clean && vite build && npm run build:types"
   },
   "dependencies": {
     "@bobthered/tailwindcss-palette-generator": "^4.0.0",

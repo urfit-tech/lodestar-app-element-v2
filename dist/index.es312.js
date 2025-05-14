@@ -1,5 +1,5 @@
-var e = {};
+const a = typeof FormData < "u" ? FormData : null;
 export {
-  e as __exports
+  a as default
 };
 //# sourceMappingURL=index.es312.js.map

@@ -1,12 +1,12 @@
-import { __require as m } from "./index.es222.js";
-var r, o;
-function u() {
-  if (o) return r;
-  o = 1;
-  const a = m();
-  return r = (e, t) => new a(e, t).set.map((s) => s.map((i) => i.value).join(" ").trim().split(" ")), r;
+import { __require as u } from "./index.es215.js";
+var e, r;
+function s() {
+  if (r) return e;
+  r = 1;
+  const q = u();
+  return e = (n, i, o) => q(n, i, o) !== 0, e;
 }
 export {
-  u as __require
+  s as __require
 };
 //# sourceMappingURL=index.es224.js.map

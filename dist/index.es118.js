@@ -1,22 +1,46 @@
-import { maybe as n } from "./index.es142.js";
-const r = n(function() {
-  return globalThis;
-}) || n(function() {
-  return window;
-}) || n(function() {
-  return self;
-}) || n(function() {
-  return global;
-}) || // We don't expect the Function constructor ever to be invoked at runtime, as
-// long as at least one of globalThis, window, self, or global is defined, so
-// we are under no obligation to make it easy for static analysis tools to
-// detect syntactic usage of the Function constructor. If you think you can
-// improve your static analysis to detect this obfuscation, think again. This
-// is an arms race you cannot win, at least not in JavaScript.
-n(function() {
-  return n.constructor("return this")();
-});
+import { invariant as v } from "./index.es116.js";
+import "./index.es117.js";
+import { visit as l, BREAK as f } from "graphql";
+function p(e, r) {
+  var i = e.directives;
+  return !i || !i.length ? !0 : m(i).every(function(n) {
+    var a = n.directive, u = n.ifArgument, t = !1;
+    return u.value.kind === "Variable" ? (t = r && r[u.value.name.value], v(t !== void 0, 69, a.name.value)) : t = u.value.value, a.name.value === "skip" ? !t : t;
+  });
+}
+function o(e, r, i) {
+  var n = new Set(e), a = n.size;
+  return l(r, {
+    Directive: function(u) {
+      if (n.delete(u.name.value) && (!i || !n.size))
+        return f;
+    }
+  }), i ? !n.size : n.size < a;
+}
+function h(e) {
+  return e && o(["client", "export"], e, !0);
+}
+function s(e) {
+  var r = e.name.value;
+  return r === "skip" || r === "include";
+}
+function m(e) {
+  var r = [];
+  return e && e.length && e.forEach(function(i) {
+    if (s(i)) {
+      var n = i.arguments, a = i.name.value;
+      v(n && n.length === 1, 70, a);
+      var u = n[0];
+      v(u.name && u.name.value === "if", 71, a);
+      var t = u.value;
+      v(t && (t.kind === "Variable" || t.kind === "BooleanValue"), 72, a), r.push({ directive: i, ifArgument: u });
+    }
+  }), r;
+}
 export {
-  r as default
+  m as getInclusionDirectives,
+  h as hasClientExports,
+  o as hasDirectives,
+  p as shouldInclude
 };
 //# sourceMappingURL=index.es118.js.map

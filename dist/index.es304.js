@@ -1,73 +1,12 @@
-import { __assign as m } from "./index.es63.js";
-import { Trie as b } from "./index.es120.js";
-import { canUseWeakSet as d, canUseWeakMap as w } from "./index.es121.js";
-import { isNonNullObject as p } from "./index.es69.js";
-import { isArray as j } from "./index.es131.js";
-function g(r) {
-  return p(r) ? j(r) ? r.slice(0) : m({ __proto__: Object.getPrototypeOf(r) }, r) : r;
+import { __module as e } from "./index.es305.js";
+import E from "react";
+var r;
+function N() {
+  return r ? e.exports : (r = 1, function(_) {
+    _.exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = void 0, _.exports.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, _.exports.__SERVER_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, Object.assign(_.exports, E);
+  }(e), e.exports);
 }
-var E = (
-  /** @class */
-  function() {
-    function r() {
-      this.known = new (d ? WeakSet : Set)(), this.pool = new b(w), this.passes = /* @__PURE__ */ new WeakMap(), this.keysByJSON = /* @__PURE__ */ new Map(), this.empty = this.admit({});
-    }
-    return r.prototype.isKnown = function(t) {
-      return p(t) && this.known.has(t);
-    }, r.prototype.pass = function(t) {
-      if (p(t)) {
-        var s = g(t);
-        return this.passes.set(s, t), s;
-      }
-      return t;
-    }, r.prototype.admit = function(t) {
-      var s = this;
-      if (p(t)) {
-        var o = this.passes.get(t);
-        if (o)
-          return o;
-        var i = Object.getPrototypeOf(t);
-        switch (i) {
-          case Array.prototype: {
-            if (this.known.has(t))
-              return t;
-            var f = t.map(this.admit, this), e = this.pool.lookupArray(f);
-            return e.array || (this.known.add(e.array = f), globalThis.__DEV__ !== !1 && Object.freeze(f)), e.array;
-          }
-          case null:
-          case Object.prototype: {
-            if (this.known.has(t))
-              return t;
-            var y = Object.getPrototypeOf(t), n = [y], h = this.sortedKeys(t);
-            n.push(h.json);
-            var k = n.length;
-            h.sorted.forEach(function(a) {
-              n.push(s.admit(t[a]));
-            });
-            var e = this.pool.lookupArray(n);
-            if (!e.object) {
-              var c = e.object = Object.create(y);
-              this.known.add(c), h.sorted.forEach(function(a, O) {
-                c[a] = n[k + O];
-              }), globalThis.__DEV__ !== !1 && Object.freeze(c);
-            }
-            return e.object;
-          }
-        }
-      }
-      return t;
-    }, r.prototype.sortedKeys = function(t) {
-      var s = Object.keys(t), o = this.pool.lookupArray(s);
-      if (!o.keys) {
-        s.sort();
-        var i = JSON.stringify(s);
-        (o.keys = this.keysByJSON.get(i)) || this.keysByJSON.set(i, o.keys = { sorted: s, json: i });
-      }
-      return o.keys;
-    }, r;
-  }()
-);
 export {
-  E as ObjectCanon
+  N as __require
 };
 //# sourceMappingURL=index.es304.js.map

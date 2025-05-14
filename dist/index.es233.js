@@ -1,25 +1,23 @@
-import { __require as d } from "./index.es223.js";
-import { __require as _ } from "./index.es207.js";
-var u, c;
-function S() {
-  if (c) return u;
-  c = 1;
-  const m = d(), a = _();
-  return u = (h, t, f) => {
-    const n = [];
-    let s = null, l = null;
-    const o = h.sort((i, e) => a(i, e, f));
-    for (const i of o)
-      m(i, t, f) ? (l = i, s || (s = i)) : (l && n.push([s, l]), l = null, s = null);
-    s && n.push([s, null]);
-    const r = [];
-    for (const [i, e] of n)
-      i === e ? r.push(i) : !e && i === o[0] ? r.push("*") : e ? i === o[0] ? r.push(`<=${e}`) : r.push(`${i} - ${e}`) : r.push(`>=${i}`);
-    const p = r.join(" || "), q = typeof t.raw == "string" ? t.raw : String(t);
-    return p.length < q.length ? p : t;
-  }, u;
+import { __require as o } from "./index.es204.js";
+import { __require as c } from "./index.es230.js";
+var a, u;
+function q() {
+  if (u) return a;
+  u = 1;
+  const f = o(), m = c();
+  return a = (s, l, i) => {
+    let r = null, n = null, t = null;
+    try {
+      t = new m(l, i);
+    } catch {
+      return null;
+    }
+    return s.forEach((e) => {
+      t.test(e) && (!r || n.compare(e) === -1) && (r = e, n = new f(r, i));
+    }), r;
+  }, a;
 }
 export {
-  S as __require
+  q as __require
 };
 //# sourceMappingURL=index.es233.js.map

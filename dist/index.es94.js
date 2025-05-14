@@ -1,84 +1,71 @@
-import t from "./index.es84.js";
-import E from "./index.es95.js";
-function p(i) {
-  return t.isPlainObject(i) || t.isArray(i);
-}
-function h(i) {
-  return t.endsWith(i, "[]") ? i.slice(0, -2) : i;
-}
-function O(i, e, s) {
-  return i ? i.concat(e).map(function(o, d) {
-    return o = h(o), !s && d ? "[" + o + "]" : o;
-  }).join(s ? "." : "") : e;
-}
-function T(i) {
-  return t.isArray(i) && !i.some(p);
-}
-const S = t.toFlatObject(t, {}, null, function(e) {
-  return /^is[A-Z]/.test(e);
-});
-function W(i, e, s) {
-  if (!t.isObject(i))
-    throw new TypeError("target must be an object");
-  e = e || new FormData(), s = t.toFlatObject(s, {
-    metaTokens: !0,
-    dots: !1,
-    indexes: !1
-  }, !1, function(n, u) {
-    return !t.isUndefined(u[n]);
-  });
-  const B = s.metaTokens, o = s.visitor || j, d = s.dots, m = s.indexes, w = (s.Blob || typeof Blob < "u" && Blob) && t.isSpecCompliantForm(e);
-  if (!t.isFunction(o))
-    throw new TypeError("visitor must be a function");
-  function l(r) {
-    if (r === null) return "";
-    if (t.isDate(r))
-      return r.toISOString();
-    if (!w && t.isBlob(r))
-      throw new E("Blob is not supported. Use a Buffer instead.");
-    return t.isArrayBuffer(r) || t.isTypedArray(r) ? w && typeof Blob == "function" ? new Blob([r]) : Buffer.from(r) : r;
+import i from "./index.es91.js";
+import h from "./index.es105.js";
+const c = (s) => s instanceof h ? { ...s } : s;
+function C(s, a) {
+  a = a || {};
+  const u = {};
+  function d(t, e, r, o) {
+    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: o }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
   }
-  function j(r, n, u) {
-    let c = r;
-    if (r && !u && typeof r == "object") {
-      if (t.endsWith(n, "{}"))
-        n = B ? n : n.slice(0, -2), r = JSON.stringify(r);
-      else if (t.isArray(r) && T(r) || (t.isFileList(r) || t.endsWith(n, "[]")) && (c = t.toArray(r)))
-        return n = h(n), c.forEach(function(b, x) {
-          !(t.isUndefined(b) || b === null) && e.append(
-            // eslint-disable-next-line no-nested-ternary
-            m === !0 ? O([n], x, d) : m === null ? n : n + "[]",
-            l(b)
-          );
-        }), !1;
-    }
-    return p(r) ? !0 : (e.append(O(u, n, d), l(r)), !1);
+  function l(t, e, r, o) {
+    if (i.isUndefined(e)) {
+      if (!i.isUndefined(t))
+        return d(void 0, t, r, o);
+    } else return d(t, e, r, o);
   }
-  const a = [], F = Object.assign(S, {
-    defaultVisitor: j,
-    convertValue: l,
-    isVisitable: p
-  });
-  function A(r, n) {
-    if (!t.isUndefined(r)) {
-      if (a.indexOf(r) !== -1)
-        throw Error("Circular reference detected in " + n.join("."));
-      a.push(r), t.forEach(r, function(c, f) {
-        (!(t.isUndefined(c) || c === null) && o.call(
-          e,
-          c,
-          t.isString(f) ? f.trim() : f,
-          n,
-          F
-        )) === !0 && A(c, n ? n.concat(f) : [f]);
-      }), a.pop();
-    }
+  function f(t, e) {
+    if (!i.isUndefined(e))
+      return d(void 0, e);
   }
-  if (!t.isObject(i))
-    throw new TypeError("data must be an object");
-  return A(i), e;
+  function n(t, e) {
+    if (i.isUndefined(e)) {
+      if (!i.isUndefined(t))
+        return d(void 0, t);
+    } else return d(void 0, e);
+  }
+  function m(t, e, r) {
+    if (r in a)
+      return d(t, e);
+    if (r in s)
+      return d(void 0, t);
+  }
+  const g = {
+    url: f,
+    method: f,
+    data: f,
+    baseURL: n,
+    transformRequest: n,
+    transformResponse: n,
+    paramsSerializer: n,
+    timeout: n,
+    timeoutMessage: n,
+    withCredentials: n,
+    withXSRFToken: n,
+    adapter: n,
+    responseType: n,
+    xsrfCookieName: n,
+    xsrfHeaderName: n,
+    onUploadProgress: n,
+    onDownloadProgress: n,
+    decompress: n,
+    maxContentLength: n,
+    maxBodyLength: n,
+    beforeRedirect: n,
+    transport: n,
+    httpAgent: n,
+    httpsAgent: n,
+    cancelToken: n,
+    socketPath: n,
+    responseEncoding: n,
+    validateStatus: m,
+    headers: (t, e, r) => l(c(t), c(e), r, !0)
+  };
+  return i.forEach(Object.keys(Object.assign({}, s, a)), function(e) {
+    const r = g[e] || l, o = r(s[e], a[e], e);
+    i.isUndefined(o) && r !== m || (u[e] = o);
+  }), u;
 }
 export {
-  W as default
+  C as default
 };
 //# sourceMappingURL=index.es94.js.map

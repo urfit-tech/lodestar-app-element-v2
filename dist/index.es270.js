@@ -1,34 +1,11 @@
-import { invariant as c } from "./index.es117.js";
-import "./index.es118.js";
-import * as l from "./index.es268.js";
-import { r as o } from "./index.es268.js";
-import { canUseLayoutEffect as v } from "./index.es121.js";
-var u = !1, h = "useSyncExternalStore", S = l[h], g = S || function(a, e, f) {
-  var r = e();
-  // DEVIATION: Using __DEV__
-  globalThis.__DEV__ !== !1 && !u && // DEVIATION: Not using Object.is because we know our snapshots will never
-  // be exotic primitive values like NaN, which is !== itself.
-  r !== e() && (u = !0, globalThis.__DEV__ !== !1 && c.error(59));
-  var s = o.useState({
-    inst: { value: r, getSnapshot: e }
-  }), t = s[0].inst, n = s[1];
-  return v ? o.useLayoutEffect(function() {
-    Object.assign(t, { value: r, getSnapshot: e }), i(t) && n({ inst: t });
-  }, [a, r, e]) : Object.assign(t, { value: r, getSnapshot: e }), o.useEffect(function() {
-    return i(t) && n({ inst: t }), a(function() {
-      i(t) && n({ inst: t });
-    });
-  }, [a]), r;
-};
-function i(a) {
-  var e = a.value, f = a.getSnapshot;
-  try {
-    return e !== f();
-  } catch {
-    return !0;
-  }
+import { Observable as e } from "./index.es65.js";
+import "./index.es66.js";
+function f(r) {
+  return new e(function(o) {
+    o.error(r);
+  });
 }
 export {
-  g as useSyncExternalStore
+  f as fromError
 };
 //# sourceMappingURL=index.es270.js.map

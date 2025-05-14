@@ -1,3 +1,3 @@
-import { __require as r } from "./index.es57.js";
+import { __require as r } from "./index.es48.js";
 r();
 //# sourceMappingURL=index.es27.js.map

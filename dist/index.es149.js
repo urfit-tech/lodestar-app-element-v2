@@ -1,9 +1,14 @@
-import { __require as s } from "./index.es150.js";
-var e, r;
-function a() {
-  return r || (r = 1, e = s().satisfies(process.version, ">=16.9.0")), e;
+let t;
+const e = new Uint8Array(16);
+function o() {
+  if (!t) {
+    if (typeof crypto > "u" || !crypto.getRandomValues)
+      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+    t = crypto.getRandomValues.bind(crypto);
+  }
+  return t(e);
 }
 export {
-  a as __require
+  o as default
 };
 //# sourceMappingURL=index.es149.js.map

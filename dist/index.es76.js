@@ -1,7 +1,12 @@
-import * as e from "./index.es154.js";
-import { getAugmentedNamespace as r } from "./index.es101.js";
-const o = /* @__PURE__ */ r(e);
+import { __require as i } from "./index.es156.js";
+var r, e;
+function p() {
+  if (e) return r;
+  e = 1;
+  var s = i();
+  return r = s.satisfies(process.version, "^6.12.0 || >=8.0.0"), r;
+}
 export {
-  o as default
+  p as __require
 };
 //# sourceMappingURL=index.es76.js.map

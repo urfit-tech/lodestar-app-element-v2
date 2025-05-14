@@ -1,49 +1,85 @@
-import { __require as b } from "./index.es235.js";
-import { __require as q } from "./index.es236.js";
-import { __require as _ } from "./index.es237.js";
-import w from "./index.es76.js";
-import { __require as K } from "./index.es238.js";
-import { __require as j } from "./index.es239.js";
-var o, l;
-function H() {
-  if (l) return o;
-  l = 1;
-  var m = b().Buffer, u = q(), v = _(), g = w, d = K(), t = j();
-  function h(e, r) {
-    return m.from(e, r).toString("base64").replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+import { __require as W } from "./index.es197.js";
+import { __require as I } from "./index.es198.js";
+import { __require as w } from "./index.es199.js";
+import A from "./index.es77.js";
+import { __require as F } from "./index.es200.js";
+import { __require as k } from "./index.es201.js";
+var n, d;
+function M() {
+  if (d) return n;
+  d = 1;
+  var u = W().Buffer, s = I(), y = w(), v = A, f = F(), b = k(), p = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/;
+  function _(r) {
+    return Object.prototype.toString.call(r) === "[object Object]";
   }
-  function y(e, r, a) {
-    a = a || "utf8";
-    var s = h(d(e), "binary"), n = h(d(r), a);
-    return t.format("%s.%s", s, n);
+  function q(r) {
+    if (_(r))
+      return r;
+    try {
+      return JSON.parse(r);
+    } catch {
+      return;
+    }
   }
-  function c(e) {
-    var r = e.header, a = e.payload, s = e.secret || e.privateKey, n = e.encoding, p = v(r.alg), f = y(r, a, n), S = p.sign(f, s);
-    return t.format("%s.%s", f, S);
+  function o(r) {
+    var e = r.split(".", 1)[0];
+    return q(u.from(e, "base64").toString("binary"));
   }
-  function i(e) {
-    var r = e.secret || e.privateKey || e.key, a = new u(r);
-    this.readable = !0, this.header = e.header, this.encoding = e.encoding, this.secret = this.privateKey = this.key = a, this.payload = new u(e.payload), this.secret.once("close", function() {
-      !this.payload.writable && this.readable && this.sign();
-    }.bind(this)), this.payload.once("close", function() {
-      !this.secret.writable && this.readable && this.sign();
+  function S(r) {
+    return r.split(".", 2).join(".");
+  }
+  function c(r) {
+    return r.split(".")[2];
+  }
+  function J(r, e) {
+    e = e || "utf8";
+    var t = r.split(".")[1];
+    return u.from(t, "base64").toString(e);
+  }
+  function h(r) {
+    return p.test(r) && !!o(r);
+  }
+  function m(r, e, t) {
+    if (!e) {
+      var i = new Error("Missing algorithm parameter for jws.verify");
+      throw i.code = "MISSING_ALGORITHM", i;
+    }
+    r = f(r);
+    var g = c(r), O = S(r), V = y(e);
+    return V.verify(O, g, t);
+  }
+  function l(r, e) {
+    if (e = e || {}, r = f(r), !h(r))
+      return null;
+    var t = o(r);
+    if (!t)
+      return null;
+    var i = J(r);
+    return (t.typ === "JWT" || e.json) && (i = JSON.parse(i, e.encoding)), {
+      header: t,
+      payload: i,
+      signature: c(r)
+    };
+  }
+  function a(r) {
+    r = r || {};
+    var e = r.secret || r.publicKey || r.key, t = new s(e);
+    this.readable = !0, this.algorithm = r.algorithm, this.encoding = r.encoding, this.secret = this.publicKey = this.key = t, this.signature = new s(r.signature), this.secret.once("close", function() {
+      !this.signature.writable && this.readable && this.verify();
+    }.bind(this)), this.signature.once("close", function() {
+      !this.secret.writable && this.readable && this.verify();
     }.bind(this));
   }
-  return t.inherits(i, g), i.prototype.sign = function() {
+  return b.inherits(a, v), a.prototype.verify = function() {
     try {
-      var r = c({
-        header: this.header,
-        payload: this.payload.buffer,
-        secret: this.secret.buffer,
-        encoding: this.encoding
-      });
-      return this.emit("done", r), this.emit("data", r), this.emit("end"), this.readable = !1, r;
-    } catch (a) {
-      this.readable = !1, this.emit("error", a), this.emit("close");
+      var e = m(this.signature.buffer, this.algorithm, this.key.buffer), t = l(this.signature.buffer, this.encoding);
+      return this.emit("done", e, t), this.emit("data", e), this.emit("end"), this.readable = !1, e;
+    } catch (i) {
+      this.readable = !1, this.emit("error", i), this.emit("close");
     }
-  }, i.sign = c, o = i, o;
+  }, a.decode = l, a.isValid = h, a.verify = m, n = a, n;
 }
 export {
-  H as __require
+  M as __require
 };
 //# sourceMappingURL=index.es152.js.map

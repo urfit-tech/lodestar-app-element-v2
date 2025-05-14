@@ -1,8 +1,8 @@
 import { Trie as o } from "./index.es120.js";
 import { canUseWeakSet as i, canUseWeakMap as f } from "./index.es121.js";
 import { checkDocument as s } from "./index.es36.js";
-import { invariant as h } from "./index.es117.js";
-import "./index.es118.js";
+import { invariant as h } from "./index.es116.js";
+import "./index.es117.js";
 import { wrap as m } from "./index.es122.js";
 import { cacheSizes as u } from "./index.es123.js";
 import { WeakCache as p } from "./index.es124.js";

@@ -1,4 +1,4 @@
-import p from "./index.es94.js";
+import p from "./index.es101.js";
 function i(n) {
   const t = {
     "!": "%21",

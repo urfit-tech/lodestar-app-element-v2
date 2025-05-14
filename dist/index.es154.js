@@ -1,5 +1,9 @@
-const e = {};
+import { __require as s } from "./index.es156.js";
+var e, r;
+function m() {
+  return r || (r = 1, e = s().satisfies(process.version, ">=15.7.0")), e;
+}
 export {
-  e as default
+  m as __require
 };
 //# sourceMappingURL=index.es154.js.map

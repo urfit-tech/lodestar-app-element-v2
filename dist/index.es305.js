@@ -1,14 +1,5 @@
-function a(r) {
-  var t, n = r[Symbol.asyncIterator]();
-  return t = {
-    next: function() {
-      return n.next();
-    }
-  }, t[Symbol.asyncIterator] = function() {
-    return this;
-  }, t;
-}
+var e = { exports: {} };
 export {
-  a as default
+  e as __module
 };
 //# sourceMappingURL=index.es305.js.map

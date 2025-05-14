@@ -1,71 +1,41 @@
-import i from "./index.es84.js";
-import h from "./index.es98.js";
-const c = (s) => s instanceof h ? { ...s } : s;
-function C(s, a) {
-  a = a || {};
-  const u = {};
-  function d(t, e, r, o) {
-    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: o }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
-  }
-  function l(t, e, r, o) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t, r, o);
-    } else return d(t, e, r, o);
-  }
-  function f(t, e) {
-    if (!i.isUndefined(e))
-      return d(void 0, e);
-  }
-  function n(t, e) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t);
-    } else return d(void 0, e);
-  }
-  function m(t, e, r) {
-    if (r in a)
-      return d(t, e);
-    if (r in s)
-      return d(void 0, t);
-  }
-  const g = {
-    url: f,
-    method: f,
-    data: f,
-    baseURL: n,
-    transformRequest: n,
-    transformResponse: n,
-    paramsSerializer: n,
-    timeout: n,
-    timeoutMessage: n,
-    withCredentials: n,
-    withXSRFToken: n,
-    adapter: n,
-    responseType: n,
-    xsrfCookieName: n,
-    xsrfHeaderName: n,
-    onUploadProgress: n,
-    onDownloadProgress: n,
-    decompress: n,
-    maxContentLength: n,
-    maxBodyLength: n,
-    beforeRedirect: n,
-    transport: n,
-    httpAgent: n,
-    httpsAgent: n,
-    cancelToken: n,
-    socketPath: n,
-    responseEncoding: n,
-    validateStatus: m,
-    headers: (t, e, r) => l(c(t), c(e), r, !0)
+import m from "./index.es168.js";
+import c from "./index.es85.js";
+import t from "./index.es169.js";
+function _(e) {
+  return function f(u, n, i) {
+    switch (arguments.length) {
+      case 0:
+        return f;
+      case 1:
+        return t(u) ? f : c(function(r, o) {
+          return e(u, r, o);
+        });
+      case 2:
+        return t(u) && t(n) ? f : t(u) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : m(function(r) {
+          return e(u, n, r);
+        });
+      default:
+        return t(u) && t(n) && t(i) ? f : t(u) && t(n) ? c(function(r, o) {
+          return e(r, o, i);
+        }) : t(u) && t(i) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) && t(i) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : t(u) ? m(function(r) {
+          return e(r, n, i);
+        }) : t(n) ? m(function(r) {
+          return e(u, r, i);
+        }) : t(i) ? m(function(r) {
+          return e(u, n, r);
+        }) : e(u, n, i);
+    }
   };
-  return i.forEach(Object.keys(Object.assign({}, s, a)), function(e) {
-    const r = g[e] || l, o = r(s[e], a[e], e);
-    i.isUndefined(o) && r !== m || (u[e] = o);
-  }), u;
 }
 export {
-  C as default
+  _ as default
 };
 //# sourceMappingURL=index.es87.js.map

@@ -1,20 +1,32 @@
-import * as r from "./index.es268.js";
-import { r as t } from "./index.es268.js";
-import { invariant as a } from "./index.es117.js";
-import "./index.es118.js";
-import { canUseSymbol as n } from "./index.es121.js";
-var o = n ? Symbol.for("__APOLLO_CONTEXT__") : "__APOLLO_CONTEXT__";
-function f() {
-  a("createContext" in r, 45);
-  var e = t.createContext[o];
-  return e || (Object.defineProperty(t.createContext, o, {
-    value: e = t.createContext({}),
-    enumerable: !1,
-    writable: !1,
-    configurable: !0
-  }), e.displayName = "ApolloContext"), e;
+import { serializeFetchParameter as u } from "./index.es264.js";
+function q(e, r) {
+  var o = [], t = function(a, c) {
+    o.push("".concat(a, "=").concat(encodeURIComponent(c)));
+  };
+  if ("query" in r && t("query", r.query), r.operationName && t("operationName", r.operationName), r.variables) {
+    var s = void 0;
+    try {
+      s = u(r.variables, "Variables map");
+    } catch (a) {
+      return { parseError: a };
+    }
+    t("variables", s);
+  }
+  if (r.extensions) {
+    var m = void 0;
+    try {
+      m = u(r.extensions, "Extensions map");
+    } catch (a) {
+      return { parseError: a };
+    }
+    t("extensions", m);
+  }
+  var p = "", n = e, i = e.indexOf("#");
+  i !== -1 && (p = e.substr(i), n = e.substr(0, i));
+  var f = n.indexOf("?") === -1 ? "?" : "&", v = n + f + o.join("&") + p;
+  return { newURI: v };
 }
 export {
-  f as getApolloContext
+  q as rewriteURIForGET
 };
 //# sourceMappingURL=index.es269.js.map

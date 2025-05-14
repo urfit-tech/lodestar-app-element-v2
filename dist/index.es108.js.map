@@ -1,1 +1,1 @@
-{"version":3,"file":"index.es108.js","sources":["../node_modules/react-ga/dist/esm/utils/console/log.js"],"sourcesContent":["export default function log(s) {\n  console.info('[react-ga]', s);\n}"],"names":["log","s"],"mappings":"AAAe,SAASA,EAAIC,GAAG;AAC7B,UAAQ,KAAK,cAAcA,CAAC;AAC9B;","x_google_ignoreList":[0]}
+{"version":3,"file":"index.es108.js","sources":[],"sourcesContent":[],"names":[],"mappings":";;;;"}

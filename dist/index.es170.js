@@ -1,32 +1,24 @@
-import r from "./index.es273.js";
-import p from "./index.es92.js";
-import o from "./index.es88.js";
-import l from "./index.es90.js";
-import a from "./index.es98.js";
-import m from "./index.es99.js";
-function d(e) {
-  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
-    throw new l(null, e);
+import f from "./index.es91.js";
+import d from "./index.es272.js";
+function l(e) {
+  return encodeURIComponent(e).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
 }
-function q(e) {
-  return d(e), e.headers = a.from(e.headers), e.data = r.call(
-    e,
-    e.transformRequest
-  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
-    return d(e), t.data = r.call(
-      e,
-      e.transformResponse,
-      t
-    ), t.headers = a.from(t.headers), t;
-  }, function(t) {
-    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
-      e,
-      e.transformResponse,
-      t.response
-    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
+function m(e, c, i) {
+  if (!c)
+    return e;
+  const t = i && i.encode || l;
+  f.isFunction(i) && (i = {
+    serialize: i
   });
+  const n = i && i.serialize;
+  let r;
+  if (n ? r = n(c, i) : r = f.isURLSearchParams(c) ? c.toString() : new d(c, i).toString(t), r) {
+    const a = e.indexOf("#");
+    a !== -1 && (e = e.slice(0, a)), e += (e.indexOf("?") === -1 ? "?" : "&") + r;
+  }
+  return e;
 }
 export {
-  q as default
+  m as default
 };
 //# sourceMappingURL=index.es170.js.map

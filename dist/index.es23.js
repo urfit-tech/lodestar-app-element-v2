@@ -1,6 +1,6 @@
-import o from "./index.es51.js";
-import * as p from "./index.es52.js";
-import { outboundLink as f } from "./index.es52.js";
+import o from "./index.es61.js";
+import * as p from "./index.es62.js";
+import { outboundLink as f } from "./index.es62.js";
 function i(r, t) {
   var e = Object.keys(r);
   if (Object.getOwnPropertySymbols) {

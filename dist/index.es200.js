@@ -1,15 +1,14 @@
-import { __require as t } from "./index.es198.js";
-var r, n;
-function l() {
-  if (n) return r;
-  n = 1;
-  const a = t();
-  return r = (i, s) => {
-    const e = a(i.trim().replace(/^[=v]+/, ""), s);
-    return e ? e.version : null;
-  }, r;
+import { __require as f } from "./index.es294.js";
+var e, t;
+function s() {
+  if (t) return e;
+  t = 1;
+  var i = f().Buffer;
+  return e = function(r) {
+    return typeof r == "string" ? r : typeof r == "number" || i.isBuffer(r) ? r.toString() : JSON.stringify(r);
+  }, e;
 }
 export {
-  l as __require
+  s as __require
 };
 //# sourceMappingURL=index.es200.js.map

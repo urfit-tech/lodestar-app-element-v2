@@ -1,5 +1,5 @@
-import { newInvariantError as s } from "./index.es117.js";
-import "./index.es118.js";
+import { newInvariantError as s } from "./index.es116.js";
+import "./index.es117.js";
 import { isNonNullObject as v } from "./index.es69.js";
 import { getFragmentFromSelection as g } from "./index.es125.js";
 import { canonicalStringify as p } from "./index.es129.js";

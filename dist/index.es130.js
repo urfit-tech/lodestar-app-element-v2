@@ -1,6 +1,6 @@
 import { __assign as c, __spreadArray as y } from "./index.es63.js";
-import { invariant as V } from "./index.es117.js";
-import "./index.es118.js";
+import { invariant as V } from "./index.es116.js";
+import "./index.es117.js";
 import { visit as _, Kind as o } from "graphql";
 import { checkDocument as b, getFragmentDefinitions as R, getOperationDefinition as w, getFragmentDefinition as P, getMainDefinition as G } from "./index.es36.js";
 import { isField as S } from "./index.es126.js";

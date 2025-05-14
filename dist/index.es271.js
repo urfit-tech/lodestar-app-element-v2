@@ -1,9 +1,16 @@
-var w = Symbol.for("apollo.hook.wrappers");
-function l(o, r, n) {
-  var a = n.queryManager, p = a && a[w], e = p && p[o];
-  return e ? e(r) : r;
+import { __assign as o } from "./index.es63.js";
+import { visit as f } from "graphql";
+function m(i, a) {
+  var t = o({}, i), n = new Set(Object.keys(i));
+  return f(a, {
+    Variable: function(e, u, r) {
+      r && r.kind !== "VariableDefinition" && n.delete(e.name.value);
+    }
+  }), n.forEach(function(e) {
+    delete t[e];
+  }), t;
 }
 export {
-  l as wrapHook
+  m as filterOperationVariables
 };
 //# sourceMappingURL=index.es271.js.map

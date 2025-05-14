@@ -1,6 +1,6 @@
-import o from "./index.es313.js";
-import r from "./index.es314.js";
-import t from "./index.es315.js";
+import o from "./index.es311.js";
+import r from "./index.es312.js";
+import t from "./index.es313.js";
 const l = {
   isBrowser: !0,
   classes: {

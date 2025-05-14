@@ -1,28 +1,23 @@
-import { __require as l } from "./index.es298.js";
-var a, i;
-function B() {
-  if (i) return a;
-  i = 1;
-  var r = l().Buffer, o = l().SlowBuffer;
-  a = t;
-  function t(e, u) {
-    if (!r.isBuffer(e) || !r.isBuffer(u) || e.length !== u.length)
-      return !1;
-    for (var n = 0, f = 0; f < e.length; f++)
-      n |= e[f] ^ u[f];
-    return n === 0;
-  }
-  t.install = function() {
-    r.prototype.equal = o.prototype.equal = function(u) {
-      return t(this, u);
+import { __module as t } from "./index.es325.js";
+var n;
+function s() {
+  return n ? t.exports : (n = 1, typeof Object.create == "function" ? t.exports = function(e, r) {
+    e.super_ = r, e.prototype = Object.create(r.prototype, {
+      constructor: {
+        value: e,
+        enumerable: !1,
+        writable: !0,
+        configurable: !0
+      }
+    });
+  } : t.exports = function(e, r) {
+    e.super_ = r;
+    var o = function() {
     };
-  };
-  var q = r.prototype.equal, p = o.prototype.equal;
-  return t.restore = function() {
-    r.prototype.equal = q, o.prototype.equal = p;
-  }, a;
+    o.prototype = r.prototype, e.prototype = new o(), e.prototype.constructor = e;
+  }, t.exports);
 }
 export {
-  B as __require
+  s as __require
 };
 //# sourceMappingURL=index.es299.js.map

@@ -1,17 +1,38 @@
-var t, i;
-function g() {
-  if (i) return t;
+var n, i;
+function y() {
+  if (i) return n;
   i = 1;
-  var n = "[object String]", o = Object.prototype, e = o.toString, s = Array.isArray;
-  function a(r) {
-    return !!r && typeof r == "object";
+  var a = "[object Object]";
+  function u(t) {
+    var r = !1;
+    if (t != null && typeof t.toString != "function")
+      try {
+        r = !!(t + "");
+      } catch {
+      }
+    return r;
   }
-  function c(r) {
-    return typeof r == "string" || !s(r) && a(r) && e.call(r) == n;
+  function f(t, r) {
+    return function(o) {
+      return t(r(o));
+    };
   }
-  return t = c, t;
+  var s = Function.prototype, e = Object.prototype, c = s.toString, b = e.hasOwnProperty, j = c.call(Object), p = e.toString, l = f(Object.getPrototypeOf, Object);
+  function O(t) {
+    return !!t && typeof t == "object";
+  }
+  function g(t) {
+    if (!O(t) || p.call(t) != a || u(t))
+      return !1;
+    var r = l(t);
+    if (r === null)
+      return !0;
+    var o = b.call(r, "constructor") && r.constructor;
+    return typeof o == "function" && o instanceof o && c.call(o) == j;
+  }
+  return n = g, n;
 }
 export {
-  g as __require
+  y as __require
 };
 //# sourceMappingURL=index.es82.js.map

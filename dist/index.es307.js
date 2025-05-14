@@ -1,22 +1,14 @@
-import { canUseAsyncIteratorSymbol as u } from "./index.es121.js";
-function f(t) {
-  var e = !1, r = {
+function a(r) {
+  var t, n = r[Symbol.asyncIterator]();
+  return t = {
     next: function() {
-      return e ? Promise.resolve({
-        value: void 0,
-        done: !0
-      }) : (e = !0, new Promise(function(n, o) {
-        t.then(function(a) {
-          n({ value: a, done: !1 });
-        }).catch(o);
-      }));
+      return n.next();
     }
-  };
-  return u && (r[Symbol.asyncIterator] = function() {
+  }, t[Symbol.asyncIterator] = function() {
     return this;
-  }), r;
+  }, t;
 }
 export {
-  f as default
+  a as default
 };
 //# sourceMappingURL=index.es307.js.map

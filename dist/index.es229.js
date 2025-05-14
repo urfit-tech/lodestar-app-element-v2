@@ -1,45 +1,57 @@
-import { __require as C } from "./index.es196.js";
-import { __require as E } from "./index.es221.js";
-import { __require as G } from "./index.es222.js";
-import { __require as L } from "./index.es223.js";
-import { __require as O } from "./index.es213.js";
-import { __require as x } from "./index.es214.js";
-import { __require as y } from "./index.es218.js";
-import { __require as A } from "./index.es217.js";
-var q, d;
-function F() {
-  if (d) return q;
-  d = 1;
-  const h = C(), _ = E(), { ANY: v } = _, w = G(), g = L(), c = O(), p = x(), R = y(), S = A();
-  return q = (s, i, b, u) => {
-    s = new h(s, u), i = new w(i, u);
-    let m, a, o, f, l;
-    switch (b) {
-      case ">":
-        m = c, a = R, o = p, f = ">", l = ">=";
-        break;
-      case "<":
-        m = p, a = S, o = c, f = "<", l = "<=";
-        break;
-      default:
-        throw new TypeError('Must provide a hilo val of "<" or ">"');
+import { __require as q } from "./index.es302.js";
+import { __require as p } from "./index.es202.js";
+import { __require as _ } from "./index.es227.js";
+import { __require as d } from "./index.es301.js";
+import { __require as W } from "./index.es204.js";
+import { __require as R } from "./index.es230.js";
+var o, m;
+function S() {
+  if (m) return o;
+  m = 1;
+  const t = Symbol("SemVer ANY");
+  class i {
+    static get ANY() {
+      return t;
     }
-    if (g(s, i, u))
-      return !1;
-    for (let n = 0; n < i.set.length; ++n) {
-      const k = i.set[n];
-      let t = null, e = null;
-      if (k.forEach((r) => {
-        r.semver === v && (r = new _(">=0.0.0")), t = t || r, e = e || r, m(r.semver, t.semver, u) ? t = r : o(r.semver, e.semver, u) && (e = r);
-      }), t.operator === f || t.operator === l || (!e.operator || e.operator === f) && a(s, e.semver))
-        return !1;
-      if (e.operator === l && o(s, e.semver))
-        return !1;
+    constructor(r, e) {
+      if (e = h(e), r instanceof i) {
+        if (r.loose === !!e.loose)
+          return r;
+        r = r.value;
+      }
+      r = r.trim().split(/\s+/).join(" "), u("comparator", r, e), this.options = e, this.loose = !!e.loose, this.parse(r), this.semver === t ? this.value = "" : this.value = this.operator + this.semver.version, u("comp", this);
     }
-    return !0;
-  }, q;
+    parse(r) {
+      const e = this.options.loose ? n[l.COMPARATORLOOSE] : n[l.COMPARATOR], s = r.match(e);
+      if (!s)
+        throw new TypeError(`Invalid comparator: ${r}`);
+      this.operator = s[1] !== void 0 ? s[1] : "", this.operator === "=" && (this.operator = ""), s[2] ? this.semver = new f(s[2], this.options.loose) : this.semver = t;
+    }
+    toString() {
+      return this.value;
+    }
+    test(r) {
+      if (u("Comparator.test", r, this.options.loose), this.semver === t || r === t)
+        return !0;
+      if (typeof r == "string")
+        try {
+          r = new f(r, this.options);
+        } catch {
+          return !1;
+        }
+      return a(r, this.operator, this.semver, this.options);
+    }
+    intersects(r, e) {
+      if (!(r instanceof i))
+        throw new TypeError("a Comparator is required");
+      return this.operator === "" ? this.value === "" ? !0 : new v(r.value, e).test(this.value) : r.operator === "" ? r.value === "" ? !0 : new v(this.value, e).test(r.semver) : (e = h(e), e.includePrerelease && (this.value === "<0.0.0-0" || r.value === "<0.0.0-0") || !e.includePrerelease && (this.value.startsWith("<0.0.0") || r.value.startsWith("<0.0.0")) ? !1 : !!(this.operator.startsWith(">") && r.operator.startsWith(">") || this.operator.startsWith("<") && r.operator.startsWith("<") || this.semver.version === r.semver.version && this.operator.includes("=") && r.operator.includes("=") || a(this.semver, "<", r.semver, e) && this.operator.startsWith(">") && r.operator.startsWith("<") || a(this.semver, ">", r.semver, e) && this.operator.startsWith("<") && r.operator.startsWith(">")));
+    }
+  }
+  o = i;
+  const h = q(), { safeRe: n, t: l } = p(), a = _(), u = d(), f = W(), v = R();
+  return o;
 }
 export {
-  F as __require
+  S as __require
 };
 //# sourceMappingURL=index.es229.js.map

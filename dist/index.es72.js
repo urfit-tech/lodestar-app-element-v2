@@ -1,31 +1,29 @@
-import { __exports as r } from "./index.es151.js";
-import { __require as u } from "./index.es152.js";
-import { __require as f } from "./index.es153.js";
-var t;
-function c() {
-  if (t) return r;
-  t = 1;
-  var S = u(), e = f(), a = [
-    "HS256",
-    "HS384",
-    "HS512",
-    "RS256",
-    "RS384",
-    "RS512",
-    "PS256",
-    "PS384",
-    "PS512",
-    "ES256",
-    "ES384",
-    "ES512"
-  ];
-  return r.ALGORITHMS = a, r.sign = S.sign, r.verify = e.verify, r.decode = e.decode, r.isValid = e.isValid, r.createSign = function(i) {
-    return new S(i);
-  }, r.createVerify = function(i) {
-    return new e(i);
-  }, r;
+var u = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+function f(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+}
+function l(e) {
+  if (Object.prototype.hasOwnProperty.call(e, "__esModule")) return e;
+  var r = e.default;
+  if (typeof r == "function") {
+    var t = function o() {
+      return this instanceof o ? Reflect.construct(r, arguments, this.constructor) : r.apply(this, arguments);
+    };
+    t.prototype = r.prototype;
+  } else t = {};
+  return Object.defineProperty(t, "__esModule", { value: !0 }), Object.keys(e).forEach(function(o) {
+    var n = Object.getOwnPropertyDescriptor(e, o);
+    Object.defineProperty(t, o, n.get ? n : {
+      enumerable: !0,
+      get: function() {
+        return e[o];
+      }
+    });
+  }), t;
 }
 export {
-  c as __require
+  u as commonjsGlobal,
+  l as getAugmentedNamespace,
+  f as getDefaultExportFromCjs
 };
 //# sourceMappingURL=index.es72.js.map
