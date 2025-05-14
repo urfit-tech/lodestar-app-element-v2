@@ -1,14 +1,32 @@
-import e from "./index.es123.js";
-import n from "./index.es133.js";
-import r from "./index.es206.js";
-function c(o, i) {
-  return n(o, new r.classes.URLSearchParams(), Object.assign({
-    visitor: function(t, s, f, a) {
-      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
+import { serializeFetchParameter as u } from "./index.es200.js";
+function q(e, r) {
+  var o = [], t = function(a, c) {
+    o.push("".concat(a, "=").concat(encodeURIComponent(c)));
+  };
+  if ("query" in r && t("query", r.query), r.operationName && t("operationName", r.operationName), r.variables) {
+    var s = void 0;
+    try {
+      s = u(r.variables, "Variables map");
+    } catch (a) {
+      return { parseError: a };
     }
-  }, i));
+    t("variables", s);
+  }
+  if (r.extensions) {
+    var m = void 0;
+    try {
+      m = u(r.extensions, "Extensions map");
+    } catch (a) {
+      return { parseError: a };
+    }
+    t("extensions", m);
+  }
+  var p = "", n = e, i = e.indexOf("#");
+  i !== -1 && (p = e.substr(i), n = e.substr(0, i));
+  var f = n.indexOf("?") === -1 ? "?" : "&", v = n + f + o.join("&") + p;
+  return { newURI: v };
 }
 export {
-  c as default
+  q as rewriteURIForGET
 };
 //# sourceMappingURL=index.es205.js.map

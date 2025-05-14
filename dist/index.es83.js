@@ -1,27 +1,46 @@
-import { isNonNullObject as f } from "./index.es62.js";
-function i(e) {
-  var t = /* @__PURE__ */ new Set([e]);
-  return t.forEach(function(r) {
-    f(r) && c(r) === r && Object.getOwnPropertyNames(r).forEach(function(n) {
-      f(r[n]) && t.add(r[n]);
-    });
-  }), e;
-}
-function c(e) {
-  if (globalThis.__DEV__ !== !1 && !Object.isFrozen(e))
-    try {
-      Object.freeze(e);
-    } catch (t) {
-      if (t instanceof TypeError)
-        return null;
-      throw t;
+import { registerGlobalCache as O } from "./index.es81.js";
+import { AutoCleanedStrongCache as b } from "./index.es82.js";
+import { cacheSizes as S } from "./index.es77.js";
+var l = Object.assign(function(r) {
+  return JSON.stringify(r, p);
+}, {
+  reset: function() {
+    n = new b(
+      S.canonicalStringify || 1e3
+      /* defaultCacheSizes.canonicalStringify */
+    );
+  }
+});
+globalThis.__DEV__ !== !1 && O("canonicalStringify", function() {
+  return n.size;
+});
+var n;
+l.reset();
+function p(e, r) {
+  if (r && typeof r == "object") {
+    var t = Object.getPrototypeOf(r);
+    if (t === Object.prototype || t === null) {
+      var i = Object.keys(r);
+      if (i.every(u))
+        return r;
+      var f = JSON.stringify(i), c = n.get(f);
+      if (!c) {
+        i.sort();
+        var a = JSON.stringify(i);
+        c = n.get(a) || i, n.set(f, c), n.set(a, c);
+      }
+      var o = Object.create(t);
+      return c.forEach(function(g) {
+        o[g] = r[g];
+      }), o;
     }
-  return e;
+  }
+  return r;
 }
-function a(e) {
-  return globalThis.__DEV__ !== !1 && i(e), e;
+function u(e, r, t) {
+  return r === 0 || t[r - 1] <= e;
 }
 export {
-  a as maybeDeepFreeze
+  l as canonicalStringify
 };
 //# sourceMappingURL=index.es83.js.map

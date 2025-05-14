@@ -1,10 +1,23 @@
-import { Observable as t } from "./index.es58.js";
-import "./index.es80.js";
-var r = t.prototype, o = "@@observable";
-r[o] || (r[o] = function() {
-  return this;
+import { print as i } from "graphql";
+import { registerGlobalCache as n } from "./index.es81.js";
+import { AutoCleanedWeakCache as o } from "./index.es82.js";
+import { cacheSizes as a } from "./index.es77.js";
+var r, p = Object.assign(function(t) {
+  var e = r.get(t);
+  return e || (e = i(t), r.set(t, e)), e;
+}, {
+  reset: function() {
+    r = new o(
+      a.print || 2e3
+      /* defaultCacheSizes.print */
+    );
+  }
+});
+p.reset();
+globalThis.__DEV__ !== !1 && n("print", function() {
+  return r ? r.size : 0;
 });
 export {
-  t as Observable
+  p as print
 };
 //# sourceMappingURL=index.es59.js.map

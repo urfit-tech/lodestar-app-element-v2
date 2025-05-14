@@ -1,14 +1,12 @@
-import { __require as a } from "./index.es118.js";
-var e, t;
-function f() {
-  if (t) return e;
-  t = 1;
-  var o = a(), r = function(i, n) {
-    o.call(this, i), this.name = "NotBeforeError", this.date = n;
-  };
-  return r.prototype = Object.create(o.prototype), r.prototype.constructor = r, e = r, e;
+import r from "./index.es124.js";
+import i from "./index.es113.js";
+function l(o, t, e) {
+  r.call(this, o ?? "canceled", r.ERR_CANCELED, t, e), this.name = "CanceledError";
 }
+i.inherits(l, r, {
+  __CANCEL__: !0
+});
 export {
-  f as __require
+  l as default
 };
 //# sourceMappingURL=index.es119.js.map

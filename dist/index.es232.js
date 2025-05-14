@@ -1,10 +1,10 @@
-import a from "./index.es192.js";
-import e from "./index.es299.js";
-var i = "REDACTED (Potential Email Address)";
-function m(r) {
-  return e(r) ? (a("This arg looks like an email address, redacting."), i) : r;
-}
+const e = typeof window < "u" && typeof document < "u", o = typeof navigator == "object" && navigator || void 0, n = e && (!o || ["ReactNative", "NativeScript", "NS"].indexOf(o.product) < 0), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
+self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
 export {
-  m as default
+  e as hasBrowserEnv,
+  n as hasStandardBrowserEnv,
+  t as hasStandardBrowserWebWorkerEnv,
+  o as navigator,
+  r as origin
 };
 //# sourceMappingURL=index.es232.js.map

@@ -1,7 +1,5 @@
-function e(t) {
-  return t !== null && typeof t == "object";
-}
+var e = {};
 export {
-  e as isNonNullObject
+  e as __exports
 };
 //# sourceMappingURL=index.es62.js.map

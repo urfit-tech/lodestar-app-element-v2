@@ -1,30 +1,26 @@
-var i = Object.prototype.toString;
-function n(t) {
-  return u(t);
+import { WeakCache as i } from "./index.es78.js";
+import { StrongCache as s } from "./index.es148.js";
+var u = /* @__PURE__ */ new WeakSet();
+function l(e) {
+  e.size <= (e.max || -1) || u.has(e) || (u.add(e), setTimeout(function() {
+    e.clean(), u.delete(e);
+  }, 100));
 }
-function u(t, r) {
-  switch (i.call(t)) {
-    case "[object Array]": {
-      if (r = r || /* @__PURE__ */ new Map(), r.has(t))
-        return r.get(t);
-      var c = t.slice(0);
-      return r.set(t, c), c.forEach(function(e, f) {
-        c[f] = u(e, r);
-      }), c;
-    }
-    case "[object Object]": {
-      if (r = r || /* @__PURE__ */ new Map(), r.has(t))
-        return r.get(t);
-      var o = Object.create(Object.getPrototypeOf(t));
-      return r.set(t, o), Object.keys(t).forEach(function(e) {
-        o[e] = u(t[e], r);
-      }), o;
-    }
-    default:
-      return t;
-  }
-}
+var d = function(e, r) {
+  var t = new i(e, r);
+  return t.set = function(n, a) {
+    var o = i.prototype.set.call(this, n, a);
+    return l(this), o;
+  }, t;
+}, h = function(e, r) {
+  var t = new s(e, r);
+  return t.set = function(n, a) {
+    var o = s.prototype.set.call(this, n, a);
+    return l(this), o;
+  }, t;
+};
 export {
-  n as cloneDeep
+  h as AutoCleanedStrongCache,
+  d as AutoCleanedWeakCache
 };
 //# sourceMappingURL=index.es82.js.map

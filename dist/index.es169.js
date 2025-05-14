@@ -1,8 +1,17 @@
-var u = function(t, e) {
-  var n = t.getContext(), r = n.uri;
-  return r || (typeof e == "function" ? e(t) : e || "/graphql");
+var t = [];
+const e = {
+  calls: t,
+  ga: function() {
+    for (var s = arguments.length, l = new Array(s), a = 0; a < s; a++)
+      l[a] = arguments[a];
+    t.push([].concat(l));
+  },
+  resetCalls: function() {
+    t.length = 0;
+  }
 };
 export {
-  u as selectURI
+  e as default,
+  t as gaCalls
 };
 //# sourceMappingURL=index.es169.js.map

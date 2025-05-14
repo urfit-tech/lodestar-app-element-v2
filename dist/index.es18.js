@@ -1,4 +1,4 @@
-import { __assign as u } from "./index.es56.js";
+import { __assign as u } from "./index.es54.js";
 import { parse as d } from "graphql";
 var c = /* @__PURE__ */ new Map(), f = /* @__PURE__ */ new Map(), g = !0, m = !1;
 function b(e) {

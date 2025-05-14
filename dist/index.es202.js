@@ -1,10 +1,10 @@
-import r from "./index.es236.js";
-import f from "./index.es237.js";
-function u(l, i, t) {
-  let o = !r(i);
-  return l && (o || t == !1) ? f(l, i) : i;
-}
+import { newInvariantError as e } from "./index.es70.js";
+import "./index.es71.js";
+var n = function(r) {
+  if (!r && typeof fetch > "u")
+    throw e(37);
+};
 export {
-  u as default
+  n as checkFetcher
 };
 //# sourceMappingURL=index.es202.js.map

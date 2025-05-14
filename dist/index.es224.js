@@ -1,5 +1,5 @@
-var r = {};
+const e = {};
 export {
-  r as __exports
+  e as default
 };
 //# sourceMappingURL=index.es224.js.map

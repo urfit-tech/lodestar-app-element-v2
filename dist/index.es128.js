@@ -1,32 +1,54 @@
-import u from "./index.es123.js";
-function f(e) {
-  return u.matchAll(/\w+|\[(\w*)]/g, e).map((o) => o[0] === "[]" ? "" : o[1] || o[0]);
-}
-function y(e) {
-  const o = {}, r = Object.keys(e);
-  let i;
-  const n = r.length;
-  let c;
-  for (i = 0; i < n; i++)
-    c = r[i], o[c] = e[c];
-  return o;
-}
-function m(e) {
-  function o(r, i, n, c) {
-    let s = r[c++];
-    if (s === "__proto__") return !0;
-    const t = Number.isFinite(+s), l = c >= r.length;
-    return s = !s && u.isArray(n) ? n.length : s, l ? (u.hasOwnProp(n, s) ? n[s] = [n[s], i] : n[s] = i, !t) : ((!n[s] || !u.isObject(n[s])) && (n[s] = []), o(r, i, n[s], c) && u.isArray(n[s]) && (n[s] = y(n[s])), !t);
+import a from "./index.es113.js";
+import h from "./index.es179.js";
+import m from "./index.es180.js";
+import u from "./index.es181.js";
+import d from "./index.es124.js";
+const s = {
+  http: h,
+  xhr: m,
+  fetch: u
+};
+a.forEach(s, (e, n) => {
+  if (e) {
+    try {
+      Object.defineProperty(e, "name", { value: n });
+    } catch {
+    }
+    Object.defineProperty(e, "adapterName", { value: n });
   }
-  if (u.isFormData(e) && u.isFunction(e.entries)) {
-    const r = {};
-    return u.forEachEntry(e, (i, n) => {
-      o(f(i), n, r, 0);
-    }), r;
-  }
-  return null;
-}
+});
+const c = (e) => `- ${e}`, b = (e) => a.isFunction(e) || e === null || e === !1, y = {
+  getAdapter: (e) => {
+    e = a.isArray(e) ? e : [e];
+    const { length: n } = e;
+    let o, r;
+    const p = {};
+    for (let t = 0; t < n; t++) {
+      o = e[t];
+      let i;
+      if (r = o, !b(o) && (r = s[(i = String(o)).toLowerCase()], r === void 0))
+        throw new d(`Unknown adapter '${i}'`);
+      if (r)
+        break;
+      p[i || "#" + t] = r;
+    }
+    if (!r) {
+      const t = Object.entries(p).map(
+        ([f, l]) => `adapter ${f} ` + (l === !1 ? "is not supported by the environment" : "is not available in the build")
+      );
+      let i = n ? t.length > 1 ? `since :
+` + t.map(c).join(`
+`) : " " + c(t[0]) : "as no adapter specified";
+      throw new d(
+        "There is no suitable adapter to dispatch the request " + i,
+        "ERR_NOT_SUPPORT"
+      );
+    }
+    return r;
+  },
+  adapters: s
+};
 export {
-  m as default
+  y as default
 };
 //# sourceMappingURL=index.es128.js.map

@@ -1,86 +1,34 @@
-var o, d;
-function w() {
-  if (d) return o;
-  d = 1;
-  var n = 1e3, t = n * 60, c = t * 60, a = c * 24, f = a * 7, h = a * 365.25;
-  o = function(e, r) {
-    r = r || {};
-    var s = typeof e;
-    if (s === "string" && e.length > 0)
-      return m(e);
-    if (s === "number" && isFinite(e))
-      return r.long ? l(e) : y(e);
-    throw new Error(
-      "val is not a non-empty string or a valid number. val=" + JSON.stringify(e)
-    );
+import p from "./index.es123.js";
+function i(n) {
+  const t = {
+    "!": "%21",
+    "'": "%27",
+    "(": "%28",
+    ")": "%29",
+    "~": "%7E",
+    "%20": "+",
+    "%00": "\0"
   };
-  function m(e) {
-    if (e = String(e), !(e.length > 100)) {
-      var r = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
-        e
-      );
-      if (r) {
-        var s = parseFloat(r[1]), i = (r[2] || "ms").toLowerCase();
-        switch (i) {
-          case "years":
-          case "year":
-          case "yrs":
-          case "yr":
-          case "y":
-            return s * h;
-          case "weeks":
-          case "week":
-          case "w":
-            return s * f;
-          case "days":
-          case "day":
-          case "d":
-            return s * a;
-          case "hours":
-          case "hour":
-          case "hrs":
-          case "hr":
-          case "h":
-            return s * c;
-          case "minutes":
-          case "minute":
-          case "mins":
-          case "min":
-          case "m":
-            return s * t;
-          case "seconds":
-          case "second":
-          case "secs":
-          case "sec":
-          case "s":
-            return s * n;
-          case "milliseconds":
-          case "millisecond":
-          case "msecs":
-          case "msec":
-          case "ms":
-            return s;
-          default:
-            return;
-        }
-      }
-    }
-  }
-  function y(e) {
-    var r = Math.abs(e);
-    return r >= a ? Math.round(e / a) + "d" : r >= c ? Math.round(e / c) + "h" : r >= t ? Math.round(e / t) + "m" : r >= n ? Math.round(e / n) + "s" : e + "ms";
-  }
-  function l(e) {
-    var r = Math.abs(e);
-    return r >= a ? u(e, r, a, "day") : r >= c ? u(e, r, c, "hour") : r >= t ? u(e, r, t, "minute") : r >= n ? u(e, r, n, "second") : e + " ms";
-  }
-  function u(e, r, s, i) {
-    var v = r >= s * 1.5;
-    return Math.round(e / s) + " " + i + (v ? "s" : "");
-  }
-  return o;
+  return encodeURIComponent(n).replace(/[!'()~]|%20|%00/g, function(r) {
+    return t[r];
+  });
 }
+function a(n, t) {
+  this._pairs = [], n && p(n, this, t);
+}
+const c = a.prototype;
+c.append = function(t, o) {
+  this._pairs.push([t, o]);
+};
+c.toString = function(t) {
+  const o = t ? function(r) {
+    return t.call(this, r, i);
+  } : i;
+  return this._pairs.map(function(e) {
+    return o(e[0]) + "=" + o(e[1]);
+  }, "").join("&");
+};
 export {
-  w as __require
+  a as default
 };
 //# sourceMappingURL=index.es227.js.map

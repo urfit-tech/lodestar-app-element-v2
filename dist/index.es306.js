@@ -1,5 +1,5 @@
-import r from "./index.es123.js";
-import c from "./index.es206.js";
+import r from "./index.es113.js";
+import c from "./index.es177.js";
 const p = c.hasStandardBrowserEnv ? (
   // Standard browser envs support document.cookie
   {

@@ -1,72 +1,34 @@
-import b from "./index.es123.js";
-import D from "./index.es240.js";
-import L from "./index.es204.js";
-import r from "./index.es134.js";
-import v from "./index.es129.js";
-import y from "./index.es241.js";
-import O from "./index.es206.js";
-import H from "./index.es137.js";
-import { progressEventReducer as q } from "./index.es242.js";
-import U from "./index.es243.js";
-const N = typeof XMLHttpRequest < "u", Q = N && function(n) {
-  return new Promise(function(A, s) {
-    const t = U(n);
-    let c = t.data;
-    const E = H.from(t.headers).normalize();
-    let { responseType: i, onUploadProgress: T, onDownloadProgress: R } = t, a, h, w, u, p;
-    function g() {
-      u && u(), p && p(), t.cancelToken && t.cancelToken.unsubscribe(a), t.signal && t.signal.removeEventListener("abort", a);
-    }
-    let e = new XMLHttpRequest();
-    e.open(t.method.toUpperCase(), t.url, !0), e.timeout = t.timeout;
-    function x() {
-      if (!e)
-        return;
-      const o = H.from(
-        "getAllResponseHeaders" in e && e.getAllResponseHeaders()
-      ), d = {
-        data: !i || i === "text" || i === "json" ? e.responseText : e.response,
-        status: e.status,
-        statusText: e.statusText,
-        headers: o,
-        config: n,
-        request: e
-      };
-      D(function(m) {
-        A(m), g();
-      }, function(m) {
-        s(m), g();
-      }, d), e = null;
-    }
-    "onloadend" in e ? e.onloadend = x : e.onreadystatechange = function() {
-      !e || e.readyState !== 4 || e.status === 0 && !(e.responseURL && e.responseURL.indexOf("file:") === 0) || setTimeout(x);
-    }, e.onabort = function() {
-      e && (s(new r("Request aborted", r.ECONNABORTED, n, e)), e = null);
-    }, e.onerror = function() {
-      s(new r("Network Error", r.ERR_NETWORK, n, e)), e = null;
-    }, e.ontimeout = function() {
-      let l = t.timeout ? "timeout of " + t.timeout + "ms exceeded" : "timeout exceeded";
-      const d = t.transitional || L;
-      t.timeoutErrorMessage && (l = t.timeoutErrorMessage), s(new r(
-        l,
-        d.clarifyTimeoutError ? r.ETIMEDOUT : r.ECONNABORTED,
-        n,
-        e
-      )), e = null;
-    }, c === void 0 && E.setContentType(null), "setRequestHeader" in e && b.forEach(E.toJSON(), function(l, d) {
-      e.setRequestHeader(d, l);
-    }), b.isUndefined(t.withCredentials) || (e.withCredentials = !!t.withCredentials), i && i !== "json" && (e.responseType = t.responseType), R && ([w, p] = q(R, !0), e.addEventListener("progress", w)), T && e.upload && ([h, u] = q(T), e.upload.addEventListener("progress", h), e.upload.addEventListener("loadend", u)), (t.cancelToken || t.signal) && (a = (o) => {
-      e && (s(!o || o.type ? new v(null, n, e) : o), e.abort(), e = null);
-    }, t.cancelToken && t.cancelToken.subscribe(a), t.signal && (t.signal.aborted ? a() : t.signal.addEventListener("abort", a)));
-    const f = y(t.url);
-    if (f && O.protocols.indexOf(f) === -1) {
-      s(new r("Unsupported protocol " + f + ":", r.ERR_BAD_REQUEST, n));
-      return;
-    }
-    e.send(c || null);
-  });
+import { invariant as c } from "./index.es70.js";
+import "./index.es71.js";
+import * as l from "./index.es207.js";
+import { r as o } from "./index.es207.js";
+import { canUseLayoutEffect as v } from "./index.es75.js";
+var u = !1, h = "useSyncExternalStore", S = l[h], g = S || function(a, e, f) {
+  var r = e();
+  // DEVIATION: Using __DEV__
+  globalThis.__DEV__ !== !1 && !u && // DEVIATION: Not using Object.is because we know our snapshots will never
+  // be exotic primitive values like NaN, which is !== itself.
+  r !== e() && (u = !0, globalThis.__DEV__ !== !1 && c.error(59));
+  var s = o.useState({
+    inst: { value: r, getSnapshot: e }
+  }), t = s[0].inst, n = s[1];
+  return v ? o.useLayoutEffect(function() {
+    Object.assign(t, { value: r, getSnapshot: e }), i(t) && n({ inst: t });
+  }, [a, r, e]) : Object.assign(t, { value: r, getSnapshot: e }), o.useEffect(function() {
+    return i(t) && n({ inst: t }), a(function() {
+      i(t) && n({ inst: t });
+    });
+  }, [a]), r;
 };
+function i(a) {
+  var e = a.value, f = a.getSnapshot;
+  try {
+    return e !== f();
+  } catch {
+    return !0;
+  }
+}
 export {
-  Q as default
+  g as useSyncExternalStore
 };
 //# sourceMappingURL=index.es209.js.map

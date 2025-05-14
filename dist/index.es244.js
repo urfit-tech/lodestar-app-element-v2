@@ -1,31 +1,12 @@
-import a from "./index.es129.js";
-import s from "./index.es134.js";
-import m from "./index.es123.js";
-const h = (e, t) => {
-  const { length: l } = e = e ? e.filter(Boolean) : [];
-  if (t || l) {
-    let u = new AbortController(), f;
-    const n = function(r) {
-      if (!f) {
-        f = !0, i();
-        const o = r instanceof Error ? r : this.reason;
-        u.abort(o instanceof s ? o : new a(o instanceof Error ? o.message : o));
-      }
-    };
-    let c = t && setTimeout(() => {
-      c = null, n(new s(`timeout ${t} of ms exceeded`, s.ETIMEDOUT));
-    }, t);
-    const i = () => {
-      e && (c && clearTimeout(c), c = null, e.forEach((r) => {
-        r.unsubscribe ? r.unsubscribe(n) : r.removeEventListener("abort", n);
-      }), e = null);
-    };
-    e.forEach((r) => r.addEventListener("abort", n));
-    const { signal: b } = u;
-    return b.unsubscribe = () => m.asap(i), b;
-  }
-};
+import { __module as e } from "./index.es245.js";
+import E from "react";
+var r;
+function N() {
+  return r ? e.exports : (r = 1, function(_) {
+    _.exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = void 0, _.exports.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, _.exports.__SERVER_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, Object.assign(_.exports, E);
+  }(e), e.exports);
+}
 export {
-  h as default
+  N as __require
 };
 //# sourceMappingURL=index.es244.js.map

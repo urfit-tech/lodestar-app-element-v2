@@ -1,7 +1,9 @@
-function e(t) {
-  return Object.prototype.toString.call(t) === "[object Object]";
+var a = /* @__PURE__ */ new Map();
+function c(t) {
+  var n = a.get(t) || 1;
+  return a.set(t, n + 1), "".concat(t, ":").concat(n, ":").concat(Math.random().toString(36).slice(2));
 }
 export {
-  e as default
+  c as makeUniqueId
 };
 //# sourceMappingURL=index.es98.js.map

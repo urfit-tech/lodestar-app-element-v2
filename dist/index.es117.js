@@ -1,193 +1,90 @@
-import { __require as K } from "./index.es180.js";
-import { __require as v } from "./index.es182.js";
-import { __require as $ } from "./index.es181.js";
-import { __require as D } from "./index.es179.js";
-import { __require as H } from "./index.es184.js";
-import { __require as W } from "./index.es185.js";
-import { __require as J } from "./index.es186.js";
-import { __require as O } from "./index.es187.js";
-import { __require as U } from "./index.es188.js";
-import { __require as G } from "./index.es189.js";
-import { __require as M } from "./index.es190.js";
-import C from "./index.es183.js";
-var l, q;
-function te() {
-  if (q) return l;
-  q = 1;
-  const g = K(), E = v(), j = $(), h = D(), V = H(), m = W(), y = J(), d = O(), p = U(), a = G(), I = M(), { KeyObject: x, createSecretKey: B, createPrivateKey: T } = C, b = ["RS256", "RS384", "RS512", "ES256", "ES384", "ES512", "HS256", "HS384", "HS512", "none"];
-  E && b.splice(3, 0, "PS256", "PS384", "PS512");
-  const P = {
-    expiresIn: { isValid: function(e) {
-      return y(e) || a(e) && e;
-    }, message: '"expiresIn" should be a number of seconds or string representing a timespan' },
-    notBefore: { isValid: function(e) {
-      return y(e) || a(e) && e;
-    }, message: '"notBefore" should be a number of seconds or string representing a timespan' },
-    audience: { isValid: function(e) {
-      return a(e) || Array.isArray(e);
-    }, message: '"audience" must be a string or array' },
-    algorithm: { isValid: V.bind(null, b), message: '"algorithm" must be a valid string enum value' },
-    header: { isValid: p, message: '"header" must be an object' },
-    encoding: { isValid: a, message: '"encoding" must be a string' },
-    issuer: { isValid: a, message: '"issuer" must be a string' },
-    subject: { isValid: a, message: '"subject" must be a string' },
-    jwtid: { isValid: a, message: '"jwtid" must be a string' },
-    noTimestamp: { isValid: m, message: '"noTimestamp" must be a boolean' },
-    keyid: { isValid: a, message: '"keyid" must be a string' },
-    mutatePayload: { isValid: m, message: '"mutatePayload" must be a boolean' },
-    allowInsecureKeySizes: { isValid: m, message: '"allowInsecureKeySizes" must be a boolean' },
-    allowInvalidAsymmetricKeyTypes: { isValid: m, message: '"allowInvalidAsymmetricKeyTypes" must be a boolean' }
-  }, L = {
-    iat: { isValid: d, message: '"iat" should be a number of seconds' },
-    exp: { isValid: d, message: '"exp" should be a number of seconds' },
-    nbf: { isValid: d, message: '"nbf" should be a number of seconds' }
-  };
-  function _(e, n, r, o) {
-    if (!p(r))
-      throw new Error('Expected "' + o + '" to be a plain object.');
-    Object.keys(r).forEach(function(u) {
-      const s = e[u];
-      if (!s) {
-        if (!n)
-          throw new Error('"' + u + '" is not allowed in "' + o + '"');
-        return;
-      }
-      if (!s.isValid(r[u]))
-        throw new Error(s.message);
-    });
-  }
-  function R(e) {
-    return _(P, !1, e, "options");
-  }
-  function z(e) {
-    return _(L, !0, e, "payload");
-  }
-  const w = {
-    audience: "aud",
-    issuer: "iss",
-    subject: "sub",
-    jwtid: "jti"
-  }, A = [
-    "expiresIn",
-    "notBefore",
-    "noTimestamp",
-    "audience",
-    "issuer",
-    "subject",
-    "jwtid"
-  ];
-  return l = function(e, n, r, o) {
-    typeof r == "function" ? (o = r, r = {}) : r = r || {};
-    const u = typeof e == "object" && !Buffer.isBuffer(e), s = Object.assign({
-      alg: r.algorithm || "HS256",
-      typ: u ? "JWT" : void 0,
-      kid: r.keyid
-    }, r.header);
-    function t(i) {
-      if (o)
-        return o(i);
-      throw i;
-    }
-    if (!n && r.algorithm !== "none")
-      return t(new Error("secretOrPrivateKey must have a value"));
-    if (n != null && !(n instanceof x))
-      try {
-        n = T(n);
-      } catch {
-        try {
-          n = B(typeof n == "string" ? Buffer.from(n) : n);
-        } catch {
-          return t(new Error("secretOrPrivateKey is not valid key material"));
-        }
-      }
-    if (s.alg.startsWith("HS") && n.type !== "secret")
-      return t(new Error(`secretOrPrivateKey must be a symmetric key when using ${s.alg}`));
-    if (/^(?:RS|PS|ES)/.test(s.alg)) {
-      if (n.type !== "private")
-        return t(new Error(`secretOrPrivateKey must be an asymmetric key when using ${s.alg}`));
-      if (!r.allowInsecureKeySizes && !s.alg.startsWith("ES") && n.asymmetricKeyDetails !== void 0 && //KeyObject.asymmetricKeyDetails is supported in Node 15+
-      n.asymmetricKeyDetails.modulusLength < 2048)
-        return t(new Error(`secretOrPrivateKey has a minimum key size of 2048 bits for ${s.alg}`));
-    }
-    if (typeof e > "u")
-      return t(new Error("payload is required"));
-    if (u) {
-      try {
-        z(e);
-      } catch (i) {
-        return t(i);
-      }
-      r.mutatePayload || (e = Object.assign({}, e));
-    } else {
-      const i = A.filter(function(f) {
-        return typeof r[f] < "u";
-      });
-      if (i.length > 0)
-        return t(new Error("invalid " + i.join(",") + " option for " + typeof e + " payload"));
-    }
-    if (typeof e.exp < "u" && typeof r.expiresIn < "u")
-      return t(new Error('Bad "options.expiresIn" option the payload already has an "exp" property.'));
-    if (typeof e.nbf < "u" && typeof r.notBefore < "u")
-      return t(new Error('Bad "options.notBefore" option the payload already has an "nbf" property.'));
+import t from "./index.es113.js";
+import p from "./index.es124.js";
+import u from "./index.es175.js";
+import S from "./index.es123.js";
+import h from "./index.es176.js";
+import l from "./index.es177.js";
+import O from "./index.es118.js";
+function y(i, r, e) {
+  if (t.isString(i))
     try {
-      R(r);
-    } catch (i) {
-      return t(i);
+      return (r || JSON.parse)(i), t.trim(i);
+    } catch (n) {
+      if (n.name !== "SyntaxError")
+        throw n;
     }
-    if (!r.allowInvalidAsymmetricKeyTypes)
-      try {
-        j(s.alg, n);
-      } catch (i) {
-        return t(i);
-      }
-    const c = e.iat || Math.floor(Date.now() / 1e3);
-    if (r.noTimestamp ? delete e.iat : u && (e.iat = c), typeof r.notBefore < "u") {
-      try {
-        e.nbf = g(r.notBefore, c);
-      } catch (i) {
-        return t(i);
-      }
-      if (typeof e.nbf > "u")
-        return t(new Error('"notBefore" should be a number of seconds or string representing a timespan eg: "1d", "20h", 60'));
-    }
-    if (typeof r.expiresIn < "u" && typeof e == "object") {
-      try {
-        e.exp = g(r.expiresIn, c);
-      } catch (i) {
-        return t(i);
-      }
-      if (typeof e.exp > "u")
-        return t(new Error('"expiresIn" should be a number of seconds or string representing a timespan eg: "1d", "20h", 60'));
-    }
-    Object.keys(w).forEach(function(i) {
-      const f = w[i];
-      if (typeof r[i] < "u") {
-        if (typeof e[f] < "u")
-          return t(new Error('Bad "options.' + i + '" option. The payload already has an "' + f + '" property.'));
-        e[f] = r[i];
-      }
-    });
-    const S = r.encoding || "utf8";
-    if (typeof o == "function")
-      o = o && I(o), h.createSign({
-        header: s,
-        privateKey: n,
-        payload: e,
-        encoding: S
-      }).once("error", o).once("done", function(i) {
-        if (!r.allowInsecureKeySizes && /^(?:RS|PS)/.test(s.alg) && i.length < 256)
-          return o(new Error(`secretOrPrivateKey has a minimum key size of 2048 bits for ${s.alg}`));
-        o(null, i);
-      });
-    else {
-      let i = h.sign({ header: s, payload: e, secret: n, encoding: S });
-      if (!r.allowInsecureKeySizes && /^(?:RS|PS)/.test(s.alg) && i.length < 256)
-        throw new Error(`secretOrPrivateKey has a minimum key size of 2048 bits for ${s.alg}`);
-      return i;
-    }
-  }, l;
+  return (e || JSON.stringify)(i);
 }
+const a = {
+  transitional: u,
+  adapter: ["xhr", "http", "fetch"],
+  transformRequest: [function(r, e) {
+    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
+    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
+      return s ? JSON.stringify(O(r)) : r;
+    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
+      return r;
+    if (t.isArrayBufferView(r))
+      return r.buffer;
+    if (t.isURLSearchParams(r))
+      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
+    let o;
+    if (f) {
+      if (n.indexOf("application/x-www-form-urlencoded") > -1)
+        return h(r, this.formSerializer).toString();
+      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
+        const c = this.env && this.env.FormData;
+        return S(
+          o ? { "files[]": r } : r,
+          c && new c(),
+          this.formSerializer
+        );
+      }
+    }
+    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
+  }],
+  transformResponse: [function(r) {
+    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
+    if (t.isResponse(r) || t.isReadableStream(r))
+      return r;
+    if (r && t.isString(r) && (n && !this.responseType || s)) {
+      const m = !(e && e.silentJSONParsing) && s;
+      try {
+        return JSON.parse(r);
+      } catch (o) {
+        if (m)
+          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
+      }
+    }
+    return r;
+  }],
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: {
+    FormData: l.classes.FormData,
+    Blob: l.classes.Blob
+  },
+  validateStatus: function(r) {
+    return r >= 200 && r < 300;
+  },
+  headers: {
+    common: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": void 0
+    }
+  }
+};
+t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
+  a.headers[i] = {};
+});
 export {
-  te as __require
+  a as default
 };
 //# sourceMappingURL=index.es117.js.map

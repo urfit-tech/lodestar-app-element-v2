@@ -1,33 +1,27 @@
-import { isNonNullObject as s } from "./index.es62.js";
-import { isNonEmptyArray as p } from "./index.es79.js";
-import { DeepMerger as h } from "./index.es81.js";
-function u(t) {
-  return "incremental" in t;
+import { isNonNullObject as f } from "./index.es60.js";
+function i(e) {
+  var t = /* @__PURE__ */ new Set([e]);
+  return t.forEach(function(r) {
+    f(r) && c(r) === r && Object.getOwnPropertyNames(r).forEach(function(n) {
+      f(r[n]) && t.add(r[n]);
+    });
+  }), e;
 }
-function d(t) {
-  return "hasNext" in t && "data" in t;
-}
-function E(t) {
-  return u(t) || d(t);
-}
-function v(t) {
-  return s(t) && "payload" in t;
-}
-function P(t, n) {
-  var r = t, f = new h();
-  return u(n) && p(n.incremental) && n.incremental.forEach(function(i) {
-    for (var e = i.data, o = i.path, a = o.length - 1; a >= 0; --a) {
-      var c = o[a], l = !isNaN(+c), m = l ? [] : {};
-      m[c] = e, e = m;
+function c(e) {
+  if (globalThis.__DEV__ !== !1 && !Object.isFrozen(e))
+    try {
+      Object.freeze(e);
+    } catch (t) {
+      if (t instanceof TypeError)
+        return null;
+      throw t;
     }
-    r = f.merge(r, e);
-  }), r;
+  return e;
+}
+function a(e) {
+  return globalThis.__DEV__ !== !1 && i(e), e;
 }
 export {
-  v as isApolloPayloadResult,
-  u as isExecutionPatchIncrementalResult,
-  d as isExecutionPatchInitialResult,
-  E as isExecutionPatchResult,
-  P as mergeIncrementalData
+  a as maybeDeepFreeze
 };
 //# sourceMappingURL=index.es89.js.map

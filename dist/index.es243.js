@@ -1,34 +1,15 @@
-import n from "./index.es206.js";
-import l from "./index.es123.js";
-import h from "./index.es305.js";
-import c from "./index.es306.js";
-import w from "./index.es202.js";
-import C from "./index.es126.js";
-import b from "./index.es137.js";
-import S from "./index.es199.js";
-const v = (s) => {
-  const e = C({}, s);
-  let { data: p, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
-  e.headers = r = b.from(r), e.url = S(w(e.baseURL, e.url, e.allowAbsoluteUrls), s.params, s.paramsSerializer), t && r.set(
-    "Authorization",
-    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
-  );
-  let i;
-  if (l.isFormData(p)) {
-    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
-      r.setContentType(void 0);
-    else if ((i = r.getContentType()) !== !1) {
-      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
-      r.setContentType([a || "multipart/form-data", ...d].join("; "));
+import { canUseAsyncIteratorSymbol as e } from "./index.es75.js";
+function o(t) {
+  var r = {
+    next: function() {
+      return t.read();
     }
-  }
-  if (n.hasStandardBrowserEnv && (o && l.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
-    const a = m && f && c.read(f);
-    a && r.set(m, a);
-  }
-  return e;
-};
+  };
+  return e && (r[Symbol.asyncIterator] = function() {
+    return this;
+  }), r;
+}
 export {
-  v as default
+  o as default
 };
 //# sourceMappingURL=index.es243.js.map

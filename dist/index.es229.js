@@ -1,9 +1,7 @@
-import { __require as s } from "./index.es228.js";
-var e, r;
-function m() {
-  return r || (r = 1, e = s().satisfies(process.version, ">=15.7.0")), e;
+function e(t) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
 }
 export {
-  m as __require
+  e as default
 };
 //# sourceMappingURL=index.es229.js.map

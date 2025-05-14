@@ -1,72 +1,92 @@
-const e = {
-  Continue: 100,
-  SwitchingProtocols: 101,
-  Processing: 102,
-  EarlyHints: 103,
-  Ok: 200,
-  Created: 201,
-  Accepted: 202,
-  NonAuthoritativeInformation: 203,
-  NoContent: 204,
-  ResetContent: 205,
-  PartialContent: 206,
-  MultiStatus: 207,
-  AlreadyReported: 208,
-  ImUsed: 226,
-  MultipleChoices: 300,
-  MovedPermanently: 301,
-  Found: 302,
-  SeeOther: 303,
-  NotModified: 304,
-  UseProxy: 305,
-  Unused: 306,
-  TemporaryRedirect: 307,
-  PermanentRedirect: 308,
-  BadRequest: 400,
-  Unauthorized: 401,
-  PaymentRequired: 402,
-  Forbidden: 403,
-  NotFound: 404,
-  MethodNotAllowed: 405,
-  NotAcceptable: 406,
-  ProxyAuthenticationRequired: 407,
-  RequestTimeout: 408,
-  Conflict: 409,
-  Gone: 410,
-  LengthRequired: 411,
-  PreconditionFailed: 412,
-  PayloadTooLarge: 413,
-  UriTooLong: 414,
-  UnsupportedMediaType: 415,
-  RangeNotSatisfiable: 416,
-  ExpectationFailed: 417,
-  ImATeapot: 418,
-  MisdirectedRequest: 421,
-  UnprocessableEntity: 422,
-  Locked: 423,
-  FailedDependency: 424,
-  TooEarly: 425,
-  UpgradeRequired: 426,
-  PreconditionRequired: 428,
-  TooManyRequests: 429,
-  RequestHeaderFieldsTooLarge: 431,
-  UnavailableForLegalReasons: 451,
-  InternalServerError: 500,
-  NotImplemented: 501,
-  BadGateway: 502,
-  ServiceUnavailable: 503,
-  GatewayTimeout: 504,
-  HttpVersionNotSupported: 505,
-  VariantAlsoNegotiates: 506,
-  InsufficientStorage: 507,
-  LoopDetected: 508,
-  NotExtended: 510,
-  NetworkAuthenticationRequired: 511
+import { invariant as f } from "./index.es70.js";
+import "./index.es71.js";
+import { registerGlobalCache as y } from "./index.es81.js";
+import { AutoCleanedWeakCache as S } from "./index.es82.js";
+import { cacheSizes as M } from "./index.es77.js";
+var r;
+(function(e) {
+  e[e.Query = 0] = "Query", e[e.Mutation = 1] = "Mutation", e[e.Subscription = 2] = "Subscription";
+})(r || (r = {}));
+var s;
+function k(e) {
+  var i;
+  switch (e) {
+    case r.Query:
+      i = "Query";
+      break;
+    case r.Mutation:
+      i = "Mutation";
+      break;
+    case r.Subscription:
+      i = "Subscription";
+      break;
+  }
+  return i;
+}
+function d(e) {
+  s || (s = new S(
+    M.parser || 1e3
+    /* defaultCacheSizes.parser */
+  ));
+  var i = s.get(e);
+  if (i)
+    return i;
+  var h, o, u;
+  f(!!e && !!e.kind, 61, e);
+  for (var c = [], a = [], n = [], l = [], g = 0, b = e.definitions; g < b.length; g++) {
+    var t = b[g];
+    if (t.kind === "FragmentDefinition") {
+      c.push(t);
+      continue;
+    }
+    if (t.kind === "OperationDefinition")
+      switch (t.operation) {
+        case "query":
+          a.push(t);
+          break;
+        case "mutation":
+          n.push(t);
+          break;
+        case "subscription":
+          l.push(t);
+          break;
+      }
+  }
+  f(!c.length || a.length || n.length || l.length, 62), f(
+    a.length + n.length + l.length <= 1,
+    63,
+    e,
+    a.length,
+    l.length,
+    n.length
+  ), o = a.length ? r.Query : r.Mutation, !a.length && !n.length && (o = r.Subscription);
+  var v = a.length ? a : n.length ? n : l;
+  f(v.length === 1, 64, e, v.length);
+  var p = v[0];
+  h = p.variableDefinitions || [], p.name && p.name.kind === "Name" ? u = p.name.value : u = "data";
+  var m = { name: u, type: o, variables: h };
+  return s.set(e, m), m;
+}
+d.resetCache = function() {
+  s = void 0;
 };
-Object.entries(e).forEach(([t, o]) => {
-  e[o] = t;
+globalThis.__DEV__ !== !1 && y("parser", function() {
+  return s ? s.size : 0;
 });
+function O(e, i) {
+  var h = d(e), o = k(i), u = k(h.type);
+  f(
+    h.type === i,
+    65,
+    o,
+    o,
+    u
+  );
+}
 export {
-  e as default
+  r as DocumentType,
+  k as operationName,
+  d as parser,
+  O as verifyDocumentType
 };
 //# sourceMappingURL=index.es139.js.map

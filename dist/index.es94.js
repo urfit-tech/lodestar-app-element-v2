@@ -1,11 +1,17 @@
-import { __assign as i } from "./index.es56.js";
-import { compact as e } from "./index.es91.js";
-function o(r, a) {
-  return e(r, a, a.variables && {
-    variables: e(i(i({}, r && r.variables), a.variables))
-  });
+import { isNonEmptyArray as n } from "./index.es85.js";
+import { isExecutionPatchIncrementalResult as a } from "./index.es95.js";
+function s(r) {
+  var o = i(r);
+  return n(o);
+}
+function i(r) {
+  var o = n(r.errors) ? r.errors.slice(0) : [];
+  return a(r) && n(r.incremental) && r.incremental.forEach(function(e) {
+    e.errors && o.push.apply(o, e.errors);
+  }), o;
 }
 export {
-  o as mergeOptions
+  i as getGraphQLErrorsFromResult,
+  s as graphQLResultHasError
 };
 //# sourceMappingURL=index.es94.js.map

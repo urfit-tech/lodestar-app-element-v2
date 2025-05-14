@@ -1,92 +1,47 @@
-import { __assign as o, __rest as c } from "./index.es56.js";
-import { wrap as v } from "./index.es70.js";
-import { getApolloCacheMemoryInternals as F } from "./index.es75.js";
-import { equalByQuery as b } from "./index.es108.js";
-import { Observable as D } from "./index.es58.js";
-import "./index.es59.js";
-import { mergeDeepArray as w } from "./index.es81.js";
-import { cacheSizes as O } from "./index.es71.js";
-import { WeakCache as Q } from "./index.es72.js";
-import { getFragmentQueryDocument as I } from "./index.es73.js";
-var N = (
-  /** @class */
-  function() {
-    function e() {
-      this.assumeImmutableResults = !1, this.getFragmentDoc = v(I, {
-        max: O["cache.fragmentQueryDocuments"] || 1e3,
-        cache: Q
-      });
-    }
-    return e.prototype.batch = function(t) {
-      var r = this, n = typeof t.optimistic == "string" ? t.optimistic : t.optimistic === !1 ? null : void 0, i;
-      return this.performTransaction(function() {
-        return i = t.update(r);
-      }, n), i;
-    }, e.prototype.recordOptimisticTransaction = function(t, r) {
-      this.performTransaction(t, r);
-    }, e.prototype.transformDocument = function(t) {
-      return t;
-    }, e.prototype.transformForLink = function(t) {
-      return t;
-    }, e.prototype.identify = function(t) {
-    }, e.prototype.gc = function() {
-      return [];
-    }, e.prototype.modify = function(t) {
-      return !1;
-    }, e.prototype.readQuery = function(t, r) {
-      return r === void 0 && (r = !!t.optimistic), this.read(o(o({}, t), { rootId: t.id || "ROOT_QUERY", optimistic: r }));
-    }, e.prototype.watchFragment = function(t) {
-      var r = this, n = t.fragment, i = t.fragmentName, a = t.from, f = t.optimistic, d = f === void 0 ? !0 : f, g = c(t, ["fragment", "fragmentName", "from", "optimistic"]), s = this.getFragmentDoc(n, i), l = o(o({}, g), { returnPartialData: !0, id: typeof a == "string" ? a : this.identify(a), query: s, optimistic: d }), u;
-      return new D(function(y) {
-        return r.watch(o(o({}, l), { immediate: !0, callback: function(m) {
-          if (
-            // Always ensure we deliver the first result
-            !(u && b(s, { data: u?.result }, { data: m.result }))
-          ) {
-            var p = {
-              data: m.result,
-              complete: !!m.complete
-            };
-            m.missing && (p.missing = w(m.missing.map(function(h) {
-              return h.missing;
-            }))), u = m, y.next(p);
+import { __require as d } from "./index.es221.js";
+import { __require as E } from "./index.es222.js";
+var i, c;
+function A() {
+  if (c) return i;
+  c = 1;
+  const m = d(), u = E(), l = {
+    ec: ["ES256", "ES384", "ES512"],
+    rsa: ["RS256", "PS256", "RS384", "PS384", "RS512", "PS512"],
+    "rsa-pss": ["PS256", "PS384", "PS512"]
+  }, p = {
+    ES256: "prime256v1",
+    ES384: "secp384r1",
+    ES512: "secp521r1"
+  };
+  return i = function(e, t) {
+    if (!e || !t) return;
+    const r = t.asymmetricKeyType;
+    if (!r) return;
+    const s = l[r];
+    if (!s)
+      throw new Error(`Unknown key type "${r}".`);
+    if (!s.includes(e))
+      throw new Error(`"alg" parameter for "${r}" key type must be one of: ${s.join(", ")}.`);
+    if (m)
+      switch (r) {
+        case "ec":
+          const y = t.asymmetricKeyDetails.namedCurve, o = p[e];
+          if (y !== o)
+            throw new Error(`"alg" parameter "${e}" requires curve "${o}".`);
+          break;
+        case "rsa-pss":
+          if (u) {
+            const a = parseInt(e.slice(-3), 10), { hashAlgorithm: n, mgf1HashAlgorithm: f, saltLength: S } = t.asymmetricKeyDetails;
+            if (n !== `sha${a}` || f !== n)
+              throw new Error(`Invalid key for this operation, its RSA-PSS parameters do not meet the requirements of "alg" ${e}.`);
+            if (S !== void 0 && S > a >> 3)
+              throw new Error(`Invalid key for this operation, its RSA-PSS parameter saltLength does not meet the requirements of "alg" ${e}.`);
           }
-        } }));
-      });
-    }, e.prototype.readFragment = function(t, r) {
-      return r === void 0 && (r = !!t.optimistic), this.read(o(o({}, t), { query: this.getFragmentDoc(t.fragment, t.fragmentName), rootId: t.id, optimistic: r }));
-    }, e.prototype.writeQuery = function(t) {
-      var r = t.id, n = t.data, i = c(t, ["id", "data"]);
-      return this.write(Object.assign(i, {
-        dataId: r || "ROOT_QUERY",
-        result: n
-      }));
-    }, e.prototype.writeFragment = function(t) {
-      var r = t.id, n = t.data, i = t.fragment, a = t.fragmentName, f = c(t, ["id", "data", "fragment", "fragmentName"]);
-      return this.write(Object.assign(f, {
-        query: this.getFragmentDoc(i, a),
-        dataId: r,
-        result: n
-      }));
-    }, e.prototype.updateQuery = function(t, r) {
-      return this.batch({
-        update: function(n) {
-          var i = n.readQuery(t), a = r(i);
-          return a == null ? i : (n.writeQuery(o(o({}, t), { data: a })), a);
-        }
-      });
-    }, e.prototype.updateFragment = function(t, r) {
-      return this.batch({
-        update: function(n) {
-          var i = n.readFragment(t), a = r(i);
-          return a == null ? i : (n.writeFragment(o(o({}, t), { data: a })), a);
-        }
-      });
-    }, e;
-  }()
-);
-globalThis.__DEV__ !== !1 && (N.prototype.getMemoryInternals = F);
+          break;
+      }
+  }, i;
+}
 export {
-  N as ApolloCache
+  A as __require
 };
 //# sourceMappingURL=index.es152.js.map

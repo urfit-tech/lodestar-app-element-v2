@@ -1,9 +1,9 @@
-import { getDefaultExportFromCjs as r } from "./index.es63.js";
-import { __require as e } from "./index.es222.js";
-var t = e();
-const s = /* @__PURE__ */ r(t);
+const r = {
+  silentJSONParsing: !0,
+  forcedJSONParsing: !0,
+  clarifyTimeoutError: !1
+};
 export {
-  s as default,
-  t as r
+  r as default
 };
 //# sourceMappingURL=index.es175.js.map

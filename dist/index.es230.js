@@ -1,9 +1,7 @@
-import { __require as s } from "./index.es228.js";
-var e, r;
-function a() {
-  return r || (r = 1, e = s().satisfies(process.version, ">=16.9.0")), e;
+function n(e, c) {
+  return c ? e.replace(/\/?\/$/, "") + "/" + c.replace(/^\/+/, "") : e;
 }
 export {
-  a as __require
+  n as default
 };
 //# sourceMappingURL=index.es230.js.map

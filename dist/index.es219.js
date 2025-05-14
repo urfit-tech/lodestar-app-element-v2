@@ -1,54 +1,85 @@
-import { canUseAsyncIteratorSymbol as h } from "./index.es69.js";
-function p(e) {
-  var o = null, u = null, f = !1, a = [], i = [];
-  function l(n) {
-    if (!u) {
-      if (i.length) {
-        var r = i.shift();
-        if (Array.isArray(r) && r[0])
-          return r[0]({ value: n, done: !1 });
-      }
-      a.push(n);
+import { __require as W } from "./index.es253.js";
+import { __require as I } from "./index.es254.js";
+import { __require as w } from "./index.es255.js";
+import A from "./index.es154.js";
+import { __require as F } from "./index.es256.js";
+import { __require as k } from "./index.es257.js";
+var n, d;
+function M() {
+  if (d) return n;
+  d = 1;
+  var u = W().Buffer, s = I(), y = w(), v = A, f = F(), b = k(), p = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/;
+  function _(r) {
+    return Object.prototype.toString.call(r) === "[object Object]";
+  }
+  function q(r) {
+    if (_(r))
+      return r;
+    try {
+      return JSON.parse(r);
+    } catch {
+      return;
     }
   }
-  function c(n) {
-    u = n;
-    var r = i.slice();
-    r.forEach(function(s) {
-      s[1](n);
-    }), !o || o();
+  function o(r) {
+    var e = r.split(".", 1)[0];
+    return q(u.from(e, "base64").toString("binary"));
   }
-  function t() {
-    f = !0;
-    var n = i.slice();
-    n.forEach(function(r) {
-      r[0]({ value: void 0, done: !0 });
-    }), !o || o();
+  function S(r) {
+    return r.split(".", 2).join(".");
   }
-  o = function() {
-    o = null, e.removeListener("data", l), e.removeListener("error", c), e.removeListener("end", t), e.removeListener("finish", t), e.removeListener("close", t);
-  }, e.on("data", l), e.on("error", c), e.on("end", t), e.on("finish", t), e.on("close", t);
-  function d() {
-    return new Promise(function(n, r) {
-      if (u)
-        return r(u);
-      if (a.length)
-        return n({ value: a.shift(), done: !1 });
-      if (f)
-        return n({ value: void 0, done: !0 });
-      i.push([n, r]);
-    });
+  function c(r) {
+    return r.split(".")[2];
   }
-  var v = {
-    next: function() {
-      return d();
+  function J(r, e) {
+    e = e || "utf8";
+    var t = r.split(".")[1];
+    return u.from(t, "base64").toString(e);
+  }
+  function h(r) {
+    return p.test(r) && !!o(r);
+  }
+  function m(r, e, t) {
+    if (!e) {
+      var i = new Error("Missing algorithm parameter for jws.verify");
+      throw i.code = "MISSING_ALGORITHM", i;
     }
-  };
-  return h && (v[Symbol.asyncIterator] = function() {
-    return this;
-  }), v;
+    r = f(r);
+    var g = c(r), O = S(r), V = y(e);
+    return V.verify(O, g, t);
+  }
+  function l(r, e) {
+    if (e = e || {}, r = f(r), !h(r))
+      return null;
+    var t = o(r);
+    if (!t)
+      return null;
+    var i = J(r);
+    return (t.typ === "JWT" || e.json) && (i = JSON.parse(i, e.encoding)), {
+      header: t,
+      payload: i,
+      signature: c(r)
+    };
+  }
+  function a(r) {
+    r = r || {};
+    var e = r.secret || r.publicKey || r.key, t = new s(e);
+    this.readable = !0, this.algorithm = r.algorithm, this.encoding = r.encoding, this.secret = this.publicKey = this.key = t, this.signature = new s(r.signature), this.secret.once("close", function() {
+      !this.signature.writable && this.readable && this.verify();
+    }.bind(this)), this.signature.once("close", function() {
+      !this.secret.writable && this.readable && this.verify();
+    }.bind(this));
+  }
+  return b.inherits(a, v), a.prototype.verify = function() {
+    try {
+      var e = m(this.signature.buffer, this.algorithm, this.key.buffer), t = l(this.signature.buffer, this.encoding);
+      return this.emit("done", e, t), this.emit("data", e), this.emit("end"), this.readable = !1, e;
+    } catch (i) {
+      this.readable = !1, this.emit("error", i), this.emit("close");
+    }
+  }, a.decode = l, a.isValid = h, a.verify = m, n = a, n;
 }
 export {
-  p as default
+  M as __require
 };
 //# sourceMappingURL=index.es219.js.map

@@ -1,47 +1,142 @@
-import { __require as d } from "./index.es229.js";
-import { __require as E } from "./index.es230.js";
-var i, c;
-function A() {
-  if (c) return i;
-  c = 1;
-  const m = d(), u = E(), l = {
-    ec: ["ES256", "ES384", "ES512"],
-    rsa: ["RS256", "PS256", "RS384", "PS384", "RS512", "PS512"],
-    "rsa-pss": ["PS256", "PS384", "PS512"]
-  }, p = {
-    ES256: "prime256v1",
-    ES384: "secp384r1",
-    ES512: "secp521r1"
-  };
-  return i = function(e, t) {
-    if (!e || !t) return;
-    const r = t.asymmetricKeyType;
-    if (!r) return;
-    const s = l[r];
-    if (!s)
-      throw new Error(`Unknown key type "${r}".`);
-    if (!s.includes(e))
-      throw new Error(`"alg" parameter for "${r}" key type must be one of: ${s.join(", ")}.`);
-    if (m)
-      switch (r) {
-        case "ec":
-          const y = t.asymmetricKeyDetails.namedCurve, o = p[e];
-          if (y !== o)
-            throw new Error(`"alg" parameter "${e}" requires curve "${o}".`);
-          break;
-        case "rsa-pss":
-          if (u) {
-            const a = parseInt(e.slice(-3), 10), { hashAlgorithm: n, mgf1HashAlgorithm: f, saltLength: S } = t.asymmetricKeyDetails;
-            if (n !== `sha${a}` || f !== n)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameters do not meet the requirements of "alg" ${e}.`);
-            if (S !== void 0 && S > a >> 3)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameter saltLength does not meet the requirements of "alg" ${e}.`);
-          }
-          break;
+import B from "./index.es177.js";
+import r from "./index.es113.js";
+import l from "./index.es124.js";
+import H from "./index.es237.js";
+import { trackStream as L } from "./index.es238.js";
+import K from "./index.es127.js";
+import { progressEventDecorator as P, progressEventReducer as A, asyncDecorator as O } from "./index.es235.js";
+import z from "./index.es236.js";
+import j from "./index.es233.js";
+const w = typeof fetch == "function" && typeof Request == "function" && typeof Response == "function", D = w && typeof ReadableStream == "function", I = w && (typeof TextEncoder == "function" ? /* @__PURE__ */ ((e) => (t) => e.encode(t))(new TextEncoder()) : async (e) => new Uint8Array(await new Response(e).arrayBuffer())), F = (e, ...t) => {
+  try {
+    return !!e(...t);
+  } catch {
+    return !1;
+  }
+}, J = D && F(() => {
+  let e = !1;
+  const t = new Request(B.origin, {
+    body: new ReadableStream(),
+    method: "POST",
+    get duplex() {
+      return e = !0, "half";
+    }
+  }).headers.has("Content-Type");
+  return e && !t;
+}), _ = 64 * 1024, T = D && F(() => r.isReadableStream(new Response("").body)), g = {
+  stream: T && ((e) => e.body)
+};
+w && ((e) => {
+  ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((t) => {
+    !g[t] && (g[t] = r.isFunction(e[t]) ? (s) => s[t]() : (s, u) => {
+      throw new l(`Response type '${t}' is not supported`, l.ERR_NOT_SUPPORT, u);
+    });
+  });
+})(new Response());
+const V = async (e) => {
+  if (e == null)
+    return 0;
+  if (r.isBlob(e))
+    return e.size;
+  if (r.isSpecCompliantForm(e))
+    return (await new Request(B.origin, {
+      method: "POST",
+      body: e
+    }).arrayBuffer()).byteLength;
+  if (r.isArrayBufferView(e) || r.isArrayBuffer(e))
+    return e.byteLength;
+  if (r.isURLSearchParams(e) && (e = e + ""), r.isString(e))
+    return (await I(e)).byteLength;
+}, W = async (e, t) => {
+  const s = r.toFiniteNumber(e.getContentLength());
+  return s ?? V(t);
+}, re = w && (async (e) => {
+  let {
+    url: t,
+    method: s,
+    data: u,
+    signal: N,
+    cancelToken: x,
+    timeout: U,
+    onDownloadProgress: R,
+    onUploadProgress: b,
+    responseType: n,
+    headers: y,
+    withCredentials: m = "same-origin",
+    fetchOptions: v
+  } = z(e);
+  n = n ? (n + "").toLowerCase() : "text";
+  let d = H([N, x && x.toAbortSignal()], U), f;
+  const c = d && d.unsubscribe && (() => {
+    d.unsubscribe();
+  });
+  let E;
+  try {
+    if (b && J && s !== "get" && s !== "head" && (E = await W(y, u)) !== 0) {
+      let i = new Request(t, {
+        method: "POST",
+        body: u,
+        duplex: "half"
+      }), p;
+      if (r.isFormData(u) && (p = i.headers.get("content-type")) && y.setContentType(p), i.body) {
+        const [S, h] = P(
+          E,
+          A(O(b))
+        );
+        u = L(i.body, _, S, h);
       }
-  }, i;
-}
+    }
+    r.isString(m) || (m = m ? "include" : "omit");
+    const o = "credentials" in Request.prototype;
+    f = new Request(t, {
+      ...v,
+      signal: d,
+      method: s.toUpperCase(),
+      headers: y.normalize().toJSON(),
+      body: u,
+      duplex: "half",
+      credentials: o ? m : void 0
+    });
+    let a = await fetch(f);
+    const C = T && (n === "stream" || n === "response");
+    if (T && (R || C && c)) {
+      const i = {};
+      ["status", "statusText", "headers"].forEach((q) => {
+        i[q] = a[q];
+      });
+      const p = r.toFiniteNumber(a.headers.get("content-length")), [S, h] = R && P(
+        p,
+        A(O(R), !0)
+      ) || [];
+      a = new Response(
+        L(a.body, _, S, () => {
+          h && h(), c && c();
+        }),
+        i
+      );
+    }
+    n = n || "text";
+    let k = await g[r.findKey(g, n) || "text"](a, e);
+    return !C && c && c(), await new Promise((i, p) => {
+      j(i, p, {
+        data: k,
+        headers: K.from(a.headers),
+        status: a.status,
+        statusText: a.statusText,
+        config: e,
+        request: f
+      });
+    });
+  } catch (o) {
+    throw c && c(), o && o.name === "TypeError" && /fetch/i.test(o.message) ? Object.assign(
+      new l("Network Error", l.ERR_NETWORK, e, f),
+      {
+        cause: o.cause || o
+      }
+    ) : l.from(o, o && o.code, e, f);
+  }
+});
 export {
-  A as __require
+  re as default
 };
 //# sourceMappingURL=index.es181.js.map

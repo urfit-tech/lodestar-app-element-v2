@@ -1,15 +1,12 @@
-import a from "./index.es97.js";
-import f from "./index.es100.js";
-var h = /* @__PURE__ */ a(function(o, i, e) {
-  var t = {}, r;
-  i = i || {}, e = e || {};
-  for (r in i)
-    f(r, i) && (t[r] = f(r, e) ? o(r, i[r], e[r]) : i[r]);
-  for (r in e)
-    f(r, e) && !f(r, t) && (t[r] = e[r]);
-  return t;
-});
+import { makeUniqueId as f } from "./index.es98.js";
+function y(t, i) {
+  i === void 0 && (i = 0);
+  var n = f("stringifyForDisplay");
+  return JSON.stringify(t, function(o, r) {
+    return r === void 0 ? n : r;
+  }, i).split(JSON.stringify(n)).join("<undefined>");
+}
 export {
-  h as default
+  y as stringifyForDisplay
 };
 //# sourceMappingURL=index.es99.js.map

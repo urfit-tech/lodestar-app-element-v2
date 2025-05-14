@@ -1,17 +1,30 @@
-import { isNonEmptyArray as n } from "./index.es79.js";
-import { isExecutionPatchIncrementalResult as a } from "./index.es89.js";
-function s(r) {
-  var o = i(r);
-  return n(o);
+var i = Object.prototype.toString;
+function n(t) {
+  return u(t);
 }
-function i(r) {
-  var o = n(r.errors) ? r.errors.slice(0) : [];
-  return a(r) && n(r.incremental) && r.incremental.forEach(function(e) {
-    e.errors && o.push.apply(o, e.errors);
-  }), o;
+function u(t, r) {
+  switch (i.call(t)) {
+    case "[object Array]": {
+      if (r = r || /* @__PURE__ */ new Map(), r.has(t))
+        return r.get(t);
+      var c = t.slice(0);
+      return r.set(t, c), c.forEach(function(e, f) {
+        c[f] = u(e, r);
+      }), c;
+    }
+    case "[object Object]": {
+      if (r = r || /* @__PURE__ */ new Map(), r.has(t))
+        return r.get(t);
+      var o = Object.create(Object.getPrototypeOf(t));
+      return r.set(t, o), Object.keys(t).forEach(function(e) {
+        o[e] = u(t[e], r);
+      }), o;
+    }
+    default:
+      return t;
+  }
 }
 export {
-  i as getGraphQLErrorsFromResult,
-  s as graphQLResultHasError
+  n as cloneDeep
 };
 //# sourceMappingURL=index.es88.js.map

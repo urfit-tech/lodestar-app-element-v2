@@ -1,17 +1,29 @@
-var e, t;
-function c() {
-  if (t) return e;
-  t = 1;
-  var o = "[object Number]", n = Object.prototype, i = n.toString;
-  function u(r) {
-    return !!r && typeof r == "object";
+import { parentEntrySlot as c } from "./index.es147.js";
+import { hasOwnProperty as d, arrayFromSet as f, maybeUnsubscribe as u } from "./index.es216.js";
+const a = {
+  setDirty: !0,
+  dispose: !0,
+  forget: !0
+  // Fully remove parent Entry from LRU cache and computation graph
+};
+function g(y) {
+  const r = /* @__PURE__ */ new Map();
+  function s(n) {
+    const e = c.getValue();
+    if (e) {
+      let t = r.get(n);
+      t || r.set(n, t = /* @__PURE__ */ new Set()), e.dependOn(t);
+    }
   }
-  function b(r) {
-    return typeof r == "number" || u(r) && i.call(r) == o;
-  }
-  return e = b, e;
+  return s.dirty = function(e, t) {
+    const o = r.get(e);
+    if (o) {
+      const i = t && d.call(a, t) ? t : "setDirty";
+      f(o).forEach((p) => p[i]()), r.delete(e), u(o);
+    }
+  }, s;
 }
 export {
-  c as __require
+  g as dep
 };
 //# sourceMappingURL=index.es187.js.map

@@ -1,10 +1,7 @@
-import { newInvariantError as e } from "./index.es65.js";
-import "./index.es66.js";
-var n = function(r) {
-  if (!r && typeof fetch > "u")
-    throw e(37);
-};
+function a(o) {
+  console.info("[react-ga]", o);
+}
 export {
-  n as checkFetcher
+  a as default
 };
 //# sourceMappingURL=index.es168.js.map

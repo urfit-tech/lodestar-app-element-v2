@@ -1,38 +1,83 @@
-var n, i;
-function y() {
-  if (i) return n;
-  i = 1;
-  var a = "[object Object]";
-  function u(t) {
-    var r = !1;
-    if (t != null && typeof t.toString != "function")
-      try {
-        r = !!(t + "");
-      } catch {
-      }
-    return r;
-  }
-  function f(t, r) {
-    return function(o) {
-      return t(r(o));
-    };
-  }
-  var s = Function.prototype, e = Object.prototype, c = s.toString, b = e.hasOwnProperty, j = c.call(Object), p = e.toString, l = f(Object.getPrototypeOf, Object);
-  function O(t) {
-    return !!t && typeof t == "object";
-  }
-  function g(t) {
-    if (!O(t) || p.call(t) != a || u(t))
-      return !1;
-    var r = l(t);
-    if (r === null)
-      return !0;
-    var o = b.call(r, "constructor") && r.constructor;
-    return typeof o == "function" && o instanceof o && c.call(o) == j;
-  }
-  return n = g, n;
+import { compact as p } from "./index.es97.js";
+import { isArray as u } from "./index.es85.js";
+import { isField as s, resultKeyNameFromField as l, isReference as m } from "./index.es80.js";
+import { shouldInclude as d } from "./index.es72.js";
+import { createFragmentMap as g } from "./index.es79.js";
+import { getFragmentDefinitions as y } from "./index.es36.js";
+import { DeepMerger as _ } from "./index.es87.js";
+import { isNonNullObject as f } from "./index.es60.js";
+var F = Object.prototype.hasOwnProperty;
+function i(t) {
+  return t == null;
+}
+function v(t, e) {
+  var o = t.__typename, r = t.id, n = t._id;
+  if (typeof o == "string" && (e && (e.keyObject = i(r) ? i(n) ? void 0 : { _id: n } : { id: r }), i(r) && !i(n) && (r = n), !i(r)))
+    return "".concat(o, ":").concat(typeof r == "number" || typeof r == "string" ? r : JSON.stringify(r));
+}
+var c = {
+  dataIdFromObject: v,
+  addTypename: !0,
+  resultCaching: !0,
+  // Thanks to the shouldCanonizeResults helper, this should be the only line
+  // you have to change to reenable canonization by default in the future.
+  canonizeResults: !1
+};
+function R(t) {
+  return p(c, t);
+}
+function b(t) {
+  var e = t.canonizeResults;
+  return e === void 0 ? c.canonizeResults : e;
+}
+function k(t, e) {
+  return m(e) ? t.get(e.__ref, "__typename") : e && e.__typename;
+}
+var h = /^[_a-z][_0-9a-z]*/i;
+function w(t) {
+  var e = t.match(h);
+  return e ? e[0] : t;
+}
+function a(t, e, o) {
+  return f(e) ? u(e) ? e.every(function(r) {
+    return a(t, r, o);
+  }) : t.selections.every(function(r) {
+    if (s(r) && d(r, o)) {
+      var n = l(r);
+      return F.call(e, n) && (!r.selectionSet || a(r.selectionSet, e[n], o));
+    }
+    return !0;
+  }) : !1;
+}
+function x(t) {
+  return f(t) && !m(t) && !u(t);
+}
+function D() {
+  return new _();
+}
+function T(t, e) {
+  var o = g(y(t));
+  return {
+    fragmentMap: o,
+    lookupFragment: function(r) {
+      var n = o[r];
+      return !n && e && (n = e.lookup(r)), n || null;
+    }
+  };
 }
 export {
-  y as __require
+  h as TypeOrFieldNameRegExp,
+  v as defaultDataIdFromObject,
+  T as extractFragmentContext,
+  w as fieldNameFromStoreName,
+  k as getTypenameFromStoreObject,
+  F as hasOwn,
+  u as isArray,
+  i as isNullish,
+  D as makeProcessedFieldsMerger,
+  R as normalizeConfig,
+  a as selectionSetMatchesResult,
+  b as shouldCanonizeResults,
+  x as storeValueIsStoreObject
 };
 //# sourceMappingURL=index.es188.js.map

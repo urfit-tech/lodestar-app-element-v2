@@ -1,24 +1,33 @@
-import o from "./index.es148.js";
-import u from "./index.es149.js";
-function s(e) {
-  return function c(r, n) {
-    switch (arguments.length) {
-      case 0:
-        return c;
-      case 1:
-        return u(r) ? c : o(function(t) {
-          return e(r, t);
-        });
-      default:
-        return u(r) && u(n) ? c : u(r) ? o(function(t) {
-          return e(t, n);
-        }) : u(n) ? o(function(t) {
-          return e(r, t);
-        }) : e(r, n);
+import { isNonNullObject as s } from "./index.es60.js";
+import { isNonEmptyArray as p } from "./index.es85.js";
+import { DeepMerger as h } from "./index.es87.js";
+function u(t) {
+  return "incremental" in t;
+}
+function d(t) {
+  return "hasNext" in t && "data" in t;
+}
+function E(t) {
+  return u(t) || d(t);
+}
+function v(t) {
+  return s(t) && "payload" in t;
+}
+function P(t, n) {
+  var r = t, f = new h();
+  return u(n) && p(n.incremental) && n.incremental.forEach(function(i) {
+    for (var e = i.data, o = i.path, a = o.length - 1; a >= 0; --a) {
+      var c = o[a], l = !isNaN(+c), m = l ? [] : {};
+      m[c] = e, e = m;
     }
-  };
+    r = f.merge(r, e);
+  }), r;
 }
 export {
-  s as default
+  v as isApolloPayloadResult,
+  u as isExecutionPatchIncrementalResult,
+  d as isExecutionPatchInitialResult,
+  E as isExecutionPatchResult,
+  P as mergeIncrementalData
 };
 //# sourceMappingURL=index.es95.js.map

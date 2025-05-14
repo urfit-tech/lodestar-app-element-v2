@@ -1,70 +1,46 @@
-function l() {
+import { invariant as v } from "./index.es70.js";
+import "./index.es71.js";
+import { visit as l, BREAK as f } from "graphql";
+function p(e, r) {
+  var i = e.directives;
+  return !i || !i.length ? !0 : m(i).every(function(n) {
+    var a = n.directive, u = n.ifArgument, t = !1;
+    return u.value.kind === "Variable" ? (t = r && r[u.value.name.value], v(t !== void 0, 69, a.name.value)) : t = u.value.value, a.name.value === "skip" ? !t : t;
+  });
 }
-const h = l, o = typeof WeakRef < "u" ? WeakRef : function(r) {
-  return { deref: () => r };
-}, d = typeof WeakMap < "u" ? WeakMap : Map, f = typeof FinalizationRegistry < "u" ? FinalizationRegistry : function() {
-  return {
-    register: l,
-    unregister: l
-  };
-}, u = 10024;
-class c {
-  constructor(e = 1 / 0, t = h) {
-    this.max = e, this.dispose = t, this.map = new d(), this.newest = null, this.oldest = null, this.unfinalizedNodes = /* @__PURE__ */ new Set(), this.finalizationScheduled = !1, this.size = 0, this.finalize = () => {
-      const i = this.unfinalizedNodes.values();
-      for (let s = 0; s < u; s++) {
-        const n = i.next().value;
-        if (!n)
-          break;
-        this.unfinalizedNodes.delete(n);
-        const a = n.key;
-        delete n.key, n.keyRef = new o(a), this.registry.register(a, n, n);
-      }
-      this.unfinalizedNodes.size > 0 ? queueMicrotask(this.finalize) : this.finalizationScheduled = !1;
-    }, this.registry = new f(this.deleteNode.bind(this));
-  }
-  has(e) {
-    return this.map.has(e);
-  }
-  get(e) {
-    const t = this.getNode(e);
-    return t && t.value;
-  }
-  getNode(e) {
-    const t = this.map.get(e);
-    if (t && t !== this.newest) {
-      const { older: i, newer: s } = t;
-      s && (s.older = i), i && (i.newer = s), t.older = this.newest, t.older.newer = t, t.newer = null, this.newest = t, t === this.oldest && (this.oldest = s);
+function o(e, r, i) {
+  var n = new Set(e), a = n.size;
+  return l(r, {
+    Directive: function(u) {
+      if (n.delete(u.name.value) && (!i || !n.size))
+        return f;
     }
-    return t;
-  }
-  set(e, t) {
-    let i = this.getNode(e);
-    return i ? i.value = t : (i = {
-      key: e,
-      value: t,
-      newer: null,
-      older: this.newest
-    }, this.newest && (this.newest.newer = i), this.newest = i, this.oldest = this.oldest || i, this.scheduleFinalization(i), this.map.set(e, i), this.size++, i.value);
-  }
-  clean() {
-    for (; this.oldest && this.size > this.max; )
-      this.deleteNode(this.oldest);
-  }
-  deleteNode(e) {
-    e === this.newest && (this.newest = e.older), e === this.oldest && (this.oldest = e.newer), e.newer && (e.newer.older = e.older), e.older && (e.older.newer = e.newer), this.size--;
-    const t = e.key || e.keyRef && e.keyRef.deref();
-    this.dispose(e.value, t), e.keyRef ? this.registry.unregister(e) : this.unfinalizedNodes.delete(e), t && this.map.delete(t);
-  }
-  delete(e) {
-    const t = this.map.get(e);
-    return t ? (this.deleteNode(t), !0) : !1;
-  }
-  scheduleFinalization(e) {
-    this.unfinalizedNodes.add(e), this.finalizationScheduled || (this.finalizationScheduled = !0, queueMicrotask(this.finalize));
-  }
+  }), i ? !n.size : n.size < a;
+}
+function h(e) {
+  return e && o(["client", "export"], e, !0);
+}
+function s(e) {
+  var r = e.name.value;
+  return r === "skip" || r === "include";
+}
+function m(e) {
+  var r = [];
+  return e && e.length && e.forEach(function(i) {
+    if (s(i)) {
+      var n = i.arguments, a = i.name.value;
+      v(n && n.length === 1, 70, a);
+      var u = n[0];
+      v(u.name && u.name.value === "if", 71, a);
+      var t = u.value;
+      v(t && (t.kind === "Variable" || t.kind === "BooleanValue"), 72, a), r.push({ directive: i, ifArgument: u });
+    }
+  }), r;
 }
 export {
-  c as WeakCache
+  m as getInclusionDirectives,
+  h as hasClientExports,
+  o as hasDirectives,
+  p as shouldInclude
 };
 //# sourceMappingURL=index.es72.js.map

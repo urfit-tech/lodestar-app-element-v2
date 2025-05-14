@@ -1,11 +1,15 @@
-import e from "./index.es195.js";
-var t = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
-function u(o) {
-  return e(o).replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(r, s, a) {
-    return s > 0 && s + r.length !== a.length && r.search(t) > -1 && a.charAt(s - 2) !== ":" && (a.charAt(s + r.length) !== "-" || a.charAt(s - 1) === "-") && a.charAt(s - 1).search(/[^\s-]/) < 0 ? r.toLowerCase() : r.substr(1).search(/[A-Z]|\../) > -1 ? r : r.charAt(0).toUpperCase() + r.substr(1);
-  });
+import a from "./index.es124.js";
+function E(i, f, t) {
+  const u = t.config.validateStatus;
+  !t.status || !u || u(t.status) ? i(t) : f(new a(
+    "Request failed with status code " + t.status,
+    [a.ERR_BAD_REQUEST, a.ERR_BAD_RESPONSE][Math.floor(t.status / 100) - 4],
+    t.config,
+    t.request,
+    t
+  ));
 }
 export {
-  u as default
+  E as default
 };
 //# sourceMappingURL=index.es233.js.map

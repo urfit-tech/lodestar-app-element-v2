@@ -1,41 +1,10 @@
-import o from "./index.es218.js";
-import a from "./index.es219.js";
-import n from "./index.es220.js";
-import t from "./index.es221.js";
-import { canUseAsyncIteratorSymbol as i } from "./index.es69.js";
-function f(r) {
-  return !!r.body;
-}
-function s(r) {
-  return !!r.getReader;
-}
-function m(r) {
-  return !!(i && r[Symbol.asyncIterator]);
-}
-function u(r) {
-  return !!r.stream;
-}
-function b(r) {
-  return !!r.arrayBuffer;
-}
-function d(r) {
-  return !!r.pipe;
-}
-function R(r) {
-  var e = r;
-  if (f(r) && (e = r.body), m(e))
-    return o(e);
-  if (s(e))
-    return t(e.getReader());
-  if (u(e))
-    return t(e.stream().getReader());
-  if (b(e))
-    return n(e.arrayBuffer());
-  if (d(e))
-    return a(e);
-  throw new Error("Unknown body type for responseIterator. Please pass a streamable response.");
+import n from "./index.es225.js";
+import m from "./index.es226.js";
+function g() {
+  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
+  return r && (e = m(t)), a && (e = n(e)), e;
 }
 export {
-  R as responseIterator
+  g as default
 };
 //# sourceMappingURL=index.es164.js.map

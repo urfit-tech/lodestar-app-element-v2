@@ -1,10 +1,12 @@
-function a(t) {
-  try {
-    return t();
-  } catch {
-  }
+function o(n, e, f) {
+  var t = [];
+  n.forEach(function(r) {
+    return r[e] && t.push(r);
+  }), t.forEach(function(r) {
+    return r[e](f);
+  });
 }
 export {
-  a as maybe
+  o as iterateObserversSafely
 };
 //# sourceMappingURL=index.es90.js.map

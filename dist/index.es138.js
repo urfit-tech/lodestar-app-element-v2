@@ -1,54 +1,36 @@
-import a from "./index.es123.js";
-import h from "./index.es208.js";
-import m from "./index.es209.js";
-import u from "./index.es210.js";
-import d from "./index.es134.js";
-const s = {
-  http: h,
-  xhr: m,
-  fetch: u
-};
-a.forEach(s, (e, n) => {
-  if (e) {
-    try {
-      Object.defineProperty(e, "name", { value: n });
-    } catch {
+import { __extends as u } from "./index.es54.js";
+var i = "Invariant Violation", a = Object.setPrototypeOf, c = a === void 0 ? function(r, o) {
+  return r.__proto__ = o, r;
+} : a, p = (
+  /** @class */
+  function(r) {
+    u(o, r);
+    function o(t) {
+      t === void 0 && (t = i);
+      var n = r.call(this, typeof t == "number" ? i + ": " + t + " (see https://github.com/apollographql/invariant-packages)" : t) || this;
+      return n.framesToPop = 1, n.name = i, c(n, o.prototype), n;
     }
-    Object.defineProperty(e, "adapterName", { value: n });
-  }
-});
-const c = (e) => `- ${e}`, b = (e) => a.isFunction(e) || e === null || e === !1, y = {
-  getAdapter: (e) => {
-    e = a.isArray(e) ? e : [e];
-    const { length: n } = e;
-    let o, r;
-    const p = {};
-    for (let t = 0; t < n; t++) {
-      o = e[t];
-      let i;
-      if (r = o, !b(o) && (r = s[(i = String(o)).toLowerCase()], r === void 0))
-        throw new d(`Unknown adapter '${i}'`);
-      if (r)
-        break;
-      p[i || "#" + t] = r;
+    return o;
+  }(Error)
+);
+function l(r, o) {
+  if (!r)
+    throw new p(o);
+}
+var f = ["debug", "log", "warn", "error", "silent"], v = f.indexOf("log");
+function e(r) {
+  return function() {
+    if (f.indexOf(r) >= v) {
+      var o = console[r] || console.log;
+      return o.apply(console, arguments);
     }
-    if (!r) {
-      const t = Object.entries(p).map(
-        ([f, l]) => `adapter ${f} ` + (l === !1 ? "is not supported by the environment" : "is not available in the build")
-      );
-      let i = n ? t.length > 1 ? `since :
-` + t.map(c).join(`
-`) : " " + c(t[0]) : "as no adapter specified";
-      throw new d(
-        "There is no suitable adapter to dispatch the request " + i,
-        "ERR_NOT_SUPPORT"
-      );
-    }
-    return r;
-  },
-  adapters: s
-};
+  };
+}
+(function(r) {
+  r.debug = e("debug"), r.log = e("log"), r.warn = e("warn"), r.error = e("error");
+})(l || (l = {}));
 export {
-  y as default
+  p as InvariantError,
+  l as invariant
 };
 //# sourceMappingURL=index.es138.js.map

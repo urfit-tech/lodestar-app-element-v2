@@ -1,14 +1,7 @@
-import { getOperationName as a } from "./index.es36.js";
-function t(r) {
-  var e = {
-    variables: r.variables || {},
-    extensions: r.extensions || {},
-    operationName: r.operationName,
-    query: r.query
-  };
-  return e.operationName || (e.operationName = typeof e.query != "string" ? a(e.query) || void 0 : ""), e;
+function l(e) {
+  return e != null && typeof e == "object" && e["@@functional/placeholder"] === !0;
 }
 export {
-  t as transformOperation
+  l as default
 };
 //# sourceMappingURL=index.es141.js.map

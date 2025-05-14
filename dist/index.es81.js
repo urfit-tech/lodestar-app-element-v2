@@ -1,51 +1,95 @@
-import { __spreadArray as h, __assign as m } from "./index.es56.js";
-import { isNonNullObject as f } from "./index.es62.js";
-var g = Object.prototype.hasOwnProperty;
-function v() {
-  for (var n = [], r = 0; r < arguments.length; r++)
-    n[r] = arguments[r];
-  return l(n);
+import { __assign as c, __spreadArray as i } from "./index.es54.js";
+import { cacheSizes as g } from "./index.es77.js";
+var t = {};
+function M(e, r) {
+  t[e] = r;
 }
-function l(n) {
-  var r = n[0] || {}, t = n.length;
-  if (t > 1)
-    for (var o = new y(), i = 1; i < t; ++i)
-      r = o.merge(r, n[i]);
-  return r;
+var b = globalThis.__DEV__ !== !1 ? h : void 0, I = globalThis.__DEV__ !== !1 ? v : void 0, C = globalThis.__DEV__ !== !1 ? d : void 0;
+function y() {
+  var e = {
+    parser: 1e3,
+    canonicalStringify: 1e3,
+    print: 2e3,
+    "documentTransform.cache": 2e3,
+    "queryManager.getDocumentInfo": 2e3,
+    "PersistedQueryLink.persistedQueryHashes": 2e3,
+    "fragmentRegistry.transform": 2e3,
+    "fragmentRegistry.lookup": 1e3,
+    "fragmentRegistry.findFragmentSpreads": 4e3,
+    "cache.fragmentQueryDocuments": 1e3,
+    "removeTypenameFromVariables.getVariableDefinitions": 2e3,
+    "inMemoryCache.maybeBroadcastWatch": 5e3,
+    "inMemoryCache.executeSelectionSet": 5e4,
+    "inMemoryCache.executeSubSelectedArray": 1e4
+  };
+  return Object.fromEntries(Object.entries(e).map(function(r) {
+    var a = r[0], o = r[1];
+    return [
+      a,
+      g[a] || o
+    ];
+  }));
 }
-var c = function(n, r, t) {
-  return this.merge(n[t], r[t]);
-}, y = (
-  /** @class */
-  function() {
-    function n(r) {
-      r === void 0 && (r = c), this.reconciler = r, this.isObject = f, this.pastCopies = /* @__PURE__ */ new Set();
+function h() {
+  var e, r, a, o, l;
+  if (globalThis.__DEV__ === !1)
+    throw new Error("only supported in development mode");
+  return {
+    limits: y(),
+    sizes: c({ print: (e = t.print) === null || e === void 0 ? void 0 : e.call(t), parser: (r = t.parser) === null || r === void 0 ? void 0 : r.call(t), canonicalStringify: (a = t.canonicalStringify) === null || a === void 0 ? void 0 : a.call(t), links: s(this.link), queryManager: {
+      getDocumentInfo: this.queryManager.transformCache.size,
+      documentTransforms: f(this.queryManager.documentTransform)
+    } }, (l = (o = this.cache).getMemoryInternals) === null || l === void 0 ? void 0 : l.call(o))
+  };
+}
+function d() {
+  return {
+    cache: {
+      fragmentQueryDocuments: n(this.getFragmentDoc)
     }
-    return n.prototype.merge = function(r, t) {
-      for (var o = this, i = [], p = 2; p < arguments.length; p++)
-        i[p - 2] = arguments[p];
-      return f(t) && f(r) ? (Object.keys(t).forEach(function(e) {
-        if (g.call(r, e)) {
-          var s = r[e];
-          if (t[e] !== s) {
-            var a = o.reconciler.apply(o, h([
-              r,
-              t,
-              e
-            ], i, !1));
-            a !== s && (r = o.shallowCopyForMerge(r), r[e] = a);
-          }
-        } else
-          r = o.shallowCopyForMerge(r), r[e] = t[e];
-      }), r) : t;
-    }, n.prototype.shallowCopyForMerge = function(r) {
-      return f(r) && (this.pastCopies.has(r) || (Array.isArray(r) ? r = r.slice(0) : r = m({ __proto__: Object.getPrototypeOf(r) }, r), this.pastCopies.add(r))), r;
-    }, n;
-  }()
-);
+  };
+}
+function v() {
+  var e = this.config.fragments;
+  return c(c({}, d.apply(this)), { addTypenameDocumentTransform: f(this.addTypenameTransform), inMemoryCache: {
+    executeSelectionSet: n(this.storeReader.executeSelectionSet),
+    executeSubSelectedArray: n(this.storeReader.executeSubSelectedArray),
+    maybeBroadcastWatch: n(this.maybeBroadcastWatch)
+  }, fragmentRegistry: {
+    findFragmentSpreads: n(e?.findFragmentSpreads),
+    lookup: n(e?.lookup),
+    transform: n(e?.transform)
+  } });
+}
+function p(e) {
+  return !!e && "dirtyKey" in e;
+}
+function n(e) {
+  return p(e) ? e.size : void 0;
+}
+function m(e) {
+  return e != null;
+}
+function f(e) {
+  return u(e).map(function(r) {
+    return { cache: r };
+  });
+}
+function u(e) {
+  return e ? i(i([
+    n(e?.performWork)
+  ], u(e?.left), !0), u(e?.right), !0).filter(m) : [];
+}
+function s(e) {
+  var r;
+  return e ? i(i([
+    (r = e?.getMemoryInternals) === null || r === void 0 ? void 0 : r.call(e)
+  ], s(e?.left), !0), s(e?.right), !0).filter(m) : [];
+}
 export {
-  y as DeepMerger,
-  v as mergeDeep,
-  l as mergeDeepArray
+  C as getApolloCacheMemoryInternals,
+  b as getApolloClientMemoryInternals,
+  I as getInMemoryCacheMemoryInternals,
+  M as registerGlobalCache
 };
 //# sourceMappingURL=index.es81.js.map

@@ -1,8 +1,7 @@
-var a = function(e, o, t) {
-  var r = new Error(t);
-  throw r.name = "ServerError", r.response = e, r.statusCode = e.status, r.result = o, r;
-};
+function r(e) {
+  return e.substring(0, 1) === "/" ? e.substring(1) : e;
+}
 export {
-  a as throwServerError
+  r as default
 };
 //# sourceMappingURL=index.es165.js.map

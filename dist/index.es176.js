@@ -1,12 +1,14 @@
-import { invariant as e } from "./index.es65.js";
-import "./index.es66.js";
-import { r as n } from "./index.es175.js";
-import { getApolloContext as i } from "./index.es174.js";
-function c(o) {
-  var r = n.useContext(i()), t = o || r.client;
-  return e(!!t, 49), t;
+import e from "./index.es113.js";
+import n from "./index.es123.js";
+import r from "./index.es177.js";
+function c(o, i) {
+  return n(o, new r.classes.URLSearchParams(), Object.assign({
+    visitor: function(t, s, f, a) {
+      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
+    }
+  }, i));
 }
 export {
-  c as useApolloClient
+  c as default
 };
 //# sourceMappingURL=index.es176.js.map

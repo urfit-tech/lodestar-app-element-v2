@@ -1,134 +1,416 @@
-var y = function(c, a) {
-  return y = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(e, n) {
-    e.__proto__ = n;
-  } || function(e, n) {
-    for (var o in n) Object.prototype.hasOwnProperty.call(n, o) && (e[o] = n[o]);
-  }, y(c, a);
-};
-function h(c, a) {
-  if (typeof a != "function" && a !== null)
-    throw new TypeError("Class extends value " + String(a) + " is not a constructor or null");
-  y(c, a);
-  function e() {
-    this.constructor = c;
-  }
-  c.prototype = a === null ? Object.create(a) : (e.prototype = a.prototype, new e());
-}
-var p = function() {
-  return p = Object.assign || function(a) {
-    for (var e, n = 1, o = arguments.length; n < o; n++) {
-      e = arguments[n];
-      for (var t in e) Object.prototype.hasOwnProperty.call(e, t) && (a[t] = e[t]);
-    }
-    return a;
-  }, p.apply(this, arguments);
-};
-function _(c, a) {
-  var e = {};
-  for (var n in c) Object.prototype.hasOwnProperty.call(c, n) && a.indexOf(n) < 0 && (e[n] = c[n]);
-  if (c != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var o = 0, n = Object.getOwnPropertySymbols(c); o < n.length; o++)
-      a.indexOf(n[o]) < 0 && Object.prototype.propertyIsEnumerable.call(c, n[o]) && (e[n[o]] = c[n[o]]);
-  return e;
-}
-function w(c, a, e, n) {
-  function o(t) {
-    return t instanceof e ? t : new e(function(l) {
-      l(t);
-    });
-  }
-  return new (e || (e = Promise))(function(t, l) {
-    function i(u) {
-      try {
-        r(n.next(u));
-      } catch (s) {
-        l(s);
-      }
-    }
-    function f(u) {
-      try {
-        r(n.throw(u));
-      } catch (s) {
-        l(s);
-      }
-    }
-    function r(u) {
-      u.done ? t(u.value) : o(u.value).then(i, f);
-    }
-    r((n = n.apply(c, a || [])).next());
-  });
-}
-function b(c, a) {
-  var e = { label: 0, sent: function() {
-    if (t[0] & 1) throw t[1];
-    return t[1];
-  }, trys: [], ops: [] }, n, o, t, l;
-  return l = { next: i(0), throw: i(1), return: i(2) }, typeof Symbol == "function" && (l[Symbol.iterator] = function() {
-    return this;
-  }), l;
-  function i(r) {
-    return function(u) {
-      return f([r, u]);
+function I(t, r) {
+  var n = typeof Symbol < "u" && t[Symbol.iterator] || t["@@iterator"];
+  if (n) return (n = n.call(t)).next.bind(n);
+  if (Array.isArray(t) || (n = M(t)) || r) {
+    n && (t = n);
+    var e = 0;
+    return function() {
+      return e >= t.length ? { done: !0 } : { done: !1, value: t[e++] };
     };
   }
-  function f(r) {
-    if (n) throw new TypeError("Generator is already executing.");
-    for (; l && (l = 0, r[0] && (e = 0)), e; ) try {
-      if (n = 1, o && (t = r[0] & 2 ? o.return : r[0] ? o.throw || ((t = o.return) && t.call(o), 0) : o.next) && !(t = t.call(o, r[1])).done) return t;
-      switch (o = 0, t && (r = [r[0] & 2, t.value]), r[0]) {
-        case 0:
-        case 1:
-          t = r;
-          break;
-        case 4:
-          return e.label++, { value: r[1], done: !1 };
-        case 5:
-          e.label++, o = r[1], r = [0];
-          continue;
-        case 7:
-          r = e.ops.pop(), e.trys.pop();
-          continue;
-        default:
-          if (t = e.trys, !(t = t.length > 0 && t[t.length - 1]) && (r[0] === 6 || r[0] === 2)) {
-            e = 0;
-            continue;
-          }
-          if (r[0] === 3 && (!t || r[1] > t[0] && r[1] < t[3])) {
-            e.label = r[1];
-            break;
-          }
-          if (r[0] === 6 && e.label < t[1]) {
-            e.label = t[1], t = r;
-            break;
-          }
-          if (t && e.label < t[2]) {
-            e.label = t[2], e.ops.push(r);
-            break;
-          }
-          t[2] && e.ops.pop(), e.trys.pop();
-          continue;
-      }
-      r = a.call(c, e);
-    } catch (u) {
-      r = [6, u], o = 0;
-    } finally {
-      n = t = 0;
-    }
-    if (r[0] & 5) throw r[1];
-    return { value: r[0] ? r[1] : void 0, done: !0 };
+  throw new TypeError(`Invalid attempt to iterate non-iterable instance.
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
+}
+function M(t, r) {
+  if (t) {
+    if (typeof t == "string") return T(t, r);
+    var n = Object.prototype.toString.call(t).slice(8, -1);
+    if (n === "Object" && t.constructor && (n = t.constructor.name), n === "Map" || n === "Set") return Array.from(t);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return T(t, r);
   }
 }
-function d(c, a, e) {
-  if (e || arguments.length === 2) for (var n = 0, o = a.length, t; n < o; n++)
-    (t || !(n in a)) && (t || (t = Array.prototype.slice.call(a, 0, n)), t[n] = a[n]);
-  return c.concat(t || Array.prototype.slice.call(a));
+function T(t, r) {
+  (r == null || r > t.length) && (r = t.length);
+  for (var n = 0, e = new Array(r); n < r; n++)
+    e[n] = t[n];
+  return e;
 }
+function A(t, r) {
+  for (var n = 0; n < r.length; n++) {
+    var e = r[n];
+    e.enumerable = e.enumerable || !1, e.configurable = !0, "value" in e && (e.writable = !0), Object.defineProperty(t, e.key, e);
+  }
+}
+function g(t, r, n) {
+  return r && A(t.prototype, r), n && A(t, n), Object.defineProperty(t, "prototype", { writable: !1 }), t;
+}
+var S = function() {
+  return typeof Symbol == "function";
+}, E = function(t) {
+  return S() && !!Symbol[t];
+}, x = function(t) {
+  return E(t) ? Symbol[t] : "@@" + t;
+};
+S() && !E("observable") && (Symbol.observable = Symbol("observable"));
+var P = x("iterator"), v = x("observable"), q = x("species");
+function m(t, r) {
+  var n = t[r];
+  if (n != null) {
+    if (typeof n != "function") throw new TypeError(n + " is not a function");
+    return n;
+  }
+}
+function d(t) {
+  var r = t.constructor;
+  return r !== void 0 && (r = r[q], r === null && (r = void 0)), r !== void 0 ? r : O;
+}
+function k(t) {
+  return t instanceof O;
+}
+function y(t) {
+  y.log ? y.log(t) : setTimeout(function() {
+    throw t;
+  });
+}
+function b(t) {
+  Promise.resolve().then(function() {
+    try {
+      t();
+    } catch (r) {
+      y(r);
+    }
+  });
+}
+function j(t) {
+  var r = t._cleanup;
+  if (r !== void 0 && (t._cleanup = void 0, !!r))
+    try {
+      if (typeof r == "function")
+        r();
+      else {
+        var n = m(r, "unsubscribe");
+        n && n.call(r);
+      }
+    } catch (e) {
+      y(e);
+    }
+}
+function _(t) {
+  t._observer = void 0, t._queue = void 0, t._state = "closed";
+}
+function z(t) {
+  var r = t._queue;
+  if (r) {
+    t._queue = void 0, t._state = "ready";
+    for (var n = 0; n < r.length && (C(t, r[n].type, r[n].value), t._state !== "closed"); ++n)
+      ;
+  }
+}
+function C(t, r, n) {
+  t._state = "running";
+  var e = t._observer;
+  try {
+    var u = m(e, r);
+    switch (r) {
+      case "next":
+        u && u.call(e, n);
+        break;
+      case "error":
+        if (_(t), u) u.call(e, n);
+        else throw n;
+        break;
+      case "complete":
+        _(t), u && u.call(e);
+        break;
+    }
+  } catch (f) {
+    y(f);
+  }
+  t._state === "closed" ? j(t) : t._state === "running" && (t._state = "ready");
+}
+function w(t, r, n) {
+  if (t._state !== "closed") {
+    if (t._state === "buffering") {
+      t._queue.push({
+        type: r,
+        value: n
+      });
+      return;
+    }
+    if (t._state !== "ready") {
+      t._state = "buffering", t._queue = [{
+        type: r,
+        value: n
+      }], b(function() {
+        return z(t);
+      });
+      return;
+    }
+    C(t, r, n);
+  }
+}
+var N = /* @__PURE__ */ function() {
+  function t(n, e) {
+    this._cleanup = void 0, this._observer = n, this._queue = void 0, this._state = "initializing";
+    var u = new R(this);
+    try {
+      this._cleanup = e.call(void 0, u);
+    } catch (f) {
+      u.error(f);
+    }
+    this._state === "initializing" && (this._state = "ready");
+  }
+  var r = t.prototype;
+  return r.unsubscribe = function() {
+    this._state !== "closed" && (_(this), j(this));
+  }, g(t, [{
+    key: "closed",
+    get: function() {
+      return this._state === "closed";
+    }
+  }]), t;
+}(), R = /* @__PURE__ */ function() {
+  function t(n) {
+    this._subscription = n;
+  }
+  var r = t.prototype;
+  return r.next = function(e) {
+    w(this._subscription, "next", e);
+  }, r.error = function(e) {
+    w(this._subscription, "error", e);
+  }, r.complete = function() {
+    w(this._subscription, "complete");
+  }, g(t, [{
+    key: "closed",
+    get: function() {
+      return this._subscription._state === "closed";
+    }
+  }]), t;
+}(), O = /* @__PURE__ */ function() {
+  function t(n) {
+    if (!(this instanceof t)) throw new TypeError("Observable cannot be called as a function");
+    if (typeof n != "function") throw new TypeError("Observable initializer must be a function");
+    this._subscriber = n;
+  }
+  var r = t.prototype;
+  return r.subscribe = function(e) {
+    return (typeof e != "object" || e === null) && (e = {
+      next: e,
+      error: arguments[1],
+      complete: arguments[2]
+    }), new N(e, this._subscriber);
+  }, r.forEach = function(e) {
+    var u = this;
+    return new Promise(function(f, o) {
+      if (typeof e != "function") {
+        o(new TypeError(e + " is not a function"));
+        return;
+      }
+      function i() {
+        c.unsubscribe(), f();
+      }
+      var c = u.subscribe({
+        next: function(s) {
+          try {
+            e(s, i);
+          } catch (a) {
+            o(a), c.unsubscribe();
+          }
+        },
+        error: o,
+        complete: f
+      });
+    });
+  }, r.map = function(e) {
+    var u = this;
+    if (typeof e != "function") throw new TypeError(e + " is not a function");
+    var f = d(this);
+    return new f(function(o) {
+      return u.subscribe({
+        next: function(i) {
+          try {
+            i = e(i);
+          } catch (c) {
+            return o.error(c);
+          }
+          o.next(i);
+        },
+        error: function(i) {
+          o.error(i);
+        },
+        complete: function() {
+          o.complete();
+        }
+      });
+    });
+  }, r.filter = function(e) {
+    var u = this;
+    if (typeof e != "function") throw new TypeError(e + " is not a function");
+    var f = d(this);
+    return new f(function(o) {
+      return u.subscribe({
+        next: function(i) {
+          try {
+            if (!e(i)) return;
+          } catch (c) {
+            return o.error(c);
+          }
+          o.next(i);
+        },
+        error: function(i) {
+          o.error(i);
+        },
+        complete: function() {
+          o.complete();
+        }
+      });
+    });
+  }, r.reduce = function(e) {
+    var u = this;
+    if (typeof e != "function") throw new TypeError(e + " is not a function");
+    var f = d(this), o = arguments.length > 1, i = !1, c = arguments[1], s = c;
+    return new f(function(a) {
+      return u.subscribe({
+        next: function(h) {
+          var l = !i;
+          if (i = !0, !l || o)
+            try {
+              s = e(s, h);
+            } catch (p) {
+              return a.error(p);
+            }
+          else
+            s = h;
+        },
+        error: function(h) {
+          a.error(h);
+        },
+        complete: function() {
+          if (!i && !o) return a.error(new TypeError("Cannot reduce an empty sequence"));
+          a.next(s), a.complete();
+        }
+      });
+    });
+  }, r.concat = function() {
+    for (var e = this, u = arguments.length, f = new Array(u), o = 0; o < u; o++)
+      f[o] = arguments[o];
+    var i = d(this);
+    return new i(function(c) {
+      var s, a = 0;
+      function h(l) {
+        s = l.subscribe({
+          next: function(p) {
+            c.next(p);
+          },
+          error: function(p) {
+            c.error(p);
+          },
+          complete: function() {
+            a === f.length ? (s = void 0, c.complete()) : h(i.from(f[a++]));
+          }
+        });
+      }
+      return h(e), function() {
+        s && (s.unsubscribe(), s = void 0);
+      };
+    });
+  }, r.flatMap = function(e) {
+    var u = this;
+    if (typeof e != "function") throw new TypeError(e + " is not a function");
+    var f = d(this);
+    return new f(function(o) {
+      var i = [], c = u.subscribe({
+        next: function(a) {
+          if (e)
+            try {
+              a = e(a);
+            } catch (l) {
+              return o.error(l);
+            }
+          var h = f.from(a).subscribe({
+            next: function(l) {
+              o.next(l);
+            },
+            error: function(l) {
+              o.error(l);
+            },
+            complete: function() {
+              var l = i.indexOf(h);
+              l >= 0 && i.splice(l, 1), s();
+            }
+          });
+          i.push(h);
+        },
+        error: function(a) {
+          o.error(a);
+        },
+        complete: function() {
+          s();
+        }
+      });
+      function s() {
+        c.closed && i.length === 0 && o.complete();
+      }
+      return function() {
+        i.forEach(function(a) {
+          return a.unsubscribe();
+        }), c.unsubscribe();
+      };
+    });
+  }, r[v] = function() {
+    return this;
+  }, t.from = function(e) {
+    var u = typeof this == "function" ? this : t;
+    if (e == null) throw new TypeError(e + " is not an object");
+    var f = m(e, v);
+    if (f) {
+      var o = f.call(e);
+      if (Object(o) !== o) throw new TypeError(o + " is not an object");
+      return k(o) && o.constructor === u ? o : new u(function(i) {
+        return o.subscribe(i);
+      });
+    }
+    if (E("iterator") && (f = m(e, P), f))
+      return new u(function(i) {
+        b(function() {
+          if (!i.closed) {
+            for (var c = I(f.call(e)), s; !(s = c()).done; ) {
+              var a = s.value;
+              if (i.next(a), i.closed) return;
+            }
+            i.complete();
+          }
+        });
+      });
+    if (Array.isArray(e))
+      return new u(function(i) {
+        b(function() {
+          if (!i.closed) {
+            for (var c = 0; c < e.length; ++c)
+              if (i.next(e[c]), i.closed) return;
+            i.complete();
+          }
+        });
+      });
+    throw new TypeError(e + " is not observable");
+  }, t.of = function() {
+    for (var e = arguments.length, u = new Array(e), f = 0; f < e; f++)
+      u[f] = arguments[f];
+    var o = typeof this == "function" ? this : t;
+    return new o(function(i) {
+      b(function() {
+        if (!i.closed) {
+          for (var c = 0; c < u.length; ++c)
+            if (i.next(u[c]), i.closed) return;
+          i.complete();
+        }
+      });
+    });
+  }, g(t, null, [{
+    key: q,
+    get: function() {
+      return this;
+    }
+  }]), t;
+}();
+S() && Object.defineProperty(O, Symbol("extensions"), {
+  value: {
+    symbol: v,
+    hostReportError: y
+  },
+  configurable: !0
+});
 export {
-  p as __assign,
-  w as __awaiter,
-  h as __extends,
-  b as __generator,
-  _ as __rest,
-  d as __spreadArray
+  O as Observable
 };
 //# sourceMappingURL=index.es56.js.map

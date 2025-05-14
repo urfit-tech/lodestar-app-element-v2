@@ -1,7 +1,11 @@
-function r(t) {
-  return t && t.toString().replace(/^\s+|\s+$/g, "");
+import { Observable as e } from "./index.es56.js";
+import "./index.es57.js";
+function f(r) {
+  return new e(function(o) {
+    o.error(r);
+  });
 }
 export {
-  r as default
+  f as fromError
 };
 //# sourceMappingURL=index.es195.js.map

@@ -1,32 +1,59 @@
-import { serializeFetchParameter as u } from "./index.es166.js";
-function q(e, r) {
-  var o = [], t = function(a, c) {
-    o.push("".concat(a, "=").concat(encodeURIComponent(c)));
-  };
-  if ("query" in r && t("query", r.query), r.operationName && t("operationName", r.operationName), r.variables) {
-    var s = void 0;
-    try {
-      s = u(r.variables, "Variables map");
-    } catch (a) {
-      return { parseError: a };
-    }
-    t("variables", s);
+import n from "./index.es113.js";
+class a {
+  constructor() {
+    this.handlers = [];
   }
-  if (r.extensions) {
-    var m = void 0;
-    try {
-      m = u(r.extensions, "Extensions map");
-    } catch (a) {
-      return { parseError: a };
-    }
-    t("extensions", m);
+  /**
+   * Add a new interceptor to the stack
+   *
+   * @param {Function} fulfilled The function to handle `then` for a `Promise`
+   * @param {Function} rejected The function to handle `reject` for a `Promise`
+   *
+   * @return {Number} An ID used to remove interceptor later
+   */
+  use(s, h, r) {
+    return this.handlers.push({
+      fulfilled: s,
+      rejected: h,
+      synchronous: r ? r.synchronous : !1,
+      runWhen: r ? r.runWhen : null
+    }), this.handlers.length - 1;
   }
-  var p = "", n = e, i = e.indexOf("#");
-  i !== -1 && (p = e.substr(i), n = e.substr(0, i));
-  var f = n.indexOf("?") === -1 ? "?" : "&", v = n + f + o.join("&") + p;
-  return { newURI: v };
+  /**
+   * Remove an interceptor from the stack
+   *
+   * @param {Number} id The ID that was returned by `use`
+   *
+   * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
+   */
+  eject(s) {
+    this.handlers[s] && (this.handlers[s] = null);
+  }
+  /**
+   * Clear all interceptors from the stack
+   *
+   * @returns {void}
+   */
+  clear() {
+    this.handlers && (this.handlers = []);
+  }
+  /**
+   * Iterate over all the registered interceptors
+   *
+   * This method is particularly useful for skipping over any
+   * interceptors that may have become `null` calling `eject`.
+   *
+   * @param {Function} fn The function to call for each interceptor
+   *
+   * @returns {void}
+   */
+  forEach(s) {
+    n.forEach(this.handlers, function(r) {
+      r !== null && s(r);
+    });
+  }
 }
 export {
-  q as rewriteURIForGET
+  a as default
 };
 //# sourceMappingURL=index.es171.js.map

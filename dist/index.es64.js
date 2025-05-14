@@ -1,46 +1,24 @@
-import { invariant as v } from "./index.es65.js";
-import "./index.es66.js";
-import { visit as l, BREAK as f } from "graphql";
-function p(e, r) {
-  var i = e.directives;
-  return !i || !i.length ? !0 : m(i).every(function(n) {
-    var a = n.directive, u = n.ifArgument, t = !1;
-    return u.value.kind === "Variable" ? (t = r && r[u.value.name.value], v(t !== void 0, 69, a.name.value)) : t = u.value.value, a.name.value === "skip" ? !t : t;
-  });
-}
-function o(e, r, i) {
-  var n = new Set(e), a = n.size;
-  return l(r, {
-    Directive: function(u) {
-      if (n.delete(u.name.value) && (!i || !n.size))
-        return f;
-    }
-  }), i ? !n.size : n.size < a;
-}
-function h(e) {
-  return e && o(["client", "export"], e, !0);
-}
+import o from "./index.es140.js";
+import u from "./index.es141.js";
 function s(e) {
-  var r = e.name.value;
-  return r === "skip" || r === "include";
-}
-function m(e) {
-  var r = [];
-  return e && e.length && e.forEach(function(i) {
-    if (s(i)) {
-      var n = i.arguments, a = i.name.value;
-      v(n && n.length === 1, 70, a);
-      var u = n[0];
-      v(u.name && u.name.value === "if", 71, a);
-      var t = u.value;
-      v(t && (t.kind === "Variable" || t.kind === "BooleanValue"), 72, a), r.push({ directive: i, ifArgument: u });
+  return function c(r, n) {
+    switch (arguments.length) {
+      case 0:
+        return c;
+      case 1:
+        return u(r) ? c : o(function(t) {
+          return e(r, t);
+        });
+      default:
+        return u(r) && u(n) ? c : u(r) ? o(function(t) {
+          return e(t, n);
+        }) : u(n) ? o(function(t) {
+          return e(r, t);
+        }) : e(r, n);
     }
-  }), r;
+  };
 }
 export {
-  m as getInclusionDirectives,
-  h as hasClientExports,
-  o as hasDirectives,
-  p as shouldInclude
+  s as default
 };
 //# sourceMappingURL=index.es64.js.map

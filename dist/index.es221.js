@@ -1,15 +1,9 @@
-import { canUseAsyncIteratorSymbol as e } from "./index.es69.js";
-function o(t) {
-  var r = {
-    next: function() {
-      return t.read();
-    }
-  };
-  return e && (r[Symbol.asyncIterator] = function() {
-    return this;
-  }), r;
+import { __require as s } from "./index.es223.js";
+var e, r;
+function m() {
+  return r || (r = 1, e = s().satisfies(process.version, ">=15.7.0")), e;
 }
 export {
-  o as default
+  m as __require
 };
 //# sourceMappingURL=index.es221.js.map

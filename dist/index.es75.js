@@ -1,95 +1,29 @@
-import { __assign as c, __spreadArray as i } from "./index.es56.js";
-import { cacheSizes as g } from "./index.es71.js";
-var t = {};
-function M(e, r) {
-  t[e] = r;
-}
-var b = globalThis.__DEV__ !== !1 ? h : void 0, I = globalThis.__DEV__ !== !1 ? v : void 0, C = globalThis.__DEV__ !== !1 ? d : void 0;
-function y() {
-  var e = {
-    parser: 1e3,
-    canonicalStringify: 1e3,
-    print: 2e3,
-    "documentTransform.cache": 2e3,
-    "queryManager.getDocumentInfo": 2e3,
-    "PersistedQueryLink.persistedQueryHashes": 2e3,
-    "fragmentRegistry.transform": 2e3,
-    "fragmentRegistry.lookup": 1e3,
-    "fragmentRegistry.findFragmentSpreads": 4e3,
-    "cache.fragmentQueryDocuments": 1e3,
-    "removeTypenameFromVariables.getVariableDefinitions": 2e3,
-    "inMemoryCache.maybeBroadcastWatch": 5e3,
-    "inMemoryCache.executeSelectionSet": 5e4,
-    "inMemoryCache.executeSubSelectedArray": 1e4
-  };
-  return Object.fromEntries(Object.entries(e).map(function(r) {
-    var a = r[0], o = r[1];
-    return [
-      a,
-      g[a] || o
-    ];
-  }));
-}
-function h() {
-  var e, r, a, o, l;
-  if (globalThis.__DEV__ === !1)
-    throw new Error("only supported in development mode");
-  return {
-    limits: y(),
-    sizes: c({ print: (e = t.print) === null || e === void 0 ? void 0 : e.call(t), parser: (r = t.parser) === null || r === void 0 ? void 0 : r.call(t), canonicalStringify: (a = t.canonicalStringify) === null || a === void 0 ? void 0 : a.call(t), links: s(this.link), queryManager: {
-      getDocumentInfo: this.queryManager.transformCache.size,
-      documentTransforms: f(this.queryManager.documentTransform)
-    } }, (l = (o = this.cache).getMemoryInternals) === null || l === void 0 ? void 0 : l.call(o))
-  };
-}
-function d() {
-  return {
-    cache: {
-      fragmentQueryDocuments: n(this.getFragmentDoc)
-    }
-  };
-}
-function v() {
-  var e = this.config.fragments;
-  return c(c({}, d.apply(this)), { addTypenameDocumentTransform: f(this.addTypenameTransform), inMemoryCache: {
-    executeSelectionSet: n(this.storeReader.executeSelectionSet),
-    executeSubSelectedArray: n(this.storeReader.executeSubSelectedArray),
-    maybeBroadcastWatch: n(this.maybeBroadcastWatch)
-  }, fragmentRegistry: {
-    findFragmentSpreads: n(e?.findFragmentSpreads),
-    lookup: n(e?.lookup),
-    transform: n(e?.transform)
-  } });
-}
-function p(e) {
-  return !!e && "dirtyKey" in e;
-}
-function n(e) {
-  return p(e) ? e.size : void 0;
-}
-function m(e) {
-  return e != null;
-}
-function f(e) {
-  return u(e).map(function(r) {
-    return { cache: r };
-  });
-}
-function u(e) {
-  return e ? i(i([
-    n(e?.performWork)
-  ], u(e?.left), !0), u(e?.right), !0).filter(m) : [];
-}
-function s(e) {
-  var r;
-  return e ? i(i([
-    (r = e?.getMemoryInternals) === null || r === void 0 ? void 0 : r.call(e)
-  ], s(e?.left), !0), s(e?.right), !0).filter(m) : [];
-}
+import "./index.es70.js";
+import { maybe as e } from "./index.es96.js";
+import "./index.es71.js";
+var t = e(function() {
+  return navigator.product;
+}) == "ReactNative", i = typeof WeakMap == "function" && !(t && !global.HermesInternal), u = typeof WeakSet == "function", a = typeof Symbol == "function" && typeof Symbol.for == "function", m = a && Symbol.asyncIterator, n = typeof e(function() {
+  return window.document.createElement;
+}) == "function", o = (
+  // Following advice found in this comment from @domenic (maintainer of jsdom):
+  // https://github.com/jsdom/jsdom/issues/1537#issuecomment-229405327
+  //
+  // Since we control the version of Jest and jsdom used when running Apollo
+  // Client tests, and that version is recent enought to include " jsdom/x.y.z"
+  // at the end of the user agent string, I believe this case is all we need to
+  // check. Testing for "Node.js" was recommended for backwards compatibility
+  // with older version of jsdom, but we don't have that problem.
+  e(function() {
+    return navigator.userAgent.indexOf("jsdom") >= 0;
+  }) || !1
+), s = (n || t) && !o;
 export {
-  C as getApolloCacheMemoryInternals,
-  b as getApolloClientMemoryInternals,
-  I as getInMemoryCacheMemoryInternals,
-  M as registerGlobalCache
+  m as canUseAsyncIteratorSymbol,
+  n as canUseDOM,
+  s as canUseLayoutEffect,
+  a as canUseSymbol,
+  i as canUseWeakMap,
+  u as canUseWeakSet
 };
 //# sourceMappingURL=index.es75.js.map

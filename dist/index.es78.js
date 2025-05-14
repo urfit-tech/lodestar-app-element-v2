@@ -1,234 +1,70 @@
-import { __assign as c, __spreadArray as y } from "./index.es56.js";
-import { invariant as V } from "./index.es65.js";
-import "./index.es66.js";
-import { visit as _, Kind as o } from "graphql";
-import { checkDocument as b, getFragmentDefinitions as R, getOperationDefinition as w, getFragmentDefinition as P, getMainDefinition as G } from "./index.es36.js";
-import { isField as S } from "./index.es74.js";
-import { createFragmentMap as B } from "./index.es73.js";
-import { isNonEmptyArray as x, isArray as C } from "./index.es79.js";
-var T = {
-  kind: o.FIELD,
-  name: {
-    kind: o.NAME,
-    value: "__typename"
+function l() {
+}
+const h = l, o = typeof WeakRef < "u" ? WeakRef : function(r) {
+  return { deref: () => r };
+}, d = typeof WeakMap < "u" ? WeakMap : Map, f = typeof FinalizationRegistry < "u" ? FinalizationRegistry : function() {
+  return {
+    register: l,
+    unregister: l
+  };
+}, u = 10024;
+class c {
+  constructor(e = 1 / 0, t = h) {
+    this.max = e, this.dispose = t, this.map = new d(), this.newest = null, this.oldest = null, this.unfinalizedNodes = /* @__PURE__ */ new Set(), this.finalizationScheduled = !1, this.size = 0, this.finalize = () => {
+      const i = this.unfinalizedNodes.values();
+      for (let s = 0; s < u; s++) {
+        const n = i.next().value;
+        if (!n)
+          break;
+        this.unfinalizedNodes.delete(n);
+        const a = n.key;
+        delete n.key, n.keyRef = new o(a), this.registry.register(a, n, n);
+      }
+      this.unfinalizedNodes.size > 0 ? queueMicrotask(this.finalize) : this.finalizationScheduled = !1;
+    }, this.registry = new f(this.deleteNode.bind(this));
   }
-};
-function A(r, t) {
-  return !r || r.selectionSet.selections.every(function(a) {
-    return a.kind === o.FRAGMENT_SPREAD && A(t[a.name.value], t);
-  });
-}
-function L(r) {
-  return A(w(r) || P(r), B(R(r))) ? null : r;
-}
-function U(r) {
-  var t = /* @__PURE__ */ new Map(), a = /* @__PURE__ */ new Map();
-  return r.forEach(function(n) {
-    n && (n.name ? t.set(n.name, n) : n.test && a.set(n.test, n));
-  }), function(n) {
-    var u = t.get(n.name.value);
-    return !u && a.size && a.forEach(function(s, v) {
-      v(n) && (u = s);
-    }), u;
-  };
-}
-function k(r) {
-  var t = /* @__PURE__ */ new Map();
-  return function(n) {
-    n === void 0 && (n = r);
-    var u = t.get(n);
-    return u || t.set(n, u = {
-      // Variable and fragment spread names used directly within this
-      // operation or fragment definition, as identified by key. These sets
-      // will be populated during the first traversal of the document in
-      // removeDirectivesFromDocument below.
-      variables: /* @__PURE__ */ new Set(),
-      fragmentSpreads: /* @__PURE__ */ new Set()
-    }), u;
-  };
-}
-function q(r, t) {
-  b(t);
-  for (var a = k(""), n = k(""), u = function(e) {
-    for (var i = 0, f = void 0; i < e.length && (f = e[i]); ++i)
-      if (!C(f)) {
-        if (f.kind === o.OPERATION_DEFINITION)
-          return a(f.name && f.name.value);
-        if (f.kind === o.FRAGMENT_DEFINITION)
-          return n(f.name.value);
-      }
-    return globalThis.__DEV__ !== !1 && V.error(85), null;
-  }, s = 0, v = t.definitions.length - 1; v >= 0; --v)
-    t.definitions[v].kind === o.OPERATION_DEFINITION && ++s;
-  var m = U(r), E = function(e) {
-    return x(e) && e.map(m).some(function(i) {
-      return i && i.remove;
-    });
-  }, F = /* @__PURE__ */ new Map(), p = !1, N = {
-    enter: function(e) {
-      if (E(e.directives))
-        return p = !0, null;
+  has(e) {
+    return this.map.has(e);
+  }
+  get(e) {
+    const t = this.getNode(e);
+    return t && t.value;
+  }
+  getNode(e) {
+    const t = this.map.get(e);
+    if (t && t !== this.newest) {
+      const { older: i, newer: s } = t;
+      s && (s.older = i), i && (i.newer = s), t.older = this.newest, t.older.newer = t, t.newer = null, this.newest = t, t === this.oldest && (this.oldest = s);
     }
-  }, O = _(t, {
-    // These two AST node types share the same implementation, defined above.
-    Field: N,
-    InlineFragment: N,
-    VariableDefinition: {
-      enter: function() {
-        return !1;
-      }
-    },
-    Variable: {
-      enter: function(e, i, f, d, D) {
-        var l = u(D);
-        l && l.variables.add(e.name.value);
-      }
-    },
-    FragmentSpread: {
-      enter: function(e, i, f, d, D) {
-        if (E(e.directives))
-          return p = !0, null;
-        var l = u(D);
-        l && l.fragmentSpreads.add(e.name.value);
-      }
-    },
-    FragmentDefinition: {
-      enter: function(e, i, f, d) {
-        F.set(JSON.stringify(d), e);
-      },
-      leave: function(e, i, f, d) {
-        var D = F.get(JSON.stringify(d));
-        if (e === D)
-          return e;
-        if (
-          // This logic applies only if the document contains one or more
-          // operations, since removing all fragments from a document containing
-          // only fragments makes the document useless.
-          s > 0 && e.selectionSet.selections.every(function(l) {
-            return l.kind === o.FIELD && l.name.value === "__typename";
-          })
-        )
-          return n(e.name.value).removed = !0, p = !0, null;
-      }
-    },
-    Directive: {
-      leave: function(e) {
-        if (m(e))
-          return p = !0, null;
-      }
-    }
-  });
-  if (!p)
     return t;
-  var I = function(e) {
-    return e.transitiveVars || (e.transitiveVars = new Set(e.variables), e.removed || e.fragmentSpreads.forEach(function(i) {
-      I(n(i)).transitiveVars.forEach(function(f) {
-        e.transitiveVars.add(f);
-      });
-    })), e;
-  }, g = /* @__PURE__ */ new Set();
-  O.definitions.forEach(function(e) {
-    e.kind === o.OPERATION_DEFINITION ? I(a(e.name && e.name.value)).fragmentSpreads.forEach(function(i) {
-      g.add(i);
-    }) : e.kind === o.FRAGMENT_DEFINITION && // If there are no operations in the document, then all fragment
-    // definitions count as usages of their own fragment names. This heuristic
-    // prevents accidentally removing all fragment definitions from the
-    // document just because it contains no operations that use the fragments.
-    s === 0 && !n(e.name.value).removed && g.add(e.name.value);
-  }), g.forEach(function(e) {
-    I(n(e)).fragmentSpreads.forEach(function(i) {
-      g.add(i);
-    });
-  });
-  var M = function(e) {
-    return !!// A fragment definition will be removed if there are no spreads that refer
-    // to it, or the fragment was explicitly removed because it had no fields
-    // other than __typename.
-    (!g.has(e) || n(e).removed);
-  }, h = {
-    enter: function(e) {
-      if (M(e.name.value))
-        return null;
-    }
-  };
-  return L(_(O, {
-    // If the fragment is going to be removed, then leaving any dangling
-    // FragmentSpread nodes with the same name would be a mistake.
-    FragmentSpread: h,
-    // This is where the fragment definition is actually removed.
-    FragmentDefinition: h,
-    OperationDefinition: {
-      leave: function(e) {
-        if (e.variableDefinitions) {
-          var i = I(
-            // If an operation is anonymous, we use the empty string as its key.
-            a(e.name && e.name.value)
-          ).transitiveVars;
-          if (i.size < e.variableDefinitions.length)
-            return c(c({}, e), { variableDefinitions: e.variableDefinitions.filter(function(f) {
-              return i.has(f.variable.name.value);
-            }) });
-        }
-      }
-    }
-  }));
-}
-var X = Object.assign(function(r) {
-  return _(r, {
-    SelectionSet: {
-      enter: function(t, a, n) {
-        if (!(n && n.kind === o.OPERATION_DEFINITION)) {
-          var u = t.selections;
-          if (u) {
-            var s = u.some(function(m) {
-              return S(m) && (m.name.value === "__typename" || m.name.value.lastIndexOf("__", 0) === 0);
-            });
-            if (!s) {
-              var v = n;
-              if (!(S(v) && v.directives && v.directives.some(function(m) {
-                return m.name.value === "export";
-              })))
-                return c(c({}, t), { selections: y(y([], u, !0), [T], !1) });
-            }
-          }
-        }
-      }
-    }
-  });
-}, {
-  added: function(r) {
-    return r === T;
   }
-});
-function Z(r) {
-  var t = G(r), a = t.operation;
-  if (a === "query")
-    return r;
-  var n = _(r, {
-    OperationDefinition: {
-      enter: function(u) {
-        return c(c({}, u), { operation: "query" });
-      }
-    }
-  });
-  return n;
-}
-function $(r) {
-  b(r);
-  var t = q([
-    {
-      test: function(a) {
-        return a.name.value === "client";
-      },
-      remove: !0
-    }
-  ], r);
-  return t;
+  set(e, t) {
+    let i = this.getNode(e);
+    return i ? i.value = t : (i = {
+      key: e,
+      value: t,
+      newer: null,
+      older: this.newest
+    }, this.newest && (this.newest.newer = i), this.newest = i, this.oldest = this.oldest || i, this.scheduleFinalization(i), this.map.set(e, i), this.size++, i.value);
+  }
+  clean() {
+    for (; this.oldest && this.size > this.max; )
+      this.deleteNode(this.oldest);
+  }
+  deleteNode(e) {
+    e === this.newest && (this.newest = e.older), e === this.oldest && (this.oldest = e.newer), e.newer && (e.newer.older = e.older), e.older && (e.older.newer = e.newer), this.size--;
+    const t = e.key || e.keyRef && e.keyRef.deref();
+    this.dispose(e.value, t), e.keyRef ? this.registry.unregister(e) : this.unfinalizedNodes.delete(e), t && this.map.delete(t);
+  }
+  delete(e) {
+    const t = this.map.get(e);
+    return t ? (this.deleteNode(t), !0) : !1;
+  }
+  scheduleFinalization(e) {
+    this.unfinalizedNodes.add(e), this.finalizationScheduled || (this.finalizationScheduled = !0, queueMicrotask(this.finalize));
+  }
 }
 export {
-  X as addTypenameToDocument,
-  Z as buildQueryFromSelectionSet,
-  $ as removeClientSetsFromDocument,
-  q as removeDirectivesFromDocument
+  c as WeakCache
 };
 //# sourceMappingURL=index.es78.js.map
