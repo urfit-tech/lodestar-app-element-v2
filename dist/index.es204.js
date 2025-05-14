@@ -1,39 +1,59 @@
-import { __module as a } from "./index.es228.js";
-import { __require as s } from "./index.es229.js";
-/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-var l;
-function w() {
-  return l ? a.exports : (l = 1, function(p, i) {
-    var n = s(), e = n.Buffer;
-    function m(r, f) {
-      for (var u in r)
-        f[u] = r[u];
+import { InvariantError as d, invariant as i } from "./index.es234.js";
+import { version as c } from "./index.es235.js";
+import u from "./index.es205.js";
+import { stringifyForDisplay as g } from "./index.es210.js";
+function e(n) {
+  return function(r) {
+    for (var o = [], t = 1; t < arguments.length; t++)
+      o[t - 1] = arguments[t];
+    if (typeof r == "number") {
+      var a = r;
+      r = f(a), r || (r = l(a, o), o = []);
     }
-    e.from && e.alloc && e.allocUnsafe && e.allocUnsafeSlow ? p.exports = n : (m(n, i), i.Buffer = o);
-    function o(r, f, u) {
-      return e(r, f, u);
-    }
-    o.prototype = Object.create(e.prototype), m(e, o), o.from = function(r, f, u) {
-      if (typeof r == "number")
-        throw new TypeError("Argument must not be a number");
-      return e(r, f, u);
-    }, o.alloc = function(r, f, u) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      var t = e(r);
-      return f !== void 0 ? typeof u == "string" ? t.fill(f, u) : t.fill(f) : t.fill(0), t;
-    }, o.allocUnsafe = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return e(r);
-    }, o.allocUnsafeSlow = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return n.SlowBuffer(r);
-    };
-  }(a, a.exports), a.exports);
+    n.apply(void 0, [r].concat(o));
+  };
+}
+var E = Object.assign(function(r, o) {
+  for (var t = [], a = 2; a < arguments.length; a++)
+    t[a - 2] = arguments[a];
+  r || i(r, f(o, t) || l(o, t));
+}, {
+  debug: e(i.debug),
+  log: e(i.log),
+  warn: e(i.warn),
+  error: e(i.error)
+});
+function w(n) {
+  for (var r = [], o = 1; o < arguments.length; o++)
+    r[o - 1] = arguments[o];
+  return new d(f(n, r) || l(n, r));
+}
+var v = Symbol.for("ApolloErrorMessageHandler_" + c);
+function p(n) {
+  if (typeof n == "string")
+    return n;
+  try {
+    return g(n, 2).slice(0, 1e3);
+  } catch {
+    return "<non-serializable>";
+  }
+}
+function f(n, r) {
+  if (r === void 0 && (r = []), !!n)
+    return u[v] && u[v](n, r.map(p));
+}
+function l(n, r) {
+  if (r === void 0 && (r = []), !!n)
+    return "An error occurred! For more details, see the full error text at https://go.apollo.dev/c/err#".concat(encodeURIComponent(JSON.stringify({
+      version: c,
+      message: n,
+      args: r.map(p)
+    })));
 }
 export {
-  w as __require
+  v as ApolloErrorMessageHandler,
+  d as InvariantError,
+  E as invariant,
+  w as newInvariantError
 };
 //# sourceMappingURL=index.es204.js.map

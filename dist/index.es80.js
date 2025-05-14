@@ -1,5 +1,5 @@
-const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
+const o = "1.8.4";
 export {
-  t as default
+  o as VERSION
 };
 //# sourceMappingURL=index.es80.js.map

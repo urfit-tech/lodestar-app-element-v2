@@ -1,342 +1,222 @@
-import I from "./index.es118.js";
-import N from "./index.es119.js";
-import A from "./index.es120.js";
-import D from "./index.es121.js";
-import o from "./index.es117.js";
-import f from "./index.es122.js";
-import h from "./index.es123.js";
-var _ = ["category", "action", "label", "value", "nonInteraction", "transport"];
-function C(e, t) {
-  if (e == null) return {};
-  var r = G(e, t), n, a;
-  if (Object.getOwnPropertySymbols) {
-    var i = Object.getOwnPropertySymbols(e);
-    for (a = 0; a < i.length; a++)
-      n = i[a], !(t.indexOf(n) >= 0) && Object.prototype.propertyIsEnumerable.call(e, n) && (r[n] = e[n]);
-  }
-  return r;
+import P from "./index.es72.js";
+const { toString: C } = Object.prototype, { getPrototypeOf: h } = Object, y = /* @__PURE__ */ ((e) => (t) => {
+  const r = C.call(t);
+  return e[r] || (e[r] = r.slice(8, -1).toLowerCase());
+})(/* @__PURE__ */ Object.create(null)), l = (e) => (e = e.toLowerCase(), (t) => y(t) === e), w = (e) => (t) => typeof t === e, { isArray: u } = Array, p = w("undefined");
+function D(e) {
+  return e !== null && !p(e) && e.constructor !== null && !p(e.constructor) && c(e.constructor.isBuffer) && e.constructor.isBuffer(e);
 }
-function G(e, t) {
-  if (e == null) return {};
-  var r = {}, n = Object.keys(e), a, i;
-  for (i = 0; i < n.length; i++)
-    a = n[i], !(t.indexOf(a) >= 0) && (r[a] = e[a]);
-  return r;
+const b = l("ArrayBuffer");
+function T(e) {
+  let t;
+  return typeof ArrayBuffer < "u" && ArrayBuffer.isView ? t = ArrayBuffer.isView(e) : t = e && e.buffer && b(e.buffer), t;
 }
-function S(e, t) {
-  var r = Object.keys(e);
-  if (Object.getOwnPropertySymbols) {
-    var n = Object.getOwnPropertySymbols(e);
-    t && (n = n.filter(function(a) {
-      return Object.getOwnPropertyDescriptor(e, a).enumerable;
-    })), r.push.apply(r, n);
-  }
-  return r;
-}
-function J(e) {
-  for (var t = 1; t < arguments.length; t++) {
-    var r = arguments[t] != null ? arguments[t] : {};
-    t % 2 ? S(Object(r), !0).forEach(function(n) {
-      L(e, n, r[n]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r)) : S(Object(r)).forEach(function(n) {
-      Object.defineProperty(e, n, Object.getOwnPropertyDescriptor(r, n));
-    });
-  }
-  return e;
-}
-function L(e, t, r) {
-  return t in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
-}
-function v(e) {
-  "@babel/helpers - typeof";
-  return v = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(t) {
-    return typeof t;
-  } : function(t) {
-    return t && typeof Symbol == "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
-  }, v(e);
-}
-function z(e) {
-  return W(e) || V(e) || F(e) || M();
-}
-function M() {
-  throw new TypeError(`Invalid attempt to spread non-iterable instance.
-In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
-}
-function F(e, t) {
-  if (e) {
-    if (typeof e == "string") return O(e, t);
-    var r = Object.prototype.toString.call(e).slice(8, -1);
-    if (r === "Object" && e.constructor && (r = e.constructor.name), r === "Map" || r === "Set") return Array.from(e);
-    if (r === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)) return O(e, t);
-  }
-}
-function V(e) {
-  if (typeof Symbol < "u" && e[Symbol.iterator] != null || e["@@iterator"] != null) return Array.from(e);
-}
-function W(e) {
-  if (Array.isArray(e)) return O(e);
-}
-function O(e, t) {
-  (t == null || t > e.length) && (t = e.length);
-  for (var r = 0, n = new Array(t); r < t; r++)
-    n[r] = e[r];
-  return n;
-}
-var T = typeof window > "u" || typeof document > "u", s = !1, q = !0, E = !1, j = !0, P = !0, m = function() {
-  var t;
-  return E ? h.ga.apply(h, arguments) : T ? !1 : window.ga ? (t = window).ga.apply(t, arguments) : o("ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually");
-};
-function y(e) {
-  return I(e, q, P);
-}
-function w(e) {
-  for (var t = arguments.length, r = new Array(t > 1 ? t - 1 : 0), n = 1; n < t; n++)
-    r[n - 1] = arguments[n];
-  var a = r[0];
-  if (typeof m == "function") {
-    if (typeof a != "string") {
-      o("ga command must be a string");
-      return;
-    }
-    (j || !Array.isArray(e)) && m.apply(void 0, r), Array.isArray(e) && e.forEach(function(i) {
-      m.apply(void 0, z(["".concat(i, ".").concat(a)].concat(r.slice(1))));
-    });
+const R = w("string"), c = w("function"), A = w("number"), g = (e) => e !== null && typeof e == "object", M = (e) => e === !0 || e === !1, m = (e) => {
+  if (y(e) !== "object")
+    return !1;
+  const t = h(e);
+  return (t === null || t === Object.prototype || Object.getPrototypeOf(t) === null) && !(Symbol.toStringTag in e) && !(Symbol.iterator in e);
+}, N = l("Date"), k = l("File"), U = l("Blob"), I = l("FileList"), V = (e) => g(e) && c(e.pipe), q = (e) => {
+  let t;
+  return e && (typeof FormData == "function" && e instanceof FormData || c(e.append) && ((t = y(e)) === "formdata" || // detect form-data instance
+  t === "object" && c(e.toString) && e.toString() === "[object FormData]"));
+}, H = l("URLSearchParams"), [_, z, J, K] = ["ReadableStream", "Request", "Response", "Headers"].map(l), $ = (e) => e.trim ? e.trim() : e.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
+function d(e, t, { allOwnKeys: r = !1 } = {}) {
+  if (e === null || typeof e > "u")
+    return;
+  let n, s;
+  if (typeof e != "object" && (e = [e]), u(e))
+    for (n = 0, s = e.length; n < s; n++)
+      t.call(null, e[n], n, e);
+  else {
+    const o = r ? Object.getOwnPropertyNames(e) : Object.keys(e), i = o.length;
+    let f;
+    for (n = 0; n < i; n++)
+      f = o[n], t.call(null, e[f], f, e);
   }
 }
 function x(e, t) {
-  if (!e) {
-    o("gaTrackingID is required in initialize()");
-    return;
-  }
-  t && (t.debug && t.debug === !0 && (s = !0), t.titleCase === !1 && (q = !1), t.redactEmail === !1 && (P = !1), t.useExistingGa) || (t && t.gaOptions ? m("create", e, t.gaOptions) : m("create", e, "auto"));
+  t = t.toLowerCase();
+  const r = Object.keys(e);
+  let n = r.length, s;
+  for (; n-- > 0; )
+    if (s = r[n], t === s.toLowerCase())
+      return s;
+  return null;
 }
-function B(e, t) {
-  return Array.isArray(e) ? e.forEach(function(r) {
-    if (v(r) !== "object") {
-      o("All configs must be an object");
-      return;
-    }
-    x(r.trackingId, r);
-  }) : x(e, t), !0;
+const a = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof window < "u" ? window : global, B = (e) => !p(e) && e !== a;
+function F() {
+  const { caseless: e } = B(this) && this || {}, t = {}, r = (n, s) => {
+    const o = e && x(t, s) || s;
+    m(t[o]) && m(n) ? t[o] = F(t[o], n) : m(n) ? t[o] = F({}, n) : u(n) ? t[o] = n.slice() : t[o] = n;
+  };
+  for (let n = 0, s = arguments.length; n < s; n++)
+    arguments[n] && d(arguments[n], r);
+  return t;
 }
-function H(e, t) {
-  if (t && t.testMode === !0)
-    E = !0;
-  else {
-    if (T)
-      return;
-    (!t || t.standardImplementation !== !0) && D(t);
+const W = (e, t, r, { allOwnKeys: n } = {}) => (d(t, (s, o) => {
+  r && c(s) ? e[o] = P(s, r) : e[o] = s;
+}, { allOwnKeys: n }), e), G = (e) => (e.charCodeAt(0) === 65279 && (e = e.slice(1)), e), Q = (e, t, r, n) => {
+  e.prototype = Object.create(t.prototype, n), e.prototype.constructor = e, Object.defineProperty(e, "super", {
+    value: t.prototype
+  }), r && Object.assign(e.prototype, r);
+}, X = (e, t, r, n) => {
+  let s, o, i;
+  const f = {};
+  if (t = t || {}, e == null) return t;
+  do {
+    for (s = Object.getOwnPropertyNames(e), o = s.length; o-- > 0; )
+      i = s[o], (!n || n(i, e, t)) && !f[i] && (t[i] = e[i], f[i] = !0);
+    e = r !== !1 && h(e);
+  } while (e && (!r || r(e, t)) && e !== Object.prototype);
+  return t;
+}, Y = (e, t, r) => {
+  e = String(e), (r === void 0 || r > e.length) && (r = e.length), r -= t.length;
+  const n = e.indexOf(t, r);
+  return n !== -1 && n === r;
+}, Z = (e) => {
+  if (!e) return null;
+  if (u(e)) return e;
+  let t = e.length;
+  if (!A(t)) return null;
+  const r = new Array(t);
+  for (; t-- > 0; )
+    r[t] = e[t];
+  return r;
+}, j = /* @__PURE__ */ ((e) => (t) => e && t instanceof e)(typeof Uint8Array < "u" && h(Uint8Array)), v = (e, t) => {
+  const n = (e && e[Symbol.iterator]).call(e);
+  let s;
+  for (; (s = n.next()) && !s.done; ) {
+    const o = s.value;
+    t.call(e, o[0], o[1]);
   }
-  j = t && typeof t.alwaysSendToDefaultTracker == "boolean" ? t.alwaysSendToDefaultTracker : !0, B(e, t);
-}
-function c() {
-  for (var e = arguments.length, t = new Array(e), r = 0; r < e; r++)
-    t[r] = arguments[r];
-  return t.length > 0 && (m.apply(void 0, t), s && (f("called ga('arguments');"), f("with arguments: ".concat(JSON.stringify(t))))), window.ga;
-}
-function K(e, t) {
-  if (!e) {
-    o("`fieldsObject` is required in .set()");
-    return;
+}, ee = (e, t) => {
+  let r;
+  const n = [];
+  for (; (r = e.exec(t)) !== null; )
+    n.push(r);
+  return n;
+}, te = l("HTMLFormElement"), ne = (e) => e.toLowerCase().replace(
+  /[-_\s]([a-z\d])(\w*)/g,
+  function(r, n, s) {
+    return n.toUpperCase() + s;
   }
-  if (v(e) !== "object") {
-    o("Expected `fieldsObject` arg to be an Object");
-    return;
-  }
-  Object.keys(e).length === 0 && o("empty `fieldsObject` given to .set()"), w(t, "set", e), s && (f("called ga('set', fieldsObject);"), f("with fieldsObject: ".concat(JSON.stringify(e))));
-}
-function b(e, t) {
-  w(t, "send", e), s && (f("called ga('send', fieldObject);"), f("with fieldObject: ".concat(JSON.stringify(e))), f("with trackers: ".concat(JSON.stringify(t))));
-}
-function R(e, t, r) {
-  if (!e) {
-    o("path is required in .pageview()");
-    return;
-  }
-  var n = A(e);
-  if (n === "") {
-    o("path cannot be an empty string in .pageview()");
-    return;
-  }
-  var a = {};
-  if (r && (a.title = r), typeof c == "function" && (w(t, "send", J({
-    hitType: "pageview",
-    page: n
-  }, a)), s)) {
-    f("called ga('send', 'pageview', path);");
-    var i = "";
-    r && (i = " and title: ".concat(r)), f("with path: ".concat(n).concat(i));
-  }
-}
-function U(e, t) {
-  if (!e) {
-    o("modalName is required in .modalview(modalName)");
-    return;
-  }
-  var r = N(A(e));
-  if (r === "") {
-    o("modalName cannot be an empty string or a single / in .modalview()");
-    return;
-  }
-  if (typeof c == "function") {
-    var n = "/modal/".concat(r);
-    w(t, "send", "pageview", n), s && (f("called ga('send', 'pageview', path);"), f("with path: ".concat(n)));
-  }
-}
-function $() {
-  var e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, t = e.category, r = e.variable, n = e.value, a = e.label, i = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : void 0;
-  if (typeof c == "function") {
-    if (!t || !r || typeof n != "number") {
-      o("args.category, args.variable AND args.value are required in timing() AND args.value has to be a number");
-      return;
-    }
-    var u = {
-      hitType: "timing",
-      timingCategory: y(t),
-      timingVar: y(r),
-      timingValue: n
-    };
-    a && (u.timingLabel = y(a)), b(u, i);
-  }
-}
-function k() {
-  var e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, t = e.category, r = e.action, n = e.label, a = e.value, i = e.nonInteraction, u = e.transport, l = C(e, _), g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : void 0;
-  if (typeof c == "function") {
-    if (!t || !r) {
-      o("args.category AND args.action are required in event()");
-      return;
-    }
-    var d = {
-      hitType: "event",
-      eventCategory: y(t),
-      eventAction: y(r)
-    };
-    n && (d.eventLabel = y(n)), typeof a < "u" && (typeof a != "number" ? o("Expected `args.value` arg to be a Number.") : d.eventValue = a), typeof i < "u" && (typeof i != "boolean" ? o("`args.nonInteraction` must be a boolean.") : d.nonInteraction = i), typeof u < "u" && (typeof u != "string" ? o("`args.transport` must be a string.") : (["beacon", "xhr", "image"].indexOf(u) === -1 && o("`args.transport` must be either one of these values: `beacon`, `xhr` or `image`"), d.transport = u)), Object.keys(l).filter(function(p) {
-      return p.substr(0, 9) === "dimension";
-    }).forEach(function(p) {
-      d[p] = l[p];
-    }), Object.keys(l).filter(function(p) {
-      return p.substr(0, 6) === "metric";
-    }).forEach(function(p) {
-      d[p] = l[p];
-    }), b(d, g);
-  }
-}
-function Q(e, t) {
-  var r = e.description, n = e.fatal;
-  if (typeof c == "function") {
-    var a = {
-      hitType: "exception"
-    };
-    r && (a.exDescription = y(r)), typeof n < "u" && (typeof n != "boolean" ? o("`args.fatal` must be a boolean.") : a.exFatal = n), b(a, t);
-  }
-}
-var X = {
-  /**
-   * require:
-   * GA requires a plugin
-   * @param name {String} e.g. 'ecommerce' or 'myplugin'
-   * @param options {Object} optional e.g {path: '/log', debug: true}
-   * @param trackerName {String} optional e.g 'trackerName'
-   */
-  require: function(t, r, n) {
-    if (typeof c == "function") {
-      if (!t) {
-        o("`name` is required in .require()");
+), S = (({ hasOwnProperty: e }) => (t, r) => e.call(t, r))(Object.prototype), re = l("RegExp"), E = (e, t) => {
+  const r = Object.getOwnPropertyDescriptors(e), n = {};
+  d(r, (s, o) => {
+    let i;
+    (i = t(s, o, e)) !== !1 && (n[o] = i || s);
+  }), Object.defineProperties(e, n);
+}, se = (e) => {
+  E(e, (t, r) => {
+    if (c(e) && ["arguments", "caller", "callee"].indexOf(r) !== -1)
+      return !1;
+    const n = e[r];
+    if (c(n)) {
+      if (t.enumerable = !1, "writable" in t) {
+        t.writable = !1;
         return;
       }
-      var a = A(t);
-      if (a === "") {
-        o("`name` cannot be an empty string in .require()");
-        return;
-      }
-      var i = n ? "".concat(n, ".require") : "require";
-      if (r) {
-        if (v(r) !== "object") {
-          o("Expected `options` arg to be an Object");
-          return;
-        }
-        Object.keys(r).length === 0 && o("Empty `options` given to .require()"), c(i, a, r), s && f("called ga('require', '".concat(a, "', ").concat(JSON.stringify(r)));
-      } else
-        c(i, a), s && f("called ga('require', '".concat(a, "');"));
+      t.set || (t.set = () => {
+        throw Error("Can not rewrite read-only method '" + r + "'");
+      });
     }
-  },
-  /**
-   * execute:
-   * GA execute action for plugin
-   * Takes variable number of arguments
-   * @param pluginName {String} e.g. 'ecommerce' or 'myplugin'
-   * @param action {String} e.g. 'addItem' or 'myCustomAction'
-   * @param actionType {String} optional e.g. 'detail'
-   * @param payload {Object} optional e.g { id: '1x5e', name : 'My product to track' }
-   */
-  execute: function(t, r) {
-    for (var n, a, i = arguments.length, u = new Array(i > 2 ? i - 2 : 0), l = 2; l < i; l++)
-      u[l - 2] = arguments[l];
-    if (u.length === 1 ? n = u[0] : (a = u[0], n = u[1]), typeof c == "function")
-      if (typeof t != "string")
-        o("Expected `pluginName` arg to be a String.");
-      else if (typeof r != "string")
-        o("Expected `action` arg to be a String.");
-      else {
-        var g = "".concat(t, ":").concat(r);
-        n = n || null, a && n ? (c(g, a, n), s && (f("called ga('".concat(g, "');")), f('actionType: "'.concat(a, '" with payload: ').concat(JSON.stringify(n))))) : n ? (c(g, n), s && (f("called ga('".concat(g, "');")), f("with payload: ".concat(JSON.stringify(n))))) : (c(g), s && f("called ga('".concat(g, "');")));
-      }
-  }
-};
-function Y(e, t, r) {
-  if (typeof t != "function") {
-    o("hitCallback function is required");
-    return;
-  }
-  if (typeof c == "function") {
-    if (!e || !e.label) {
-      o("args.label is required in outboundLink()");
-      return;
-    }
-    var n = {
-      hitType: "event",
-      eventCategory: "Outbound",
-      eventAction: "Click",
-      eventLabel: y(e.label)
-    }, a = !1, i = function() {
-      a = !0, t();
-    }, u = setTimeout(i, 250), l = function() {
-      clearTimeout(u), a || t();
-    };
-    n.hitCallback = l, b(n, r);
-  } else
-    setTimeout(t, 0);
+  });
+}, oe = (e, t) => {
+  const r = {}, n = (s) => {
+    s.forEach((o) => {
+      r[o] = !0;
+    });
+  };
+  return u(e) ? n(e) : n(String(e).split(t)), r;
+}, ie = () => {
+}, ce = (e, t) => e != null && Number.isFinite(e = +e) ? e : t;
+function le(e) {
+  return !!(e && c(e.append) && e[Symbol.toStringTag] === "FormData" && e[Symbol.iterator]);
 }
-var oe = h;
-const fe = {
-  initialize: H,
-  ga: c,
-  set: K,
-  send: b,
-  pageview: R,
-  modalview: U,
-  timing: $,
-  event: k,
-  exception: Q,
-  plugin: X,
-  outboundLink: Y,
-  testModeAPI: h
+const fe = (e) => {
+  const t = new Array(10), r = (n, s) => {
+    if (g(n)) {
+      if (t.indexOf(n) >= 0)
+        return;
+      if (!("toJSON" in n)) {
+        t[s] = n;
+        const o = u(n) ? [] : {};
+        return d(n, (i, f) => {
+          const O = r(i, s + 1);
+          !p(O) && (o[f] = O);
+        }), t[s] = void 0, o;
+      }
+    }
+    return n;
+  };
+  return r(e, 0);
+}, ae = l("AsyncFunction"), ue = (e) => e && (g(e) || c(e)) && c(e.then) && c(e.catch), L = ((e, t) => e ? setImmediate : t ? ((r, n) => (a.addEventListener("message", ({ source: s, data: o }) => {
+  s === a && o === r && n.length && n.shift()();
+}, !1), (s) => {
+  n.push(s), a.postMessage(r, "*");
+}))(`axios@${Math.random()}`, []) : (r) => setTimeout(r))(
+  typeof setImmediate == "function",
+  c(a.postMessage)
+), pe = typeof queueMicrotask < "u" ? queueMicrotask.bind(a) : typeof process < "u" && process.nextTick || L, me = {
+  isArray: u,
+  isArrayBuffer: b,
+  isBuffer: D,
+  isFormData: q,
+  isArrayBufferView: T,
+  isString: R,
+  isNumber: A,
+  isBoolean: M,
+  isObject: g,
+  isPlainObject: m,
+  isReadableStream: _,
+  isRequest: z,
+  isResponse: J,
+  isHeaders: K,
+  isUndefined: p,
+  isDate: N,
+  isFile: k,
+  isBlob: U,
+  isRegExp: re,
+  isFunction: c,
+  isStream: V,
+  isURLSearchParams: H,
+  isTypedArray: j,
+  isFileList: I,
+  forEach: d,
+  merge: F,
+  extend: W,
+  trim: $,
+  stripBOM: G,
+  inherits: Q,
+  toFlatObject: X,
+  kindOf: y,
+  kindOfTest: l,
+  endsWith: Y,
+  toArray: Z,
+  forEachEntry: v,
+  matchAll: ee,
+  isHTMLForm: te,
+  hasOwnProperty: S,
+  hasOwnProp: S,
+  // an alias to avoid ESLint no-prototype-builtins detection
+  reduceDescriptors: E,
+  freezeMethods: se,
+  toObjectSet: oe,
+  toCamelCase: ne,
+  noop: ie,
+  toFiniteNumber: ce,
+  findKey: x,
+  global: a,
+  isContextDefined: B,
+  isSpecCompliantForm: le,
+  toJSONObject: fe,
+  isAsyncFn: ae,
+  isThenable: ue,
+  setImmediate: L,
+  asap: pe
 };
 export {
-  B as addTrackers,
-  fe as default,
-  k as event,
-  Q as exception,
-  c as ga,
-  H as initialize,
-  U as modalview,
-  Y as outboundLink,
-  R as pageview,
-  X as plugin,
-  b as send,
-  K as set,
-  oe as testModeAPI,
-  $ as timing
+  me as default
 };
 //# sourceMappingURL=index.es71.js.map

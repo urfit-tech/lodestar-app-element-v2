@@ -1,14 +1,8 @@
-import { __require as f } from "./index.es229.js";
-var e, t;
-function s() {
-  if (t) return e;
-  t = 1;
-  var i = f().Buffer;
-  return e = function(r) {
-    return typeof r == "string" ? r : typeof r == "number" || i.isBuffer(r) ? r.toString() : JSON.stringify(r);
-  }, e;
-}
+import { __assign as o } from "./index.es131.js";
+import "./index.es204.js";
+import r from "./index.es205.js";
+var a = Symbol.for("apollo.cacheSize"), c = o({}, r[a]);
 export {
-  s as __require
+  c as cacheSizes
 };
 //# sourceMappingURL=index.es207.js.map

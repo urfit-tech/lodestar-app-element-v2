@@ -1,57 +1,55 @@
-import { __require as q } from "./index.es226.js";
-import { __require as p } from "./index.es163.js";
-import { __require as _ } from "./index.es188.js";
-import { __require as d } from "./index.es225.js";
-import { __require as W } from "./index.es165.js";
-import { __require as R } from "./index.es191.js";
-var o, m;
-function S() {
-  if (m) return o;
-  m = 1;
-  const t = Symbol("SemVer ANY");
-  class i {
-    static get ANY() {
-      return t;
-    }
-    constructor(r, e) {
-      if (e = h(e), r instanceof i) {
-        if (r.loose === !!e.loose)
-          return r;
-        r = r.value;
+import { __require as E } from "./index.es188.js";
+import { __require as _ } from "./index.es189.js";
+var f, v;
+function P() {
+  if (v) return f;
+  v = 1;
+  var o = function() {
+  };
+  if (process.env.NODE_ENV !== "production") {
+    var y = /* @__PURE__ */ E(), t = {}, d = /* @__PURE__ */ _();
+    o = function(n) {
+      var a = "Warning: " + n;
+      typeof console < "u" && console.error(a);
+      try {
+        throw new Error(a);
+      } catch {
       }
-      r = r.trim().split(/\s+/).join(" "), u("comparator", r, e), this.options = e, this.loose = !!e.loose, this.parse(r), this.semver === t ? this.value = "" : this.value = this.operator + this.semver.version, u("comp", this);
-    }
-    parse(r) {
-      const e = this.options.loose ? n[l.COMPARATORLOOSE] : n[l.COMPARATOR], s = r.match(e);
-      if (!s)
-        throw new TypeError(`Invalid comparator: ${r}`);
-      this.operator = s[1] !== void 0 ? s[1] : "", this.operator === "=" && (this.operator = ""), s[2] ? this.semver = new f(s[2], this.options.loose) : this.semver = t;
-    }
-    toString() {
-      return this.value;
-    }
-    test(r) {
-      if (u("Comparator.test", r, this.options.loose), this.semver === t || r === t)
-        return !0;
-      if (typeof r == "string")
-        try {
-          r = new f(r, this.options);
-        } catch {
-          return !1;
+    };
+  }
+  function u(n, a, i, s, c) {
+    if (process.env.NODE_ENV !== "production") {
+      for (var e in n)
+        if (d(n, e)) {
+          var r;
+          try {
+            if (typeof n[e] != "function") {
+              var h = Error(
+                (s || "React class") + ": " + i + " type `" + e + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof n[e] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
+              );
+              throw h.name = "Invariant Violation", h;
+            }
+            r = n[e](a, e, s, i, null, y);
+          } catch (l) {
+            r = l;
+          }
+          if (r && !(r instanceof Error) && o(
+            (s || "React class") + ": type specification of " + i + " `" + e + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof r + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
+          ), r instanceof Error && !(r.message in t)) {
+            t[r.message] = !0;
+            var p = c ? c() : "";
+            o(
+              "Failed " + i + " type: " + r.message + (p ?? "")
+            );
+          }
         }
-      return a(r, this.operator, this.semver, this.options);
-    }
-    intersects(r, e) {
-      if (!(r instanceof i))
-        throw new TypeError("a Comparator is required");
-      return this.operator === "" ? this.value === "" ? !0 : new v(r.value, e).test(this.value) : r.operator === "" ? r.value === "" ? !0 : new v(this.value, e).test(r.semver) : (e = h(e), e.includePrerelease && (this.value === "<0.0.0-0" || r.value === "<0.0.0-0") || !e.includePrerelease && (this.value.startsWith("<0.0.0") || r.value.startsWith("<0.0.0")) ? !1 : !!(this.operator.startsWith(">") && r.operator.startsWith(">") || this.operator.startsWith("<") && r.operator.startsWith("<") || this.semver.version === r.semver.version && this.operator.includes("=") && r.operator.includes("=") || a(this.semver, "<", r.semver, e) && this.operator.startsWith(">") && r.operator.startsWith("<") || a(this.semver, ">", r.semver, e) && this.operator.startsWith("<") && r.operator.startsWith(">")));
     }
   }
-  o = i;
-  const h = q(), { safeRe: n, t: l } = p(), a = _(), u = d(), f = W(), v = R();
-  return o;
+  return u.resetWarningCache = function() {
+    process.env.NODE_ENV !== "production" && (t = {});
+  }, f = u, f;
 }
 export {
-  S as __require
+  P as __require
 };
 //# sourceMappingURL=index.es190.js.map

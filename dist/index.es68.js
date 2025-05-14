@@ -1,14 +1,17 @@
-import { __require as a } from "./index.es67.js";
-var e, t;
-function f() {
-  if (t) return e;
-  t = 1;
-  var o = a(), r = function(i, n) {
-    o.call(this, i), this.name = "NotBeforeError", this.date = n;
-  };
-  return r.prototype = Object.create(o.prototype), r.prototype.constructor = r, e = r, e;
+var t, i;
+function g() {
+  if (i) return t;
+  i = 1;
+  var n = "[object String]", o = Object.prototype, e = o.toString, s = Array.isArray;
+  function a(r) {
+    return !!r && typeof r == "object";
+  }
+  function c(r) {
+    return typeof r == "string" || !s(r) && a(r) && e.call(r) == n;
+  }
+  return t = c, t;
 }
 export {
-  f as __require
+  g as __require
 };
 //# sourceMappingURL=index.es68.js.map

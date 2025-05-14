@@ -1,12 +1,5 @@
-import { __require as a } from "./index.es176.js";
-var r, e;
-function s() {
-  if (e) return r;
-  e = 1;
-  const q = a();
-  return r = (i, o, u) => q(i, o, u) === 0, r;
-}
+var e = { exports: {} };
 export {
-  s as __require
+  e as __module
 };
 //# sourceMappingURL=index.es184.js.map

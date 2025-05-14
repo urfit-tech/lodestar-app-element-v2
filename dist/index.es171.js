@@ -1,25 +1,43 @@
-import { __require as h } from "./index.es167.js";
-var o, u;
-function v() {
-  if (u) return o;
-  u = 1;
-  const t = h();
-  return o = (p, m) => {
-    const r = t(p, null, !0), e = t(m, null, !0), a = r.compare(e);
-    if (a === 0)
-      return null;
-    const s = a > 0, f = s ? r : e, n = s ? e : r, c = !!f.prerelease.length;
-    if (!!n.prerelease.length && !c) {
-      if (!n.patch && !n.minor)
-        return "major";
-      if (n.compareMain(f) === 0)
-        return n.minor && !n.patch ? "minor" : "patch";
+import { __require as p } from "./index.es140.js";
+import { __require as q } from "./index.es166.js";
+import { __require as _ } from "./index.es157.js";
+var u, c;
+function d() {
+  if (c) return u;
+  c = 1;
+  const n = p(), f = q(), a = _();
+  return u = (r, l) => {
+    r = new f(r, l);
+    let e = new n("0.0.0");
+    if (r.test(e) || (e = new n("0.0.0-0"), r.test(e)))
+      return e;
+    e = null;
+    for (let s = 0; s < r.set.length; ++s) {
+      const m = r.set[s];
+      let i = null;
+      m.forEach((o) => {
+        const t = new n(o.semver.version);
+        switch (o.operator) {
+          case ">":
+            t.prerelease.length === 0 ? t.patch++ : t.prerelease.push(0), t.raw = t.format();
+          /* fallthrough */
+          case "":
+          case ">=":
+            (!i || a(t, i)) && (i = t);
+            break;
+          case "<":
+          case "<=":
+            break;
+          /* istanbul ignore next */
+          default:
+            throw new Error(`Unexpected operation: ${o.operator}`);
+        }
+      }), i && (!e || a(e, i)) && (e = i);
     }
-    const i = c ? "pre" : "";
-    return r.major !== e.major ? i + "major" : r.minor !== e.minor ? i + "minor" : r.patch !== e.patch ? i + "patch" : "prerelease";
-  }, o;
+    return e && r.test(e) ? e : null;
+  }, u;
 }
 export {
-  v as __require
+  d as __require
 };
 //# sourceMappingURL=index.es171.js.map

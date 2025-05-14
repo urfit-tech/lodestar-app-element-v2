@@ -1,2 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=typeof window<"u"&&typeof document<"u",o=typeof navigator=="object"&&navigator||void 0,n=e&&(!o||["ReactNative","NativeScript","NS"].indexOf(o.product)<0),r=typeof WorkerGlobalScope<"u"&&self instanceof WorkerGlobalScope&&typeof self.importScripts=="function",t=e&&window.location.href||"http://localhost";exports.hasBrowserEnv=e;exports.hasStandardBrowserEnv=n;exports.hasStandardBrowserWebWorkerEnv=r;exports.navigator=o;exports.origin=t;
-//# sourceMappingURL=index.cjs214.js.map

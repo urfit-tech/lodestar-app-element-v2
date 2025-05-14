@@ -1,47 +1,54 @@
-import { __require as d } from "./index.es135.js";
-import { __require as E } from "./index.es136.js";
-var i, c;
-function A() {
-  if (c) return i;
-  c = 1;
-  const m = d(), u = E(), l = {
-    ec: ["ES256", "ES384", "ES512"],
-    rsa: ["RS256", "PS256", "RS384", "PS384", "RS512", "PS512"],
-    "rsa-pss": ["PS256", "PS384", "PS512"]
-  }, p = {
-    ES256: "prime256v1",
-    ES384: "secp384r1",
-    ES512: "secp521r1"
-  };
-  return i = function(e, t) {
-    if (!e || !t) return;
-    const r = t.asymmetricKeyType;
-    if (!r) return;
-    const s = l[r];
-    if (!s)
-      throw new Error(`Unknown key type "${r}".`);
-    if (!s.includes(e))
-      throw new Error(`"alg" parameter for "${r}" key type must be one of: ${s.join(", ")}.`);
-    if (m)
-      switch (r) {
-        case "ec":
-          const y = t.asymmetricKeyDetails.namedCurve, o = p[e];
-          if (y !== o)
-            throw new Error(`"alg" parameter "${e}" requires curve "${o}".`);
-          break;
-        case "rsa-pss":
-          if (u) {
-            const a = parseInt(e.slice(-3), 10), { hashAlgorithm: n, mgf1HashAlgorithm: f, saltLength: S } = t.asymmetricKeyDetails;
-            if (n !== `sha${a}` || f !== n)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameters do not meet the requirements of "alg" ${e}.`);
-            if (S !== void 0 && S > a >> 3)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameter saltLength does not meet the requirements of "alg" ${e}.`);
-          }
-          break;
-      }
-  }, i;
-}
+import a from "./index.es71.js";
+import h from "./index.es126.js";
+import m from "./index.es127.js";
+import u from "./index.es128.js";
+import d from "./index.es82.js";
+const s = {
+  http: h,
+  xhr: m,
+  fetch: u
+};
+a.forEach(s, (e, n) => {
+  if (e) {
+    try {
+      Object.defineProperty(e, "name", { value: n });
+    } catch {
+    }
+    Object.defineProperty(e, "adapterName", { value: n });
+  }
+});
+const c = (e) => `- ${e}`, b = (e) => a.isFunction(e) || e === null || e === !1, y = {
+  getAdapter: (e) => {
+    e = a.isArray(e) ? e : [e];
+    const { length: n } = e;
+    let o, r;
+    const p = {};
+    for (let t = 0; t < n; t++) {
+      o = e[t];
+      let i;
+      if (r = o, !b(o) && (r = s[(i = String(o)).toLowerCase()], r === void 0))
+        throw new d(`Unknown adapter '${i}'`);
+      if (r)
+        break;
+      p[i || "#" + t] = r;
+    }
+    if (!r) {
+      const t = Object.entries(p).map(
+        ([f, l]) => `adapter ${f} ` + (l === !1 ? "is not supported by the environment" : "is not available in the build")
+      );
+      let i = n ? t.length > 1 ? `since :
+` + t.map(c).join(`
+`) : " " + c(t[0]) : "as no adapter specified";
+      throw new d(
+        "There is no suitable adapter to dispatch the request " + i,
+        "ERR_NOT_SUPPORT"
+      );
+    }
+    return r;
+  },
+  adapters: s
+};
 export {
-  A as __require
+  y as default
 };
 //# sourceMappingURL=index.es86.js.map

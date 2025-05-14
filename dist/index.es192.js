@@ -1,19 +1,34 @@
-import { __require as u } from "./index.es191.js";
-var r, s;
-function c() {
-  if (s) return r;
-  s = 1;
-  const i = u();
-  return r = (t, e, a) => {
-    try {
-      e = new i(e, a);
-    } catch {
-      return !1;
-    }
-    return e.test(t);
-  }, r;
+import p from "./index.es81.js";
+function i(n) {
+  const t = {
+    "!": "%21",
+    "'": "%27",
+    "(": "%28",
+    ")": "%29",
+    "~": "%7E",
+    "%20": "+",
+    "%00": "\0"
+  };
+  return encodeURIComponent(n).replace(/[!'()~]|%20|%00/g, function(r) {
+    return t[r];
+  });
 }
+function a(n, t) {
+  this._pairs = [], n && p(n, this, t);
+}
+const c = a.prototype;
+c.append = function(t, o) {
+  this._pairs.push([t, o]);
+};
+c.toString = function(t) {
+  const o = t ? function(r) {
+    return t.call(this, r, i);
+  } : i;
+  return this._pairs.map(function(e) {
+    return o(e[0]) + "=" + o(e[1]);
+  }, "").join("&");
+};
 export {
-  c as __require
+  a as default
 };
 //# sourceMappingURL=index.es192.js.map

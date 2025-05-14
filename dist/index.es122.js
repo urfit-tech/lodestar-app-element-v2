@@ -1,7 +1,9 @@
-function a(o) {
-  console.info("[react-ga]", o);
-}
+const r = {
+  silentJSONParsing: !0,
+  forcedJSONParsing: !0,
+  clarifyTimeoutError: !1
+};
 export {
-  a as default
+  r as default
 };
 //# sourceMappingURL=index.es122.js.map

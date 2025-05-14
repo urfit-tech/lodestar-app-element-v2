@@ -1,9 +1,19 @@
-import { __require as s } from "./index.es137.js";
-var e, r;
-function a() {
-  return r || (r = 1, e = s().satisfies(process.version, ">=16.9.0")), e;
-}
+import { print as i } from "graphql";
+import { AutoCleanedWeakCache as n } from "./index.es206.js";
+import { cacheSizes as o } from "./index.es207.js";
+var t, p = Object.assign(function(e) {
+  var r = t.get(e);
+  return r || (r = i(e), t.set(e, r)), r;
+}, {
+  reset: function() {
+    t = new n(
+      o.print || 2e3
+      /* defaultCacheSizes.print */
+    );
+  }
+});
+p.reset();
 export {
-  a as __require
+  p as print
 };
 //# sourceMappingURL=index.es136.js.map

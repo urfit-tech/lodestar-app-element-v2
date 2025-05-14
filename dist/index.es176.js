@@ -1,12 +1,12 @@
-import { __require as n } from "./index.es165.js";
-var r, m;
-function c() {
-  if (m) return r;
-  m = 1;
-  const e = n();
-  return r = (o, i, a) => new e(o, a).compare(new e(i, a)), r;
+import { __require as c } from "./index.es166.js";
+var n, i;
+function q() {
+  if (i) return n;
+  i = 1;
+  const s = c();
+  return n = (e, r, t) => (e = new s(e, t), r = new s(r, t), e.intersects(r, t)), n;
 }
 export {
-  c as __require
+  q as __require
 };
 //# sourceMappingURL=index.es176.js.map

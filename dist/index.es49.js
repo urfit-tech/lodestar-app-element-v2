@@ -1,416 +1,147 @@
-function I(t, r) {
-  var n = typeof Symbol < "u" && t[Symbol.iterator] || t["@@iterator"];
-  if (n) return (n = n.call(t)).next.bind(n);
-  if (Array.isArray(t) || (n = M(t)) || r) {
-    n && (t = n);
-    var e = 0;
-    return function() {
-      return e >= t.length ? { done: !0 } : { done: !1, value: t[e++] };
-    };
-  }
-  throw new TypeError(`Invalid attempt to iterate non-iterable instance.
-In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
-}
-function M(t, r) {
-  if (t) {
-    if (typeof t == "string") return T(t, r);
-    var n = Object.prototype.toString.call(t).slice(8, -1);
-    if (n === "Object" && t.constructor && (n = t.constructor.name), n === "Map" || n === "Set") return Array.from(t);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return T(t, r);
-  }
-}
-function T(t, r) {
-  (r == null || r > t.length) && (r = t.length);
-  for (var n = 0, e = new Array(r); n < r; n++)
-    e[n] = t[n];
-  return e;
-}
-function A(t, r) {
-  for (var n = 0; n < r.length; n++) {
-    var e = r[n];
-    e.enumerable = e.enumerable || !1, e.configurable = !0, "value" in e && (e.writable = !0), Object.defineProperty(t, e.key, e);
-  }
-}
-function g(t, r, n) {
-  return r && A(t.prototype, r), n && A(t, n), Object.defineProperty(t, "prototype", { writable: !1 }), t;
-}
-var S = function() {
-  return typeof Symbol == "function";
-}, E = function(t) {
-  return S() && !!Symbol[t];
-}, x = function(t) {
-  return E(t) ? Symbol[t] : "@@" + t;
-};
-S() && !E("observable") && (Symbol.observable = Symbol("observable"));
-var P = x("iterator"), v = x("observable"), q = x("species");
-function m(t, r) {
-  var n = t[r];
-  if (n != null) {
-    if (typeof n != "function") throw new TypeError(n + " is not a function");
-    return n;
-  }
-}
-function d(t) {
-  var r = t.constructor;
-  return r !== void 0 && (r = r[q], r === null && (r = void 0)), r !== void 0 ? r : O;
-}
-function k(t) {
-  return t instanceof O;
-}
-function y(t) {
-  y.log ? y.log(t) : setTimeout(function() {
-    throw t;
-  });
-}
-function b(t) {
-  Promise.resolve().then(function() {
+import { __require as L } from "./index.es51.js";
+import { __require as $ } from "./index.es52.js";
+import { __require as J } from "./index.es53.js";
+import { __require as N } from "./index.es48.js";
+import { __require as V } from "./index.es59.js";
+import { __require as W } from "./index.es60.js";
+import { __require as Y } from "./index.es61.js";
+import { __require as U } from "./index.es58.js";
+import C from "./index.es62.js";
+var p, q;
+function re() {
+  if (q) return p;
+  q = 1;
+  const n = L(), A = $(), v = J(), T = N(), b = V(), j = W(), k = Y(), E = U(), { KeyObject: R, createSecretKey: D, createPublicKey: B } = C, d = ["RS256", "RS384", "RS512"], H = ["ES256", "ES384", "ES512"], l = ["RS256", "RS384", "RS512"], G = ["HS256", "HS384", "HS512"];
+  return k && (d.splice(d.length, 0, "PS256", "PS384", "PS512"), l.splice(l.length, 0, "PS256", "PS384", "PS512")), p = function(m, o, e, c) {
+    typeof e == "function" && !c && (c = e, e = {}), e || (e = {}), e = Object.assign({}, e);
+    let r;
+    if (c ? r = c : r = function(u, t) {
+      if (u) throw u;
+      return t;
+    }, e.clockTimestamp && typeof e.clockTimestamp != "number")
+      return r(new n("clockTimestamp must be a number"));
+    if (e.nonce !== void 0 && (typeof e.nonce != "string" || e.nonce.trim() === ""))
+      return r(new n("nonce must be a non-empty string"));
+    if (e.allowInvalidAsymmetricKeyTypes !== void 0 && typeof e.allowInvalidAsymmetricKeyTypes != "boolean")
+      return r(new n("allowInvalidAsymmetricKeyTypes must be a boolean"));
+    const y = e.clockTimestamp || Math.floor(Date.now() / 1e3);
+    if (!m)
+      return r(new n("jwt must be provided"));
+    if (typeof m != "string")
+      return r(new n("jwt must be a string"));
+    const S = m.split(".");
+    if (S.length !== 3)
+      return r(new n("jwt malformed"));
+    let f;
     try {
-      t();
-    } catch (r) {
-      y(r);
+      f = T(m, { complete: !0 });
+    } catch (u) {
+      return r(u);
     }
-  });
-}
-function j(t) {
-  var r = t._cleanup;
-  if (r !== void 0 && (t._cleanup = void 0, !!r))
-    try {
-      if (typeof r == "function")
-        r();
-      else {
-        var n = m(r, "unsubscribe");
-        n && n.call(r);
-      }
-    } catch (e) {
-      y(e);
-    }
-}
-function _(t) {
-  t._observer = void 0, t._queue = void 0, t._state = "closed";
-}
-function z(t) {
-  var r = t._queue;
-  if (r) {
-    t._queue = void 0, t._state = "ready";
-    for (var n = 0; n < r.length && (C(t, r[n].type, r[n].value), t._state !== "closed"); ++n)
-      ;
-  }
-}
-function C(t, r, n) {
-  t._state = "running";
-  var e = t._observer;
-  try {
-    var u = m(e, r);
-    switch (r) {
-      case "next":
-        u && u.call(e, n);
-        break;
-      case "error":
-        if (_(t), u) u.call(e, n);
-        else throw n;
-        break;
-      case "complete":
-        _(t), u && u.call(e);
-        break;
-    }
-  } catch (f) {
-    y(f);
-  }
-  t._state === "closed" ? j(t) : t._state === "running" && (t._state = "ready");
-}
-function w(t, r, n) {
-  if (t._state !== "closed") {
-    if (t._state === "buffering") {
-      t._queue.push({
-        type: r,
-        value: n
-      });
-      return;
-    }
-    if (t._state !== "ready") {
-      t._state = "buffering", t._queue = [{
-        type: r,
-        value: n
-      }], b(function() {
-        return z(t);
-      });
-      return;
-    }
-    C(t, r, n);
-  }
-}
-var N = /* @__PURE__ */ function() {
-  function t(n, e) {
-    this._cleanup = void 0, this._observer = n, this._queue = void 0, this._state = "initializing";
-    var u = new R(this);
-    try {
-      this._cleanup = e.call(void 0, u);
-    } catch (f) {
-      u.error(f);
-    }
-    this._state === "initializing" && (this._state = "ready");
-  }
-  var r = t.prototype;
-  return r.unsubscribe = function() {
-    this._state !== "closed" && (_(this), j(this));
-  }, g(t, [{
-    key: "closed",
-    get: function() {
-      return this._state === "closed";
-    }
-  }]), t;
-}(), R = /* @__PURE__ */ function() {
-  function t(n) {
-    this._subscription = n;
-  }
-  var r = t.prototype;
-  return r.next = function(e) {
-    w(this._subscription, "next", e);
-  }, r.error = function(e) {
-    w(this._subscription, "error", e);
-  }, r.complete = function() {
-    w(this._subscription, "complete");
-  }, g(t, [{
-    key: "closed",
-    get: function() {
-      return this._subscription._state === "closed";
-    }
-  }]), t;
-}(), O = /* @__PURE__ */ function() {
-  function t(n) {
-    if (!(this instanceof t)) throw new TypeError("Observable cannot be called as a function");
-    if (typeof n != "function") throw new TypeError("Observable initializer must be a function");
-    this._subscriber = n;
-  }
-  var r = t.prototype;
-  return r.subscribe = function(e) {
-    return (typeof e != "object" || e === null) && (e = {
-      next: e,
-      error: arguments[1],
-      complete: arguments[2]
-    }), new N(e, this._subscriber);
-  }, r.forEach = function(e) {
-    var u = this;
-    return new Promise(function(f, o) {
-      if (typeof e != "function") {
-        o(new TypeError(e + " is not a function"));
-        return;
-      }
-      function i() {
-        c.unsubscribe(), f();
-      }
-      var c = u.subscribe({
-        next: function(s) {
-          try {
-            e(s, i);
-          } catch (a) {
-            o(a), c.unsubscribe();
-          }
-        },
-        error: o,
-        complete: f
-      });
-    });
-  }, r.map = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this);
-    return new f(function(o) {
-      return u.subscribe({
-        next: function(i) {
-          try {
-            i = e(i);
-          } catch (c) {
-            return o.error(c);
-          }
-          o.next(i);
-        },
-        error: function(i) {
-          o.error(i);
-        },
-        complete: function() {
-          o.complete();
-        }
-      });
-    });
-  }, r.filter = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this);
-    return new f(function(o) {
-      return u.subscribe({
-        next: function(i) {
-          try {
-            if (!e(i)) return;
-          } catch (c) {
-            return o.error(c);
-          }
-          o.next(i);
-        },
-        error: function(i) {
-          o.error(i);
-        },
-        complete: function() {
-          o.complete();
-        }
-      });
-    });
-  }, r.reduce = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this), o = arguments.length > 1, i = !1, c = arguments[1], s = c;
-    return new f(function(a) {
-      return u.subscribe({
-        next: function(h) {
-          var l = !i;
-          if (i = !0, !l || o)
-            try {
-              s = e(s, h);
-            } catch (p) {
-              return a.error(p);
-            }
-          else
-            s = h;
-        },
-        error: function(h) {
-          a.error(h);
-        },
-        complete: function() {
-          if (!i && !o) return a.error(new TypeError("Cannot reduce an empty sequence"));
-          a.next(s), a.complete();
-        }
-      });
-    });
-  }, r.concat = function() {
-    for (var e = this, u = arguments.length, f = new Array(u), o = 0; o < u; o++)
-      f[o] = arguments[o];
-    var i = d(this);
-    return new i(function(c) {
-      var s, a = 0;
-      function h(l) {
-        s = l.subscribe({
-          next: function(p) {
-            c.next(p);
-          },
-          error: function(p) {
-            c.error(p);
-          },
-          complete: function() {
-            a === f.length ? (s = void 0, c.complete()) : h(i.from(f[a++]));
-          }
-        });
-      }
-      return h(e), function() {
-        s && (s.unsubscribe(), s = void 0);
+    if (!f)
+      return r(new n("invalid token"));
+    const s = f.header;
+    let w;
+    if (typeof o == "function") {
+      if (!c)
+        return r(new n("verify must be called asynchronous if secret or public key is provided as a callback"));
+      w = o;
+    } else
+      w = function(u, t) {
+        return t(null, o);
       };
-    });
-  }, r.flatMap = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this);
-    return new f(function(o) {
-      var i = [], c = u.subscribe({
-        next: function(a) {
-          if (e)
-            try {
-              a = e(a);
-            } catch (l) {
-              return o.error(l);
-            }
-          var h = f.from(a).subscribe({
-            next: function(l) {
-              o.next(l);
-            },
-            error: function(l) {
-              o.error(l);
-            },
-            complete: function() {
-              var l = i.indexOf(h);
-              l >= 0 && i.splice(l, 1), s();
-            }
+    return w(s, function(u, t) {
+      if (u)
+        return r(new n("error in secret or public key callback: " + u.message));
+      const g = S[2].trim() !== "";
+      if (!g && t)
+        return r(new n("jwt signature is required"));
+      if (g && !t)
+        return r(new n("secret or public key must be provided"));
+      if (!g && !e.algorithms)
+        return r(new n('please specify "none" in "algorithms" to verify unsigned tokens'));
+      if (t != null && !(t instanceof R))
+        try {
+          t = B(t);
+        } catch {
+          try {
+            t = D(typeof t == "string" ? Buffer.from(t) : t);
+          } catch {
+            return r(new n("secretOrPublicKey is not valid key material"));
+          }
+        }
+      if (e.algorithms || (t.type === "secret" ? e.algorithms = G : ["rsa", "rsa-pss"].includes(t.asymmetricKeyType) ? e.algorithms = l : t.asymmetricKeyType === "ec" ? e.algorithms = H : e.algorithms = d), e.algorithms.indexOf(f.header.alg) === -1)
+        return r(new n("invalid algorithm"));
+      if (s.alg.startsWith("HS") && t.type !== "secret")
+        return r(new n(`secretOrPublicKey must be a symmetric key when using ${s.alg}`));
+      if (/^(?:RS|PS|ES)/.test(s.alg) && t.type !== "public")
+        return r(new n(`secretOrPublicKey must be an asymmetric key when using ${s.alg}`));
+      if (!e.allowInvalidAsymmetricKeyTypes)
+        try {
+          j(s.alg, t);
+        } catch (a) {
+          return r(a);
+        }
+      let _;
+      try {
+        _ = E.verify(m, f.header.alg, t);
+      } catch (a) {
+        return r(a);
+      }
+      if (!_)
+        return r(new n("invalid signature"));
+      const i = f.payload;
+      if (typeof i.nbf < "u" && !e.ignoreNotBefore) {
+        if (typeof i.nbf != "number")
+          return r(new n("invalid nbf value"));
+        if (i.nbf > y + (e.clockTolerance || 0))
+          return r(new A("jwt not active", new Date(i.nbf * 1e3)));
+      }
+      if (typeof i.exp < "u" && !e.ignoreExpiration) {
+        if (typeof i.exp != "number")
+          return r(new n("invalid exp value"));
+        if (y >= i.exp + (e.clockTolerance || 0))
+          return r(new v("jwt expired", new Date(i.exp * 1e3)));
+      }
+      if (e.audience) {
+        const a = Array.isArray(e.audience) ? e.audience : [e.audience];
+        if (!(Array.isArray(i.aud) ? i.aud : [i.aud]).some(function(x) {
+          return a.some(function(h) {
+            return h instanceof RegExp ? h.test(x) : h === x;
           });
-          i.push(h);
-        },
-        error: function(a) {
-          o.error(a);
-        },
-        complete: function() {
-          s();
-        }
-      });
-      function s() {
-        c.closed && i.length === 0 && o.complete();
+        }))
+          return r(new n("jwt audience invalid. expected: " + a.join(" or ")));
       }
-      return function() {
-        i.forEach(function(a) {
-          return a.unsubscribe();
-        }), c.unsubscribe();
-      };
-    });
-  }, r[v] = function() {
-    return this;
-  }, t.from = function(e) {
-    var u = typeof this == "function" ? this : t;
-    if (e == null) throw new TypeError(e + " is not an object");
-    var f = m(e, v);
-    if (f) {
-      var o = f.call(e);
-      if (Object(o) !== o) throw new TypeError(o + " is not an object");
-      return k(o) && o.constructor === u ? o : new u(function(i) {
-        return o.subscribe(i);
-      });
-    }
-    if (E("iterator") && (f = m(e, P), f))
-      return new u(function(i) {
-        b(function() {
-          if (!i.closed) {
-            for (var c = I(f.call(e)), s; !(s = c()).done; ) {
-              var a = s.value;
-              if (i.next(a), i.closed) return;
-            }
-            i.complete();
-          }
+      if (e.issuer && (typeof e.issuer == "string" && i.iss !== e.issuer || Array.isArray(e.issuer) && e.issuer.indexOf(i.iss) === -1))
+        return r(new n("jwt issuer invalid. expected: " + e.issuer));
+      if (e.subject && i.sub !== e.subject)
+        return r(new n("jwt subject invalid. expected: " + e.subject));
+      if (e.jwtid && i.jti !== e.jwtid)
+        return r(new n("jwt jwtid invalid. expected: " + e.jwtid));
+      if (e.nonce && i.nonce !== e.nonce)
+        return r(new n("jwt nonce invalid. expected: " + e.nonce));
+      if (e.maxAge) {
+        if (typeof i.iat != "number")
+          return r(new n("iat required when maxAge is specified"));
+        const a = b(e.maxAge, i.iat);
+        if (typeof a > "u")
+          return r(new n('"maxAge" should be a number of seconds or string representing a timespan eg: "1d", "20h", 60'));
+        if (y >= a + (e.clockTolerance || 0))
+          return r(new v("maxAge exceeded", new Date(a * 1e3)));
+      }
+      if (e.complete === !0) {
+        const a = f.signature;
+        return r(null, {
+          header: s,
+          payload: i,
+          signature: a
         });
-      });
-    if (Array.isArray(e))
-      return new u(function(i) {
-        b(function() {
-          if (!i.closed) {
-            for (var c = 0; c < e.length; ++c)
-              if (i.next(e[c]), i.closed) return;
-            i.complete();
-          }
-        });
-      });
-    throw new TypeError(e + " is not observable");
-  }, t.of = function() {
-    for (var e = arguments.length, u = new Array(e), f = 0; f < e; f++)
-      u[f] = arguments[f];
-    var o = typeof this == "function" ? this : t;
-    return new o(function(i) {
-      b(function() {
-        if (!i.closed) {
-          for (var c = 0; c < u.length; ++c)
-            if (i.next(u[c]), i.closed) return;
-          i.complete();
-        }
-      });
+      }
+      return r(null, i);
     });
-  }, g(t, null, [{
-    key: q,
-    get: function() {
-      return this;
-    }
-  }]), t;
-}();
-S() && Object.defineProperty(O, Symbol("extensions"), {
-  value: {
-    symbol: v,
-    hostReportError: y
-  },
-  configurable: !0
-});
+  }, p;
+}
 export {
-  O as Observable
+  re as __require
 };
 //# sourceMappingURL=index.es49.js.map

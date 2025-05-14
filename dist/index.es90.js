@@ -1,17 +1,10 @@
-var r, e;
-function b() {
-  if (e) return r;
-  e = 1;
-  var t = "[object Boolean]", n = Object.prototype, i = n.toString;
-  function a(o) {
-    return o === !0 || o === !1 || s(o) && i.call(o) == t;
-  }
-  function s(o) {
-    return !!o && typeof o == "object";
-  }
-  return r = a, r;
+import n from "./index.es115.js";
+import m from "./index.es116.js";
+function g() {
+  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
+  return r && (e = m(t)), a && (e = n(e)), e;
 }
 export {
-  b as __require
+  g as default
 };
 //# sourceMappingURL=index.es90.js.map

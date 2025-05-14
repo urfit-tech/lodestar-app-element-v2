@@ -1,9 +1,20 @@
-import o from "./index.es149.js";
-const n = o.hasStandardBrowserEnv ? /* @__PURE__ */ ((r, e) => (t) => (t = new URL(t, o.origin), r.protocol === t.protocol && r.host === t.host && (e || r.port === t.port)))(
-  new URL(o.origin),
-  o.navigator && /(msie|trident)/i.test(o.navigator.userAgent)
-) : () => !0;
+function s(o) {
+  var b, e = o.Symbol;
+  if (typeof e == "function")
+    if (e.observable)
+      b = e.observable;
+    else {
+      typeof e.for == "function" ? b = e.for("https://github.com/benlesh/symbol-observable") : b = e("https://github.com/benlesh/symbol-observable");
+      try {
+        e.observable = b;
+      } catch {
+      }
+    }
+  else
+    b = "@@observable";
+  return b;
+}
 export {
-  n as default
+  s as default
 };
 //# sourceMappingURL=index.es240.js.map

@@ -1,11 +1,5 @@
-var r, t;
-function i() {
-  if (t) return r;
-  t = 1;
-  const s = Object.freeze({ loose: !0 }), n = Object.freeze({});
-  return r = (e) => e ? typeof e != "object" ? s : e : n, r;
-}
+var e = {};
 export {
-  i as __require
+  e as __exports
 };
 //# sourceMappingURL=index.es226.js.map

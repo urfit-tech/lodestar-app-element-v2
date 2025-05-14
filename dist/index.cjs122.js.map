@@ -1,1 +1,0 @@
-{"version":3,"file":"index.cjs122.js","sources":["../node_modules/react-ga/dist/esm/utils/console/log.js"],"sourcesContent":["export default function log(s) {\n  console.info('[react-ga]', s);\n}"],"names":["log","s"],"mappings":"4GAAe,SAASA,EAAIC,EAAG,CAC7B,QAAQ,KAAK,aAAcA,CAAC,CAC9B","x_google_ignoreList":[0]}

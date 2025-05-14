@@ -1,15 +1,9 @@
-import a from "./index.es110.js";
-function E(i, f, t) {
-  const u = t.config.validateStatus;
-  !t.status || !u || u(t.status) ? i(t) : f(new a(
-    "Request failed with status code " + t.status,
-    [a.ERR_BAD_REQUEST, a.ERR_BAD_RESPONSE][Math.floor(t.status / 100) - 4],
-    t.config,
-    t.request,
-    t
-  ));
+var e, r;
+function u() {
+  return r || (r = 1, e = typeof process == "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...s) => console.error("SEMVER", ...s) : () => {
+  }), e;
 }
 export {
-  E as default
+  u as __require
 };
 //# sourceMappingURL=index.es215.js.map

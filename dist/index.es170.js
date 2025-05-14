@@ -1,22 +1,23 @@
-import { __require as _ } from "./index.es165.js";
-var c, a;
-function s() {
-  if (a) return c;
-  a = 1;
-  const u = _();
-  return c = (e, q, r, n, t) => {
-    typeof r == "string" && (t = n, n = r, r = void 0);
+import { __require as o } from "./index.es140.js";
+import { __require as c } from "./index.es166.js";
+var i, u;
+function _() {
+  if (u) return i;
+  u = 1;
+  const f = o(), m = c();
+  return i = (s, l, n) => {
+    let r = null, t = null, a = null;
     try {
-      return new u(
-        e instanceof u ? e.version : e,
-        r
-      ).inc(q, n, t).version;
+      a = new m(l, n);
     } catch {
       return null;
     }
-  }, c;
+    return s.forEach((e) => {
+      a.test(e) && (!r || t.compare(e) === 1) && (r = e, t = new f(r, n));
+    }), r;
+  }, i;
 }
 export {
-  s as __require
+  _ as __require
 };
 //# sourceMappingURL=index.es170.js.map

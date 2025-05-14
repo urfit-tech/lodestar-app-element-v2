@@ -1,2 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});var E,e;function s(){if(e)return E;e=1;const t="2.0.0",r=256,n=Number.MAX_SAFE_INTEGER||9007199254740991,_=16,o=r-6;return E={MAX_LENGTH:r,MAX_SAFE_COMPONENT_LENGTH:_,MAX_SAFE_BUILD_LENGTH:o,MAX_SAFE_INTEGER:n,RELEASE_TYPES:["major","premajor","minor","preminor","patch","prepatch","prerelease"],SEMVER_SPEC_VERSION:t,FLAG_INCLUDE_PRERELEASE:1,FLAG_LOOSE:2},E}exports.__require=s;
-//# sourceMappingURL=index.cjs164.js.map

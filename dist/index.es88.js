@@ -1,7 +1,8 @@
-import * as e from "./index.es141.js";
-import { getAugmentedNamespace as r } from "./index.es62.js";
-const o = /* @__PURE__ */ r(e);
+import { getDefaultExportFromCjs as r } from "./index.es70.js";
+import { __require as o } from "./index.es110.js";
+var p = /* @__PURE__ */ o();
+const s = /* @__PURE__ */ r(p);
 export {
-  o as default
+  s as default
 };
 //# sourceMappingURL=index.es88.js.map

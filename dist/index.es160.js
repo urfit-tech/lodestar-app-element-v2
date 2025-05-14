@@ -1,11 +1,12 @@
+import { __require as u } from "./index.es151.js";
 var e, r;
-function _() {
+function s() {
   if (r) return e;
   r = 1;
-  var t = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-  return e = t, e;
+  const q = u();
+  return e = (n, i, o) => q(n, i, o) !== 0, e;
 }
 export {
-  _ as __require
+  s as __require
 };
 //# sourceMappingURL=index.es160.js.map

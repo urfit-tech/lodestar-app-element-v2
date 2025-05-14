@@ -1,5 +1,12 @@
-const t = null;
+import { __require as n } from "./index.es140.js";
+var r, m;
+function c() {
+  if (m) return r;
+  m = 1;
+  const e = n();
+  return r = (o, i, a) => new e(o, a).compare(new e(i, a)), r;
+}
 export {
-  t as default
+  c as __require
 };
 //# sourceMappingURL=index.es151.js.map

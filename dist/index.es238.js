@@ -1,20 +1,14 @@
-function y(t, n) {
-  t = t || 10;
-  const c = new Array(t), o = new Array(t);
-  let e = 0, r = 0, i;
-  return n = n !== void 0 ? n : 1e3, function(h) {
-    const d = Date.now(), a = o[r];
-    i || (i = d), c[e] = h, o[e] = d;
-    let f = r, u = 0;
-    for (; f !== e; )
-      u += c[f++], f = f % t;
-    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
-      return;
-    const w = a && d - a;
-    return w ? Math.round(u * 1e3 / w) : void 0;
+import { getOperationName as a } from "./index.es29.js";
+function t(r) {
+  var e = {
+    variables: r.variables || {},
+    extensions: r.extensions || {},
+    operationName: r.operationName,
+    query: r.query
   };
+  return e.operationName || (e.operationName = typeof e.query != "string" ? a(e.query) || void 0 : ""), e;
 }
 export {
-  y as default
+  t as transformOperation
 };
 //# sourceMappingURL=index.es238.js.map

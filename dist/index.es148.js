@@ -1,14 +1,12 @@
-import e from "./index.es99.js";
-import n from "./index.es109.js";
-import r from "./index.es149.js";
-function c(o, i) {
-  return n(o, new r.classes.URLSearchParams(), Object.assign({
-    visitor: function(t, s, f, a) {
-      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
-    }
-  }, i));
+import { __require as m } from "./index.es140.js";
+var r, e;
+function a() {
+  if (e) return r;
+  e = 1;
+  const i = m();
+  return r = (n, o) => new i(n, o).minor, r;
 }
 export {
-  c as default
+  a as __require
 };
 //# sourceMappingURL=index.es148.js.map

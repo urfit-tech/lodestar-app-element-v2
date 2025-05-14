@@ -1,10 +1,22 @@
-import r from "./index.es211.js";
-import f from "./index.es212.js";
-function u(l, i, t) {
-  let o = !r(i);
-  return l && (o || t == !1) ? f(l, i) : i;
+import { __require as _ } from "./index.es140.js";
+var c, a;
+function s() {
+  if (a) return c;
+  a = 1;
+  const u = _();
+  return c = (e, q, r, n, t) => {
+    typeof r == "string" && (t = n, n = r, r = void 0);
+    try {
+      return new u(
+        e instanceof u ? e.version : e,
+        r
+      ).inc(q, n, t).version;
+    } catch {
+      return null;
+    }
+  }, c;
 }
 export {
-  u as default
+  s as __require
 };
 //# sourceMappingURL=index.es145.js.map

@@ -1,54 +1,53 @@
-import a from "./index.es99.js";
-import h from "./index.es151.js";
-import m from "./index.es152.js";
-import u from "./index.es153.js";
-import d from "./index.es110.js";
-const s = {
-  http: h,
-  xhr: m,
-  fetch: u
-};
-a.forEach(s, (e, n) => {
-  if (e) {
-    try {
-      Object.defineProperty(e, "name", { value: n });
-    } catch {
-    }
-    Object.defineProperty(e, "adapterName", { value: n });
+import { __require as u } from "./index.es188.js";
+var o, p;
+function g() {
+  if (p) return o;
+  p = 1;
+  var c = /* @__PURE__ */ u();
+  function n() {
   }
-});
-const c = (e) => `- ${e}`, b = (e) => a.isFunction(e) || e === null || e === !1, y = {
-  getAdapter: (e) => {
-    e = a.isArray(e) ? e : [e];
-    const { length: n } = e;
-    let o, r;
-    const p = {};
-    for (let t = 0; t < n; t++) {
-      o = e[t];
-      let i;
-      if (r = o, !b(o) && (r = s[(i = String(o)).toLowerCase()], r === void 0))
-        throw new d(`Unknown adapter '${i}'`);
-      if (r)
-        break;
-      p[i || "#" + t] = r;
+  function i() {
+  }
+  return i.resetWarningCache = n, o = function() {
+    function e(h, y, m, f, l, s) {
+      if (s !== c) {
+        var a = new Error(
+          "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types"
+        );
+        throw a.name = "Invariant Violation", a;
+      }
     }
-    if (!r) {
-      const t = Object.entries(p).map(
-        ([f, l]) => `adapter ${f} ` + (l === !1 ? "is not supported by the environment" : "is not available in the build")
-      );
-      let i = n ? t.length > 1 ? `since :
-` + t.map(c).join(`
-`) : " " + c(t[0]) : "as no adapter specified";
-      throw new d(
-        "There is no suitable adapter to dispatch the request " + i,
-        "ERR_NOT_SUPPORT"
-      );
+    e.isRequired = e;
+    function r() {
+      return e;
     }
-    return r;
-  },
-  adapters: s
-};
+    var t = {
+      array: e,
+      bigint: e,
+      bool: e,
+      func: e,
+      number: e,
+      object: e,
+      string: e,
+      symbol: e,
+      any: e,
+      arrayOf: r,
+      element: e,
+      elementType: e,
+      instanceOf: r,
+      node: e,
+      objectOf: r,
+      oneOf: r,
+      oneOfType: r,
+      shape: r,
+      exact: r,
+      checkPropTypes: i,
+      resetWarningCache: n
+    };
+    return t.PropTypes = t, t;
+  }, o;
+}
 export {
-  y as default
+  g as __require
 };
 //# sourceMappingURL=index.es114.js.map

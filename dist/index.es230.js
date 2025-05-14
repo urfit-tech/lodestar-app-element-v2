@@ -1,28 +1,20 @@
-import { __require as l } from "./index.es229.js";
-var a, i;
-function B() {
-  if (i) return a;
-  i = 1;
-  var r = l().Buffer, o = l().SlowBuffer;
-  a = t;
-  function t(e, u) {
-    if (!r.isBuffer(e) || !r.isBuffer(u) || e.length !== u.length)
-      return !1;
-    for (var n = 0, f = 0; f < e.length; f++)
-      n |= e[f] ^ u[f];
-    return n === 0;
-  }
-  t.install = function() {
-    r.prototype.equal = o.prototype.equal = function(u) {
-      return t(this, u);
-    };
+function y(t, n) {
+  t = t || 10;
+  const c = new Array(t), o = new Array(t);
+  let e = 0, r = 0, i;
+  return n = n !== void 0 ? n : 1e3, function(h) {
+    const d = Date.now(), a = o[r];
+    i || (i = d), c[e] = h, o[e] = d;
+    let f = r, u = 0;
+    for (; f !== e; )
+      u += c[f++], f = f % t;
+    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
+      return;
+    const w = a && d - a;
+    return w ? Math.round(u * 1e3 / w) : void 0;
   };
-  var q = r.prototype.equal, p = o.prototype.equal;
-  return t.restore = function() {
-    r.prototype.equal = q, o.prototype.equal = p;
-  }, a;
 }
 export {
-  B as __require
+  y as default
 };
 //# sourceMappingURL=index.es230.js.map

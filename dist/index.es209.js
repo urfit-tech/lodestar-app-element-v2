@@ -1,34 +1,9 @@
-import p from "./index.es109.js";
-function i(n) {
-  const t = {
-    "!": "%21",
-    "'": "%27",
-    "(": "%28",
-    ")": "%29",
-    "~": "%7E",
-    "%20": "+",
-    "%00": "\0"
-  };
-  return encodeURIComponent(n).replace(/[!'()~]|%20|%00/g, function(r) {
-    return t[r];
-  });
+var a = /* @__PURE__ */ new Map();
+function c(t) {
+  var n = a.get(t) || 1;
+  return a.set(t, n + 1), "".concat(t, ":").concat(n, ":").concat(Math.random().toString(36).slice(2));
 }
-function a(n, t) {
-  this._pairs = [], n && p(n, this, t);
-}
-const c = a.prototype;
-c.append = function(t, o) {
-  this._pairs.push([t, o]);
-};
-c.toString = function(t) {
-  const o = t ? function(r) {
-    return t.call(this, r, i);
-  } : i;
-  return this._pairs.map(function(e) {
-    return o(e[0]) + "=" + o(e[1]);
-  }, "").join("&");
-};
 export {
-  a as default
+  c as makeUniqueId
 };
 //# sourceMappingURL=index.es209.js.map

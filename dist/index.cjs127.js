@@ -1,2 +1,0 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});function b(o){var l,e=o.Symbol;if(typeof e=="function")if(e.observable)l=e.observable;else{typeof e.for=="function"?l=e.for("https://github.com/benlesh/symbol-observable"):l=e("https://github.com/benlesh/symbol-observable");try{e.observable=l}catch{}}else l="@@observable";return l}exports.default=b;
-//# sourceMappingURL=index.cjs127.js.map

@@ -1,31 +1,15 @@
-import n from "./index.es99.js";
-const a = n.toObjectSet([
-  "age",
-  "authorization",
-  "content-length",
-  "content-type",
-  "etag",
-  "expires",
-  "from",
-  "host",
-  "if-modified-since",
-  "if-unmodified-since",
-  "last-modified",
-  "location",
-  "max-forwards",
-  "proxy-authorization",
-  "referer",
-  "retry-after",
-  "user-agent"
-]), u = (s) => {
-  const t = {};
-  let e, r, i;
-  return s && s.split(`
-`).forEach(function(o) {
-    i = o.indexOf(":"), e = o.substring(0, i).trim().toLowerCase(), r = o.substring(i + 1).trim(), !(!e || t[e] && a[e]) && (e === "set-cookie" ? t[e] ? t[e].push(r) : t[e] = [r] : t[e] = t[e] ? t[e] + ", " + r : r);
-  }), t;
-};
+import { __require as t } from "./index.es142.js";
+var r, s;
+function i() {
+  if (s) return r;
+  s = 1;
+  const a = t();
+  return r = (l, n) => {
+    const e = a(l, n);
+    return e && e.prerelease.length ? e.prerelease : null;
+  }, r;
+}
 export {
-  u as default
+  i as __require
 };
 //# sourceMappingURL=index.es150.js.map

@@ -1,2 +1,0 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=require("./index.cjs126.js"),t=e.maybe(function(){return globalThis})||e.maybe(function(){return window})||e.maybe(function(){return self})||e.maybe(function(){return global})||e.maybe(function(){return e.maybe.constructor("return this")()});exports.default=t;
-//# sourceMappingURL=index.cjs73.js.map

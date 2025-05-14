@@ -1,5 +1,7 @@
-var p = { exports: {} };
+function l(e) {
+  return e != null && typeof e == "object" && e["@@functional/placeholder"] === !0;
+}
 export {
-  p as __module
+  l as default
 };
 //# sourceMappingURL=index.es130.js.map

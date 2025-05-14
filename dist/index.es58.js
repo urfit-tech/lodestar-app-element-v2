@@ -1,41 +1,31 @@
-import m from "./index.es82.js";
-import c from "./index.es56.js";
-import t from "./index.es83.js";
-function _(e) {
-  return function f(u, n, i) {
-    switch (arguments.length) {
-      case 0:
-        return f;
-      case 1:
-        return t(u) ? f : c(function(r, o) {
-          return e(u, r, o);
-        });
-      case 2:
-        return t(u) && t(n) ? f : t(u) ? c(function(r, o) {
-          return e(r, n, o);
-        }) : t(n) ? c(function(r, o) {
-          return e(u, r, o);
-        }) : m(function(r) {
-          return e(u, n, r);
-        });
-      default:
-        return t(u) && t(n) && t(i) ? f : t(u) && t(n) ? c(function(r, o) {
-          return e(r, o, i);
-        }) : t(u) && t(i) ? c(function(r, o) {
-          return e(r, n, o);
-        }) : t(n) && t(i) ? c(function(r, o) {
-          return e(u, r, o);
-        }) : t(u) ? m(function(r) {
-          return e(r, n, i);
-        }) : t(n) ? m(function(r) {
-          return e(u, r, i);
-        }) : t(i) ? m(function(r) {
-          return e(u, n, r);
-        }) : e(u, n, i);
-    }
-  };
+import { __exports as r } from "./index.es106.js";
+import { __require as u } from "./index.es107.js";
+import { __require as f } from "./index.es108.js";
+var t;
+function c() {
+  if (t) return r;
+  t = 1;
+  var S = u(), e = f(), a = [
+    "HS256",
+    "HS384",
+    "HS512",
+    "RS256",
+    "RS384",
+    "RS512",
+    "PS256",
+    "PS384",
+    "PS512",
+    "ES256",
+    "ES384",
+    "ES512"
+  ];
+  return r.ALGORITHMS = a, r.sign = S.sign, r.verify = e.verify, r.decode = e.decode, r.isValid = e.isValid, r.createSign = function(i) {
+    return new S(i);
+  }, r.createVerify = function(i) {
+    return new e(i);
+  }, r;
 }
 export {
-  _ as default
+  c as __require
 };
 //# sourceMappingURL=index.es58.js.map

@@ -1,9 +1,12 @@
-var a = /* @__PURE__ */ new Map();
-function c(t) {
-  var n = a.get(t) || 1;
-  return a.set(t, n + 1), "".concat(t, ":").concat(n, ":").concat(Math.random().toString(36).slice(2));
+import r from "./index.es82.js";
+import i from "./index.es71.js";
+function l(o, t, e) {
+  r.call(this, o ?? "canceled", r.ERR_CANCELED, t, e), this.name = "CanceledError";
 }
+i.inherits(l, r, {
+  __CANCEL__: !0
+});
 export {
-  c as makeUniqueId
+  l as default
 };
 //# sourceMappingURL=index.es77.js.map

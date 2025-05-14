@@ -1,12 +1,8 @@
-import { __require as s } from "./index.es198.js";
-var r, e;
-function q() {
-  if (e) return r;
-  e = 1;
-  const t = s();
-  return r = (i, u, o) => t(i, u, ">", o), r;
+function o(e) {
+  const t = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
+  return t && t[1] || "";
 }
 export {
-  q as __require
+  o as default
 };
 //# sourceMappingURL=index.es199.js.map

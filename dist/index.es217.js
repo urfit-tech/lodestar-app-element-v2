@@ -1,36 +1,33 @@
-import i from "./index.es238.js";
-import m from "./index.es239.js";
-import f from "./index.es99.js";
-const h = (t, o, a = 3) => {
-  let r = 0;
-  const c = i(50, 250);
-  return m((s) => {
-    const n = s.loaded, e = s.lengthComputable ? s.total : void 0, l = n - r, d = c(l), p = n <= e;
-    r = n;
-    const u = {
-      loaded: n,
-      total: e,
-      progress: e ? n / e : void 0,
-      bytes: l,
-      rate: d || void 0,
-      estimated: d && e && p ? (e - n) / d : void 0,
-      event: s,
-      lengthComputable: e != null,
-      [o ? "download" : "upload"]: !0
-    };
-    t(u);
-  }, a);
-}, v = (t, o) => {
-  const a = t != null;
-  return [(r) => o[0]({
-    lengthComputable: a,
-    total: t,
-    loaded: r
-  }), o[1]];
-}, C = (t) => (...o) => f.asap(() => t(...o));
+var s, i;
+function u() {
+  if (i) return s;
+  i = 1;
+  class r {
+    constructor() {
+      this.max = 1e3, this.map = /* @__PURE__ */ new Map();
+    }
+    get(e) {
+      const t = this.map.get(e);
+      if (t !== void 0)
+        return this.map.delete(e), this.map.set(e, t), t;
+    }
+    delete(e) {
+      return this.map.delete(e);
+    }
+    set(e, t) {
+      if (!this.delete(e) && t !== void 0) {
+        if (this.map.size >= this.max) {
+          const a = this.map.keys().next().value;
+          this.delete(a);
+        }
+        this.map.set(e, t);
+      }
+      return this;
+    }
+  }
+  return s = r, s;
+}
 export {
-  C as asyncDecorator,
-  v as progressEventDecorator,
-  h as progressEventReducer
+  u as __require
 };
 //# sourceMappingURL=index.es217.js.map

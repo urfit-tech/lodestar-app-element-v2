@@ -1,13 +1,38 @@
-var o, n;
-function c() {
-  if (n) return o;
-  n = 1;
-  var r = function(e, t) {
-    Error.call(this, e), Error.captureStackTrace && Error.captureStackTrace(this, this.constructor), this.name = "JsonWebTokenError", this.message = e, t && (this.inner = t);
-  };
-  return r.prototype = Object.create(Error.prototype), r.prototype.constructor = r, o = r, o;
+var n, i;
+function y() {
+  if (i) return n;
+  i = 1;
+  var a = "[object Object]";
+  function u(t) {
+    var r = !1;
+    if (t != null && typeof t.toString != "function")
+      try {
+        r = !!(t + "");
+      } catch {
+      }
+    return r;
+  }
+  function f(t, r) {
+    return function(o) {
+      return t(r(o));
+    };
+  }
+  var s = Function.prototype, e = Object.prototype, c = s.toString, b = e.hasOwnProperty, j = c.call(Object), p = e.toString, l = f(Object.getPrototypeOf, Object);
+  function O(t) {
+    return !!t && typeof t == "object";
+  }
+  function g(t) {
+    if (!O(t) || p.call(t) != a || u(t))
+      return !1;
+    var r = l(t);
+    if (r === null)
+      return !0;
+    var o = b.call(r, "constructor") && r.constructor;
+    return typeof o == "function" && o instanceof o && c.call(o) == j;
+  }
+  return n = g, n;
 }
 export {
-  c as __require
+  y as __require
 };
 //# sourceMappingURL=index.es67.js.map

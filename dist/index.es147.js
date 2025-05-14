@@ -1,9 +1,12 @@
-const r = {
-  silentJSONParsing: !0,
-  forcedJSONParsing: !0,
-  clarifyTimeoutError: !1
-};
+import { __require as m } from "./index.es140.js";
+var r, e;
+function t() {
+  if (e) return r;
+  e = 1;
+  const o = m();
+  return r = (a, i) => new o(a, i).major, r;
+}
 export {
-  r as default
+  t as __require
 };
 //# sourceMappingURL=index.es147.js.map

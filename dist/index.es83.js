@@ -1,7 +1,9 @@
-function l(e) {
-  return e != null && typeof e == "object" && e["@@functional/placeholder"] === !0;
+function u(n) {
+  return function(r) {
+    return n.apply(null, r);
+  };
 }
 export {
-  l as default
+  u as default
 };
 //# sourceMappingURL=index.es83.js.map

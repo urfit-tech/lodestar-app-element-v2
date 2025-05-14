@@ -1,5 +1,5 @@
-import { newInvariantError as u, invariant as o } from "./index.es72.js";
-import "./index.es73.js";
+import { newInvariantError as u, invariant as o } from "./index.es204.js";
+import "./index.es205.js";
 function f(t) {
   o(t && t.kind === "Document", 76);
   var n = t.definitions.filter(function(r) {

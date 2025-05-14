@@ -1,22 +1,19 @@
-import { __require as i } from "./index.es165.js";
-var e, a;
-function o() {
-  if (a) return e;
-  a = 1;
-  const t = i();
-  return e = (r, u, n = !1) => {
-    if (r instanceof t)
-      return r;
+import { __require as u } from "./index.es166.js";
+var r, s;
+function c() {
+  if (s) return r;
+  s = 1;
+  const i = u();
+  return r = (t, e, a) => {
     try {
-      return new t(r, u);
-    } catch (s) {
-      if (!n)
-        return null;
-      throw s;
+      e = new i(e, a);
+    } catch {
+      return !1;
     }
-  }, e;
+    return e.test(t);
+  }, r;
 }
 export {
-  o as __require
+  c as __require
 };
 //# sourceMappingURL=index.es167.js.map

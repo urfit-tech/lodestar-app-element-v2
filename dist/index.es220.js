@@ -1,64 +1,28 @@
-const f = function* (e, t) {
-  let n = e.byteLength;
-  if (n < t) {
-    yield e;
-    return;
+import { __require as l } from "./index.es219.js";
+var a, i;
+function B() {
+  if (i) return a;
+  i = 1;
+  var r = l().Buffer, o = l().SlowBuffer;
+  a = t;
+  function t(e, u) {
+    if (!r.isBuffer(e) || !r.isBuffer(u) || e.length !== u.length)
+      return !1;
+    for (var n = 0, f = 0; f < e.length; f++)
+      n |= e[f] ^ u[f];
+    return n === 0;
   }
-  let a = 0, r;
-  for (; a < n; )
-    r = a + t, yield e.slice(a, r), a = r;
-}, w = async function* (e, t) {
-  for await (const n of b(e))
-    yield* f(n, t);
-}, b = async function* (e) {
-  if (e[Symbol.asyncIterator]) {
-    yield* e;
-    return;
-  }
-  const t = e.getReader();
-  try {
-    for (; ; ) {
-      const { done: n, value: a } = await t.read();
-      if (n)
-        break;
-      yield a;
-    }
-  } finally {
-    await t.cancel();
-  }
-}, h = (e, t, n, a) => {
-  const r = w(e, t);
-  let d = 0, o, c = (l) => {
-    o || (o = !0, a && a(l));
+  t.install = function() {
+    r.prototype.equal = o.prototype.equal = function(u) {
+      return t(this, u);
+    };
   };
-  return new ReadableStream({
-    async pull(l) {
-      try {
-        const { done: i, value: y } = await r.next();
-        if (i) {
-          c(), l.close();
-          return;
-        }
-        let s = y.byteLength;
-        if (n) {
-          let u = d += s;
-          n(u);
-        }
-        l.enqueue(new Uint8Array(y));
-      } catch (i) {
-        throw c(i), i;
-      }
-    },
-    cancel(l) {
-      return c(l), r.return();
-    }
-  }, {
-    highWaterMark: 2
-  });
-};
+  var q = r.prototype.equal, p = o.prototype.equal;
+  return t.restore = function() {
+    r.prototype.equal = q, o.prototype.equal = p;
+  }, a;
+}
 export {
-  w as readBytes,
-  f as streamChunk,
-  h as trackStream
+  B as __require
 };
 //# sourceMappingURL=index.es220.js.map

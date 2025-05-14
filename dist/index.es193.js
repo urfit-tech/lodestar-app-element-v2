@@ -1,12 +1,14 @@
-import { __require as m } from "./index.es191.js";
-var r, o;
-function u() {
-  if (o) return r;
-  o = 1;
-  const a = m();
-  return r = (e, t) => new a(e, t).set.map((s) => s.map((i) => i.value).join(" ").trim().split(" ")), r;
+import i from "./index.es71.js";
+import m from "./index.es75.js";
+import s from "./index.es85.js";
+function h(f, t) {
+  const o = this || m, r = t || o, n = s.from(r.headers);
+  let a = r.data;
+  return i.forEach(f, function(e) {
+    a = e.call(o, a, n.normalize(), t ? t.status : void 0);
+  }), n.normalize(), a;
 }
 export {
-  u as __require
+  h as default
 };
 //# sourceMappingURL=index.es193.js.map

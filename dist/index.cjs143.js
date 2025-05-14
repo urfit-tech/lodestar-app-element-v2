@@ -1,2 +1,0 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const l=require("./index.cjs99.js");class n{constructor(){this.handlers=[]}use(r,s,e){return this.handlers.push({fulfilled:r,rejected:s,synchronous:e?e.synchronous:!1,runWhen:e?e.runWhen:null}),this.handlers.length-1}eject(r){this.handlers[r]&&(this.handlers[r]=null)}clear(){this.handlers&&(this.handlers=[])}forEach(r){l.default.forEach(this.handlers,function(e){e!==null&&r(e)})}}exports.default=n;
-//# sourceMappingURL=index.cjs143.js.map

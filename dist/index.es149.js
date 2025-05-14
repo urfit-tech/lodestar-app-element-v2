@@ -1,10 +1,12 @@
-import o from "./index.es213.js";
-import * as t from "./index.es214.js";
-const m = {
-  ...t,
-  ...o
-};
+import { __require as i } from "./index.es140.js";
+var r, e;
+function n() {
+  if (e) return r;
+  e = 1;
+  const t = i();
+  return r = (a, c) => new t(a, c).patch, r;
+}
 export {
-  m as default
+  n as __require
 };
 //# sourceMappingURL=index.es149.js.map

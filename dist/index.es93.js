@@ -1,38 +1,18 @@
-var n, i;
-function y() {
-  if (i) return n;
-  i = 1;
-  var a = "[object Object]";
-  function u(t) {
-    var r = !1;
-    if (t != null && typeof t.toString != "function")
-      try {
-        r = !!(t + "");
-      } catch {
-      }
-    return r;
+var l = !1;
+function u(e) {
+  if (!l) {
+    l = !0;
+    var s = "https://www.google-analytics.com/analytics.js";
+    e && e.gaAddress ? s = e.gaAddress : e && e.debug && (s = "https://www.google-analytics.com/analytics_debug.js");
+    var g = e && e.onerror;
+    (function(a, c, d, o, r, t, n) {
+      a.GoogleAnalyticsObject = r, a[r] = a[r] || function() {
+        (a[r].q = a[r].q || []).push(arguments);
+      }, a[r].l = 1 * /* @__PURE__ */ new Date(), t = c.createElement(d), n = c.getElementsByTagName(d)[0], t.async = 1, t.src = o, t.onerror = g, n.parentNode.insertBefore(t, n);
+    })(window, document, "script", s, "ga");
   }
-  function f(t, r) {
-    return function(o) {
-      return t(r(o));
-    };
-  }
-  var s = Function.prototype, e = Object.prototype, c = s.toString, b = e.hasOwnProperty, j = c.call(Object), p = e.toString, l = f(Object.getPrototypeOf, Object);
-  function O(t) {
-    return !!t && typeof t == "object";
-  }
-  function g(t) {
-    if (!O(t) || p.call(t) != a || u(t))
-      return !1;
-    var r = l(t);
-    if (r === null)
-      return !0;
-    var o = b.call(r, "constructor") && r.constructor;
-    return typeof o == "function" && o instanceof o && c.call(o) == j;
-  }
-  return n = g, n;
 }
 export {
-  y as __require
+  u as default
 };
 //# sourceMappingURL=index.es93.js.map

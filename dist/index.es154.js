@@ -1,10 +1,15 @@
-import a from "./index.es117.js";
-import e from "./index.es221.js";
-var i = "REDACTED (Potential Email Address)";
-function m(r) {
-  return e(r) ? (a("This arg looks like an email address, redacting."), i) : r;
+import { __require as c } from "./index.es140.js";
+var r, n;
+function s() {
+  if (n) return r;
+  n = 1;
+  const e = c();
+  return r = (a, m, i) => {
+    const o = new e(a, i), u = new e(m, i);
+    return o.compare(u) || o.compareBuild(u);
+  }, r;
 }
 export {
-  m as default
+  s as __require
 };
 //# sourceMappingURL=index.es154.js.map

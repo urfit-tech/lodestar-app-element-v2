@@ -1,7 +1,5 @@
-function n(e, c) {
-  return c ? e.replace(/\/?\/$/, "") + "/" + c.replace(/^\/+/, "") : e;
-}
+const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
 export {
-  n as default
+  t as default
 };
 //# sourceMappingURL=index.es212.js.map

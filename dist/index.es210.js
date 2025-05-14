@@ -1,14 +1,11 @@
-import i from "./index.es99.js";
-import m from "./index.es103.js";
-import s from "./index.es113.js";
-function h(f, t) {
-  const o = this || m, r = t || o, n = s.from(r.headers);
-  let a = r.data;
-  return i.forEach(f, function(e) {
-    a = e.call(o, a, n.normalize(), t ? t.status : void 0);
-  }), n.normalize(), a;
+import { makeUniqueId as f } from "./index.es209.js";
+function s(r, t) {
+  var i = f("stringifyForDisplay");
+  return JSON.stringify(r, function(o, n) {
+    return n === void 0 ? i : n;
+  }, t).split(JSON.stringify(i)).join("<undefined>");
 }
 export {
-  h as default
+  s as stringifyForDisplay
 };
 //# sourceMappingURL=index.es210.js.map

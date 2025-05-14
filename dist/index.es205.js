@@ -1,29 +1,22 @@
-import { __require as n } from "./index.es204.js";
-import h from "./index.es88.js";
-import { __require as a } from "./index.es208.js";
-var f, s;
-function c() {
-  if (s) return f;
-  s = 1;
-  var t = n().Buffer, u = h, o = a();
-  function i(e) {
-    if (this.buffer = null, this.writable = !0, this.readable = !0, !e)
-      return this.buffer = t.alloc(0), this;
-    if (typeof e.pipe == "function")
-      return this.buffer = t.alloc(0), e.pipe(this), this;
-    if (e.length || typeof e == "object")
-      return this.buffer = e, this.writable = !1, process.nextTick(function() {
-        this.emit("end", e), this.readable = !1, this.emit("close");
-      }.bind(this)), this;
-    throw new TypeError("Unexpected data type (" + typeof e + ")");
-  }
-  return o.inherits(i, u), i.prototype.write = function(r) {
-    this.buffer = t.concat([this.buffer, t.from(r)]), this.emit("data", r);
-  }, i.prototype.end = function(r) {
-    r && this.write(r), this.emit("end", r), this.emit("close"), this.writable = !1, this.readable = !1;
-  }, f = i, f;
-}
+import { maybe as n } from "./index.es236.js";
+const r = n(function() {
+  return globalThis;
+}) || n(function() {
+  return window;
+}) || n(function() {
+  return self;
+}) || n(function() {
+  return global;
+}) || // We don't expect the Function constructor ever to be invoked at runtime, as
+// long as at least one of globalThis, window, self, or global is defined, so
+// we are under no obligation to make it easy for static analysis tools to
+// detect syntactic usage of the Function constructor. If you think you can
+// improve your static analysis to detect this obfuscation, think again. This
+// is an arms race you cannot win, at least not in JavaScript.
+n(function() {
+  return n.constructor("return this")();
+});
 export {
-  c as __require
+  r as default
 };
 //# sourceMappingURL=index.es205.js.map

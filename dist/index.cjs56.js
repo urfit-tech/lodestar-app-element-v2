@@ -1,2 +1,0 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const c=require("./index.cjs82.js"),u=require("./index.cjs83.js");function d(r){return function l(e,n){switch(arguments.length){case 0:return l;case 1:return u.default(e)?l:c.default(function(t){return r(e,t)});default:return u.default(e)&&u.default(n)?l:u.default(e)?c.default(function(t){return r(t,n)}):u.default(n)?c.default(function(t){return r(e,t)}):r(e,n)}}}exports.default=d;
-//# sourceMappingURL=index.cjs56.js.map

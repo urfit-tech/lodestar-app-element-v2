@@ -1,71 +1,86 @@
-import i from "./index.es99.js";
-import h from "./index.es113.js";
-const c = (s) => s instanceof h ? { ...s } : s;
-function C(s, a) {
-  a = a || {};
-  const u = {};
-  function d(t, e, r, o) {
-    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: o }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
-  }
-  function l(t, e, r, o) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t, r, o);
-    } else return d(t, e, r, o);
-  }
-  function f(t, e) {
-    if (!i.isUndefined(e))
-      return d(void 0, e);
-  }
-  function n(t, e) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t);
-    } else return d(void 0, e);
-  }
-  function m(t, e, r) {
-    if (r in a)
-      return d(t, e);
-    if (r in s)
-      return d(void 0, t);
-  }
-  const g = {
-    url: f,
-    method: f,
-    data: f,
-    baseURL: n,
-    transformRequest: n,
-    transformResponse: n,
-    paramsSerializer: n,
-    timeout: n,
-    timeoutMessage: n,
-    withCredentials: n,
-    withXSRFToken: n,
-    adapter: n,
-    responseType: n,
-    xsrfCookieName: n,
-    xsrfHeaderName: n,
-    onUploadProgress: n,
-    onDownloadProgress: n,
-    decompress: n,
-    maxContentLength: n,
-    maxBodyLength: n,
-    beforeRedirect: n,
-    transport: n,
-    httpAgent: n,
-    httpsAgent: n,
-    cancelToken: n,
-    socketPath: n,
-    responseEncoding: n,
-    validateStatus: m,
-    headers: (t, e, r) => l(c(t), c(e), r, !0)
+var o, d;
+function w() {
+  if (d) return o;
+  d = 1;
+  var n = 1e3, t = n * 60, c = t * 60, a = c * 24, f = a * 7, h = a * 365.25;
+  o = function(e, r) {
+    r = r || {};
+    var s = typeof e;
+    if (s === "string" && e.length > 0)
+      return m(e);
+    if (s === "number" && isFinite(e))
+      return r.long ? l(e) : y(e);
+    throw new Error(
+      "val is not a non-empty string or a valid number. val=" + JSON.stringify(e)
+    );
   };
-  return i.forEach(Object.keys(Object.assign({}, s, a)), function(e) {
-    const r = g[e] || l, o = r(s[e], a[e], e);
-    i.isUndefined(o) && r !== m || (u[e] = o);
-  }), u;
+  function m(e) {
+    if (e = String(e), !(e.length > 100)) {
+      var r = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
+        e
+      );
+      if (r) {
+        var s = parseFloat(r[1]), i = (r[2] || "ms").toLowerCase();
+        switch (i) {
+          case "years":
+          case "year":
+          case "yrs":
+          case "yr":
+          case "y":
+            return s * h;
+          case "weeks":
+          case "week":
+          case "w":
+            return s * f;
+          case "days":
+          case "day":
+          case "d":
+            return s * a;
+          case "hours":
+          case "hour":
+          case "hrs":
+          case "hr":
+          case "h":
+            return s * c;
+          case "minutes":
+          case "minute":
+          case "mins":
+          case "min":
+          case "m":
+            return s * t;
+          case "seconds":
+          case "second":
+          case "secs":
+          case "sec":
+          case "s":
+            return s * n;
+          case "milliseconds":
+          case "millisecond":
+          case "msecs":
+          case "msec":
+          case "ms":
+            return s;
+          default:
+            return;
+        }
+      }
+    }
+  }
+  function y(e) {
+    var r = Math.abs(e);
+    return r >= a ? Math.round(e / a) + "d" : r >= c ? Math.round(e / c) + "h" : r >= t ? Math.round(e / t) + "m" : r >= n ? Math.round(e / n) + "s" : e + "ms";
+  }
+  function l(e) {
+    var r = Math.abs(e);
+    return r >= a ? u(e, r, a, "day") : r >= c ? u(e, r, c, "hour") : r >= t ? u(e, r, t, "minute") : r >= n ? u(e, r, n, "second") : e + " ms";
+  }
+  function u(e, r, s, i) {
+    var v = r >= s * 1.5;
+    return Math.round(e / s) + " " + i + (v ? "s" : "");
+  }
+  return o;
 }
 export {
-  C as default
+  w as __require
 };
 //# sourceMappingURL=index.es102.js.map

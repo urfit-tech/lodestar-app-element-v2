@@ -1,20 +1,41 @@
-import { newInvariantError as a } from "./index.es72.js";
-import "./index.es73.js";
-function f(e) {
-  for (var o = [
-    "query",
-    "operationName",
-    "variables",
-    "extensions",
-    "context"
-  ], r = 0, t = Object.keys(e); r < t.length; r++) {
-    var n = t[r];
-    if (o.indexOf(n) < 0)
-      throw a(43, n);
-  }
-  return e;
+import m from "./index.es129.js";
+import c from "./index.es96.js";
+import t from "./index.es130.js";
+function _(e) {
+  return function f(u, n, i) {
+    switch (arguments.length) {
+      case 0:
+        return f;
+      case 1:
+        return t(u) ? f : c(function(r, o) {
+          return e(u, r, o);
+        });
+      case 2:
+        return t(u) && t(n) ? f : t(u) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : m(function(r) {
+          return e(u, n, r);
+        });
+      default:
+        return t(u) && t(n) && t(i) ? f : t(u) && t(n) ? c(function(r, o) {
+          return e(r, o, i);
+        }) : t(u) && t(i) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) && t(i) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : t(u) ? m(function(r) {
+          return e(r, n, i);
+        }) : t(n) ? m(function(r) {
+          return e(u, r, i);
+        }) : t(i) ? m(function(r) {
+          return e(u, n, r);
+        }) : e(u, n, i);
+    }
+  };
 }
 export {
-  f as validateOperation
+  _ as default
 };
 //# sourceMappingURL=index.es98.js.map

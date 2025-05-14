@@ -1,17 +1,7 @@
-var t, i;
-function g() {
-  if (i) return t;
-  i = 1;
-  var n = "[object String]", o = Object.prototype, e = o.toString, s = Array.isArray;
-  function a(r) {
-    return !!r && typeof r == "object";
-  }
-  function c(r) {
-    return typeof r == "string" || !s(r) && a(r) && e.call(r) == n;
-  }
-  return t = c, t;
+function a(o) {
+  console.info("[react-ga]", o);
 }
 export {
-  g as __require
+  a as default
 };
 //# sourceMappingURL=index.es94.js.map

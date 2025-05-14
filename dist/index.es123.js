@@ -1,17 +1,14 @@
-var t = [];
-const e = {
-  calls: t,
-  ga: function() {
-    for (var s = arguments.length, l = new Array(s), a = 0; a < s; a++)
-      l[a] = arguments[a];
-    t.push([].concat(l));
-  },
-  resetCalls: function() {
-    t.length = 0;
-  }
-};
+import e from "./index.es71.js";
+import n from "./index.es81.js";
+import r from "./index.es124.js";
+function c(o, i) {
+  return n(o, new r.classes.URLSearchParams(), Object.assign({
+    visitor: function(t, s, f, a) {
+      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
+    }
+  }, i));
+}
 export {
-  e as default,
-  t as gaCalls
+  c as default
 };
 //# sourceMappingURL=index.es123.js.map

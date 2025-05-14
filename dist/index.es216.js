@@ -1,8 +1,11 @@
-function o(e) {
-  const t = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
-  return t && t[1] || "";
+var r, t;
+function i() {
+  if (t) return r;
+  t = 1;
+  const s = Object.freeze({ loose: !0 }), n = Object.freeze({});
+  return r = (e) => e ? typeof e != "object" ? s : e : n, r;
 }
 export {
-  o as default
+  i as __require
 };
 //# sourceMappingURL=index.es216.js.map

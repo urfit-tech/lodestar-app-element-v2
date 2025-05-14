@@ -1,16 +1,14 @@
-import o from "./index.es235.js";
-import r from "./index.es236.js";
-import t from "./index.es237.js";
-const l = {
-  isBrowser: !0,
-  classes: {
-    URLSearchParams: o,
-    FormData: r,
-    Blob: t
-  },
-  protocols: ["http", "https", "file", "blob", "url", "data"]
-};
+let t;
+const e = new Uint8Array(16);
+function o() {
+  if (!t) {
+    if (typeof crypto > "u" || !crypto.getRandomValues)
+      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+    t = crypto.getRandomValues.bind(crypto);
+  }
+  return t(e);
+}
 export {
-  l as default
+  o as default
 };
 //# sourceMappingURL=index.es213.js.map

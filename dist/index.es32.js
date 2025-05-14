@@ -1,4 +1,4 @@
-import { __awaiter as k, __assign as ge, __generator as W, __spreadArray as oe } from "./index.es47.js";
+import { __awaiter as k, __assign as ge, __generator as W, __spreadArray as oe } from "./index.es131.js";
 var ce = "3.4.2";
 function I(e, n) {
   return new Promise(function(t) {

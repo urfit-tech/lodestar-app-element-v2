@@ -1,8 +1,12 @@
-var r, e;
-function a() {
-  return e || (e = 1, r = Function.call.bind(Object.prototype.hasOwnProperty)), r;
+import { __require as a } from "./index.es151.js";
+var e, r;
+function s() {
+  if (r) return e;
+  r = 1;
+  const t = a();
+  return e = (i, o, u) => t(i, o, u) >= 0, e;
 }
 export {
-  a as __require
+  s as __require
 };
 //# sourceMappingURL=index.es161.js.map
