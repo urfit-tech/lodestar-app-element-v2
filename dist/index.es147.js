@@ -1,12 +1,20 @@
-import { __require as m } from "./index.es140.js";
-var r, e;
-function t() {
-  if (e) return r;
-  e = 1;
-  const o = m();
-  return r = (a, i) => new o(a, i).major, r;
+function s(o) {
+  var b, e = o.Symbol;
+  if (typeof e == "function")
+    if (e.observable)
+      b = e.observable;
+    else {
+      typeof e.for == "function" ? b = e.for("https://github.com/benlesh/symbol-observable") : b = e("https://github.com/benlesh/symbol-observable");
+      try {
+        e.observable = b;
+      } catch {
+      }
+    }
+  else
+    b = "@@observable";
+  return b;
 }
 export {
-  t as __require
+  s as default
 };
 //# sourceMappingURL=index.es147.js.map

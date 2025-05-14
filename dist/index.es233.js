@@ -1,33 +1,11 @@
-import r from "./index.es71.js";
-import c from "./index.es124.js";
-const p = c.hasStandardBrowserEnv ? (
-  // Standard browser envs support document.cookie
-  {
-    write(e, t, n, i, s, u) {
-      const o = [e + "=" + encodeURIComponent(t)];
-      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
-    },
-    read(e) {
-      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
-      return t ? decodeURIComponent(t[3]) : null;
-    },
-    remove(e) {
-      this.write(e, "", Date.now() - 864e5);
-    }
-  }
-) : (
-  // Non-standard browser env (web workers, react-native) lack needed support.
-  {
-    write() {
-    },
-    read() {
-      return null;
-    },
-    remove() {
-    }
-  }
-);
+import e from "./index.es195.js";
+var t = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
+function u(o) {
+  return e(o).replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(r, s, a) {
+    return s > 0 && s + r.length !== a.length && r.search(t) > -1 && a.charAt(s - 2) !== ":" && (a.charAt(s + r.length) !== "-" || a.charAt(s - 1) === "-") && a.charAt(s - 1).search(/[^\s-]/) < 0 ? r.toLowerCase() : r.substr(1).search(/[A-Z]|\../) > -1 ? r : r.charAt(0).toUpperCase() + r.substr(1);
+  });
+}
 export {
-  p as default
+  u as default
 };
 //# sourceMappingURL=index.es233.js.map

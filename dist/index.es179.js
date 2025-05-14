@@ -1,39 +1,31 @@
-import { __module as a } from "./index.es218.js";
-import { __require as s } from "./index.es219.js";
-/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-var l;
-function w() {
-  return l ? a.exports : (l = 1, function(p, i) {
-    var n = s(), e = n.Buffer;
-    function m(r, f) {
-      for (var u in r)
-        f[u] = r[u];
-    }
-    e.from && e.alloc && e.allocUnsafe && e.allocUnsafeSlow ? p.exports = n : (m(n, i), i.Buffer = o);
-    function o(r, f, u) {
-      return e(r, f, u);
-    }
-    o.prototype = Object.create(e.prototype), m(e, o), o.from = function(r, f, u) {
-      if (typeof r == "number")
-        throw new TypeError("Argument must not be a number");
-      return e(r, f, u);
-    }, o.alloc = function(r, f, u) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      var t = e(r);
-      return f !== void 0 ? typeof u == "string" ? t.fill(f, u) : t.fill(f) : t.fill(0), t;
-    }, o.allocUnsafe = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return e(r);
-    }, o.allocUnsafeSlow = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return n.SlowBuffer(r);
-    };
-  }(a, a.exports), a.exports);
+import { __exports as r } from "./index.es224.js";
+import { __require as u } from "./index.es225.js";
+import { __require as f } from "./index.es226.js";
+var t;
+function c() {
+  if (t) return r;
+  t = 1;
+  var S = u(), e = f(), a = [
+    "HS256",
+    "HS384",
+    "HS512",
+    "RS256",
+    "RS384",
+    "RS512",
+    "PS256",
+    "PS384",
+    "PS512",
+    "ES256",
+    "ES384",
+    "ES512"
+  ];
+  return r.ALGORITHMS = a, r.sign = S.sign, r.verify = e.verify, r.decode = e.decode, r.isValid = e.isValid, r.createSign = function(i) {
+    return new S(i);
+  }, r.createVerify = function(i) {
+    return new e(i);
+  }, r;
 }
 export {
-  w as __require
+  c as __require
 };
 //# sourceMappingURL=index.es179.js.map

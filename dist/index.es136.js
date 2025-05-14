@@ -1,19 +1,8 @@
-import { print as i } from "graphql";
-import { AutoCleanedWeakCache as n } from "./index.es206.js";
-import { cacheSizes as o } from "./index.es207.js";
-var t, p = Object.assign(function(e) {
-  var r = t.get(e);
-  return r || (r = i(e), t.set(e, r)), r;
-}, {
-  reset: function() {
-    t = new n(
-      o.print || 2e3
-      /* defaultCacheSizes.print */
-    );
-  }
-});
-p.reset();
+import i from "./index.es123.js";
+function o(r) {
+  return i.isObject(r) && r.isAxiosError === !0;
+}
 export {
-  p as print
+  o as default
 };
 //# sourceMappingURL=index.es136.js.map

@@ -1,90 +1,95 @@
-import t from "./index.es71.js";
-import p from "./index.es82.js";
-import u from "./index.es122.js";
-import S from "./index.es81.js";
-import h from "./index.es123.js";
-import l from "./index.es124.js";
-import O from "./index.es76.js";
-function y(i, r, e) {
-  if (t.isString(i))
-    try {
-      return (r || JSON.parse)(i), t.trim(i);
-    } catch (n) {
-      if (n.name !== "SyntaxError")
-        throw n;
-    }
-  return (e || JSON.stringify)(i);
+import { __assign as c, __spreadArray as i } from "./index.es56.js";
+import { cacheSizes as g } from "./index.es71.js";
+var t = {};
+function M(e, r) {
+  t[e] = r;
 }
-const a = {
-  transitional: u,
-  adapter: ["xhr", "http", "fetch"],
-  transformRequest: [function(r, e) {
-    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
-    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
-      return s ? JSON.stringify(O(r)) : r;
-    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
-      return r;
-    if (t.isArrayBufferView(r))
-      return r.buffer;
-    if (t.isURLSearchParams(r))
-      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
-    let o;
-    if (f) {
-      if (n.indexOf("application/x-www-form-urlencoded") > -1)
-        return h(r, this.formSerializer).toString();
-      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
-        const c = this.env && this.env.FormData;
-        return S(
-          o ? { "files[]": r } : r,
-          c && new c(),
-          this.formSerializer
-        );
-      }
+var b = globalThis.__DEV__ !== !1 ? h : void 0, I = globalThis.__DEV__ !== !1 ? v : void 0, C = globalThis.__DEV__ !== !1 ? d : void 0;
+function y() {
+  var e = {
+    parser: 1e3,
+    canonicalStringify: 1e3,
+    print: 2e3,
+    "documentTransform.cache": 2e3,
+    "queryManager.getDocumentInfo": 2e3,
+    "PersistedQueryLink.persistedQueryHashes": 2e3,
+    "fragmentRegistry.transform": 2e3,
+    "fragmentRegistry.lookup": 1e3,
+    "fragmentRegistry.findFragmentSpreads": 4e3,
+    "cache.fragmentQueryDocuments": 1e3,
+    "removeTypenameFromVariables.getVariableDefinitions": 2e3,
+    "inMemoryCache.maybeBroadcastWatch": 5e3,
+    "inMemoryCache.executeSelectionSet": 5e4,
+    "inMemoryCache.executeSubSelectedArray": 1e4
+  };
+  return Object.fromEntries(Object.entries(e).map(function(r) {
+    var a = r[0], o = r[1];
+    return [
+      a,
+      g[a] || o
+    ];
+  }));
+}
+function h() {
+  var e, r, a, o, l;
+  if (globalThis.__DEV__ === !1)
+    throw new Error("only supported in development mode");
+  return {
+    limits: y(),
+    sizes: c({ print: (e = t.print) === null || e === void 0 ? void 0 : e.call(t), parser: (r = t.parser) === null || r === void 0 ? void 0 : r.call(t), canonicalStringify: (a = t.canonicalStringify) === null || a === void 0 ? void 0 : a.call(t), links: s(this.link), queryManager: {
+      getDocumentInfo: this.queryManager.transformCache.size,
+      documentTransforms: f(this.queryManager.documentTransform)
+    } }, (l = (o = this.cache).getMemoryInternals) === null || l === void 0 ? void 0 : l.call(o))
+  };
+}
+function d() {
+  return {
+    cache: {
+      fragmentQueryDocuments: n(this.getFragmentDoc)
     }
-    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
-  }],
-  transformResponse: [function(r) {
-    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
-    if (t.isResponse(r) || t.isReadableStream(r))
-      return r;
-    if (r && t.isString(r) && (n && !this.responseType || s)) {
-      const m = !(e && e.silentJSONParsing) && s;
-      try {
-        return JSON.parse(r);
-      } catch (o) {
-        if (m)
-          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
-      }
-    }
-    return r;
-  }],
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
-  maxContentLength: -1,
-  maxBodyLength: -1,
-  env: {
-    FormData: l.classes.FormData,
-    Blob: l.classes.Blob
-  },
-  validateStatus: function(r) {
-    return r >= 200 && r < 300;
-  },
-  headers: {
-    common: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": void 0
-    }
-  }
-};
-t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
-  a.headers[i] = {};
-});
+  };
+}
+function v() {
+  var e = this.config.fragments;
+  return c(c({}, d.apply(this)), { addTypenameDocumentTransform: f(this.addTypenameTransform), inMemoryCache: {
+    executeSelectionSet: n(this.storeReader.executeSelectionSet),
+    executeSubSelectedArray: n(this.storeReader.executeSubSelectedArray),
+    maybeBroadcastWatch: n(this.maybeBroadcastWatch)
+  }, fragmentRegistry: {
+    findFragmentSpreads: n(e?.findFragmentSpreads),
+    lookup: n(e?.lookup),
+    transform: n(e?.transform)
+  } });
+}
+function p(e) {
+  return !!e && "dirtyKey" in e;
+}
+function n(e) {
+  return p(e) ? e.size : void 0;
+}
+function m(e) {
+  return e != null;
+}
+function f(e) {
+  return u(e).map(function(r) {
+    return { cache: r };
+  });
+}
+function u(e) {
+  return e ? i(i([
+    n(e?.performWork)
+  ], u(e?.left), !0), u(e?.right), !0).filter(m) : [];
+}
+function s(e) {
+  var r;
+  return e ? i(i([
+    (r = e?.getMemoryInternals) === null || r === void 0 ? void 0 : r.call(e)
+  ], s(e?.left), !0), s(e?.right), !0).filter(m) : [];
+}
 export {
-  a as default
+  C as getApolloCacheMemoryInternals,
+  b as getApolloClientMemoryInternals,
+  I as getInMemoryCacheMemoryInternals,
+  M as registerGlobalCache
 };
 //# sourceMappingURL=index.es75.js.map

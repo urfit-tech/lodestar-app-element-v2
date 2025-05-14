@@ -1,7 +1,8 @@
-function e(t) {
-  return typeof t == "string" && t.indexOf("@") !== -1;
-}
+import { getDefaultExportFromCjs as r } from "./index.es63.js";
+import { __require as o } from "./index.es212.js";
+var p = /* @__PURE__ */ o();
+const s = /* @__PURE__ */ r(p);
 export {
-  e as default
+  s as default
 };
 //# sourceMappingURL=index.es191.js.map

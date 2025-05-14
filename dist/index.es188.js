@@ -1,11 +1,38 @@
-var e, r;
-function _() {
-  if (r) return e;
-  r = 1;
-  var t = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-  return e = t, e;
+var n, i;
+function y() {
+  if (i) return n;
+  i = 1;
+  var a = "[object Object]";
+  function u(t) {
+    var r = !1;
+    if (t != null && typeof t.toString != "function")
+      try {
+        r = !!(t + "");
+      } catch {
+      }
+    return r;
+  }
+  function f(t, r) {
+    return function(o) {
+      return t(r(o));
+    };
+  }
+  var s = Function.prototype, e = Object.prototype, c = s.toString, b = e.hasOwnProperty, j = c.call(Object), p = e.toString, l = f(Object.getPrototypeOf, Object);
+  function O(t) {
+    return !!t && typeof t == "object";
+  }
+  function g(t) {
+    if (!O(t) || p.call(t) != a || u(t))
+      return !1;
+    var r = l(t);
+    if (r === null)
+      return !0;
+    var o = b.call(r, "constructor") && r.constructor;
+    return typeof o == "function" && o instanceof o && c.call(o) == j;
+  }
+  return n = g, n;
 }
 export {
-  _ as __require
+  y as __require
 };
 //# sourceMappingURL=index.es188.js.map

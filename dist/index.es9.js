@@ -1,64 +1,68 @@
-import { ApolloClient as f, InMemoryCache as u, from as m, split as t, HttpLink as d } from "@apollo/client";
-import { onError as h } from "./index.es27.js";
-import { GraphQLWsLink as P } from "./index.es28.js";
-import { OperationTypeNode as _ } from "graphql";
-import { createClient as L } from "graphql-ws";
-import { getMainDefinition as a } from "./index.es29.js";
-import l from "./index.es30.js";
-const N = (i) => h(({ graphQLErrors: r, networkError: o }) => {
-  r && typeof window < "u" && (r.forEach(({ message: e, locations: c, path: p, extensions: n }) => {
-    console.error(`[GraphQL error]: Message: ${e}, Location: ${c}, Path: ${p}`, n), n && n.code === "invalid-jwt" && (i?.["invalid-jwt"]?.(), setTimeout(() => window.location.assign("/"), 3e3));
-  }), o && console.log(`[Network error]: ${JSON.stringify(o)}`));
-}), s = (i, r) => new d({
-  uri: i,
+import { onError as c } from "./index.es30.js";
+import { GraphQLWsLink as f } from "./index.es31.js";
+import { OperationTypeNode as u } from "graphql";
+import { createClient as d } from "graphql-ws";
+import { ApolloClient as h } from "./index.es32.js";
+import { InMemoryCache as P } from "./index.es33.js";
+import { from as _ } from "./index.es34.js";
+import { split as t } from "./index.es35.js";
+import { getMainDefinition as a } from "./index.es36.js";
+import p from "./index.es37.js";
+import { HttpLink as L } from "./index.es38.js";
+const N = (o) => c(({ graphQLErrors: r, networkError: e }) => {
+  r && typeof window < "u" && (r.forEach(({ message: i, locations: m, path: l, extensions: n }) => {
+    console.error(`[GraphQL error]: Message: ${i}, Location: ${m}, Path: ${l}`, n), n && n.code === "invalid-jwt" && (o?.["invalid-jwt"]?.(), setTimeout(() => window.location.assign("/"), 3e3));
+  }), e && console.log(`[Network error]: ${JSON.stringify(e)}`));
+}), s = (o, r) => new L({
+  uri: o,
   headers: r.authToken ? {
     authorization: `Bearer ${r.authToken}`
   } : {
     "x-hasura-org-id": r.appId,
     "x-hasura-app-id": r.appId,
-    "x-hasura-user-id": l(),
+    "x-hasura-user-id": p(),
     "x-hasura-role": "anonymous"
   }
-}), w = (i, r) => t(
-  ({ query: o }) => {
-    const e = a(o);
-    return e.kind === "OperationDefinition" && e.operation === "subscription";
+}), w = (o, r) => t(
+  ({ query: e }) => {
+    const i = a(e);
+    return i.kind === "OperationDefinition" && i.operation === "subscription";
   },
-  new P(
-    L({
+  new f(
+    d({
       url: String(process.env.NEXT_PUBLIC_GRAPHQL_WS_ENDPOINT),
       connectionParams: {
         headers: r ? {
           authorization: `Bearer ${r}`
         } : {
-          "x-hasura-org-id": i,
-          "x-hasura-app-id": i,
-          "x-hasura-user-id": l(),
+          "x-hasura-org-id": o,
+          "x-hasura-app-id": o,
+          "x-hasura-user-id": p(),
           "x-hasura-role": "anonymous"
         }
       }
     })
   ),
   t(
-    ({ query: o }) => {
-      const e = a(o);
-      return e.kind === "OperationDefinition" && e.operation === _.QUERY || !1;
+    ({ query: e }) => {
+      const i = a(e);
+      return i.kind === "OperationDefinition" && i.operation === u.QUERY || !1;
     },
     t(
-      ({ query: o }) => {
-        const e = a(o);
-        return e.kind === "OperationDefinition" && (e.name?.value.startsWith("Ph") || e.name?.value.startsWith("PH_")) || !1;
+      ({ query: e }) => {
+        const i = a(e);
+        return i.kind === "OperationDefinition" && (i.name?.value.startsWith("Ph") || i.name?.value.startsWith("PH_")) || !1;
       },
-      s(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken: r, appId: i }),
-      s(process.env.NEXT_PUBLIC_GRAPHQL_RH_ENDPOINT, { authToken: r, appId: i })
+      s(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken: r, appId: o }),
+      s(process.env.NEXT_PUBLIC_GRAPHQL_RH_ENDPOINT, { authToken: r, appId: o })
     ),
-    s(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken: r, appId: i })
+    s(process.env.NEXT_PUBLIC_GRAPHQL_PH_ENDPOINT, { authToken: r, appId: o })
   )
-), D = (i, r) => new f({
-  link: m([N(r), w(i.appId, i.authToken)]),
-  cache: new u()
+), y = (o, r) => new h({
+  link: _([N(r), w(o.appId, o.authToken)]),
+  cache: new P()
 });
 export {
-  D as createApolloClient
+  y as createApolloClient
 };
 //# sourceMappingURL=index.es9.js.map

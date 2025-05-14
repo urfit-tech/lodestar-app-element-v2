@@ -1,18 +1,10 @@
-import { WeakCache as r } from "./index.es241.js";
-var t = /* @__PURE__ */ new WeakSet();
-function s(e) {
-  e.size <= (e.max || -1) || t.has(e) || (t.add(e), setTimeout(function() {
-    e.clean(), t.delete(e);
-  }, 100));
-}
-var d = function(e, a) {
-  var n = new r(e, a);
-  return n.set = function(u, i) {
-    var o = r.prototype.set.call(this, u, i);
-    return s(this), o;
-  }, n;
+import o from "./index.es238.js";
+import * as t from "./index.es239.js";
+const m = {
+  ...t,
+  ...o
 };
 export {
-  d as AutoCleanedWeakCache
+  m as default
 };
 //# sourceMappingURL=index.es206.js.map

@@ -14,19 +14,19 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'react',
-        'react-dom',
-        'styled-components',
-        '@emotion/react',
+        'query-string',
         '@chakra-ui/react',
+        '@emotion/react',
+        '@fingerprintjs/fingerprintjs',
+        'ajv',
         'framer-motion',
         'graphql',
         'graphql-ws',
-        'react-intl',
-        '@apollo/client',
         'libphonenumber-js',
-        'ajv',
-        'query-string'
+        'react',
+        'react-dom',
+        'react-intl',
+        'styled-components',
       ],
       output: {
         exports: 'named',

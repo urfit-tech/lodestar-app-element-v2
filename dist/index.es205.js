@@ -1,22 +1,14 @@
-import { maybe as n } from "./index.es236.js";
-const r = n(function() {
-  return globalThis;
-}) || n(function() {
-  return window;
-}) || n(function() {
-  return self;
-}) || n(function() {
-  return global;
-}) || // We don't expect the Function constructor ever to be invoked at runtime, as
-// long as at least one of globalThis, window, self, or global is defined, so
-// we are under no obligation to make it easy for static analysis tools to
-// detect syntactic usage of the Function constructor. If you think you can
-// improve your static analysis to detect this obfuscation, think again. This
-// is an arms race you cannot win, at least not in JavaScript.
-n(function() {
-  return n.constructor("return this")();
-});
+import e from "./index.es123.js";
+import n from "./index.es133.js";
+import r from "./index.es206.js";
+function c(o, i) {
+  return n(o, new r.classes.URLSearchParams(), Object.assign({
+    visitor: function(t, s, f, a) {
+      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
+    }
+  }, i));
+}
 export {
-  r as default
+  c as default
 };
 //# sourceMappingURL=index.es205.js.map

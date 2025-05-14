@@ -1,7 +1,7 @@
-function n(e, c) {
-  return c ? e.replace(/\/?\/$/, "") + "/" + c.replace(/^\/+/, "") : e;
+function r(t) {
+  return t && t.toString().replace(/^\s+|\s+$/g, "");
 }
 export {
-  n as default
+  r as default
 };
 //# sourceMappingURL=index.es195.js.map

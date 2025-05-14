@@ -1,22 +1,10 @@
-import { __require as _ } from "./index.es140.js";
-var c, a;
-function s() {
-  if (a) return c;
-  a = 1;
-  const u = _();
-  return c = (e, q, r, n, t) => {
-    typeof r == "string" && (t = n, n = r, r = void 0);
-    try {
-      return new u(
-        e instanceof u ? e.version : e,
-        r
-      ).inc(q, n, t).version;
-    } catch {
-      return null;
-    }
-  }, c;
-}
+import { bind as p, noContext as x } from "./index.es161.js";
+import { Slot as t } from "./index.es160.js";
+const n = new t();
 export {
-  s as __require
+  t as Slot,
+  p as bindContext,
+  x as noContext,
+  n as parentEntrySlot
 };
 //# sourceMappingURL=index.es145.js.map

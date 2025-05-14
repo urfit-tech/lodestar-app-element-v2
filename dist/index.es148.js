@@ -1,12 +1,10 @@
-import { __require as m } from "./index.es140.js";
-var r, e;
-function a() {
-  if (e) return r;
-  e = 1;
-  const i = m();
-  return r = (n, o) => new i(n, o).minor, r;
+import n from "./index.es149.js";
+function a(r) {
+  return function e(t) {
+    return arguments.length === 0 || n(t) ? e : r.apply(this, arguments);
+  };
 }
 export {
-  a as __require
+  a as default
 };
 //# sourceMappingURL=index.es148.js.map

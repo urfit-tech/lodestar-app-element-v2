@@ -1,20 +1,10 @@
-import { newInvariantError as a } from "./index.es204.js";
-import "./index.es205.js";
-function f(e) {
-  for (var o = [
-    "query",
-    "operationName",
-    "variables",
-    "extensions",
-    "context"
-  ], r = 0, t = Object.keys(e); r < t.length; r++) {
-    var n = t[r];
-    if (o.indexOf(n) < 0)
-      throw a(43, n);
-  }
-  return e;
-}
+const e = typeof window < "u" && typeof document < "u", o = typeof navigator == "object" && navigator || void 0, n = e && (!o || ["ReactNative", "NativeScript", "NS"].indexOf(o.product) < 0), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
+self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
 export {
-  f as validateOperation
+  e as hasBrowserEnv,
+  n as hasStandardBrowserEnv,
+  t as hasStandardBrowserWebWorkerEnv,
+  o as navigator,
+  r as origin
 };
 //# sourceMappingURL=index.es239.js.map

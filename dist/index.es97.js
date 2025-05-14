@@ -1,12 +1,41 @@
-import n from "./index.es98.js";
-import i from "./index.es99.js";
-import p from "./index.es100.js";
-var h = /* @__PURE__ */ n(function m(t, o, u) {
-  return p(function(f, e, r) {
-    return i(e) && i(r) ? m(t, e, r) : t(f, e, r);
-  }, o, u);
-});
+import m from "./index.es148.js";
+import c from "./index.es95.js";
+import t from "./index.es149.js";
+function _(e) {
+  return function f(u, n, i) {
+    switch (arguments.length) {
+      case 0:
+        return f;
+      case 1:
+        return t(u) ? f : c(function(r, o) {
+          return e(u, r, o);
+        });
+      case 2:
+        return t(u) && t(n) ? f : t(u) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : m(function(r) {
+          return e(u, n, r);
+        });
+      default:
+        return t(u) && t(n) && t(i) ? f : t(u) && t(n) ? c(function(r, o) {
+          return e(r, o, i);
+        }) : t(u) && t(i) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) && t(i) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : t(u) ? m(function(r) {
+          return e(r, n, i);
+        }) : t(n) ? m(function(r) {
+          return e(u, r, i);
+        }) : t(i) ? m(function(r) {
+          return e(u, n, r);
+        }) : e(u, n, i);
+    }
+  };
+}
 export {
-  h as default
+  _ as default
 };
 //# sourceMappingURL=index.es97.js.map

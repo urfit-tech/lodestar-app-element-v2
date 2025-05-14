@@ -1,8 +1,8 @@
-import { getDefaultExportFromCjs as r } from "./index.es70.js";
-import { __require as o } from "./index.es37.js";
-var t = o();
-const s = /* @__PURE__ */ r(t);
+import { getDefaultExportFromCjs as o } from "./index.es63.js";
+import { __require as r } from "./index.es114.js";
+var e = r();
+const a = /* @__PURE__ */ o(e);
 export {
-  s as default
+  a as default
 };
 //# sourceMappingURL=index.es22.js.map

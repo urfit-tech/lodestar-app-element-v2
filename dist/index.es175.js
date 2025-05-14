@@ -1,12 +1,9 @@
-import { __require as s } from "./index.es173.js";
-var r, e;
-function q() {
-  if (e) return r;
-  e = 1;
-  const t = s();
-  return r = (i, u, o) => t(i, u, "<", o), r;
-}
+import { getDefaultExportFromCjs as r } from "./index.es63.js";
+import { __require as e } from "./index.es222.js";
+var t = e();
+const s = /* @__PURE__ */ r(t);
 export {
-  q as __require
+  s as default,
+  t as r
 };
 //# sourceMappingURL=index.es175.js.map

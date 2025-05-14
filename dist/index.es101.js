@@ -1,7 +1,5 @@
-function r(t, e) {
-  return Object.prototype.hasOwnProperty.call(e, t);
-}
+var r = "3.11.1";
 export {
-  r as default
+  r as version
 };
 //# sourceMappingURL=index.es101.js.map

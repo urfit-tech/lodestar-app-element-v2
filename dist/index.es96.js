@@ -1,24 +1,12 @@
-import o from "./index.es129.js";
-import u from "./index.es130.js";
-function s(e) {
-  return function c(r, n) {
-    switch (arguments.length) {
-      case 0:
-        return c;
-      case 1:
-        return u(r) ? c : o(function(t) {
-          return e(r, t);
-        });
-      default:
-        return u(r) && u(n) ? c : u(r) ? o(function(t) {
-          return e(t, n);
-        }) : u(n) ? o(function(t) {
-          return e(r, t);
-        }) : e(r, n);
-    }
-  };
-}
+import n from "./index.es97.js";
+import i from "./index.es98.js";
+import p from "./index.es99.js";
+var h = /* @__PURE__ */ n(function m(t, o, u) {
+  return p(function(f, e, r) {
+    return i(e) && i(r) ? m(t, e, r) : t(f, e, r);
+  }, o, u);
+});
 export {
-  s as default
+  h as default
 };
 //# sourceMappingURL=index.es96.js.map

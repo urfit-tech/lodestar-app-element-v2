@@ -1,12 +1,7 @@
-import { __require as i } from "./index.es140.js";
-var r, e;
-function n() {
-  if (e) return r;
-  e = 1;
-  const t = i();
-  return r = (a, c) => new t(a, c).patch, r;
+function l(e) {
+  return e != null && typeof e == "object" && e["@@functional/placeholder"] === !0;
 }
 export {
-  n as __require
+  l as default
 };
 //# sourceMappingURL=index.es149.js.map

@@ -1,10 +1,7 @@
-function a(t) {
-  try {
-    return t();
-  } catch {
-  }
+function e(t) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
 }
 export {
-  a as maybe
+  e as default
 };
 //# sourceMappingURL=index.es236.js.map

@@ -1,10 +1,9 @@
-import o from "./index.es196.js";
-import * as t from "./index.es197.js";
-const m = {
-  ...t,
-  ...o
-};
+function u(n, r) {
+  return function() {
+    return n.apply(r, arguments);
+  };
+}
 export {
-  m as default
+  u as default
 };
 //# sourceMappingURL=index.es124.js.map

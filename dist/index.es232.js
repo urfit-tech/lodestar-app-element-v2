@@ -1,9 +1,10 @@
-import o from "./index.es124.js";
-const n = o.hasStandardBrowserEnv ? /* @__PURE__ */ ((r, e) => (t) => (t = new URL(t, o.origin), r.protocol === t.protocol && r.host === t.host && (e || r.port === t.port)))(
-  new URL(o.origin),
-  o.navigator && /(msie|trident)/i.test(o.navigator.userAgent)
-) : () => !0;
+import a from "./index.es192.js";
+import e from "./index.es299.js";
+var i = "REDACTED (Potential Email Address)";
+function m(r) {
+  return e(r) ? (a("This arg looks like an email address, redacting."), i) : r;
+}
 export {
-  n as default
+  m as default
 };
 //# sourceMappingURL=index.es232.js.map

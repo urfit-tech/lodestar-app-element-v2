@@ -1,53 +1,21 @@
-import { __require as u } from "./index.es188.js";
-var o, p;
-function g() {
-  if (p) return o;
-  p = 1;
-  var c = /* @__PURE__ */ u();
-  function n() {
-  }
-  function i() {
-  }
-  return i.resetWarningCache = n, o = function() {
-    function e(h, y, m, f, l, s) {
-      if (s !== c) {
-        var a = new Error(
-          "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types"
-        );
-        throw a.name = "Invariant Violation", a;
-      }
-    }
-    e.isRequired = e;
-    function r() {
-      return e;
-    }
-    var t = {
-      array: e,
-      bigint: e,
-      bool: e,
-      func: e,
-      number: e,
-      object: e,
-      string: e,
-      symbol: e,
-      any: e,
-      arrayOf: r,
-      element: e,
-      elementType: e,
-      instanceOf: r,
-      node: e,
-      objectOf: r,
-      oneOf: r,
-      oneOfType: r,
-      shape: r,
-      exact: r,
-      checkPropTypes: i,
-      resetWarningCache: n
-    };
-    return t.PropTypes = t, t;
-  }, o;
+import { __require as o } from "./index.es115.js";
+import { __require as i } from "./index.es116.js";
+import { __require as n } from "./index.es117.js";
+import { __require as u } from "./index.es118.js";
+import { __require as q } from "./index.es119.js";
+import { __require as t } from "./index.es120.js";
+var r, e;
+function E() {
+  return e || (e = 1, r = {
+    decode: o(),
+    verify: i(),
+    sign: n(),
+    JsonWebTokenError: u(),
+    NotBeforeError: q(),
+    TokenExpiredError: t()
+  }), r;
 }
 export {
-  g as __require
+  E as __require
 };
 //# sourceMappingURL=index.es114.js.map

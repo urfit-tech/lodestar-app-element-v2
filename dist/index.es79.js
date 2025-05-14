@@ -1,7 +1,9 @@
-function t(n) {
-  return !!(n && n.__CANCEL__);
+var y = Array.isArray;
+function a(r) {
+  return Array.isArray(r) && r.length > 0;
 }
 export {
-  t as default
+  y as isArray,
+  a as isNonEmptyArray
 };
 //# sourceMappingURL=index.es79.js.map

@@ -1,52 +1,59 @@
-var i, f;
-function q() {
-  if (f) return i;
-  f = 1;
-  var s = 1 / 0, c = 17976931348623157e292, e = NaN, b = "[object Symbol]", y = /^\s+|\s+$/g, p = /^[-+]0x[0-9a-f]+$/i, I = /^0b[01]+$/i, g = /^0o[0-7]+$/i, m = parseInt, j = Object.prototype, d = j.toString;
-  function N(r) {
-    return typeof r == "number" && r == S(r);
-  }
-  function o(r) {
-    var t = typeof r;
-    return !!r && (t == "object" || t == "function");
-  }
-  function O(r) {
-    return !!r && typeof r == "object";
-  }
-  function _(r) {
-    return typeof r == "symbol" || O(r) && d.call(r) == b;
-  }
-  function T(r) {
-    if (!r)
-      return r === 0 ? r : 0;
-    if (r = $(r), r === s || r === -1 / 0) {
-      var t = r < 0 ? -1 : 1;
-      return t * c;
+import { invariant as i, InvariantError as d } from "./index.es109.js";
+import { version as c } from "./index.es101.js";
+import u from "./index.es66.js";
+import { stringifyForDisplay as g } from "./index.es93.js";
+function e(n) {
+  return function(r) {
+    for (var o = [], t = 1; t < arguments.length; t++)
+      o[t - 1] = arguments[t];
+    if (typeof r == "number") {
+      var a = r;
+      r = f(a), r || (r = l(a, o), o = []);
     }
-    return r === r ? r : 0;
+    n.apply(void 0, [r].concat(o));
+  };
+}
+var E = Object.assign(function(r, o) {
+  for (var t = [], a = 2; a < arguments.length; a++)
+    t[a - 2] = arguments[a];
+  r || i(r, f(o, t) || l(o, t));
+}, {
+  debug: e(i.debug),
+  log: e(i.log),
+  warn: e(i.warn),
+  error: e(i.error)
+});
+function w(n) {
+  for (var r = [], o = 1; o < arguments.length; o++)
+    r[o - 1] = arguments[o];
+  return new d(f(n, r) || l(n, r));
+}
+var v = Symbol.for("ApolloErrorMessageHandler_" + c);
+function p(n) {
+  if (typeof n == "string")
+    return n;
+  try {
+    return g(n, 2).slice(0, 1e3);
+  } catch {
+    return "<non-serializable>";
   }
-  function S(r) {
-    var t = T(r), n = t % 1;
-    return t === t ? n ? t - n : t : 0;
-  }
-  function $(r) {
-    if (typeof r == "number")
-      return r;
-    if (_(r))
-      return e;
-    if (o(r)) {
-      var t = typeof r.valueOf == "function" ? r.valueOf() : r;
-      r = o(t) ? t + "" : t;
-    }
-    if (typeof r != "string")
-      return r === 0 ? r : +r;
-    r = r.replace(y, "");
-    var n = I.test(r);
-    return n || g.test(r) ? m(r.slice(2), n ? 2 : 8) : p.test(r) ? e : +r;
-  }
-  return i = N, i;
+}
+function f(n, r) {
+  if (r === void 0 && (r = []), !!n)
+    return u[v] && u[v](n, r.map(p));
+}
+function l(n, r) {
+  if (r === void 0 && (r = []), !!n)
+    return "An error occurred! For more details, see the full error text at https://go.apollo.dev/c/err#".concat(encodeURIComponent(JSON.stringify({
+      version: c,
+      message: n,
+      args: r.map(p)
+    })));
 }
 export {
-  q as __require
+  v as ApolloErrorMessageHandler,
+  d as InvariantError,
+  E as invariant,
+  w as newInvariantError
 };
 //# sourceMappingURL=index.es65.js.map

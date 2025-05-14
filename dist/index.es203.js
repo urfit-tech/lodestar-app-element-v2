@@ -1,64 +1,55 @@
-const f = function* (e, t) {
-  let n = e.byteLength;
-  if (n < t) {
-    yield e;
-    return;
-  }
-  let a = 0, r;
-  for (; a < n; )
-    r = a + t, yield e.slice(a, r), a = r;
-}, w = async function* (e, t) {
-  for await (const n of b(e))
-    yield* f(n, t);
-}, b = async function* (e) {
-  if (e[Symbol.asyncIterator]) {
-    yield* e;
-    return;
-  }
-  const t = e.getReader();
-  try {
-    for (; ; ) {
-      const { done: n, value: a } = await t.read();
-      if (n)
-        break;
-      yield a;
-    }
-  } finally {
-    await t.cancel();
-  }
-}, h = (e, t, n, a) => {
-  const r = w(e, t);
-  let d = 0, o, c = (l) => {
-    o || (o = !0, a && a(l));
+import { VERSION as w } from "./index.es132.js";
+import s from "./index.es134.js";
+const l = {};
+["object", "boolean", "number", "function", "string", "symbol"].forEach((n, t) => {
+  l[n] = function(o) {
+    return typeof o === n || "a" + (t < 1 ? "n " : " ") + n;
   };
-  return new ReadableStream({
-    async pull(l) {
-      try {
-        const { done: i, value: y } = await r.next();
-        if (i) {
-          c(), l.close();
-          return;
-        }
-        let s = y.byteLength;
-        if (n) {
-          let u = d += s;
-          n(u);
-        }
-        l.enqueue(new Uint8Array(y));
-      } catch (i) {
-        throw c(i), i;
-      }
-    },
-    cancel(l) {
-      return c(l), r.return();
+});
+const f = {};
+l.transitional = function(t, i, o) {
+  function a(r, e) {
+    return "[Axios v" + w + "] Transitional option '" + r + "'" + e + (o ? ". " + o : "");
+  }
+  return (r, e, u) => {
+    if (t === !1)
+      throw new s(
+        a(e, " has been removed" + (i ? " in " + i : "")),
+        s.ERR_DEPRECATED
+      );
+    return i && !f[e] && (f[e] = !0, console.warn(
+      a(
+        e,
+        " has been deprecated since v" + i + " and will be removed in the near future"
+      )
+    )), t ? t(r, e, u) : !0;
+  };
+};
+l.spelling = function(t) {
+  return (i, o) => (console.warn(`${o} is likely a misspelling of ${t}`), !0);
+};
+function b(n, t, i) {
+  if (typeof n != "object")
+    throw new s("options must be an object", s.ERR_BAD_OPTION_VALUE);
+  const o = Object.keys(n);
+  let a = o.length;
+  for (; a-- > 0; ) {
+    const r = o[a], e = t[r];
+    if (e) {
+      const u = n[r], c = u === void 0 || e(u, r, n);
+      if (c !== !0)
+        throw new s("option " + r + " must be " + c, s.ERR_BAD_OPTION_VALUE);
+      continue;
     }
-  }, {
-    highWaterMark: 2
-  });
+    if (i !== !0)
+      throw new s("Unknown option " + r, s.ERR_BAD_OPTION);
+  }
+}
+const m = {
+  assertOptions: b,
+  validators: l
 };
 export {
-  w as readBytes,
-  f as streamChunk,
-  h as trackStream
+  m as default
 };
 //# sourceMappingURL=index.es203.js.map

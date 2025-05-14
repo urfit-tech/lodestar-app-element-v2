@@ -1,18 +1,10 @@
-import { __module as r } from "./index.es111.js";
-import { __require as s } from "./index.es112.js";
-import { __require as t } from "./index.es113.js";
-import { __require as p } from "./index.es114.js";
-var e;
-function q() {
-  if (e) return r.exports;
-  if (e = 1, process.env.NODE_ENV !== "production") {
-    var o = s(), i = !0;
-    r.exports = /* @__PURE__ */ t()(o.isElement, i);
-  } else
-    r.exports = /* @__PURE__ */ p()();
-  return r.exports;
+const i = [];
+for (let n = 0; n < 256; ++n)
+  i.push((n + 256).toString(16).slice(1));
+function c(n, u = 0) {
+  return (i[n[u + 0]] + i[n[u + 1]] + i[n[u + 2]] + i[n[u + 3]] + "-" + i[n[u + 4]] + i[n[u + 5]] + "-" + i[n[u + 6]] + i[n[u + 7]] + "-" + i[n[u + 8]] + i[n[u + 9]] + "-" + i[n[u + 10]] + i[n[u + 11]] + i[n[u + 12]] + i[n[u + 13]] + i[n[u + 14]] + i[n[u + 15]]).toLowerCase();
 }
 export {
-  q as __require
+  c as unsafeStringify
 };
 //# sourceMappingURL=index.es110.js.map

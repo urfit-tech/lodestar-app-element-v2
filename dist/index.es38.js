@@ -1,5 +1,19 @@
-var a = { exports: {} };
+import { __extends as e } from "./index.es56.js";
+import { createHttpLink as o } from "./index.es170.js";
+import { ApolloLink as f } from "./index.es57.js";
+var c = (
+  /** @class */
+  function(r) {
+    e(i, r);
+    function i(t) {
+      t === void 0 && (t = {});
+      var n = r.call(this, o(t).request) || this;
+      return n.options = t, n;
+    }
+    return i;
+  }(f)
+);
 export {
-  a as __module
+  c as HttpLink
 };
 //# sourceMappingURL=index.es38.js.map

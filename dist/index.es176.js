@@ -1,12 +1,12 @@
-import { __require as c } from "./index.es166.js";
-var n, i;
-function q() {
-  if (i) return n;
-  i = 1;
-  const s = c();
-  return n = (e, r, t) => (e = new s(e, t), r = new s(r, t), e.intersects(r, t)), n;
+import { invariant as e } from "./index.es65.js";
+import "./index.es66.js";
+import { r as n } from "./index.es175.js";
+import { getApolloContext as i } from "./index.es174.js";
+function c(o) {
+  var r = n.useContext(i()), t = o || r.client;
+  return e(!!t, 49), t;
 }
 export {
-  q as __require
+  c as useApolloClient
 };
 //# sourceMappingURL=index.es176.js.map

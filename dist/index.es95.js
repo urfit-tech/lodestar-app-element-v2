@@ -1,17 +1,24 @@
-var t = [];
-const e = {
-  calls: t,
-  ga: function() {
-    for (var s = arguments.length, l = new Array(s), a = 0; a < s; a++)
-      l[a] = arguments[a];
-    t.push([].concat(l));
-  },
-  resetCalls: function() {
-    t.length = 0;
-  }
-};
+import o from "./index.es148.js";
+import u from "./index.es149.js";
+function s(e) {
+  return function c(r, n) {
+    switch (arguments.length) {
+      case 0:
+        return c;
+      case 1:
+        return u(r) ? c : o(function(t) {
+          return e(r, t);
+        });
+      default:
+        return u(r) && u(n) ? c : u(r) ? o(function(t) {
+          return e(t, n);
+        }) : u(n) ? o(function(t) {
+          return e(r, t);
+        }) : e(r, n);
+    }
+  };
+}
 export {
-  e as default,
-  t as gaCalls
+  s as default
 };
 //# sourceMappingURL=index.es95.js.map

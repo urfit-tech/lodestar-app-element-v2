@@ -1,416 +1,84 @@
-function I(t, r) {
-  var n = typeof Symbol < "u" && t[Symbol.iterator] || t["@@iterator"];
-  if (n) return (n = n.call(t)).next.bind(n);
-  if (Array.isArray(t) || (n = M(t)) || r) {
-    n && (t = n);
-    var e = 0;
-    return function() {
-      return e >= t.length ? { done: !0 } : { done: !1, value: t[e++] };
-    };
-  }
-  throw new TypeError(`Invalid attempt to iterate non-iterable instance.
-In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
+import t from "./index.es123.js";
+import E from "./index.es134.js";
+function p(i) {
+  return t.isPlainObject(i) || t.isArray(i);
 }
-function M(t, r) {
-  if (t) {
-    if (typeof t == "string") return T(t, r);
-    var n = Object.prototype.toString.call(t).slice(8, -1);
-    if (n === "Object" && t.constructor && (n = t.constructor.name), n === "Map" || n === "Set") return Array.from(t);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return T(t, r);
-  }
+function h(i) {
+  return t.endsWith(i, "[]") ? i.slice(0, -2) : i;
 }
-function T(t, r) {
-  (r == null || r > t.length) && (r = t.length);
-  for (var n = 0, e = new Array(r); n < r; n++)
-    e[n] = t[n];
-  return e;
+function O(i, e, s) {
+  return i ? i.concat(e).map(function(o, d) {
+    return o = h(o), !s && d ? "[" + o + "]" : o;
+  }).join(s ? "." : "") : e;
 }
-function A(t, r) {
-  for (var n = 0; n < r.length; n++) {
-    var e = r[n];
-    e.enumerable = e.enumerable || !1, e.configurable = !0, "value" in e && (e.writable = !0), Object.defineProperty(t, e.key, e);
-  }
+function T(i) {
+  return t.isArray(i) && !i.some(p);
 }
-function g(t, r, n) {
-  return r && A(t.prototype, r), n && A(t, n), Object.defineProperty(t, "prototype", { writable: !1 }), t;
-}
-var S = function() {
-  return typeof Symbol == "function";
-}, E = function(t) {
-  return S() && !!Symbol[t];
-}, x = function(t) {
-  return E(t) ? Symbol[t] : "@@" + t;
-};
-S() && !E("observable") && (Symbol.observable = Symbol("observable"));
-var P = x("iterator"), v = x("observable"), q = x("species");
-function m(t, r) {
-  var n = t[r];
-  if (n != null) {
-    if (typeof n != "function") throw new TypeError(n + " is not a function");
-    return n;
-  }
-}
-function d(t) {
-  var r = t.constructor;
-  return r !== void 0 && (r = r[q], r === null && (r = void 0)), r !== void 0 ? r : O;
-}
-function k(t) {
-  return t instanceof O;
-}
-function y(t) {
-  y.log ? y.log(t) : setTimeout(function() {
-    throw t;
-  });
-}
-function b(t) {
-  Promise.resolve().then(function() {
-    try {
-      t();
-    } catch (r) {
-      y(r);
-    }
-  });
-}
-function j(t) {
-  var r = t._cleanup;
-  if (r !== void 0 && (t._cleanup = void 0, !!r))
-    try {
-      if (typeof r == "function")
-        r();
-      else {
-        var n = m(r, "unsubscribe");
-        n && n.call(r);
-      }
-    } catch (e) {
-      y(e);
-    }
-}
-function _(t) {
-  t._observer = void 0, t._queue = void 0, t._state = "closed";
-}
-function z(t) {
-  var r = t._queue;
-  if (r) {
-    t._queue = void 0, t._state = "ready";
-    for (var n = 0; n < r.length && (C(t, r[n].type, r[n].value), t._state !== "closed"); ++n)
-      ;
-  }
-}
-function C(t, r, n) {
-  t._state = "running";
-  var e = t._observer;
-  try {
-    var u = m(e, r);
-    switch (r) {
-      case "next":
-        u && u.call(e, n);
-        break;
-      case "error":
-        if (_(t), u) u.call(e, n);
-        else throw n;
-        break;
-      case "complete":
-        _(t), u && u.call(e);
-        break;
-    }
-  } catch (f) {
-    y(f);
-  }
-  t._state === "closed" ? j(t) : t._state === "running" && (t._state = "ready");
-}
-function w(t, r, n) {
-  if (t._state !== "closed") {
-    if (t._state === "buffering") {
-      t._queue.push({
-        type: r,
-        value: n
-      });
-      return;
-    }
-    if (t._state !== "ready") {
-      t._state = "buffering", t._queue = [{
-        type: r,
-        value: n
-      }], b(function() {
-        return z(t);
-      });
-      return;
-    }
-    C(t, r, n);
-  }
-}
-var N = /* @__PURE__ */ function() {
-  function t(n, e) {
-    this._cleanup = void 0, this._observer = n, this._queue = void 0, this._state = "initializing";
-    var u = new R(this);
-    try {
-      this._cleanup = e.call(void 0, u);
-    } catch (f) {
-      u.error(f);
-    }
-    this._state === "initializing" && (this._state = "ready");
-  }
-  var r = t.prototype;
-  return r.unsubscribe = function() {
-    this._state !== "closed" && (_(this), j(this));
-  }, g(t, [{
-    key: "closed",
-    get: function() {
-      return this._state === "closed";
-    }
-  }]), t;
-}(), R = /* @__PURE__ */ function() {
-  function t(n) {
-    this._subscription = n;
-  }
-  var r = t.prototype;
-  return r.next = function(e) {
-    w(this._subscription, "next", e);
-  }, r.error = function(e) {
-    w(this._subscription, "error", e);
-  }, r.complete = function() {
-    w(this._subscription, "complete");
-  }, g(t, [{
-    key: "closed",
-    get: function() {
-      return this._subscription._state === "closed";
-    }
-  }]), t;
-}(), O = /* @__PURE__ */ function() {
-  function t(n) {
-    if (!(this instanceof t)) throw new TypeError("Observable cannot be called as a function");
-    if (typeof n != "function") throw new TypeError("Observable initializer must be a function");
-    this._subscriber = n;
-  }
-  var r = t.prototype;
-  return r.subscribe = function(e) {
-    return (typeof e != "object" || e === null) && (e = {
-      next: e,
-      error: arguments[1],
-      complete: arguments[2]
-    }), new N(e, this._subscriber);
-  }, r.forEach = function(e) {
-    var u = this;
-    return new Promise(function(f, o) {
-      if (typeof e != "function") {
-        o(new TypeError(e + " is not a function"));
-        return;
-      }
-      function i() {
-        c.unsubscribe(), f();
-      }
-      var c = u.subscribe({
-        next: function(s) {
-          try {
-            e(s, i);
-          } catch (a) {
-            o(a), c.unsubscribe();
-          }
-        },
-        error: o,
-        complete: f
-      });
-    });
-  }, r.map = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this);
-    return new f(function(o) {
-      return u.subscribe({
-        next: function(i) {
-          try {
-            i = e(i);
-          } catch (c) {
-            return o.error(c);
-          }
-          o.next(i);
-        },
-        error: function(i) {
-          o.error(i);
-        },
-        complete: function() {
-          o.complete();
-        }
-      });
-    });
-  }, r.filter = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this);
-    return new f(function(o) {
-      return u.subscribe({
-        next: function(i) {
-          try {
-            if (!e(i)) return;
-          } catch (c) {
-            return o.error(c);
-          }
-          o.next(i);
-        },
-        error: function(i) {
-          o.error(i);
-        },
-        complete: function() {
-          o.complete();
-        }
-      });
-    });
-  }, r.reduce = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this), o = arguments.length > 1, i = !1, c = arguments[1], s = c;
-    return new f(function(a) {
-      return u.subscribe({
-        next: function(h) {
-          var l = !i;
-          if (i = !0, !l || o)
-            try {
-              s = e(s, h);
-            } catch (p) {
-              return a.error(p);
-            }
-          else
-            s = h;
-        },
-        error: function(h) {
-          a.error(h);
-        },
-        complete: function() {
-          if (!i && !o) return a.error(new TypeError("Cannot reduce an empty sequence"));
-          a.next(s), a.complete();
-        }
-      });
-    });
-  }, r.concat = function() {
-    for (var e = this, u = arguments.length, f = new Array(u), o = 0; o < u; o++)
-      f[o] = arguments[o];
-    var i = d(this);
-    return new i(function(c) {
-      var s, a = 0;
-      function h(l) {
-        s = l.subscribe({
-          next: function(p) {
-            c.next(p);
-          },
-          error: function(p) {
-            c.error(p);
-          },
-          complete: function() {
-            a === f.length ? (s = void 0, c.complete()) : h(i.from(f[a++]));
-          }
-        });
-      }
-      return h(e), function() {
-        s && (s.unsubscribe(), s = void 0);
-      };
-    });
-  }, r.flatMap = function(e) {
-    var u = this;
-    if (typeof e != "function") throw new TypeError(e + " is not a function");
-    var f = d(this);
-    return new f(function(o) {
-      var i = [], c = u.subscribe({
-        next: function(a) {
-          if (e)
-            try {
-              a = e(a);
-            } catch (l) {
-              return o.error(l);
-            }
-          var h = f.from(a).subscribe({
-            next: function(l) {
-              o.next(l);
-            },
-            error: function(l) {
-              o.error(l);
-            },
-            complete: function() {
-              var l = i.indexOf(h);
-              l >= 0 && i.splice(l, 1), s();
-            }
-          });
-          i.push(h);
-        },
-        error: function(a) {
-          o.error(a);
-        },
-        complete: function() {
-          s();
-        }
-      });
-      function s() {
-        c.closed && i.length === 0 && o.complete();
-      }
-      return function() {
-        i.forEach(function(a) {
-          return a.unsubscribe();
-        }), c.unsubscribe();
-      };
-    });
-  }, r[v] = function() {
-    return this;
-  }, t.from = function(e) {
-    var u = typeof this == "function" ? this : t;
-    if (e == null) throw new TypeError(e + " is not an object");
-    var f = m(e, v);
-    if (f) {
-      var o = f.call(e);
-      if (Object(o) !== o) throw new TypeError(o + " is not an object");
-      return k(o) && o.constructor === u ? o : new u(function(i) {
-        return o.subscribe(i);
-      });
-    }
-    if (E("iterator") && (f = m(e, P), f))
-      return new u(function(i) {
-        b(function() {
-          if (!i.closed) {
-            for (var c = I(f.call(e)), s; !(s = c()).done; ) {
-              var a = s.value;
-              if (i.next(a), i.closed) return;
-            }
-            i.complete();
-          }
-        });
-      });
-    if (Array.isArray(e))
-      return new u(function(i) {
-        b(function() {
-          if (!i.closed) {
-            for (var c = 0; c < e.length; ++c)
-              if (i.next(e[c]), i.closed) return;
-            i.complete();
-          }
-        });
-      });
-    throw new TypeError(e + " is not observable");
-  }, t.of = function() {
-    for (var e = arguments.length, u = new Array(e), f = 0; f < e; f++)
-      u[f] = arguments[f];
-    var o = typeof this == "function" ? this : t;
-    return new o(function(i) {
-      b(function() {
-        if (!i.closed) {
-          for (var c = 0; c < u.length; ++c)
-            if (i.next(u[c]), i.closed) return;
-          i.complete();
-        }
-      });
-    });
-  }, g(t, null, [{
-    key: q,
-    get: function() {
-      return this;
-    }
-  }]), t;
-}();
-S() && Object.defineProperty(O, Symbol("extensions"), {
-  value: {
-    symbol: v,
-    hostReportError: y
-  },
-  configurable: !0
+const S = t.toFlatObject(t, {}, null, function(e) {
+  return /^is[A-Z]/.test(e);
 });
+function W(i, e, s) {
+  if (!t.isObject(i))
+    throw new TypeError("target must be an object");
+  e = e || new FormData(), s = t.toFlatObject(s, {
+    metaTokens: !0,
+    dots: !1,
+    indexes: !1
+  }, !1, function(n, u) {
+    return !t.isUndefined(u[n]);
+  });
+  const B = s.metaTokens, o = s.visitor || j, d = s.dots, m = s.indexes, w = (s.Blob || typeof Blob < "u" && Blob) && t.isSpecCompliantForm(e);
+  if (!t.isFunction(o))
+    throw new TypeError("visitor must be a function");
+  function l(r) {
+    if (r === null) return "";
+    if (t.isDate(r))
+      return r.toISOString();
+    if (!w && t.isBlob(r))
+      throw new E("Blob is not supported. Use a Buffer instead.");
+    return t.isArrayBuffer(r) || t.isTypedArray(r) ? w && typeof Blob == "function" ? new Blob([r]) : Buffer.from(r) : r;
+  }
+  function j(r, n, u) {
+    let c = r;
+    if (r && !u && typeof r == "object") {
+      if (t.endsWith(n, "{}"))
+        n = B ? n : n.slice(0, -2), r = JSON.stringify(r);
+      else if (t.isArray(r) && T(r) || (t.isFileList(r) || t.endsWith(n, "[]")) && (c = t.toArray(r)))
+        return n = h(n), c.forEach(function(b, x) {
+          !(t.isUndefined(b) || b === null) && e.append(
+            // eslint-disable-next-line no-nested-ternary
+            m === !0 ? O([n], x, d) : m === null ? n : n + "[]",
+            l(b)
+          );
+        }), !1;
+    }
+    return p(r) ? !0 : (e.append(O(u, n, d), l(r)), !1);
+  }
+  const a = [], F = Object.assign(S, {
+    defaultVisitor: j,
+    convertValue: l,
+    isVisitable: p
+  });
+  function A(r, n) {
+    if (!t.isUndefined(r)) {
+      if (a.indexOf(r) !== -1)
+        throw Error("Circular reference detected in " + n.join("."));
+      a.push(r), t.forEach(r, function(c, f) {
+        (!(t.isUndefined(c) || c === null) && o.call(
+          e,
+          c,
+          t.isString(f) ? f.trim() : f,
+          n,
+          F
+        )) === !0 && A(c, n ? n.concat(f) : [f]);
+      }), a.pop();
+    }
+  }
+  if (!t.isObject(i))
+    throw new TypeError("data must be an object");
+  return A(i), e;
+}
 export {
-  O as Observable
+  W as default
 };
 //# sourceMappingURL=index.es133.js.map

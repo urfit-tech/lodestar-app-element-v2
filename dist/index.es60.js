@@ -1,47 +1,39 @@
-import { __require as d } from "./index.es103.js";
-import { __require as E } from "./index.es104.js";
-var i, c;
-function A() {
-  if (c) return i;
-  c = 1;
-  const m = d(), u = E(), l = {
-    ec: ["ES256", "ES384", "ES512"],
-    rsa: ["RS256", "PS256", "RS384", "PS384", "RS512", "PS512"],
-    "rsa-pss": ["PS256", "PS384", "PS512"]
-  }, p = {
-    ES256: "prime256v1",
-    ES384: "secp384r1",
-    ES512: "secp521r1"
-  };
-  return i = function(e, t) {
-    if (!e || !t) return;
-    const r = t.asymmetricKeyType;
-    if (!r) return;
-    const s = l[r];
-    if (!s)
-      throw new Error(`Unknown key type "${r}".`);
-    if (!s.includes(e))
-      throw new Error(`"alg" parameter for "${r}" key type must be one of: ${s.join(", ")}.`);
-    if (m)
-      switch (r) {
-        case "ec":
-          const y = t.asymmetricKeyDetails.namedCurve, o = p[e];
-          if (y !== o)
-            throw new Error(`"alg" parameter "${e}" requires curve "${o}".`);
-          break;
-        case "rsa-pss":
-          if (u) {
-            const a = parseInt(e.slice(-3), 10), { hashAlgorithm: n, mgf1HashAlgorithm: f, saltLength: S } = t.asymmetricKeyDetails;
-            if (n !== `sha${a}` || f !== n)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameters do not meet the requirements of "alg" ${e}.`);
-            if (S !== void 0 && S > a >> 3)
-              throw new Error(`Invalid key for this operation, its RSA-PSS parameter saltLength does not meet the requirements of "alg" ${e}.`);
-          }
-          break;
-      }
-  }, i;
+import { __extends as c, __spreadArray as n } from "./index.es56.js";
+import "./index.es65.js";
+import "./index.es66.js";
+import { isNonNullObject as f } from "./index.es62.js";
+var g = Symbol();
+function O(r) {
+  return r.extensions ? Array.isArray(r.extensions[g]) : !1;
 }
+function v(r) {
+  return r.hasOwnProperty("graphQLErrors");
+}
+var m = function(r) {
+  var e = n(n(n([], r.graphQLErrors, !0), r.clientErrors, !0), r.protocolErrors, !0);
+  return r.networkError && e.push(r.networkError), e.map(function(t) {
+    return f(t) && t.message || "Error message not found.";
+  }).join(`
+`);
+}, w = (
+  /** @class */
+  function(r) {
+    c(e, r);
+    function e(t) {
+      var s = t.graphQLErrors, a = t.protocolErrors, i = t.clientErrors, l = t.networkError, E = t.errorMessage, u = t.extraInfo, o = r.call(this, E) || this;
+      return o.name = "ApolloError", o.graphQLErrors = s || [], o.protocolErrors = a || [], o.clientErrors = i || [], o.networkError = l || null, o.message = E || m(o), o.extraInfo = u, o.cause = n(n(n([
+        l
+      ], s || [], !0), a || [], !0), i || [], !0).find(function(p) {
+        return !!p;
+      }) || null, o.__proto__ = e.prototype, o;
+    }
+    return e;
+  }(Error)
+);
 export {
-  A as __require
+  w as ApolloError,
+  g as PROTOCOL_ERRORS_SYMBOL,
+  O as graphQLResultHasProtocolErrors,
+  v as isApolloError
 };
 //# sourceMappingURL=index.es60.js.map

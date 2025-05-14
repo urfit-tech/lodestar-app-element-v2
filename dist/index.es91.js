@@ -1,7 +1,15 @@
-function r(e) {
-  return e.substring(0, 1) === "/" ? e.substring(1) : e;
+function u() {
+  for (var e = [], r = 0; r < arguments.length; r++)
+    e[r] = arguments[r];
+  var n = /* @__PURE__ */ Object.create(null);
+  return e.forEach(function(t) {
+    t && Object.keys(t).forEach(function(a) {
+      var c = t[a];
+      c !== void 0 && (n[a] = c);
+    });
+  }), n;
 }
 export {
-  r as default
+  u as compact
 };
 //# sourceMappingURL=index.es91.js.map

@@ -1,18 +1,10 @@
-import { __require as i } from "./index.es102.js";
-var e, a;
-function s() {
-  if (a) return e;
-  a = 1;
-  var u = i();
-  return e = function(r, f) {
-    var n = f || Math.floor(Date.now() / 1e3);
-    if (typeof r == "string") {
-      var t = u(r);
-      return typeof t > "u" ? void 0 : Math.floor(n + t / 1e3);
-    } else return typeof r == "number" ? n + r : void 0;
-  }, e;
-}
+import { Observable as t } from "./index.es58.js";
+import "./index.es80.js";
+var r = t.prototype, o = "@@observable";
+r[o] || (r[o] = function() {
+  return this;
+});
 export {
-  s as __require
+  t as Observable
 };
 //# sourceMappingURL=index.es59.js.map

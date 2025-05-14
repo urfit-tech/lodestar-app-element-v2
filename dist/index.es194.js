@@ -1,7 +1,7 @@
-function e(t) {
-  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
+function r(e) {
+  return e.substring(0, 1) === "/" ? e.substring(1) : e;
 }
 export {
-  e as default
+  r as default
 };
 //# sourceMappingURL=index.es194.js.map

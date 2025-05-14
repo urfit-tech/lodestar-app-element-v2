@@ -1,25 +1,34 @@
-import { __require as d } from "./index.es167.js";
-import { __require as _ } from "./index.es151.js";
-var u, c;
-function S() {
-  if (c) return u;
-  c = 1;
-  const m = d(), a = _();
-  return u = (h, t, f) => {
-    const n = [];
-    let s = null, l = null;
-    const o = h.sort((i, e) => a(i, e, f));
-    for (const i of o)
-      m(i, t, f) ? (l = i, s || (s = i)) : (l && n.push([s, l]), l = null, s = null);
-    s && n.push([s, null]);
-    const r = [];
-    for (const [i, e] of n)
-      i === e ? r.push(i) : !e && i === o[0] ? r.push("*") : e ? i === o[0] ? r.push(`<=${e}`) : r.push(`${i} - ${e}`) : r.push(`>=${i}`);
-    const p = r.join(" || "), q = typeof t.raw == "string" ? t.raw : String(t);
-    return p.length < q.length ? p : t;
-  }, u;
+import { invariant as c } from "./index.es65.js";
+import "./index.es66.js";
+import * as l from "./index.es175.js";
+import { r as o } from "./index.es175.js";
+import { canUseLayoutEffect as v } from "./index.es69.js";
+var u = !1, h = "useSyncExternalStore", S = l[h], g = S || function(a, e, f) {
+  var r = e();
+  // DEVIATION: Using __DEV__
+  globalThis.__DEV__ !== !1 && !u && // DEVIATION: Not using Object.is because we know our snapshots will never
+  // be exotic primitive values like NaN, which is !== itself.
+  r !== e() && (u = !0, globalThis.__DEV__ !== !1 && c.error(59));
+  var s = o.useState({
+    inst: { value: r, getSnapshot: e }
+  }), t = s[0].inst, n = s[1];
+  return v ? o.useLayoutEffect(function() {
+    Object.assign(t, { value: r, getSnapshot: e }), i(t) && n({ inst: t });
+  }, [a, r, e]) : Object.assign(t, { value: r, getSnapshot: e }), o.useEffect(function() {
+    return i(t) && n({ inst: t }), a(function() {
+      i(t) && n({ inst: t });
+    });
+  }, [a]), r;
+};
+function i(a) {
+  var e = a.value, f = a.getSnapshot;
+  try {
+    return e !== f();
+  } catch {
+    return !0;
+  }
 }
 export {
-  S as __require
+  g as useSyncExternalStore
 };
 //# sourceMappingURL=index.es177.js.map

@@ -1,34 +1,32 @@
-import n from "./index.es124.js";
-import l from "./index.es71.js";
-import h from "./index.es232.js";
-import c from "./index.es233.js";
-import w from "./index.es120.js";
-import C from "./index.es74.js";
-import b from "./index.es85.js";
-import S from "./index.es117.js";
-const v = (s) => {
-  const e = C({}, s);
-  let { data: p, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
-  e.headers = r = b.from(r), e.url = S(w(e.baseURL, e.url, e.allowAbsoluteUrls), s.params, s.paramsSerializer), t && r.set(
-    "Authorization",
-    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
-  );
-  let i;
-  if (l.isFormData(p)) {
-    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
-      r.setContentType(void 0);
-    else if ((i = r.getContentType()) !== !1) {
-      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
-      r.setContentType([a || "multipart/form-data", ...d].join("; "));
-    }
-  }
-  if (n.hasStandardBrowserEnv && (o && l.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
-    const a = m && f && c.read(f);
-    a && r.set(m, a);
-  }
-  return e;
-};
+import r from "./index.es235.js";
+import p from "./index.es131.js";
+import o from "./index.es127.js";
+import l from "./index.es129.js";
+import a from "./index.es137.js";
+import m from "./index.es138.js";
+function d(e) {
+  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
+    throw new l(null, e);
+}
+function q(e) {
+  return d(e), e.headers = a.from(e.headers), e.data = r.call(
+    e,
+    e.transformRequest
+  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
+    return d(e), t.data = r.call(
+      e,
+      e.transformResponse,
+      t
+    ), t.headers = a.from(t.headers), t;
+  }, function(t) {
+    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
+      e,
+      e.transformResponse,
+      t.response
+    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
+  });
+}
 export {
-  v as default
+  q as default
 };
 //# sourceMappingURL=index.es201.js.map

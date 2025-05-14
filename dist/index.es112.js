@@ -1,11 +1,14 @@
-import { __module as e } from "./index.es184.js";
-import { __require as o } from "./index.es185.js";
-import { __require as t } from "./index.es186.js";
-var r;
-function p() {
-  return r ? e.exports : (r = 1, process.env.NODE_ENV === "production" ? e.exports = o() : e.exports = t(), e.exports);
+let t;
+const e = new Uint8Array(16);
+function o() {
+  if (!t) {
+    if (typeof crypto > "u" || !crypto.getRandomValues)
+      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+    t = crypto.getRandomValues.bind(crypto);
+  }
+  return t(e);
 }
 export {
-  p as __require
+  o as default
 };
 //# sourceMappingURL=index.es112.js.map

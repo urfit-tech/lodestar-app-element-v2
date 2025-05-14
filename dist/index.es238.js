@@ -1,14 +1,16 @@
-import { getOperationName as a } from "./index.es29.js";
-function t(r) {
-  var e = {
-    variables: r.variables || {},
-    extensions: r.extensions || {},
-    operationName: r.operationName,
-    query: r.query
-  };
-  return e.operationName || (e.operationName = typeof e.query != "string" ? a(e.query) || void 0 : ""), e;
-}
+import o from "./index.es300.js";
+import r from "./index.es301.js";
+import t from "./index.es302.js";
+const l = {
+  isBrowser: !0,
+  classes: {
+    URLSearchParams: o,
+    FormData: r,
+    Blob: t
+  },
+  protocols: ["http", "https", "file", "blob", "url", "data"]
+};
 export {
-  t as transformOperation
+  l as default
 };
 //# sourceMappingURL=index.es238.js.map

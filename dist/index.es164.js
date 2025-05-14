@@ -1,34 +1,41 @@
-import { __require as C } from "./index.es140.js";
-import { __require as g } from "./index.es142.js";
-import { __require as q } from "./index.es138.js";
-var a, i;
-function L() {
-  if (i) return a;
-  i = 1;
-  const f = C(), m = g(), { safeRe: c, t: n } = q();
-  return a = (r, t) => {
-    if (r instanceof f)
-      return r;
-    if (typeof r == "number" && (r = String(r)), typeof r != "string")
-      return null;
-    t = t || {};
-    let e = null;
-    if (!t.rtl)
-      e = r.match(t.includePrerelease ? c[n.COERCEFULL] : c[n.COERCE]);
-    else {
-      const u = t.includePrerelease ? c[n.COERCERTLFULL] : c[n.COERCERTL];
-      let l;
-      for (; (l = u.exec(r)) && (!e || e.index + e[0].length !== r.length); )
-        (!e || l.index + l[0].length !== e.index + e[0].length) && (e = l), u.lastIndex = l.index + l[1].length + l[2].length;
-      u.lastIndex = -1;
-    }
-    if (e === null)
-      return null;
-    const s = e[2], d = e[3] || "0", h = e[4] || "0", R = t.includePrerelease && e[5] ? `-${e[5]}` : "", x = t.includePrerelease && e[6] ? `+${e[6]}` : "";
-    return m(`${s}.${d}.${h}${R}${x}`, t);
-  }, a;
+import o from "./index.es218.js";
+import a from "./index.es219.js";
+import n from "./index.es220.js";
+import t from "./index.es221.js";
+import { canUseAsyncIteratorSymbol as i } from "./index.es69.js";
+function f(r) {
+  return !!r.body;
+}
+function s(r) {
+  return !!r.getReader;
+}
+function m(r) {
+  return !!(i && r[Symbol.asyncIterator]);
+}
+function u(r) {
+  return !!r.stream;
+}
+function b(r) {
+  return !!r.arrayBuffer;
+}
+function d(r) {
+  return !!r.pipe;
+}
+function R(r) {
+  var e = r;
+  if (f(r) && (e = r.body), m(e))
+    return o(e);
+  if (s(e))
+    return t(e.getReader());
+  if (u(e))
+    return t(e.stream().getReader());
+  if (b(e))
+    return n(e.arrayBuffer());
+  if (d(e))
+    return a(e);
+  throw new Error("Unknown body type for responseIterator. Please pass a streamable response.");
 }
 export {
-  L as __require
+  R as responseIterator
 };
 //# sourceMappingURL=index.es164.js.map

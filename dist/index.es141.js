@@ -1,17 +1,14 @@
-var n, o;
-function f() {
-  if (o) return n;
-  o = 1;
-  const s = /^[0-9]+$/, c = (e, r) => {
-    const i = s.test(e), t = s.test(r);
-    return i && t && (e = +e, r = +r), e === r ? 0 : i && !t ? -1 : t && !i ? 1 : e < r ? -1 : 1;
+import { getOperationName as a } from "./index.es36.js";
+function t(r) {
+  var e = {
+    variables: r.variables || {},
+    extensions: r.extensions || {},
+    operationName: r.operationName,
+    query: r.query
   };
-  return n = {
-    compareIdentifiers: c,
-    rcompareIdentifiers: (e, r) => c(r, e)
-  }, n;
+  return e.operationName || (e.operationName = typeof e.query != "string" ? a(e.query) || void 0 : ""), e;
 }
 export {
-  f as __require
+  t as transformOperation
 };
 //# sourceMappingURL=index.es141.js.map

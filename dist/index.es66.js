@@ -1,17 +1,22 @@
-var e, t;
-function c() {
-  if (t) return e;
-  t = 1;
-  var o = "[object Number]", n = Object.prototype, i = n.toString;
-  function u(r) {
-    return !!r && typeof r == "object";
-  }
-  function b(r) {
-    return typeof r == "number" || u(r) && i.call(r) == o;
-  }
-  return e = b, e;
-}
+import { maybe as n } from "./index.es90.js";
+const r = n(function() {
+  return globalThis;
+}) || n(function() {
+  return window;
+}) || n(function() {
+  return self;
+}) || n(function() {
+  return global;
+}) || // We don't expect the Function constructor ever to be invoked at runtime, as
+// long as at least one of globalThis, window, self, or global is defined, so
+// we are under no obligation to make it easy for static analysis tools to
+// detect syntactic usage of the Function constructor. If you think you can
+// improve your static analysis to detect this obfuscation, think again. This
+// is an arms race you cannot win, at least not in JavaScript.
+n(function() {
+  return n.constructor("return this")();
+});
 export {
-  c as __require
+  r as default
 };
 //# sourceMappingURL=index.es66.js.map

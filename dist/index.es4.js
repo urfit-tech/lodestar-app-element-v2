@@ -1,7 +1,8 @@
 import { j as k } from "./index.es15.js";
-import { useQuery as y, gql as h } from "@apollo/client";
-import { createContext as f, useContext as g, useMemo as o, useEffect as x } from "react";
-import { useAuth as I } from "./index.es6.js";
+import { createContext as y, useContext as h, useMemo as o, useEffect as f } from "react";
+import { useAuth as g } from "./index.es6.js";
+import { useQuery as x } from "./index.es17.js";
+import { gql as I } from "./index.es18.js";
 const u = {
   id: "",
   orgId: null,
@@ -23,9 +24,9 @@ const u = {
     watched_seconds: 0
   },
   endedAt: null
-}, c = f(u), w = () => g(c), E = ({ appId: i, children: b }) => {
-  const { authToken: a, refreshToken: s } = I(), { data: n, loading: l, error: r, refetch: _ } = y(
-    h`
+}, c = y(u), E = () => h(c), T = ({ appId: i, children: b }) => {
+  const { authToken: a, refreshToken: s } = g(), { data: n, loading: l, error: r, refetch: _ } = x(
+    I`
       query GET_APP($appId: String!) {
         currency {
           id
@@ -152,12 +153,12 @@ const u = {
     } : u,
     [n?.app_by_pk, n?.currency, r, l, _, d, p]
   );
-  return x(() => {
+  return f(() => {
     a || s?.();
   }, [i, a, s]), /* @__PURE__ */ k.jsx(c.Provider, { value: m, children: b });
 };
 export {
-  E as AppProvider,
-  w as useApp
+  T as AppProvider,
+  E as useApp
 };
 //# sourceMappingURL=index.es4.js.map

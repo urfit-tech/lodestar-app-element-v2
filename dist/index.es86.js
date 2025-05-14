@@ -1,54 +1,77 @@
-import a from "./index.es71.js";
-import h from "./index.es126.js";
-import m from "./index.es127.js";
-import u from "./index.es128.js";
-import d from "./index.es82.js";
-const s = {
-  http: h,
-  xhr: m,
-  fetch: u
-};
-a.forEach(s, (e, n) => {
-  if (e) {
-    try {
-      Object.defineProperty(e, "name", { value: n });
-    } catch {
+import { __extends as h } from "./index.es56.js";
+import "./index.es59.js";
+import { iterateObserversSafely as f } from "./index.es84.js";
+import { fixObservableSubclass as p } from "./index.es87.js";
+import { Observable as l } from "./index.es58.js";
+function c(i) {
+  return i && typeof i.then == "function";
+}
+var m = (
+  /** @class */
+  function(i) {
+    h(r, i);
+    function r(s) {
+      var e = i.call(this, function(t) {
+        return e.addObserver(t), function() {
+          return e.removeObserver(t);
+        };
+      }) || this;
+      return e.observers = /* @__PURE__ */ new Set(), e.promise = new Promise(function(t, n) {
+        e.resolve = t, e.reject = n;
+      }), e.handlers = {
+        next: function(t) {
+          e.sub !== null && (e.latest = ["next", t], e.notify("next", t), f(e.observers, "next", t));
+        },
+        error: function(t) {
+          var n = e.sub;
+          n !== null && (n && setTimeout(function() {
+            return n.unsubscribe();
+          }), e.sub = null, e.latest = ["error", t], e.reject(t), e.notify("error", t), f(e.observers, "error", t));
+        },
+        complete: function() {
+          var t = e, n = t.sub, u = t.sources, a = u === void 0 ? [] : u;
+          if (n !== null) {
+            var o = a.shift();
+            o ? c(o) ? o.then(function(b) {
+              return e.sub = b.subscribe(e.handlers);
+            }, e.handlers.error) : e.sub = o.subscribe(e.handlers) : (n && setTimeout(function() {
+              return n.unsubscribe();
+            }), e.sub = null, e.latest && e.latest[0] === "next" ? e.resolve(e.latest[1]) : e.resolve(), e.notify("complete"), f(e.observers, "complete"));
+          }
+        }
+      }, e.nextResultListeners = /* @__PURE__ */ new Set(), e.cancel = function(t) {
+        e.reject(t), e.sources = [], e.handlers.complete();
+      }, e.promise.catch(function(t) {
+      }), typeof s == "function" && (s = [new l(s)]), c(s) ? s.then(function(t) {
+        return e.start(t);
+      }, e.handlers.error) : e.start(s), e;
     }
-    Object.defineProperty(e, "adapterName", { value: n });
-  }
-});
-const c = (e) => `- ${e}`, b = (e) => a.isFunction(e) || e === null || e === !1, y = {
-  getAdapter: (e) => {
-    e = a.isArray(e) ? e : [e];
-    const { length: n } = e;
-    let o, r;
-    const p = {};
-    for (let t = 0; t < n; t++) {
-      o = e[t];
-      let i;
-      if (r = o, !b(o) && (r = s[(i = String(o)).toLowerCase()], r === void 0))
-        throw new d(`Unknown adapter '${i}'`);
-      if (r)
-        break;
-      p[i || "#" + t] = r;
-    }
-    if (!r) {
-      const t = Object.entries(p).map(
-        ([f, l]) => `adapter ${f} ` + (l === !1 ? "is not supported by the environment" : "is not available in the build")
-      );
-      let i = n ? t.length > 1 ? `since :
-` + t.map(c).join(`
-`) : " " + c(t[0]) : "as no adapter specified";
-      throw new d(
-        "There is no suitable adapter to dispatch the request " + i,
-        "ERR_NOT_SUPPORT"
-      );
-    }
-    return r;
-  },
-  adapters: s
-};
+    return r.prototype.start = function(s) {
+      this.sub === void 0 && (this.sources = Array.from(s), this.handlers.complete());
+    }, r.prototype.deliverLastMessage = function(s) {
+      if (this.latest) {
+        var e = this.latest[0], t = s[e];
+        t && t.call(s, this.latest[1]), this.sub === null && e === "next" && s.complete && s.complete();
+      }
+    }, r.prototype.addObserver = function(s) {
+      this.observers.has(s) || (this.deliverLastMessage(s), this.observers.add(s));
+    }, r.prototype.removeObserver = function(s) {
+      this.observers.delete(s) && this.observers.size < 1 && this.handlers.complete();
+    }, r.prototype.notify = function(s, e) {
+      var t = this.nextResultListeners;
+      t.size && (this.nextResultListeners = /* @__PURE__ */ new Set(), t.forEach(function(n) {
+        return n(s, e);
+      }));
+    }, r.prototype.beforeNext = function(s) {
+      var e = !1;
+      this.nextResultListeners.add(function(t, n) {
+        e || (e = !0, s(t, n));
+      });
+    }, r;
+  }(l)
+);
+p(m);
 export {
-  y as default
+  m as Concast
 };
 //# sourceMappingURL=index.es86.js.map

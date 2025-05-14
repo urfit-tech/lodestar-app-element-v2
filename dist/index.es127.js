@@ -1,72 +1,90 @@
-import b from "./index.es71.js";
-import D from "./index.es198.js";
-import L from "./index.es122.js";
-import r from "./index.es82.js";
-import v from "./index.es77.js";
-import y from "./index.es199.js";
-import O from "./index.es124.js";
-import H from "./index.es85.js";
-import { progressEventReducer as q } from "./index.es200.js";
-import U from "./index.es201.js";
-const N = typeof XMLHttpRequest < "u", Q = N && function(n) {
-  return new Promise(function(A, s) {
-    const t = U(n);
-    let c = t.data;
-    const E = H.from(t.headers).normalize();
-    let { responseType: i, onUploadProgress: T, onDownloadProgress: R } = t, a, h, w, u, p;
-    function g() {
-      u && u(), p && p(), t.cancelToken && t.cancelToken.unsubscribe(a), t.signal && t.signal.removeEventListener("abort", a);
+import t from "./index.es123.js";
+import p from "./index.es134.js";
+import u from "./index.es204.js";
+import S from "./index.es133.js";
+import h from "./index.es205.js";
+import l from "./index.es206.js";
+import O from "./index.es128.js";
+function y(i, r, e) {
+  if (t.isString(i))
+    try {
+      return (r || JSON.parse)(i), t.trim(i);
+    } catch (n) {
+      if (n.name !== "SyntaxError")
+        throw n;
     }
-    let e = new XMLHttpRequest();
-    e.open(t.method.toUpperCase(), t.url, !0), e.timeout = t.timeout;
-    function x() {
-      if (!e)
-        return;
-      const o = H.from(
-        "getAllResponseHeaders" in e && e.getAllResponseHeaders()
-      ), d = {
-        data: !i || i === "text" || i === "json" ? e.responseText : e.response,
-        status: e.status,
-        statusText: e.statusText,
-        headers: o,
-        config: n,
-        request: e
-      };
-      D(function(m) {
-        A(m), g();
-      }, function(m) {
-        s(m), g();
-      }, d), e = null;
+  return (e || JSON.stringify)(i);
+}
+const a = {
+  transitional: u,
+  adapter: ["xhr", "http", "fetch"],
+  transformRequest: [function(r, e) {
+    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
+    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
+      return s ? JSON.stringify(O(r)) : r;
+    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
+      return r;
+    if (t.isArrayBufferView(r))
+      return r.buffer;
+    if (t.isURLSearchParams(r))
+      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
+    let o;
+    if (f) {
+      if (n.indexOf("application/x-www-form-urlencoded") > -1)
+        return h(r, this.formSerializer).toString();
+      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
+        const c = this.env && this.env.FormData;
+        return S(
+          o ? { "files[]": r } : r,
+          c && new c(),
+          this.formSerializer
+        );
+      }
     }
-    "onloadend" in e ? e.onloadend = x : e.onreadystatechange = function() {
-      !e || e.readyState !== 4 || e.status === 0 && !(e.responseURL && e.responseURL.indexOf("file:") === 0) || setTimeout(x);
-    }, e.onabort = function() {
-      e && (s(new r("Request aborted", r.ECONNABORTED, n, e)), e = null);
-    }, e.onerror = function() {
-      s(new r("Network Error", r.ERR_NETWORK, n, e)), e = null;
-    }, e.ontimeout = function() {
-      let l = t.timeout ? "timeout of " + t.timeout + "ms exceeded" : "timeout exceeded";
-      const d = t.transitional || L;
-      t.timeoutErrorMessage && (l = t.timeoutErrorMessage), s(new r(
-        l,
-        d.clarifyTimeoutError ? r.ETIMEDOUT : r.ECONNABORTED,
-        n,
-        e
-      )), e = null;
-    }, c === void 0 && E.setContentType(null), "setRequestHeader" in e && b.forEach(E.toJSON(), function(l, d) {
-      e.setRequestHeader(d, l);
-    }), b.isUndefined(t.withCredentials) || (e.withCredentials = !!t.withCredentials), i && i !== "json" && (e.responseType = t.responseType), R && ([w, p] = q(R, !0), e.addEventListener("progress", w)), T && e.upload && ([h, u] = q(T), e.upload.addEventListener("progress", h), e.upload.addEventListener("loadend", u)), (t.cancelToken || t.signal) && (a = (o) => {
-      e && (s(!o || o.type ? new v(null, n, e) : o), e.abort(), e = null);
-    }, t.cancelToken && t.cancelToken.subscribe(a), t.signal && (t.signal.aborted ? a() : t.signal.addEventListener("abort", a)));
-    const f = y(t.url);
-    if (f && O.protocols.indexOf(f) === -1) {
-      s(new r("Unsupported protocol " + f + ":", r.ERR_BAD_REQUEST, n));
-      return;
+    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
+  }],
+  transformResponse: [function(r) {
+    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
+    if (t.isResponse(r) || t.isReadableStream(r))
+      return r;
+    if (r && t.isString(r) && (n && !this.responseType || s)) {
+      const m = !(e && e.silentJSONParsing) && s;
+      try {
+        return JSON.parse(r);
+      } catch (o) {
+        if (m)
+          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
+      }
     }
-    e.send(c || null);
-  });
+    return r;
+  }],
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: {
+    FormData: l.classes.FormData,
+    Blob: l.classes.Blob
+  },
+  validateStatus: function(r) {
+    return r >= 200 && r < 300;
+  },
+  headers: {
+    common: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": void 0
+    }
+  }
 };
+t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
+  a.headers[i] = {};
+});
 export {
-  Q as default
+  a as default
 };
 //# sourceMappingURL=index.es127.js.map

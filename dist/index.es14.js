@@ -1,12 +1,12 @@
 import { useToast as c } from "@chakra-ui/react";
-import u from "./index.es32.js";
+import u from "@fingerprintjs/fingerprintjs";
 import l from "ajv";
-import "./index.es18.js";
-import p from "./index.es19.js";
+import "./index.es21.js";
+import p from "./index.es22.js";
 import { useIntl as y } from "react-intl";
 import { codeMessages as d } from "./index.es12.js";
-import m from "./index.es21.js";
-const g = new l(), k = (t, r, o, e, n, a) => ({
+import m from "./index.es24.js";
+const g = new l(), F = (t, r, o, e, n, a) => ({
   formatCurrency: (s) => {
     const i = n || o || "TWD";
     return i === "LSC" ? `${s} ${e || a || "Coins"}` : s.toLocaleString(t || navigator.language, {
@@ -22,10 +22,10 @@ const g = new l(), k = (t, r, o, e, n, a) => ({
     const [e, n] = o.split("=");
     r[e.trim()] = n;
   }), r[t.trim()] || "";
-}, x = (t) => {
+}, k = (t) => {
   const [r, o] = t.split("_");
   return { type: r.split(/(?=[A-Z])/).join("_").toLowerCase(), target: o };
-}, F = () => {
+}, S = () => {
   const { formatMessage: t } = y(), r = c();
   return (e) => {
     try {
@@ -84,9 +84,9 @@ export {
   $ as fetchCurrentGeolocation,
   f as getCookie,
   _ as getFingerPrintId,
-  x as getResourceByProductId,
+  k as getResourceByProductId,
   q as parsePayload,
-  k as useCurrency,
-  F as useToastMessage
+  F as useCurrency,
+  S as useToastMessage
 };
 //# sourceMappingURL=index.es14.js.map

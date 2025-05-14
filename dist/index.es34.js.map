@@ -1,1 +1,1 @@
-{"version":3,"file":"index.es34.js","sources":[],"sourcesContent":[],"names":[],"mappings":";"}
+{"version":3,"file":"index.es34.js","sources":["../../node_modules/@apollo/client/link/core/from.js"],"sourcesContent":["import { ApolloLink } from \"./ApolloLink.js\";\nexport var from = ApolloLink.from;\n//# sourceMappingURL=from.js.map"],"names":["from","ApolloLink"],"mappings":";AACU,IAACA,IAAOC,EAAW;","x_google_ignoreList":[0]}

@@ -1,36 +1,34 @@
-import { __extends as u } from "./index.es131.js";
-var i = "Invariant Violation", a = Object.setPrototypeOf, c = a === void 0 ? function(r, o) {
-  return r.__proto__ = o, r;
-} : a, p = (
-  /** @class */
-  function(r) {
-    u(o, r);
-    function o(t) {
-      t === void 0 && (t = i);
-      var n = r.call(this, typeof t == "number" ? i + ": " + t + " (see https://github.com/apollographql/invariant-packages)" : t) || this;
-      return n.framesToPop = 1, n.name = i, c(n, o.prototype), n;
-    }
-    return o;
-  }(Error)
-);
-function l(r, o) {
-  if (!r)
-    throw new p(o);
-}
-var f = ["debug", "log", "warn", "error", "silent"], v = f.indexOf("log");
-function e(r) {
-  return function() {
-    if (f.indexOf(r) >= v) {
-      var o = console[r] || console.log;
-      return o.apply(console, arguments);
-    }
+import p from "./index.es133.js";
+function i(n) {
+  const t = {
+    "!": "%21",
+    "'": "%27",
+    "(": "%28",
+    ")": "%29",
+    "~": "%7E",
+    "%20": "+",
+    "%00": "\0"
   };
+  return encodeURIComponent(n).replace(/[!'()~]|%20|%00/g, function(r) {
+    return t[r];
+  });
 }
-(function(r) {
-  r.debug = e("debug"), r.log = e("log"), r.warn = e("warn"), r.error = e("error");
-})(l || (l = {}));
+function a(n, t) {
+  this._pairs = [], n && p(n, this, t);
+}
+const c = a.prototype;
+c.append = function(t, o) {
+  this._pairs.push([t, o]);
+};
+c.toString = function(t) {
+  const o = t ? function(r) {
+    return t.call(this, r, i);
+  } : i;
+  return this._pairs.map(function(e) {
+    return o(e[0]) + "=" + o(e[1]);
+  }, "").join("&");
+};
 export {
-  p as InvariantError,
-  l as invariant
+  a as default
 };
 //# sourceMappingURL=index.es234.js.map

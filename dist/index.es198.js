@@ -1,15 +1,17 @@
-import a from "./index.es82.js";
-function E(i, f, t) {
-  const u = t.config.validateStatus;
-  !t.status || !u || u(t.status) ? i(t) : f(new a(
-    "Request failed with status code " + t.status,
-    [a.ERR_BAD_REQUEST, a.ERR_BAD_RESPONSE][Math.floor(t.status / 100) - 4],
-    t.config,
-    t.request,
-    t
-  ));
-}
+var t = [];
+const e = {
+  calls: t,
+  ga: function() {
+    for (var s = arguments.length, l = new Array(s), a = 0; a < s; a++)
+      l[a] = arguments[a];
+    t.push([].concat(l));
+  },
+  resetCalls: function() {
+    t.length = 0;
+  }
+};
 export {
-  E as default
+  e as default,
+  t as gaCalls
 };
 //# sourceMappingURL=index.es198.js.map

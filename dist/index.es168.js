@@ -1,12 +1,10 @@
-import { __require as m } from "./index.es166.js";
-var r, o;
-function u() {
-  if (o) return r;
-  o = 1;
-  const a = m();
-  return r = (e, t) => new a(e, t).set.map((s) => s.map((i) => i.value).join(" ").trim().split(" ")), r;
-}
+import { newInvariantError as e } from "./index.es65.js";
+import "./index.es66.js";
+var n = function(r) {
+  if (!r && typeof fetch > "u")
+    throw e(37);
+};
 export {
-  u as __require
+  n as checkFetcher
 };
 //# sourceMappingURL=index.es168.js.map

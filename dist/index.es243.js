@@ -1,53 +1,34 @@
-import { __exports as F } from "./index.es248.js";
-var A;
-function _() {
-  if (A) return F;
-  A = 1, F.byteLength = y, F.toByteArray = C, F.fromByteArray = B;
-  for (var c = [], n = [], l = typeof Uint8Array < "u" ? Uint8Array : Array, d = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", s = 0, p = d.length; s < p; ++s)
-    c[s] = d[s], n[d.charCodeAt(s)] = s;
-  n[45] = 62, n[95] = 63;
-  function x(r) {
-    var e = r.length;
-    if (e % 4 > 0)
-      throw new Error("Invalid string. Length must be a multiple of 4");
-    var a = r.indexOf("=");
-    a === -1 && (a = e);
-    var o = a === e ? 0 : 4 - a % 4;
-    return [a, o];
+import n from "./index.es206.js";
+import l from "./index.es123.js";
+import h from "./index.es305.js";
+import c from "./index.es306.js";
+import w from "./index.es202.js";
+import C from "./index.es126.js";
+import b from "./index.es137.js";
+import S from "./index.es199.js";
+const v = (s) => {
+  const e = C({}, s);
+  let { data: p, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
+  e.headers = r = b.from(r), e.url = S(w(e.baseURL, e.url, e.allowAbsoluteUrls), s.params, s.paramsSerializer), t && r.set(
+    "Authorization",
+    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
+  );
+  let i;
+  if (l.isFormData(p)) {
+    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
+      r.setContentType(void 0);
+    else if ((i = r.getContentType()) !== !1) {
+      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
+      r.setContentType([a || "multipart/form-data", ...d].join("; "));
+    }
   }
-  function y(r) {
-    var e = x(r), a = e[0], o = e[1];
-    return (a + o) * 3 / 4 - o;
+  if (n.hasStandardBrowserEnv && (o && l.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
+    const a = m && f && c.read(f);
+    a && r.set(m, a);
   }
-  function i(r, e, a) {
-    return (e + a) * 3 / 4 - a;
-  }
-  function C(r) {
-    var e, a = x(r), o = a[0], v = a[1], t = new l(i(r, o, v)), h = 0, u = v > 0 ? o - 4 : o, f;
-    for (f = 0; f < u; f += 4)
-      e = n[r.charCodeAt(f)] << 18 | n[r.charCodeAt(f + 1)] << 12 | n[r.charCodeAt(f + 2)] << 6 | n[r.charCodeAt(f + 3)], t[h++] = e >> 16 & 255, t[h++] = e >> 8 & 255, t[h++] = e & 255;
-    return v === 2 && (e = n[r.charCodeAt(f)] << 2 | n[r.charCodeAt(f + 1)] >> 4, t[h++] = e & 255), v === 1 && (e = n[r.charCodeAt(f)] << 10 | n[r.charCodeAt(f + 1)] << 4 | n[r.charCodeAt(f + 2)] >> 2, t[h++] = e >> 8 & 255, t[h++] = e & 255), t;
-  }
-  function L(r) {
-    return c[r >> 18 & 63] + c[r >> 12 & 63] + c[r >> 6 & 63] + c[r & 63];
-  }
-  function g(r, e, a) {
-    for (var o, v = [], t = e; t < a; t += 3)
-      o = (r[t] << 16 & 16711680) + (r[t + 1] << 8 & 65280) + (r[t + 2] & 255), v.push(L(o));
-    return v.join("");
-  }
-  function B(r) {
-    for (var e, a = r.length, o = a % 3, v = [], t = 16383, h = 0, u = a - o; h < u; h += t)
-      v.push(g(r, h, h + t > u ? u : h + t));
-    return o === 1 ? (e = r[a - 1], v.push(
-      c[e >> 2] + c[e << 4 & 63] + "=="
-    )) : o === 2 && (e = (r[a - 2] << 8) + r[a - 1], v.push(
-      c[e >> 10] + c[e >> 4 & 63] + c[e << 2 & 63] + "="
-    )), v.join("");
-  }
-  return F;
-}
+  return e;
+};
 export {
-  _ as __require
+  v as default
 };
 //# sourceMappingURL=index.es243.js.map

@@ -1,330 +1,92 @@
-import { __require as F } from "./index.es112.js";
-import { __require as N } from "./index.es187.js";
-import { __require as ee } from "./index.es188.js";
-import { __require as re } from "./index.es189.js";
-import { __require as ne } from "./index.es190.js";
-var A, C;
-function oe() {
-  if (C) return A;
-  C = 1;
-  var k = F(), W = N(), h = /* @__PURE__ */ ee(), j = /* @__PURE__ */ re(), R = /* @__PURE__ */ ne(), T = function() {
-  };
-  process.env.NODE_ENV !== "production" && (T = function(x) {
-    var S = "Warning: " + x;
-    typeof console < "u" && console.error(S);
-    try {
-      throw new Error(S);
-    } catch {
-    }
-  });
-  function E() {
-    return null;
+import { invariant as f } from "./index.es65.js";
+import "./index.es66.js";
+import { registerGlobalCache as y } from "./index.es75.js";
+import { AutoCleanedWeakCache as S } from "./index.es76.js";
+import { cacheSizes as M } from "./index.es71.js";
+var r;
+(function(e) {
+  e[e.Query = 0] = "Query", e[e.Mutation = 1] = "Mutation", e[e.Subscription = 2] = "Subscription";
+})(r || (r = {}));
+var s;
+function k(e) {
+  var i;
+  switch (e) {
+    case r.Query:
+      i = "Query";
+      break;
+    case r.Mutation:
+      i = "Mutation";
+      break;
+    case r.Subscription:
+      i = "Subscription";
+      break;
   }
-  return A = function(x, S) {
-    var _ = typeof Symbol == "function" && Symbol.iterator, D = "@@iterator";
-    function m(e) {
-      var r = e && (_ && e[_] || e[D]);
-      if (typeof r == "function")
-        return r;
+  return i;
+}
+function d(e) {
+  s || (s = new S(
+    M.parser || 1e3
+    /* defaultCacheSizes.parser */
+  ));
+  var i = s.get(e);
+  if (i)
+    return i;
+  var h, o, u;
+  f(!!e && !!e.kind, 61, e);
+  for (var c = [], a = [], n = [], l = [], g = 0, b = e.definitions; g < b.length; g++) {
+    var t = b[g];
+    if (t.kind === "FragmentDefinition") {
+      c.push(t);
+      continue;
     }
-    var P = "<<anonymous>>", w = {
-      array: p("array"),
-      bigint: p("bigint"),
-      bool: p("boolean"),
-      func: p("function"),
-      number: p("number"),
-      object: p("object"),
-      string: p("string"),
-      symbol: p("symbol"),
-      any: M(),
-      arrayOf: U,
-      element: B(),
-      elementType: J(),
-      instanceOf: z,
-      node: G(),
-      objectOf: H,
-      oneOf: L,
-      oneOfType: X,
-      shape: K,
-      exact: Q
-    };
-    function Y(e, r) {
-      return e === r ? e !== 0 || 1 / e === 1 / r : e !== e && r !== r;
-    }
-    function d(e, r) {
-      this.message = e, this.data = r && typeof r == "object" ? r : {}, this.stack = "";
-    }
-    d.prototype = Error.prototype;
-    function v(e) {
-      if (process.env.NODE_ENV !== "production")
-        var r = {}, u = 0;
-      function i(f, t, a, o, c, s, y) {
-        if (o = o || P, s = s || a, y !== h) {
-          if (S) {
-            var l = new Error(
-              "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
-            );
-            throw l.name = "Invariant Violation", l;
-          } else if (process.env.NODE_ENV !== "production" && typeof console < "u") {
-            var b = o + ":" + a;
-            !r[b] && // Avoid spamming the console because they are often not actionable except for lib authors
-            u < 3 && (T(
-              "You are manually calling a React.PropTypes validation function for the `" + s + "` prop on `" + o + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
-            ), r[b] = !0, u++);
-          }
-        }
-        return t[a] == null ? f ? t[a] === null ? new d("The " + c + " `" + s + "` is marked as required " + ("in `" + o + "`, but its value is `null`.")) : new d("The " + c + " `" + s + "` is marked as required in " + ("`" + o + "`, but its value is `undefined`.")) : null : e(t, a, o, c, s);
+    if (t.kind === "OperationDefinition")
+      switch (t.operation) {
+        case "query":
+          a.push(t);
+          break;
+        case "mutation":
+          n.push(t);
+          break;
+        case "subscription":
+          l.push(t);
+          break;
       }
-      var n = i.bind(null, !1);
-      return n.isRequired = i.bind(null, !0), n;
-    }
-    function p(e) {
-      function r(u, i, n, f, t, a) {
-        var o = u[i], c = g(o);
-        if (c !== e) {
-          var s = O(o);
-          return new d(
-            "Invalid " + f + " `" + t + "` of type " + ("`" + s + "` supplied to `" + n + "`, expected ") + ("`" + e + "`."),
-            { expectedType: e }
-          );
-        }
-        return null;
-      }
-      return v(r);
-    }
-    function M() {
-      return v(E);
-    }
-    function U(e) {
-      function r(u, i, n, f, t) {
-        if (typeof e != "function")
-          return new d("Property `" + t + "` of component `" + n + "` has invalid PropType notation inside arrayOf.");
-        var a = u[i];
-        if (!Array.isArray(a)) {
-          var o = g(a);
-          return new d("Invalid " + f + " `" + t + "` of type " + ("`" + o + "` supplied to `" + n + "`, expected an array."));
-        }
-        for (var c = 0; c < a.length; c++) {
-          var s = e(a, c, n, f, t + "[" + c + "]", h);
-          if (s instanceof Error)
-            return s;
-        }
-        return null;
-      }
-      return v(r);
-    }
-    function B() {
-      function e(r, u, i, n, f) {
-        var t = r[u];
-        if (!x(t)) {
-          var a = g(t);
-          return new d("Invalid " + n + " `" + f + "` of type " + ("`" + a + "` supplied to `" + i + "`, expected a single ReactElement."));
-        }
-        return null;
-      }
-      return v(e);
-    }
-    function J() {
-      function e(r, u, i, n, f) {
-        var t = r[u];
-        if (!k.isValidElementType(t)) {
-          var a = g(t);
-          return new d("Invalid " + n + " `" + f + "` of type " + ("`" + a + "` supplied to `" + i + "`, expected a single ReactElement type."));
-        }
-        return null;
-      }
-      return v(e);
-    }
-    function z(e) {
-      function r(u, i, n, f, t) {
-        if (!(u[i] instanceof e)) {
-          var a = e.name || P, o = V(u[i]);
-          return new d("Invalid " + f + " `" + t + "` of type " + ("`" + o + "` supplied to `" + n + "`, expected ") + ("instance of `" + a + "`."));
-        }
-        return null;
-      }
-      return v(r);
-    }
-    function L(e) {
-      if (!Array.isArray(e))
-        return process.env.NODE_ENV !== "production" && (arguments.length > 1 ? T(
-          "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
-        ) : T("Invalid argument supplied to oneOf, expected an array.")), E;
-      function r(u, i, n, f, t) {
-        for (var a = u[i], o = 0; o < e.length; o++)
-          if (Y(a, e[o]))
-            return null;
-        var c = JSON.stringify(e, function(y, l) {
-          var b = O(l);
-          return b === "symbol" ? String(l) : l;
-        });
-        return new d("Invalid " + f + " `" + t + "` of value `" + String(a) + "` " + ("supplied to `" + n + "`, expected one of " + c + "."));
-      }
-      return v(r);
-    }
-    function H(e) {
-      function r(u, i, n, f, t) {
-        if (typeof e != "function")
-          return new d("Property `" + t + "` of component `" + n + "` has invalid PropType notation inside objectOf.");
-        var a = u[i], o = g(a);
-        if (o !== "object")
-          return new d("Invalid " + f + " `" + t + "` of type " + ("`" + o + "` supplied to `" + n + "`, expected an object."));
-        for (var c in a)
-          if (j(a, c)) {
-            var s = e(a, c, n, f, t + "." + c, h);
-            if (s instanceof Error)
-              return s;
-          }
-        return null;
-      }
-      return v(r);
-    }
-    function X(e) {
-      if (!Array.isArray(e))
-        return process.env.NODE_ENV !== "production" && T("Invalid argument supplied to oneOfType, expected an instance of array."), E;
-      for (var r = 0; r < e.length; r++) {
-        var u = e[r];
-        if (typeof u != "function")
-          return T(
-            "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + $(u) + " at index " + r + "."
-          ), E;
-      }
-      function i(n, f, t, a, o) {
-        for (var c = [], s = 0; s < e.length; s++) {
-          var y = e[s], l = y(n, f, t, a, o, h);
-          if (l == null)
-            return null;
-          l.data && j(l.data, "expectedType") && c.push(l.data.expectedType);
-        }
-        var b = c.length > 0 ? ", expected one of type [" + c.join(", ") + "]" : "";
-        return new d("Invalid " + a + " `" + o + "` supplied to " + ("`" + t + "`" + b + "."));
-      }
-      return v(i);
-    }
-    function G() {
-      function e(r, u, i, n, f) {
-        return I(r[u]) ? null : new d("Invalid " + n + " `" + f + "` supplied to " + ("`" + i + "`, expected a ReactNode."));
-      }
-      return v(e);
-    }
-    function q(e, r, u, i, n) {
-      return new d(
-        (e || "React class") + ": " + r + " type `" + u + "." + i + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + n + "`."
-      );
-    }
-    function K(e) {
-      function r(u, i, n, f, t) {
-        var a = u[i], o = g(a);
-        if (o !== "object")
-          return new d("Invalid " + f + " `" + t + "` of type `" + o + "` " + ("supplied to `" + n + "`, expected `object`."));
-        for (var c in e) {
-          var s = e[c];
-          if (typeof s != "function")
-            return q(n, f, t, c, O(s));
-          var y = s(a, c, n, f, t + "." + c, h);
-          if (y)
-            return y;
-        }
-        return null;
-      }
-      return v(r);
-    }
-    function Q(e) {
-      function r(u, i, n, f, t) {
-        var a = u[i], o = g(a);
-        if (o !== "object")
-          return new d("Invalid " + f + " `" + t + "` of type `" + o + "` " + ("supplied to `" + n + "`, expected `object`."));
-        var c = W({}, u[i], e);
-        for (var s in c) {
-          var y = e[s];
-          if (j(e, s) && typeof y != "function")
-            return q(n, f, t, s, O(y));
-          if (!y)
-            return new d(
-              "Invalid " + f + " `" + t + "` key `" + s + "` supplied to `" + n + "`.\nBad object: " + JSON.stringify(u[i], null, "  ") + `
-Valid keys: ` + JSON.stringify(Object.keys(e), null, "  ")
-            );
-          var l = y(a, s, n, f, t + "." + s, h);
-          if (l)
-            return l;
-        }
-        return null;
-      }
-      return v(r);
-    }
-    function I(e) {
-      switch (typeof e) {
-        case "number":
-        case "string":
-        case "undefined":
-          return !0;
-        case "boolean":
-          return !e;
-        case "object":
-          if (Array.isArray(e))
-            return e.every(I);
-          if (e === null || x(e))
-            return !0;
-          var r = m(e);
-          if (r) {
-            var u = r.call(e), i;
-            if (r !== e.entries) {
-              for (; !(i = u.next()).done; )
-                if (!I(i.value))
-                  return !1;
-            } else
-              for (; !(i = u.next()).done; ) {
-                var n = i.value;
-                if (n && !I(n[1]))
-                  return !1;
-              }
-          } else
-            return !1;
-          return !0;
-        default:
-          return !1;
-      }
-    }
-    function Z(e, r) {
-      return e === "symbol" ? !0 : r ? r["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && r instanceof Symbol : !1;
-    }
-    function g(e) {
-      var r = typeof e;
-      return Array.isArray(e) ? "array" : e instanceof RegExp ? "object" : Z(r, e) ? "symbol" : r;
-    }
-    function O(e) {
-      if (typeof e > "u" || e === null)
-        return "" + e;
-      var r = g(e);
-      if (r === "object") {
-        if (e instanceof Date)
-          return "date";
-        if (e instanceof RegExp)
-          return "regexp";
-      }
-      return r;
-    }
-    function $(e) {
-      var r = O(e);
-      switch (r) {
-        case "array":
-        case "object":
-          return "an " + r;
-        case "boolean":
-        case "date":
-        case "regexp":
-          return "a " + r;
-        default:
-          return r;
-      }
-    }
-    function V(e) {
-      return !e.constructor || !e.constructor.name ? P : e.constructor.name;
-    }
-    return w.checkPropTypes = R, w.resetWarningCache = R.resetWarningCache, w.PropTypes = w, w;
-  }, A;
+  }
+  f(!c.length || a.length || n.length || l.length, 62), f(
+    a.length + n.length + l.length <= 1,
+    63,
+    e,
+    a.length,
+    l.length,
+    n.length
+  ), o = a.length ? r.Query : r.Mutation, !a.length && !n.length && (o = r.Subscription);
+  var v = a.length ? a : n.length ? n : l;
+  f(v.length === 1, 64, e, v.length);
+  var p = v[0];
+  h = p.variableDefinitions || [], p.name && p.name.kind === "Name" ? u = p.name.value : u = "data";
+  var m = { name: u, type: o, variables: h };
+  return s.set(e, m), m;
+}
+d.resetCache = function() {
+  s = void 0;
+};
+globalThis.__DEV__ !== !1 && y("parser", function() {
+  return s ? s.size : 0;
+});
+function O(e, i) {
+  var h = d(e), o = k(i), u = k(h.type);
+  f(
+    h.type === i,
+    65,
+    o,
+    o,
+    u
+  );
 }
 export {
-  oe as __require
+  r as DocumentType,
+  k as operationName,
+  d as parser,
+  O as verifyDocumentType
 };
 //# sourceMappingURL=index.es113.js.map

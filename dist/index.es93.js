@@ -1,18 +1,12 @@
-var l = !1;
-function u(e) {
-  if (!l) {
-    l = !0;
-    var s = "https://www.google-analytics.com/analytics.js";
-    e && e.gaAddress ? s = e.gaAddress : e && e.debug && (s = "https://www.google-analytics.com/analytics_debug.js");
-    var g = e && e.onerror;
-    (function(a, c, d, o, r, t, n) {
-      a.GoogleAnalyticsObject = r, a[r] = a[r] || function() {
-        (a[r].q = a[r].q || []).push(arguments);
-      }, a[r].l = 1 * /* @__PURE__ */ new Date(), t = c.createElement(d), n = c.getElementsByTagName(d)[0], t.async = 1, t.src = o, t.onerror = g, n.parentNode.insertBefore(t, n);
-    })(window, document, "script", s, "ga");
-  }
+import { makeUniqueId as f } from "./index.es92.js";
+function y(t, i) {
+  i === void 0 && (i = 0);
+  var n = f("stringifyForDisplay");
+  return JSON.stringify(t, function(o, r) {
+    return r === void 0 ? n : r;
+  }, i).split(JSON.stringify(n)).join("<undefined>");
 }
 export {
-  u as default
+  y as stringifyForDisplay
 };
 //# sourceMappingURL=index.es93.js.map

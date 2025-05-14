@@ -1,5 +1,18 @@
-const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
+import { __module as r } from "./index.es213.js";
+import { __require as s } from "./index.es214.js";
+import { __require as t } from "./index.es215.js";
+import { __require as p } from "./index.es216.js";
+var e;
+function q() {
+  if (e) return r.exports;
+  if (e = 1, process.env.NODE_ENV !== "production") {
+    var o = s(), i = !0;
+    r.exports = /* @__PURE__ */ t()(o.isElement, i);
+  } else
+    r.exports = /* @__PURE__ */ p()();
+  return r.exports;
+}
 export {
-  t as default
+  q as __require
 };
 //# sourceMappingURL=index.es212.js.map

@@ -1,23 +1,8 @@
-import { __require as o } from "./index.es140.js";
-import { __require as c } from "./index.es166.js";
-var a, u;
-function q() {
-  if (u) return a;
-  u = 1;
-  const f = o(), m = c();
-  return a = (s, l, i) => {
-    let r = null, n = null, t = null;
-    try {
-      t = new m(l, i);
-    } catch {
-      return null;
-    }
-    return s.forEach((e) => {
-      t.test(e) && (!r || n.compare(e) === -1) && (r = e, n = new f(r, i));
-    }), r;
-  }, a;
-}
+var u = function(t, e) {
+  var n = t.getContext(), r = n.uri;
+  return r || (typeof e == "function" ? e(t) : e || "/graphql");
+};
 export {
-  q as __require
+  u as selectURI
 };
 //# sourceMappingURL=index.es169.js.map

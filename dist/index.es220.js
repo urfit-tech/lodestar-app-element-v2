@@ -1,28 +1,22 @@
-import { __require as l } from "./index.es219.js";
-var a, i;
-function B() {
-  if (i) return a;
-  i = 1;
-  var r = l().Buffer, o = l().SlowBuffer;
-  a = t;
-  function t(e, u) {
-    if (!r.isBuffer(e) || !r.isBuffer(u) || e.length !== u.length)
-      return !1;
-    for (var n = 0, f = 0; f < e.length; f++)
-      n |= e[f] ^ u[f];
-    return n === 0;
-  }
-  t.install = function() {
-    r.prototype.equal = o.prototype.equal = function(u) {
-      return t(this, u);
-    };
+import { canUseAsyncIteratorSymbol as u } from "./index.es69.js";
+function f(t) {
+  var e = !1, r = {
+    next: function() {
+      return e ? Promise.resolve({
+        value: void 0,
+        done: !0
+      }) : (e = !0, new Promise(function(n, o) {
+        t.then(function(a) {
+          n({ value: a, done: !1 });
+        }).catch(o);
+      }));
+    }
   };
-  var q = r.prototype.equal, p = o.prototype.equal;
-  return t.restore = function() {
-    r.prototype.equal = q, o.prototype.equal = p;
-  }, a;
+  return u && (r[Symbol.asyncIterator] = function() {
+    return this;
+  }), r;
 }
 export {
-  B as __require
+  f as default
 };
 //# sourceMappingURL=index.es220.js.map

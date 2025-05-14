@@ -1,43 +1,32 @@
-import { __require as p } from "./index.es140.js";
-import { __require as q } from "./index.es166.js";
-import { __require as _ } from "./index.es157.js";
-var u, c;
-function d() {
-  if (c) return u;
-  c = 1;
-  const n = p(), f = q(), a = _();
-  return u = (r, l) => {
-    r = new f(r, l);
-    let e = new n("0.0.0");
-    if (r.test(e) || (e = new n("0.0.0-0"), r.test(e)))
-      return e;
-    e = null;
-    for (let s = 0; s < r.set.length; ++s) {
-      const m = r.set[s];
-      let i = null;
-      m.forEach((o) => {
-        const t = new n(o.semver.version);
-        switch (o.operator) {
-          case ">":
-            t.prerelease.length === 0 ? t.patch++ : t.prerelease.push(0), t.raw = t.format();
-          /* fallthrough */
-          case "":
-          case ">=":
-            (!i || a(t, i)) && (i = t);
-            break;
-          case "<":
-          case "<=":
-            break;
-          /* istanbul ignore next */
-          default:
-            throw new Error(`Unexpected operation: ${o.operator}`);
-        }
-      }), i && (!e || a(e, i)) && (e = i);
+import { serializeFetchParameter as u } from "./index.es166.js";
+function q(e, r) {
+  var o = [], t = function(a, c) {
+    o.push("".concat(a, "=").concat(encodeURIComponent(c)));
+  };
+  if ("query" in r && t("query", r.query), r.operationName && t("operationName", r.operationName), r.variables) {
+    var s = void 0;
+    try {
+      s = u(r.variables, "Variables map");
+    } catch (a) {
+      return { parseError: a };
     }
-    return e && r.test(e) ? e : null;
-  }, u;
+    t("variables", s);
+  }
+  if (r.extensions) {
+    var m = void 0;
+    try {
+      m = u(r.extensions, "Extensions map");
+    } catch (a) {
+      return { parseError: a };
+    }
+    t("extensions", m);
+  }
+  var p = "", n = e, i = e.indexOf("#");
+  i !== -1 && (p = e.substr(i), n = e.substr(0, i));
+  var f = n.indexOf("?") === -1 ? "?" : "&", v = n + f + o.join("&") + p;
+  return { newURI: v };
 }
 export {
-  d as __require
+  q as rewriteURIForGET
 };
 //# sourceMappingURL=index.es171.js.map

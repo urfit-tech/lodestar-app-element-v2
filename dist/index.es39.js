@@ -1,25 +1,75 @@
-import { __module as r } from "./index.es40.js";
-import { __require as s } from "./index.es37.js";
-var u = r.exports, n;
-function p() {
-  return n ? r.exports : (n = 1, function(d, l) {
-    (function(i, t) {
-      d.exports = t(s());
-    })(u, function(i) {
-      function t(_) {
-        return _ && typeof _ == "object" && "default" in _ ? _ : { default: _ };
-      }
-      var o = t(i), m = { name: "zh-tw", weekdays: "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"), weekdaysShort: "週日_週一_週二_週三_週四_週五_週六".split("_"), weekdaysMin: "日_一_二_三_四_五_六".split("_"), months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"), monthsShort: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"), ordinal: function(_, Y) {
-        return Y === "W" ? _ + "週" : _ + "日";
-      }, formats: { LT: "HH:mm", LTS: "HH:mm:ss", L: "YYYY/MM/DD", LL: "YYYY年M月D日", LLL: "YYYY年M月D日 HH:mm", LLLL: "YYYY年M月D日dddd HH:mm", l: "YYYY/M/D", ll: "YYYY年M月D日", lll: "YYYY年M月D日 HH:mm", llll: "YYYY年M月D日dddd HH:mm" }, relativeTime: { future: "%s內", past: "%s前", s: "幾秒", m: "1 分鐘", mm: "%d 分鐘", h: "1 小時", hh: "%d 小時", d: "1 天", dd: "%d 天", M: "1 個月", MM: "%d 個月", y: "1 年", yy: "%d 年" }, meridiem: function(_, Y) {
-        var e = 100 * _ + Y;
-        return e < 600 ? "凌晨" : e < 900 ? "早上" : e < 1100 ? "上午" : e < 1300 ? "中午" : e < 1800 ? "下午" : "晚上";
-      } };
-      return o.default.locale(m, null, !0), m;
-    });
-  }(r), r.exports);
+/*! js-cookie v3.0.5 | MIT */
+function d(r) {
+  for (var t = 1; t < arguments.length; t++) {
+    var f = arguments[t];
+    for (var p in f)
+      r[p] = f[p];
+  }
+  return r;
 }
+var g = {
+  read: function(r) {
+    return r[0] === '"' && (r = r.slice(1, -1)), r.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
+  },
+  write: function(r) {
+    return encodeURIComponent(r).replace(
+      /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
+      decodeURIComponent
+    );
+  }
+};
+function s(r, t) {
+  function f(n, c, e) {
+    if (!(typeof document > "u")) {
+      e = d({}, t, e), typeof e.expires == "number" && (e.expires = new Date(Date.now() + e.expires * 864e5)), e.expires && (e.expires = e.expires.toUTCString()), n = encodeURIComponent(n).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
+      var o = "";
+      for (var i in e)
+        e[i] && (o += "; " + i, e[i] !== !0 && (o += "=" + e[i].split(";")[0]));
+      return document.cookie = n + "=" + r.write(c, n) + o;
+    }
+  }
+  function p(n) {
+    if (!(typeof document > "u" || arguments.length && !n)) {
+      for (var c = document.cookie ? document.cookie.split("; ") : [], e = {}, o = 0; o < c.length; o++) {
+        var i = c[o].split("="), v = i.slice(1).join("=");
+        try {
+          var u = decodeURIComponent(i[0]);
+          if (e[u] = r.read(v, u), n === u)
+            break;
+        } catch {
+        }
+      }
+      return n ? e[n] : e;
+    }
+  }
+  return Object.create(
+    {
+      set: f,
+      get: p,
+      remove: function(n, c) {
+        f(
+          n,
+          "",
+          d({}, c, {
+            expires: -1
+          })
+        );
+      },
+      withAttributes: function(n) {
+        return s(this.converter, d({}, this.attributes, n));
+      },
+      withConverter: function(n) {
+        return s(d({}, this.converter, n), this.attributes);
+      }
+    },
+    {
+      attributes: { value: Object.freeze(t) },
+      converter: { value: Object.freeze(r) }
+    }
+  );
+}
+var C = s(g, { path: "/" });
 export {
-  p as __require
+  C as default
 };
 //# sourceMappingURL=index.es39.js.map

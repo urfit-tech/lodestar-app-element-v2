@@ -1,5 +1,5 @@
-var p = { exports: {} };
+const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
 export {
-  p as __module
+  t as default
 };
 //# sourceMappingURL=index.es111.js.map

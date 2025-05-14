@@ -1,10 +1,14 @@
-import r from "./index.es194.js";
-import f from "./index.es195.js";
-function u(l, i, t) {
-  let o = !r(i);
-  return l && (o || t == !1) ? f(l, i) : i;
+import { __require as p } from "./index.es118.js";
+var e, t;
+function a() {
+  if (t) return e;
+  t = 1;
+  var o = p(), r = function(i, n) {
+    o.call(this, i), this.name = "TokenExpiredError", this.expiredAt = n;
+  };
+  return r.prototype = Object.create(o.prototype), r.prototype.constructor = r, e = r, e;
 }
 export {
-  u as default
+  a as __require
 };
 //# sourceMappingURL=index.es120.js.map

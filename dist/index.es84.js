@@ -1,8 +1,12 @@
-import i from "./index.es71.js";
-function o(r) {
-  return i.isObject(r) && r.isAxiosError === !0;
+function o(n, e, f) {
+  var t = [];
+  n.forEach(function(r) {
+    return r[e] && t.push(r);
+  }), t.forEach(function(r) {
+    return r[e](f);
+  });
 }
 export {
-  o as default
+  o as iterateObserversSafely
 };
 //# sourceMappingURL=index.es84.js.map

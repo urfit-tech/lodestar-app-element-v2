@@ -1,85 +1,63 @@
-import { __require as W } from "./index.es179.js";
-import { __require as I } from "./index.es180.js";
-import { __require as w } from "./index.es181.js";
-import A from "./index.es62.js";
-import { __require as F } from "./index.es182.js";
-import { __require as k } from "./index.es183.js";
-var n, d;
-function M() {
-  if (d) return n;
-  d = 1;
-  var u = W().Buffer, s = I(), y = w(), v = A, f = F(), b = k(), p = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/;
-  function _(r) {
-    return Object.prototype.toString.call(r) === "[object Object]";
-  }
-  function q(r) {
-    if (_(r))
-      return r;
-    try {
-      return JSON.parse(r);
-    } catch {
-      return;
+import { __rest as D } from "./index.es56.js";
+import { equal as M } from "./index.es106.js";
+import { createFragmentMap as S, getFragmentFromSelection as N } from "./index.es73.js";
+import { getFragmentDefinitions as q, getMainDefinition as A } from "./index.es36.js";
+import { shouldInclude as B } from "./index.es64.js";
+import { isField as d, resultKeyNameFromField as w } from "./index.es74.js";
+function I(e, a, t, n) {
+  var v = a.data, r = D(a, ["data"]), o = t.data, i = D(t, ["data"]);
+  return M(r, i) && u(A(e).selectionSet, v, o, {
+    fragmentMap: S(q(e)),
+    variables: n
+  });
+}
+function u(e, a, t, n) {
+  if (a === t)
+    return !0;
+  var v = /* @__PURE__ */ new Set();
+  return e.selections.every(function(r) {
+    if (v.has(r) || (v.add(r), !B(r, n.variables)) || s(r))
+      return !0;
+    if (d(r)) {
+      var o = w(r), i = a && a[o], f = t && t[o], p = r.selectionSet;
+      if (!p)
+        return M(i, f);
+      var F = Array.isArray(i), c = Array.isArray(f);
+      if (F !== c)
+        return !1;
+      if (F && c) {
+        var y = i.length;
+        if (f.length !== y)
+          return !1;
+        for (var m = 0; m < y; ++m)
+          if (!u(p, i[m], f[m], n))
+            return !1;
+        return !0;
+      }
+      return u(p, i, f, n);
+    } else {
+      var g = N(r, n.fragmentMap);
+      if (g)
+        return s(g) ? !0 : u(
+          g.selectionSet,
+          // Notice that we reuse the same aResult and bResult values here,
+          // since the fragment ...spread does not specify a field name, but
+          // consists of multiple fields (within the fragment's selection set)
+          // that should be applied to the current result value(s).
+          a,
+          t,
+          n
+        );
     }
-  }
-  function o(r) {
-    var e = r.split(".", 1)[0];
-    return q(u.from(e, "base64").toString("binary"));
-  }
-  function S(r) {
-    return r.split(".", 2).join(".");
-  }
-  function c(r) {
-    return r.split(".")[2];
-  }
-  function J(r, e) {
-    e = e || "utf8";
-    var t = r.split(".")[1];
-    return u.from(t, "base64").toString(e);
-  }
-  function h(r) {
-    return p.test(r) && !!o(r);
-  }
-  function m(r, e, t) {
-    if (!e) {
-      var i = new Error("Missing algorithm parameter for jws.verify");
-      throw i.code = "MISSING_ALGORITHM", i;
-    }
-    r = f(r);
-    var g = c(r), O = S(r), V = y(e);
-    return V.verify(O, g, t);
-  }
-  function l(r, e) {
-    if (e = e || {}, r = f(r), !h(r))
-      return null;
-    var t = o(r);
-    if (!t)
-      return null;
-    var i = J(r);
-    return (t.typ === "JWT" || e.json) && (i = JSON.parse(i, e.encoding)), {
-      header: t,
-      payload: i,
-      signature: c(r)
-    };
-  }
-  function a(r) {
-    r = r || {};
-    var e = r.secret || r.publicKey || r.key, t = new s(e);
-    this.readable = !0, this.algorithm = r.algorithm, this.encoding = r.encoding, this.secret = this.publicKey = this.key = t, this.signature = new s(r.signature), this.secret.once("close", function() {
-      !this.signature.writable && this.readable && this.verify();
-    }.bind(this)), this.signature.once("close", function() {
-      !this.secret.writable && this.readable && this.verify();
-    }.bind(this));
-  }
-  return b.inherits(a, v), a.prototype.verify = function() {
-    try {
-      var e = m(this.signature.buffer, this.algorithm, this.key.buffer), t = l(this.signature.buffer, this.encoding);
-      return this.emit("done", e, t), this.emit("data", e), this.emit("end"), this.readable = !1, e;
-    } catch (i) {
-      this.readable = !1, this.emit("error", i), this.emit("close");
-    }
-  }, a.decode = l, a.isValid = h, a.verify = m, n = a, n;
+  });
+}
+function s(e) {
+  return !!e.directives && e.directives.some(H);
+}
+function H(e) {
+  return e.name.value === "nonreactive";
 }
 export {
-  M as __require
+  I as equalByQuery
 };
 //# sourceMappingURL=index.es108.js.map
