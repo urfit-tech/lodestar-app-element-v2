@@ -1,17 +1,9 @@
-var t, i;
-function g() {
-  if (i) return t;
-  i = 1;
-  var n = "[object String]", o = Object.prototype, e = o.toString, s = Array.isArray;
-  function a(r) {
-    return !!r && typeof r == "object";
-  }
-  function c(r) {
-    return typeof r == "string" || !s(r) && a(r) && e.call(r) == n;
-  }
-  return t = c, t;
+var a = /* @__PURE__ */ new Map();
+function c(t) {
+  var n = a.get(t) || 1;
+  return a.set(t, n + 1), "".concat(t, ":").concat(n, ":").concat(Math.random().toString(36).slice(2));
 }
 export {
-  g as __require
+  c as makeUniqueId
 };
 //# sourceMappingURL=index.es77.js.map

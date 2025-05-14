@@ -1,15 +1,12 @@
-import { __require as c } from "./index.es163.js";
-var r, n;
-function s() {
-  if (n) return r;
-  n = 1;
-  const e = c();
-  return r = (a, m, i) => {
-    const o = new e(a, i), u = new e(m, i);
-    return o.compare(u) || o.compareBuild(u);
-  }, r;
+import { __require as p } from "./index.es176.js";
+var r, e;
+function t() {
+  if (e) return r;
+  e = 1;
+  const o = p();
+  return r = (a, c, m) => o(c, a, m), r;
 }
 export {
-  s as __require
+  t as __require
 };
 //# sourceMappingURL=index.es177.js.map

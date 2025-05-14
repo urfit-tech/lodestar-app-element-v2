@@ -1,45 +1,43 @@
-import { __require as C } from "./index.es163.js";
-import { __require as E } from "./index.es188.js";
-import { __require as G } from "./index.es189.js";
-import { __require as L } from "./index.es190.js";
-import { __require as O } from "./index.es180.js";
-import { __require as x } from "./index.es181.js";
-import { __require as y } from "./index.es185.js";
-import { __require as A } from "./index.es184.js";
-var q, d;
-function F() {
-  if (d) return q;
-  d = 1;
-  const h = C(), _ = E(), { ANY: v } = _, w = G(), g = L(), c = O(), p = x(), R = y(), S = A();
-  return q = (s, i, b, u) => {
-    s = new h(s, u), i = new w(i, u);
-    let m, a, o, f, l;
-    switch (b) {
-      case ">":
-        m = c, a = R, o = p, f = ">", l = ">=";
-        break;
-      case "<":
-        m = p, a = S, o = c, f = "<", l = "<=";
-        break;
-      default:
-        throw new TypeError('Must provide a hilo val of "<" or ">"');
+import { __require as p } from "./index.es165.js";
+import { __require as q } from "./index.es191.js";
+import { __require as _ } from "./index.es182.js";
+var u, c;
+function d() {
+  if (c) return u;
+  c = 1;
+  const n = p(), f = q(), a = _();
+  return u = (r, l) => {
+    r = new f(r, l);
+    let e = new n("0.0.0");
+    if (r.test(e) || (e = new n("0.0.0-0"), r.test(e)))
+      return e;
+    e = null;
+    for (let s = 0; s < r.set.length; ++s) {
+      const m = r.set[s];
+      let i = null;
+      m.forEach((o) => {
+        const t = new n(o.semver.version);
+        switch (o.operator) {
+          case ">":
+            t.prerelease.length === 0 ? t.patch++ : t.prerelease.push(0), t.raw = t.format();
+          /* fallthrough */
+          case "":
+          case ">=":
+            (!i || a(t, i)) && (i = t);
+            break;
+          case "<":
+          case "<=":
+            break;
+          /* istanbul ignore next */
+          default:
+            throw new Error(`Unexpected operation: ${o.operator}`);
+        }
+      }), i && (!e || a(e, i)) && (e = i);
     }
-    if (g(s, i, u))
-      return !1;
-    for (let n = 0; n < i.set.length; ++n) {
-      const k = i.set[n];
-      let t = null, e = null;
-      if (k.forEach((r) => {
-        r.semver === v && (r = new _(">=0.0.0")), t = t || r, e = e || r, m(r.semver, t.semver, u) ? t = r : o(r.semver, e.semver, u) && (e = r);
-      }), t.operator === f || t.operator === l || (!e.operator || e.operator === f) && a(s, e.semver))
-        return !1;
-      if (e.operator === l && o(s, e.semver))
-        return !1;
-    }
-    return !0;
-  }, q;
+    return e && r.test(e) ? e : null;
+  }, u;
 }
 export {
-  F as __require
+  d as __require
 };
 //# sourceMappingURL=index.es196.js.map

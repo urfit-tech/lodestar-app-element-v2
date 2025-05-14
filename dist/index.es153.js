@@ -1,70 +1,142 @@
-function l() {
-}
-const h = l, o = typeof WeakRef < "u" ? WeakRef : function(r) {
-  return { deref: () => r };
-}, d = typeof WeakMap < "u" ? WeakMap : Map, f = typeof FinalizationRegistry < "u" ? FinalizationRegistry : function() {
-  return {
-    register: l,
-    unregister: l
-  };
-}, u = 10024;
-class c {
-  constructor(e = 1 / 0, t = h) {
-    this.max = e, this.dispose = t, this.map = new d(), this.newest = null, this.oldest = null, this.unfinalizedNodes = /* @__PURE__ */ new Set(), this.finalizationScheduled = !1, this.size = 0, this.finalize = () => {
-      const i = this.unfinalizedNodes.values();
-      for (let s = 0; s < u; s++) {
-        const n = i.next().value;
-        if (!n)
-          break;
-        this.unfinalizedNodes.delete(n);
-        const a = n.key;
-        delete n.key, n.keyRef = new o(a), this.registry.register(a, n, n);
-      }
-      this.unfinalizedNodes.size > 0 ? queueMicrotask(this.finalize) : this.finalizationScheduled = !1;
-    }, this.registry = new f(this.deleteNode.bind(this));
+import B from "./index.es149.js";
+import r from "./index.es99.js";
+import l from "./index.es110.js";
+import H from "./index.es219.js";
+import { trackStream as L } from "./index.es220.js";
+import K from "./index.es113.js";
+import { progressEventDecorator as P, progressEventReducer as A, asyncDecorator as O } from "./index.es217.js";
+import z from "./index.es218.js";
+import j from "./index.es215.js";
+const w = typeof fetch == "function" && typeof Request == "function" && typeof Response == "function", D = w && typeof ReadableStream == "function", I = w && (typeof TextEncoder == "function" ? /* @__PURE__ */ ((e) => (t) => e.encode(t))(new TextEncoder()) : async (e) => new Uint8Array(await new Response(e).arrayBuffer())), F = (e, ...t) => {
+  try {
+    return !!e(...t);
+  } catch {
+    return !1;
   }
-  has(e) {
-    return this.map.has(e);
-  }
-  get(e) {
-    const t = this.getNode(e);
-    return t && t.value;
-  }
-  getNode(e) {
-    const t = this.map.get(e);
-    if (t && t !== this.newest) {
-      const { older: i, newer: s } = t;
-      s && (s.older = i), i && (i.newer = s), t.older = this.newest, t.older.newer = t, t.newer = null, this.newest = t, t === this.oldest && (this.oldest = s);
+}, J = D && F(() => {
+  let e = !1;
+  const t = new Request(B.origin, {
+    body: new ReadableStream(),
+    method: "POST",
+    get duplex() {
+      return e = !0, "half";
     }
-    return t;
+  }).headers.has("Content-Type");
+  return e && !t;
+}), _ = 64 * 1024, T = D && F(() => r.isReadableStream(new Response("").body)), g = {
+  stream: T && ((e) => e.body)
+};
+w && ((e) => {
+  ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((t) => {
+    !g[t] && (g[t] = r.isFunction(e[t]) ? (s) => s[t]() : (s, u) => {
+      throw new l(`Response type '${t}' is not supported`, l.ERR_NOT_SUPPORT, u);
+    });
+  });
+})(new Response());
+const V = async (e) => {
+  if (e == null)
+    return 0;
+  if (r.isBlob(e))
+    return e.size;
+  if (r.isSpecCompliantForm(e))
+    return (await new Request(B.origin, {
+      method: "POST",
+      body: e
+    }).arrayBuffer()).byteLength;
+  if (r.isArrayBufferView(e) || r.isArrayBuffer(e))
+    return e.byteLength;
+  if (r.isURLSearchParams(e) && (e = e + ""), r.isString(e))
+    return (await I(e)).byteLength;
+}, W = async (e, t) => {
+  const s = r.toFiniteNumber(e.getContentLength());
+  return s ?? V(t);
+}, re = w && (async (e) => {
+  let {
+    url: t,
+    method: s,
+    data: u,
+    signal: N,
+    cancelToken: x,
+    timeout: U,
+    onDownloadProgress: R,
+    onUploadProgress: b,
+    responseType: n,
+    headers: y,
+    withCredentials: m = "same-origin",
+    fetchOptions: v
+  } = z(e);
+  n = n ? (n + "").toLowerCase() : "text";
+  let d = H([N, x && x.toAbortSignal()], U), f;
+  const c = d && d.unsubscribe && (() => {
+    d.unsubscribe();
+  });
+  let E;
+  try {
+    if (b && J && s !== "get" && s !== "head" && (E = await W(y, u)) !== 0) {
+      let i = new Request(t, {
+        method: "POST",
+        body: u,
+        duplex: "half"
+      }), p;
+      if (r.isFormData(u) && (p = i.headers.get("content-type")) && y.setContentType(p), i.body) {
+        const [S, h] = P(
+          E,
+          A(O(b))
+        );
+        u = L(i.body, _, S, h);
+      }
+    }
+    r.isString(m) || (m = m ? "include" : "omit");
+    const o = "credentials" in Request.prototype;
+    f = new Request(t, {
+      ...v,
+      signal: d,
+      method: s.toUpperCase(),
+      headers: y.normalize().toJSON(),
+      body: u,
+      duplex: "half",
+      credentials: o ? m : void 0
+    });
+    let a = await fetch(f);
+    const C = T && (n === "stream" || n === "response");
+    if (T && (R || C && c)) {
+      const i = {};
+      ["status", "statusText", "headers"].forEach((q) => {
+        i[q] = a[q];
+      });
+      const p = r.toFiniteNumber(a.headers.get("content-length")), [S, h] = R && P(
+        p,
+        A(O(R), !0)
+      ) || [];
+      a = new Response(
+        L(a.body, _, S, () => {
+          h && h(), c && c();
+        }),
+        i
+      );
+    }
+    n = n || "text";
+    let k = await g[r.findKey(g, n) || "text"](a, e);
+    return !C && c && c(), await new Promise((i, p) => {
+      j(i, p, {
+        data: k,
+        headers: K.from(a.headers),
+        status: a.status,
+        statusText: a.statusText,
+        config: e,
+        request: f
+      });
+    });
+  } catch (o) {
+    throw c && c(), o && o.name === "TypeError" && /fetch/i.test(o.message) ? Object.assign(
+      new l("Network Error", l.ERR_NETWORK, e, f),
+      {
+        cause: o.cause || o
+      }
+    ) : l.from(o, o && o.code, e, f);
   }
-  set(e, t) {
-    let i = this.getNode(e);
-    return i ? i.value = t : (i = {
-      key: e,
-      value: t,
-      newer: null,
-      older: this.newest
-    }, this.newest && (this.newest.newer = i), this.newest = i, this.oldest = this.oldest || i, this.scheduleFinalization(i), this.map.set(e, i), this.size++, i.value);
-  }
-  clean() {
-    for (; this.oldest && this.size > this.max; )
-      this.deleteNode(this.oldest);
-  }
-  deleteNode(e) {
-    e === this.newest && (this.newest = e.older), e === this.oldest && (this.oldest = e.newer), e.newer && (e.newer.older = e.older), e.older && (e.older.newer = e.newer), this.size--;
-    const t = e.key || e.keyRef && e.keyRef.deref();
-    this.dispose(e.value, t), e.keyRef ? this.registry.unregister(e) : this.unfinalizedNodes.delete(e), t && this.map.delete(t);
-  }
-  delete(e) {
-    const t = this.map.get(e);
-    return t ? (this.deleteNode(t), !0) : !1;
-  }
-  scheduleFinalization(e) {
-    this.unfinalizedNodes.add(e), this.finalizationScheduled || (this.finalizationScheduled = !0, queueMicrotask(this.finalize));
-  }
-}
+});
 export {
-  c as WeakCache
+  re as default
 };
 //# sourceMappingURL=index.es153.js.map

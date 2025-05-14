@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});var e,r;function c(){if(r)return e;r=1;var t="[object Boolean]",n=Object.prototype,i=n.toString;function a(o){return o===!0||o===!1||b(o)&&i.call(o)==t}function b(o){return!!o&&typeof o=="object"}return e=a,e}exports.__require=c;
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=require("./index.cjs126.js"),t=e.maybe(function(){return globalThis})||e.maybe(function(){return window})||e.maybe(function(){return self})||e.maybe(function(){return global})||e.maybe(function(){return e.maybe.constructor("return this")()});exports.default=t;
 //# sourceMappingURL=index.cjs73.js.map

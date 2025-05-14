@@ -1,14 +1,9 @@
-import { getOperationName as a } from "./index.es29.js";
-function t(r) {
-  var e = {
-    variables: r.variables || {},
-    extensions: r.extensions || {},
-    operationName: r.operationName,
-    query: r.query
-  };
-  return e.operationName || (e.operationName = typeof e.query != "string" ? a(e.query) || void 0 : ""), e;
-}
+const r = {
+  silentJSONParsing: !0,
+  forcedJSONParsing: !0,
+  clarifyTimeoutError: !1
+};
 export {
-  t as transformOperation
+  r as default
 };
 //# sourceMappingURL=index.es147.js.map

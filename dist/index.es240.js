@@ -1,5 +1,9 @@
-const l = typeof Blob < "u" ? Blob : null;
+import o from "./index.es149.js";
+const n = o.hasStandardBrowserEnv ? /* @__PURE__ */ ((r, e) => (t) => (t = new URL(t, o.origin), r.protocol === t.protocol && r.host === t.host && (e || r.port === t.port)))(
+  new URL(o.origin),
+  o.navigator && /(msie|trident)/i.test(o.navigator.userAgent)
+) : () => !0;
 export {
-  l as default
+  n as default
 };
 //# sourceMappingURL=index.es240.js.map

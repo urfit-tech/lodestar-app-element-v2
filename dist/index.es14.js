@@ -1,5 +1,5 @@
 import { useToast as c } from "@chakra-ui/react";
-import u from "./index.es33.js";
+import u from "./index.es32.js";
 import l from "ajv";
 import "./index.es18.js";
 import p from "./index.es19.js";

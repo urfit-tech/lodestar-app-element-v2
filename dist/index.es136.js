@@ -1,32 +1,9 @@
-import r from "./index.es208.js";
-import p from "./index.es93.js";
-import o from "./index.es89.js";
-import l from "./index.es91.js";
-import a from "./index.es99.js";
-import m from "./index.es100.js";
-function d(e) {
-  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
-    throw new l(null, e);
-}
-function q(e) {
-  return d(e), e.headers = a.from(e.headers), e.data = r.call(
-    e,
-    e.transformRequest
-  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
-    return d(e), t.data = r.call(
-      e,
-      e.transformResponse,
-      t
-    ), t.headers = a.from(t.headers), t;
-  }, function(t) {
-    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
-      e,
-      e.transformResponse,
-      t.response
-    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
-  });
+import { __require as s } from "./index.es137.js";
+var e, r;
+function a() {
+  return r || (r = 1, e = s().satisfies(process.version, ">=16.9.0")), e;
 }
 export {
-  q as default
+  a as __require
 };
 //# sourceMappingURL=index.es136.js.map

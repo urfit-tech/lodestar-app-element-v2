@@ -1,2 +1,2 @@
-"use strict";const f=require("./index.cjs152.js");var e;typeof self<"u"?e=self:typeof window<"u"?e=window:typeof global<"u"?e=global:typeof module<"u"?e=module:e=Function("return this")();f.default(e);
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});function t(e){return!!(e&&e.__CANCEL__)}exports.default=t;
 //# sourceMappingURL=index.cjs107.js.map

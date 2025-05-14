@@ -1,5 +1,7 @@
-const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
+function r(e) {
+  return e.substring(0, 1) === "/" ? e.substring(1) : e;
+}
 export {
-  t as default
+  r as default
 };
 //# sourceMappingURL=index.es119.js.map

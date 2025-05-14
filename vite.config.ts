@@ -26,6 +26,7 @@ export default defineConfig({
         '@apollo/client',
         'libphonenumber-js',
         'ajv',
+        'query-string'
       ],
       output: {
         exports: 'named',

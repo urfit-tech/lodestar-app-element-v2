@@ -1,7 +1,10 @@
-function e(t) {
-  return Object.prototype.toString.call(t) === "[object Object]";
+import n from "./index.es83.js";
+function a(r) {
+  return function e(t) {
+    return arguments.length === 0 || n(t) ? e : r.apply(this, arguments);
+  };
 }
 export {
-  e as default
+  a as default
 };
 //# sourceMappingURL=index.es82.js.map

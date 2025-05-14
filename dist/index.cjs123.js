@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const s=require("./index.cjs124.js");var e,r;function t(){return r||(r=1,e=s.__require().satisfies(process.version,">=16.9.0")),e}exports.__require=t;
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});var t=[];const r={calls:t,ga:function(){for(var a=arguments.length,l=new Array(a),e=0;e<a;e++)l[e]=arguments[e];t.push([].concat(l))},resetCalls:function(){t.length=0}};exports.default=r;exports.gaCalls=t;
 //# sourceMappingURL=index.cjs123.js.map

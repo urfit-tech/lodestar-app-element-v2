@@ -1,29 +1,11 @@
-import { __exports as r } from "./index.es125.js";
-import { __require as u } from "./index.es126.js";
-import { __require as f } from "./index.es127.js";
-var t;
+var o, n;
 function c() {
-  if (t) return r;
-  t = 1;
-  var S = u(), e = f(), a = [
-    "HS256",
-    "HS384",
-    "HS512",
-    "RS256",
-    "RS384",
-    "RS512",
-    "PS256",
-    "PS384",
-    "PS512",
-    "ES256",
-    "ES384",
-    "ES512"
-  ];
-  return r.ALGORITHMS = a, r.sign = S.sign, r.verify = e.verify, r.decode = e.decode, r.isValid = e.isValid, r.createSign = function(i) {
-    return new S(i);
-  }, r.createVerify = function(i) {
-    return new e(i);
-  }, r;
+  if (n) return o;
+  n = 1;
+  var r = function(e, t) {
+    Error.call(this, e), Error.captureStackTrace && Error.captureStackTrace(this, this.constructor), this.name = "JsonWebTokenError", this.message = e, t && (this.inner = t);
+  };
+  return r.prototype = Object.create(Error.prototype), r.prototype.constructor = r, o = r, o;
 }
 export {
   c as __require

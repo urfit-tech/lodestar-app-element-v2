@@ -1,9 +1,17 @@
-import { __require as s } from "./index.es124.js";
-var e, r;
-function a() {
-  return r || (r = 1, e = s().satisfies(process.version, ">=16.9.0")), e;
-}
+var t = [];
+const e = {
+  calls: t,
+  ga: function() {
+    for (var s = arguments.length, l = new Array(s), a = 0; a < s; a++)
+      l[a] = arguments[a];
+    t.push([].concat(l));
+  },
+  resetCalls: function() {
+    t.length = 0;
+  }
+};
 export {
-  a as __require
+  e as default,
+  t as gaCalls
 };
 //# sourceMappingURL=index.es123.js.map

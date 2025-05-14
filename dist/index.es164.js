@@ -1,17 +1,29 @@
-var n, o;
-function f() {
-  if (o) return n;
-  o = 1;
-  const s = /^[0-9]+$/, c = (e, r) => {
-    const i = s.test(e), t = s.test(r);
-    return i && t && (e = +e, r = +r), e === r ? 0 : i && !t ? -1 : t && !i ? 1 : e < r ? -1 : 1;
-  };
-  return n = {
-    compareIdentifiers: c,
-    rcompareIdentifiers: (e, r) => c(r, e)
-  }, n;
+var E, _;
+function A() {
+  if (_) return E;
+  _ = 1;
+  const n = "2.0.0", r = 256, t = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
+  9007199254740991, e = 16, o = r - 6;
+  return E = {
+    MAX_LENGTH: r,
+    MAX_SAFE_COMPONENT_LENGTH: e,
+    MAX_SAFE_BUILD_LENGTH: o,
+    MAX_SAFE_INTEGER: t,
+    RELEASE_TYPES: [
+      "major",
+      "premajor",
+      "minor",
+      "preminor",
+      "patch",
+      "prepatch",
+      "prerelease"
+    ],
+    SEMVER_SPEC_VERSION: n,
+    FLAG_INCLUDE_PRERELEASE: 1,
+    FLAG_LOOSE: 2
+  }, E;
 }
 export {
-  f as __require
+  A as __require
 };
 //# sourceMappingURL=index.es164.js.map

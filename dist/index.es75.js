@@ -1,17 +1,8 @@
-var e, t;
-function c() {
-  if (t) return e;
-  t = 1;
-  var o = "[object Number]", n = Object.prototype, i = n.toString;
-  function u(r) {
-    return !!r && typeof r == "object";
-  }
-  function b(r) {
-    return typeof r == "number" || u(r) && i.call(r) == o;
-  }
-  return e = b, e;
-}
+import { __assign as o } from "./index.es47.js";
+import "./index.es72.js";
+import r from "./index.es73.js";
+var a = Symbol.for("apollo.cacheSize"), c = o({}, r[a]);
 export {
-  c as __require
+  c as cacheSizes
 };
 //# sourceMappingURL=index.es75.js.map

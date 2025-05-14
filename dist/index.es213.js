@@ -1,15 +1,16 @@
-import a from "./index.es96.js";
-function E(i, f, t) {
-  const u = t.config.validateStatus;
-  !t.status || !u || u(t.status) ? i(t) : f(new a(
-    "Request failed with status code " + t.status,
-    [a.ERR_BAD_REQUEST, a.ERR_BAD_RESPONSE][Math.floor(t.status / 100) - 4],
-    t.config,
-    t.request,
-    t
-  ));
-}
+import o from "./index.es235.js";
+import r from "./index.es236.js";
+import t from "./index.es237.js";
+const l = {
+  isBrowser: !0,
+  classes: {
+    URLSearchParams: o,
+    FormData: r,
+    Blob: t
+  },
+  protocols: ["http", "https", "file", "blob", "url", "data"]
+};
 export {
-  E as default
+  l as default
 };
 //# sourceMappingURL=index.es213.js.map

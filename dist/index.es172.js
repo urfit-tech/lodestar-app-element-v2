@@ -1,12 +1,12 @@
-import { __require as i } from "./index.es163.js";
+import { __require as m } from "./index.es165.js";
 var r, e;
-function n() {
+function t() {
   if (e) return r;
   e = 1;
-  const t = i();
-  return r = (a, c) => new t(a, c).patch, r;
+  const o = m();
+  return r = (a, i) => new o(a, i).major, r;
 }
 export {
-  n as __require
+  t as __require
 };
 //# sourceMappingURL=index.es172.js.map

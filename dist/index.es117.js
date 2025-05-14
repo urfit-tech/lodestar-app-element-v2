@@ -1,17 +1,7 @@
-var t = [];
-const e = {
-  calls: t,
-  ga: function() {
-    for (var s = arguments.length, l = new Array(s), a = 0; a < s; a++)
-      l[a] = arguments[a];
-    t.push([].concat(l));
-  },
-  resetCalls: function() {
-    t.length = 0;
-  }
-};
+function n(a) {
+  console.warn("[react-ga]", a);
+}
 export {
-  e as default,
-  t as gaCalls
+  n as default
 };
 //# sourceMappingURL=index.es117.js.map

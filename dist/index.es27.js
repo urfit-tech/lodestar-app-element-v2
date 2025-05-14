@@ -1,7 +1,7 @@
-import { __extends as p } from "./index.es57.js";
-import { ApolloLink as f } from "./index.es58.js";
-import { Observable as m } from "./index.es59.js";
-import "./index.es60.js";
+import { __extends as p } from "./index.es47.js";
+import { ApolloLink as f } from "./index.es48.js";
+import { Observable as m } from "./index.es49.js";
+import "./index.es50.js";
 function l(c) {
   return new f(function(i, r) {
     return new m(function(n) {

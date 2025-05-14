@@ -1,4 +1,4 @@
-import e from "./index.es114.js";
+import e from "./index.es120.js";
 var t = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
 function u(o) {
   return e(o).replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(r, s, a) {

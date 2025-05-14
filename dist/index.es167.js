@@ -1,15 +1,22 @@
-import { __require as t } from "./index.es165.js";
-var r, n;
-function l() {
-  if (n) return r;
-  n = 1;
-  const a = t();
-  return r = (i, s) => {
-    const e = a(i.trim().replace(/^[=v]+/, ""), s);
-    return e ? e.version : null;
-  }, r;
+import { __require as i } from "./index.es165.js";
+var e, a;
+function o() {
+  if (a) return e;
+  a = 1;
+  const t = i();
+  return e = (r, u, n = !1) => {
+    if (r instanceof t)
+      return r;
+    try {
+      return new t(r, u);
+    } catch (s) {
+      if (!n)
+        return null;
+      throw s;
+    }
+  }, e;
 }
 export {
-  l as __require
+  o as __require
 };
 //# sourceMappingURL=index.es167.js.map

@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const t=require("./index.cjs59.js");require("./index.cjs107.js");var e=t.Observable.prototype,r="@@observable";e[r]||(e[r]=function(){return this});exports.Observable=t.Observable;
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const f=require("./index.cjs58.js"),a=require("./index.cjs61.js");var o=f.default(function(i,u,t){var r={},e;u=u||{},t=t||{};for(e in u)a.default(e,u)&&(r[e]=a.default(e,t)?i(e,u[e],t[e]):u[e]);for(e in t)a.default(e,t)&&!a.default(e,r)&&(r[e]=t[e]);return r});exports.default=o;
 //# sourceMappingURL=index.cjs60.js.map

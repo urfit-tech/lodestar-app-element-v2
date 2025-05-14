@@ -1,31 +1,36 @@
-import a from "./index.es91.js";
-import s from "./index.es96.js";
-import m from "./index.es85.js";
-const h = (e, t) => {
-  const { length: l } = e = e ? e.filter(Boolean) : [];
-  if (t || l) {
-    let u = new AbortController(), f;
-    const n = function(r) {
-      if (!f) {
-        f = !0, i();
-        const o = r instanceof Error ? r : this.reason;
-        u.abort(o instanceof s ? o : new a(o instanceof Error ? o.message : o));
-      }
+import i from "./index.es238.js";
+import m from "./index.es239.js";
+import f from "./index.es99.js";
+const h = (t, o, a = 3) => {
+  let r = 0;
+  const c = i(50, 250);
+  return m((s) => {
+    const n = s.loaded, e = s.lengthComputable ? s.total : void 0, l = n - r, d = c(l), p = n <= e;
+    r = n;
+    const u = {
+      loaded: n,
+      total: e,
+      progress: e ? n / e : void 0,
+      bytes: l,
+      rate: d || void 0,
+      estimated: d && e && p ? (e - n) / d : void 0,
+      event: s,
+      lengthComputable: e != null,
+      [o ? "download" : "upload"]: !0
     };
-    let c = t && setTimeout(() => {
-      c = null, n(new s(`timeout ${t} of ms exceeded`, s.ETIMEDOUT));
-    }, t);
-    const i = () => {
-      e && (c && clearTimeout(c), c = null, e.forEach((r) => {
-        r.unsubscribe ? r.unsubscribe(n) : r.removeEventListener("abort", n);
-      }), e = null);
-    };
-    e.forEach((r) => r.addEventListener("abort", n));
-    const { signal: b } = u;
-    return b.unsubscribe = () => m.asap(i), b;
-  }
-};
+    t(u);
+  }, a);
+}, v = (t, o) => {
+  const a = t != null;
+  return [(r) => o[0]({
+    lengthComputable: a,
+    total: t,
+    loaded: r
+  }), o[1]];
+}, C = (t) => (...o) => f.asap(() => t(...o));
 export {
-  h as default
+  C as asyncDecorator,
+  v as progressEventDecorator,
+  h as progressEventReducer
 };
 //# sourceMappingURL=index.es217.js.map

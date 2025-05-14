@@ -1,2 +1,2 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const r=require("./index.cjs85.js");function t(e){return r.default.isObject(e)&&e.isAxiosError===!0}exports.default=t;
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const i=require("./index.cjs72.js");require("./index.cjs73.js");function o(r){for(var n=["query","operationName","variables","extensions","context"],e=0,t=Object.keys(r);e<t.length;e++){var a=t[e];if(n.indexOf(a)<0)throw i.newInvariantError(43,a)}return r}exports.validateOperation=o;
 //# sourceMappingURL=index.cjs98.js.map

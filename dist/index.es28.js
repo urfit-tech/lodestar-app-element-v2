@@ -1,10 +1,10 @@
-import { __extends as s, __assign as a } from "./index.es57.js";
-import { ApolloError as l } from "./index.es61.js";
-import { Observable as f } from "./index.es59.js";
-import "./index.es60.js";
-import { print as p } from "./index.es62.js";
-import { ApolloLink as m } from "./index.es58.js";
-import { isNonNullObject as u } from "./index.es63.js";
+import { __extends as s, __assign as a } from "./index.es47.js";
+import { ApolloError as l } from "./index.es51.js";
+import { Observable as f } from "./index.es49.js";
+import "./index.es50.js";
+import { print as p } from "./index.es52.js";
+import { ApolloLink as m } from "./index.es48.js";
+import { isNonNullObject as u } from "./index.es53.js";
 function d(t) {
   return u(t) && "code" in t && "reason" in t;
 }

@@ -1,64 +1,34 @@
-const f = function* (e, t) {
-  let n = e.byteLength;
-  if (n < t) {
-    yield e;
-    return;
-  }
-  let a = 0, r;
-  for (; a < n; )
-    r = a + t, yield e.slice(a, r), a = r;
-}, w = async function* (e, t) {
-  for await (const n of b(e))
-    yield* f(n, t);
-}, b = async function* (e) {
-  if (e[Symbol.asyncIterator]) {
-    yield* e;
-    return;
-  }
-  const t = e.getReader();
-  try {
-    for (; ; ) {
-      const { done: n, value: a } = await t.read();
-      if (n)
-        break;
-      yield a;
+import n from "./index.es149.js";
+import l from "./index.es99.js";
+import h from "./index.es240.js";
+import c from "./index.es241.js";
+import w from "./index.es145.js";
+import C from "./index.es102.js";
+import b from "./index.es113.js";
+import S from "./index.es142.js";
+const v = (s) => {
+  const e = C({}, s);
+  let { data: p, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
+  e.headers = r = b.from(r), e.url = S(w(e.baseURL, e.url, e.allowAbsoluteUrls), s.params, s.paramsSerializer), t && r.set(
+    "Authorization",
+    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
+  );
+  let i;
+  if (l.isFormData(p)) {
+    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
+      r.setContentType(void 0);
+    else if ((i = r.getContentType()) !== !1) {
+      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
+      r.setContentType([a || "multipart/form-data", ...d].join("; "));
     }
-  } finally {
-    await t.cancel();
   }
-}, h = (e, t, n, a) => {
-  const r = w(e, t);
-  let d = 0, o, c = (l) => {
-    o || (o = !0, a && a(l));
-  };
-  return new ReadableStream({
-    async pull(l) {
-      try {
-        const { done: i, value: y } = await r.next();
-        if (i) {
-          c(), l.close();
-          return;
-        }
-        let s = y.byteLength;
-        if (n) {
-          let u = d += s;
-          n(u);
-        }
-        l.enqueue(new Uint8Array(y));
-      } catch (i) {
-        throw c(i), i;
-      }
-    },
-    cancel(l) {
-      return c(l), r.return();
-    }
-  }, {
-    highWaterMark: 2
-  });
+  if (n.hasStandardBrowserEnv && (o && l.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
+    const a = m && f && c.read(f);
+    a && r.set(m, a);
+  }
+  return e;
 };
 export {
-  w as readBytes,
-  f as streamChunk,
-  h as trackStream
+  v as default
 };
 //# sourceMappingURL=index.es218.js.map

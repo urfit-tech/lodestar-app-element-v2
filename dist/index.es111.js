@@ -1,7 +1,9 @@
-function n(a) {
-  console.warn("[react-ga]", a);
+function u(n) {
+  return function(r) {
+    return n.apply(null, r);
+  };
 }
 export {
-  n as default
+  u as default
 };
 //# sourceMappingURL=index.es111.js.map

@@ -1,6 +1,6 @@
-import n from "./index.es119.js";
-import t from "./index.es120.js";
-import { unsafeStringify as e } from "./index.es118.js";
+import n from "./index.es80.js";
+import t from "./index.es81.js";
+import { unsafeStringify as e } from "./index.es79.js";
 function g(f, m, a) {
   if (n.randomUUID && !f)
     return n.randomUUID();

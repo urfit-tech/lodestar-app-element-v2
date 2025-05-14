@@ -1,10 +1,5 @@
-function a(t) {
-  try {
-    return t();
-  } catch {
-  }
-}
+const t = null;
 export {
-  a as maybe
+  t as default
 };
 //# sourceMappingURL=index.es151.js.map

@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=typeof window<"u"&&typeof document<"u",o=typeof navigator=="object"&&navigator||void 0,n=e&&(!o||["ReactNative","NativeScript","NS"].indexOf(o.product)<0),r=typeof WorkerGlobalScope<"u"&&self instanceof WorkerGlobalScope&&typeof self.importScripts=="function",t=e&&window.location.href||"http://localhost";exports.hasBrowserEnv=e;exports.hasStandardBrowserEnv=n;exports.hasStandardBrowserWebWorkerEnv=r;exports.navigator=o;exports.origin=t;
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});function u(e,t){return t?e.replace(/\/?\/$/,"")+"/"+t.replace(/^\/+/,""):e}exports.default=u;
 //# sourceMappingURL=index.cjs212.js.map

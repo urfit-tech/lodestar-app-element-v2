@@ -1,10 +1,10 @@
-import { __require as a } from "./index.es174.js";
+import { __require as u } from "./index.es176.js";
 var e, r;
 function s() {
   if (r) return e;
   r = 1;
-  const t = a();
-  return e = (i, o, u) => t(i, o, u) <= 0, e;
+  const q = u();
+  return e = (n, i, o) => q(n, i, o) !== 0, e;
 }
 export {
   s as __require

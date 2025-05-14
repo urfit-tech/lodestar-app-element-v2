@@ -1,19 +1,29 @@
-import { print as i } from "graphql";
-import { AutoCleanedWeakCache as n } from "./index.es105.js";
-import { cacheSizes as o } from "./index.es106.js";
-var t, p = Object.assign(function(e) {
-  var r = t.get(e);
-  return r || (r = i(e), t.set(e, r)), r;
-}, {
-  reset: function() {
-    t = new n(
-      o.print || 2e3
-      /* defaultCacheSizes.print */
-    );
-  }
-});
-p.reset();
+var u = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+function f(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+}
+function l(e) {
+  if (Object.prototype.hasOwnProperty.call(e, "__esModule")) return e;
+  var r = e.default;
+  if (typeof r == "function") {
+    var t = function o() {
+      return this instanceof o ? Reflect.construct(r, arguments, this.constructor) : r.apply(this, arguments);
+    };
+    t.prototype = r.prototype;
+  } else t = {};
+  return Object.defineProperty(t, "__esModule", { value: !0 }), Object.keys(e).forEach(function(o) {
+    var n = Object.getOwnPropertyDescriptor(e, o);
+    Object.defineProperty(t, o, n.get ? n : {
+      enumerable: !0,
+      get: function() {
+        return e[o];
+      }
+    });
+  }), t;
+}
 export {
-  p as print
+  u as commonjsGlobal,
+  l as getAugmentedNamespace,
+  f as getDefaultExportFromCjs
 };
 //# sourceMappingURL=index.es62.js.map

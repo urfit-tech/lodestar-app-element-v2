@@ -1,14 +1,5 @@
-import { __require as p } from "./index.es52.js";
-var e, t;
-function a() {
-  if (t) return e;
-  t = 1;
-  var o = p(), r = function(i, n) {
-    o.call(this, i), this.name = "TokenExpiredError", this.expiredAt = n;
-  };
-  return r.prototype = Object.create(o.prototype), r.prototype.constructor = r, e = r, e;
-}
+var r = {};
 export {
-  a as __require
+  r as __exports
 };
 //# sourceMappingURL=index.es54.js.map

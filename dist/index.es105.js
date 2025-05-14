@@ -1,18 +1,12 @@
-import { WeakCache as r } from "./index.es153.js";
-var t = /* @__PURE__ */ new WeakSet();
-function s(e) {
-  e.size <= (e.max || -1) || t.has(e) || (t.add(e), setTimeout(function() {
-    e.clean(), t.delete(e);
-  }, 100));
+import r from "./index.es110.js";
+import i from "./index.es99.js";
+function l(o, t, e) {
+  r.call(this, o ?? "canceled", r.ERR_CANCELED, t, e), this.name = "CanceledError";
 }
-var d = function(e, a) {
-  var n = new r(e, a);
-  return n.set = function(u, i) {
-    var o = r.prototype.set.call(this, u, i);
-    return s(this), o;
-  }, n;
-};
+i.inherits(l, r, {
+  __CANCEL__: !0
+});
 export {
-  d as AutoCleanedWeakCache
+  l as default
 };
 //# sourceMappingURL=index.es105.js.map

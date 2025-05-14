@@ -1,1 +1,1 @@
-{"version":3,"file":"index.es245.js","sources":[],"sourcesContent":[],"names":[],"mappings":";"}
+{"version":3,"file":"index.es245.js","sources":["../../node_modules/buffer/node_modules/isarray/index.js"],"sourcesContent":["var toString = {}.toString;\n\nmodule.exports = Array.isArray || function (arr) {\n  return toString.call(arr) == '[object Array]';\n};\n"],"names":["toString","isarray","arr"],"mappings":";;;;AAAA,MAAIA,IAAW,CAAA,EAAG;AAElB,SAAAC,IAAiB,MAAM,WAAW,SAAUC,GAAK;AAC/C,WAAOF,EAAS,KAAKE,CAAG,KAAK;AAAA,EAC9B;;","x_google_ignoreList":[0]}

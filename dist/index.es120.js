@@ -1,14 +1,7 @@
-let t;
-const e = new Uint8Array(16);
-function o() {
-  if (!t) {
-    if (typeof crypto > "u" || !crypto.getRandomValues)
-      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
-    t = crypto.getRandomValues.bind(crypto);
-  }
-  return t(e);
+function r(t) {
+  return t && t.toString().replace(/^\s+|\s+$/g, "");
 }
 export {
-  o as default
+  r as default
 };
 //# sourceMappingURL=index.es120.js.map

@@ -1,12 +1,15 @@
-import { __require as p } from "./index.es174.js";
-var r, e;
-function t() {
-  if (e) return r;
-  e = 1;
-  const o = p();
-  return r = (a, c, m) => o(c, a, m), r;
+import { __require as t } from "./index.es167.js";
+var r, s;
+function i() {
+  if (s) return r;
+  s = 1;
+  const a = t();
+  return r = (l, n) => {
+    const e = a(l, n);
+    return e && e.prerelease.length ? e.prerelease : null;
+  }, r;
 }
 export {
-  t as __require
+  i as __require
 };
 //# sourceMappingURL=index.es175.js.map

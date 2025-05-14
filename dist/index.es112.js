@@ -1,10 +1,8 @@
-import n from "./index.es154.js";
-import m from "./index.es155.js";
-function g() {
-  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
-  return r && (e = m(t)), a && (e = n(e)), e;
+import i from "./index.es99.js";
+function o(r) {
+  return i.isObject(r) && r.isAxiosError === !0;
 }
 export {
-  g as default
+  o as default
 };
 //# sourceMappingURL=index.es112.js.map

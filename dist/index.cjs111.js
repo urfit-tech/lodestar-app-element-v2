@@ -1,2 +1,2 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});function t(e){console.warn("[react-ga]",e)}exports.default=t;
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});function u(e){return function(t){return e.apply(null,t)}}exports.default=u;
 //# sourceMappingURL=index.cjs111.js.map

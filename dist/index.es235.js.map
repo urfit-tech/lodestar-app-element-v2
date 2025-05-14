@@ -1,1 +1,1 @@
-{"version":3,"file":"index.es235.js","sources":[],"sourcesContent":[],"names":[],"mappings":";"}
+{"version":3,"file":"index.es235.js","sources":["../node_modules/axios/lib/platform/browser/classes/URLSearchParams.js"],"sourcesContent":["'use strict';\n\nimport AxiosURLSearchParams from '../../../helpers/AxiosURLSearchParams.js';\nexport default typeof URLSearchParams !== 'undefined' ? URLSearchParams : AxiosURLSearchParams;\n"],"names":["URLSearchParams$1","AxiosURLSearchParams"],"mappings":";AAGA,MAAAA,IAAe,OAAO,kBAAoB,MAAc,kBAAkBC;","x_google_ignoreList":[0]}

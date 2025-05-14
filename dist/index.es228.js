@@ -1,9 +1,5 @@
-var e, r;
-function u() {
-  return r || (r = 1, e = typeof process == "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...s) => console.error("SEMVER", ...s) : () => {
-  }), e;
-}
+var e = { exports: {} };
 export {
-  u as __require
+  e as __module
 };
 //# sourceMappingURL=index.es228.js.map

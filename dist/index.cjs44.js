@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const r=require("./index.cjs45.js");var o=r.__module.exports,u;function a(){return u||(u=1,function(_,d){(function(n,e){_.exports=e()})(o,function(){return{name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),ordinal:function(n){var e=["th","st","nd","rd"],t=n%100;return"["+n+(e[(t-20)%10]||e[t]||e[0])+"]"}}})}(r.__module)),r.__module.exports}exports.__require=a;
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});var e={exports:{}};exports.__module=e;
 //# sourceMappingURL=index.cjs44.js.map

@@ -1,9 +1,7 @@
-import { __require as s } from "./index.es124.js";
-var e, r;
-function m() {
-  return r || (r = 1, e = s().satisfies(process.version, ">=15.7.0")), e;
+function a(o) {
+  console.info("[react-ga]", o);
 }
 export {
-  m as __require
+  a as default
 };
 //# sourceMappingURL=index.es122.js.map

@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const g=require("./index.cjs163.js"),o=require("./index.cjs189.js");var n,a;function m(){if(a)return n;a=1;const l=g.__require(),s=o.__require();return n=(c,f,i)=>{let e=null,t=null,u=null;try{u=new s(f,i)}catch{return null}return c.forEach(r=>{u.test(r)&&(!e||t.compare(r)===1)&&(e=r,t=new l(e,i))}),e},n}exports.__require=m;
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const s=require("./index.cjs191.js");var r,e;function u(){if(e)return r;e=1;const o=s.__require();return r=(t,a)=>new o(t,a).set.map(i=>i.map(n=>n.value).join(" ").trim().split(" ")),r}exports.__require=u;
 //# sourceMappingURL=index.cjs193.js.map

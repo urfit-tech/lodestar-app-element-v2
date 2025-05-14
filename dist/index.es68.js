@@ -1,18 +1,14 @@
-import { __require as i } from "./index.es121.js";
-var e, a;
-function s() {
-  if (a) return e;
-  a = 1;
-  var u = i();
-  return e = function(r, f) {
-    var n = f || Math.floor(Date.now() / 1e3);
-    if (typeof r == "string") {
-      var t = u(r);
-      return typeof t > "u" ? void 0 : Math.floor(n + t / 1e3);
-    } else return typeof r == "number" ? n + r : void 0;
-  }, e;
+import { __require as a } from "./index.es67.js";
+var e, t;
+function f() {
+  if (t) return e;
+  t = 1;
+  var o = a(), r = function(i, n) {
+    o.call(this, i), this.name = "NotBeforeError", this.date = n;
+  };
+  return r.prototype = Object.create(o.prototype), r.prototype.constructor = r, e = r, e;
 }
 export {
-  s as __require
+  f as __require
 };
 //# sourceMappingURL=index.es68.js.map

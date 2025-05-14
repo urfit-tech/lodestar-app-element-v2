@@ -1,8 +1,9 @@
-var r, e;
-function a() {
-  return e || (e = 1, r = Function.call.bind(Object.prototype.hasOwnProperty)), r;
+var e, r;
+function u() {
+  return r || (r = 1, e = typeof process == "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...s) => console.error("SEMVER", ...s) : () => {
+  }), e;
 }
 export {
-  a as __require
+  u as __require
 };
 //# sourceMappingURL=index.es225.js.map

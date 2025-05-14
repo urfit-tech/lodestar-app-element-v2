@@ -1,41 +1,14 @@
-import m from "./index.es132.js";
-import c from "./index.es79.js";
-import t from "./index.es133.js";
-function _(e) {
-  return function f(u, n, i) {
-    switch (arguments.length) {
-      case 0:
-        return f;
-      case 1:
-        return t(u) ? f : c(function(r, o) {
-          return e(u, r, o);
-        });
-      case 2:
-        return t(u) && t(n) ? f : t(u) ? c(function(r, o) {
-          return e(r, n, o);
-        }) : t(n) ? c(function(r, o) {
-          return e(u, r, o);
-        }) : m(function(r) {
-          return e(u, n, r);
-        });
-      default:
-        return t(u) && t(n) && t(i) ? f : t(u) && t(n) ? c(function(r, o) {
-          return e(r, o, i);
-        }) : t(u) && t(i) ? c(function(r, o) {
-          return e(r, n, o);
-        }) : t(n) && t(i) ? c(function(r, o) {
-          return e(u, r, o);
-        }) : t(u) ? m(function(r) {
-          return e(r, n, i);
-        }) : t(n) ? m(function(r) {
-          return e(u, r, i);
-        }) : t(i) ? m(function(r) {
-          return e(u, n, r);
-        }) : e(u, n, i);
-    }
-  };
+let t;
+const e = new Uint8Array(16);
+function o() {
+  if (!t) {
+    if (typeof crypto > "u" || !crypto.getRandomValues)
+      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+    t = crypto.getRandomValues.bind(crypto);
+  }
+  return t(e);
 }
 export {
-  _ as default
+  o as default
 };
 //# sourceMappingURL=index.es81.js.map

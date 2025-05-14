@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});function t(e){try{return e()}catch{}}exports.maybe=t;
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=null;exports.default=e;
 //# sourceMappingURL=index.cjs151.js.map

@@ -1,12 +1,5 @@
-import n from "./index.es81.js";
-import i from "./index.es82.js";
-import p from "./index.es83.js";
-var h = /* @__PURE__ */ n(function m(t, o, u) {
-  return p(function(f, e, r) {
-    return i(e) && i(r) ? m(t, e, r) : t(f, e, r);
-  }, o, u);
-});
+const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
 export {
-  h as default
+  t as default
 };
 //# sourceMappingURL=index.es80.js.map

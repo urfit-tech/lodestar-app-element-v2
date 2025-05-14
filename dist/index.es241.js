@@ -1,20 +1,33 @@
-function y(t, n) {
-  t = t || 10;
-  const c = new Array(t), o = new Array(t);
-  let e = 0, r = 0, i;
-  return n = n !== void 0 ? n : 1e3, function(h) {
-    const d = Date.now(), a = o[r];
-    i || (i = d), c[e] = h, o[e] = d;
-    let f = r, u = 0;
-    for (; f !== e; )
-      u += c[f++], f = f % t;
-    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
-      return;
-    const w = a && d - a;
-    return w ? Math.round(u * 1e3 / w) : void 0;
-  };
-}
+import r from "./index.es99.js";
+import c from "./index.es149.js";
+const p = c.hasStandardBrowserEnv ? (
+  // Standard browser envs support document.cookie
+  {
+    write(e, t, n, i, s, u) {
+      const o = [e + "=" + encodeURIComponent(t)];
+      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
+    },
+    read(e) {
+      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
+      return t ? decodeURIComponent(t[3]) : null;
+    },
+    remove(e) {
+      this.write(e, "", Date.now() - 864e5);
+    }
+  }
+) : (
+  // Non-standard browser env (web workers, react-native) lack needed support.
+  {
+    write() {
+    },
+    read() {
+      return null;
+    },
+    remove() {
+    }
+  }
+);
 export {
-  y as default
+  p as default
 };
 //# sourceMappingURL=index.es241.js.map

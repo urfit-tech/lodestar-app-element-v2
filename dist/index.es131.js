@@ -1,15 +1,11 @@
-function f(e, t) {
-  if (!(typeof e == "string" && typeof t == "string"))
-    throw new TypeError("Expected the arguments to be of type `string`");
-  if (e === "" || t === "")
-    return [];
-  const n = e.indexOf(t);
-  return n === -1 ? [] : [
-    e.slice(0, n),
-    e.slice(n + t.length)
-  ];
+import { __module as e } from "./index.es156.js";
+import { __require as o } from "./index.es157.js";
+import { __require as t } from "./index.es158.js";
+var r;
+function p() {
+  return r ? e.exports : (r = 1, process.env.NODE_ENV === "production" ? e.exports = o() : e.exports = t(), e.exports);
 }
 export {
-  f as default
+  p as __require
 };
 //# sourceMappingURL=index.es131.js.map

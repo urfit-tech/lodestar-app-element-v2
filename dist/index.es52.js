@@ -1,13 +1,19 @@
-var o, n;
-function c() {
-  if (n) return o;
-  n = 1;
-  var r = function(e, t) {
-    Error.call(this, e), Error.captureStackTrace && Error.captureStackTrace(this, this.constructor), this.name = "JsonWebTokenError", this.message = e, t && (this.inner = t);
-  };
-  return r.prototype = Object.create(Error.prototype), r.prototype.constructor = r, o = r, o;
-}
+import { print as i } from "graphql";
+import { AutoCleanedWeakCache as n } from "./index.es74.js";
+import { cacheSizes as o } from "./index.es75.js";
+var t, p = Object.assign(function(e) {
+  var r = t.get(e);
+  return r || (r = i(e), t.set(e, r)), r;
+}, {
+  reset: function() {
+    t = new n(
+      o.print || 2e3
+      /* defaultCacheSizes.print */
+    );
+  }
+});
+p.reset();
 export {
-  c as __require
+  p as print
 };
 //# sourceMappingURL=index.es52.js.map

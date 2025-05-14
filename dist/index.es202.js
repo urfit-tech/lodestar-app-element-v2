@@ -1,39 +1,25 @@
-import { __module as a } from "./index.es231.js";
-import { __require as s } from "./index.es232.js";
-/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-var l;
-function w() {
-  return l ? a.exports : (l = 1, function(p, i) {
-    var n = s(), e = n.Buffer;
-    function m(r, f) {
-      for (var u in r)
-        f[u] = r[u];
-    }
-    e.from && e.alloc && e.allocUnsafe && e.allocUnsafeSlow ? p.exports = n : (m(n, i), i.Buffer = o);
-    function o(r, f, u) {
-      return e(r, f, u);
-    }
-    o.prototype = Object.create(e.prototype), m(e, o), o.from = function(r, f, u) {
-      if (typeof r == "number")
-        throw new TypeError("Argument must not be a number");
-      return e(r, f, u);
-    }, o.alloc = function(r, f, u) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      var t = e(r);
-      return f !== void 0 ? typeof u == "string" ? t.fill(f, u) : t.fill(f) : t.fill(0), t;
-    }, o.allocUnsafe = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return e(r);
-    }, o.allocUnsafeSlow = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return n.SlowBuffer(r);
-    };
-  }(a, a.exports), a.exports);
+import { __require as d } from "./index.es192.js";
+import { __require as _ } from "./index.es176.js";
+var u, c;
+function S() {
+  if (c) return u;
+  c = 1;
+  const m = d(), a = _();
+  return u = (h, t, f) => {
+    const n = [];
+    let s = null, l = null;
+    const o = h.sort((i, e) => a(i, e, f));
+    for (const i of o)
+      m(i, t, f) ? (l = i, s || (s = i)) : (l && n.push([s, l]), l = null, s = null);
+    s && n.push([s, null]);
+    const r = [];
+    for (const [i, e] of n)
+      i === e ? r.push(i) : !e && i === o[0] ? r.push("*") : e ? i === o[0] ? r.push(`<=${e}`) : r.push(`${i} - ${e}`) : r.push(`>=${i}`);
+    const p = r.join(" || "), q = typeof t.raw == "string" ? t.raw : String(t);
+    return p.length < q.length ? p : t;
+  }, u;
 }
 export {
-  w as __require
+  S as __require
 };
 //# sourceMappingURL=index.es202.js.map

@@ -1,5 +1,5 @@
-var r = {};
+var r = "3.11.1";
 export {
-  r as __exports
+  r as version
 };
 //# sourceMappingURL=index.es125.js.map

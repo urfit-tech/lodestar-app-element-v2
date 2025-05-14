@@ -1,12 +1,12 @@
-import { __require as a } from "./index.es174.js";
+import { __require as a } from "./index.es179.js";
 var r, e;
-function s() {
+function _() {
   if (e) return r;
   e = 1;
-  const t = a();
-  return r = (i, o, u) => t(i, o, u) > 0, r;
+  const o = a();
+  return r = (t, i) => t.sort((u, s) => o(u, s, i)), r;
 }
 export {
-  s as __require
+  _ as __require
 };
 //# sourceMappingURL=index.es180.js.map
