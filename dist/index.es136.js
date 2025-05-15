@@ -1,12 +1,7 @@
-function o(n, e, f) {
-  var t = [];
-  n.forEach(function(r) {
-    return r[e] && t.push(r);
-  }), t.forEach(function(r) {
-    return r[e](f);
-  });
+function l(e) {
+  return e != null && typeof e == "object" && e["@@functional/placeholder"] === !0;
 }
 export {
-  o as iterateObserversSafely
+  l as default
 };
 //# sourceMappingURL=index.es136.js.map

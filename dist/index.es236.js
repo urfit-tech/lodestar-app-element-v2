@@ -1,18 +1,25 @@
-import { __require as t } from "./index.es230.js";
-var r, e;
-function o() {
-  if (e) return r;
-  e = 1;
-  const a = t();
-  return r = (n, i) => {
-    try {
-      return new a(n, i).range || "*";
-    } catch {
+import { __require as h } from "./index.es232.js";
+var o, u;
+function v() {
+  if (u) return o;
+  u = 1;
+  const t = h();
+  return o = (p, m) => {
+    const r = t(p, null, !0), e = t(m, null, !0), a = r.compare(e);
+    if (a === 0)
       return null;
+    const s = a > 0, f = s ? r : e, n = s ? e : r, c = !!f.prerelease.length;
+    if (!!n.prerelease.length && !c) {
+      if (!n.patch && !n.minor)
+        return "major";
+      if (n.compareMain(f) === 0)
+        return n.minor && !n.patch ? "minor" : "patch";
     }
-  }, r;
+    const i = c ? "pre" : "";
+    return r.major !== e.major ? i + "major" : r.minor !== e.minor ? i + "minor" : r.patch !== e.patch ? i + "patch" : "prerelease";
+  }, o;
 }
 export {
-  o as __require
+  v as __require
 };
 //# sourceMappingURL=index.es236.js.map

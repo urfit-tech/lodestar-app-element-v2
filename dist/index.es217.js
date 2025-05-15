@@ -1,12 +1,5 @@
-import { __require as m } from "./index.es215.js";
-var e, r;
-function i() {
-  if (r) return e;
-  r = 1;
-  const o = m();
-  return e = (a, s) => o(a, s, !0), e;
-}
+const t = null;
 export {
-  i as __require
+  t as default
 };
 //# sourceMappingURL=index.es217.js.map

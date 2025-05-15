@@ -1,14 +1,9 @@
-function a(r) {
-  var t, n = r[Symbol.asyncIterator]();
-  return t = {
-    next: function() {
-      return n.next();
-    }
-  }, t[Symbol.asyncIterator] = function() {
-    return this;
-  }, t;
+var e, r;
+function u() {
+  return r || (r = 1, e = typeof process == "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...s) => console.error("SEMVER", ...s) : () => {
+  }), e;
 }
 export {
-  a as default
+  u as __require
 };
 //# sourceMappingURL=index.es307.js.map

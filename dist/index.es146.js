@@ -1,11 +1,10 @@
-import { __assign as i } from "./index.es63.js";
-import { compact as e } from "./index.es143.js";
-function o(r, a) {
-  return e(r, a, a.variables && {
-    variables: e(i(i({}, r && r.variables), a.variables))
-  });
+import a from "./index.es85.js";
+import e from "./index.es269.js";
+var i = "REDACTED (Potential Email Address)";
+function m(r) {
+  return e(r) ? (a("This arg looks like an email address, redacting."), i) : r;
 }
 export {
-  o as mergeOptions
+  m as default
 };
 //# sourceMappingURL=index.es146.js.map

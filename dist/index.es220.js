@@ -1,12 +1,10 @@
-import { __require as a } from "./index.es218.js";
-var r, e;
-function _() {
-  if (e) return r;
-  e = 1;
-  const o = a();
-  return r = (t, s) => t.sort((i, u) => o(u, i, s)), r;
+const i = [];
+for (let n = 0; n < 256; ++n)
+  i.push((n + 256).toString(16).slice(1));
+function c(n, u = 0) {
+  return (i[n[u + 0]] + i[n[u + 1]] + i[n[u + 2]] + i[n[u + 3]] + "-" + i[n[u + 4]] + i[n[u + 5]] + "-" + i[n[u + 6]] + i[n[u + 7]] + "-" + i[n[u + 8]] + i[n[u + 9]] + "-" + i[n[u + 10]] + i[n[u + 11]] + i[n[u + 12]] + i[n[u + 13]] + i[n[u + 14]] + i[n[u + 15]]).toLowerCase();
 }
 export {
-  _ as __require
+  c as unsafeStringify
 };
 //# sourceMappingURL=index.es220.js.map

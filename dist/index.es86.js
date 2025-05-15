@@ -1,12 +1,10 @@
-import n from "./index.es87.js";
-import i from "./index.es88.js";
-import p from "./index.es89.js";
-var h = /* @__PURE__ */ n(function m(t, o, u) {
-  return p(function(f, e, r) {
-    return i(e) && i(r) ? m(t, e, r) : t(f, e, r);
-  }, o, u);
-});
+import n from "./index.es146.js";
+import m from "./index.es147.js";
+function g() {
+  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
+  return r && (e = m(t)), a && (e = n(e)), e;
+}
 export {
-  h as default
+  g as default
 };
 //# sourceMappingURL=index.es86.js.map

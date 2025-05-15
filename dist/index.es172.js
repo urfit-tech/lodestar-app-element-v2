@@ -1,32 +1,22 @@
-import r from "./index.es273.js";
-import p from "./index.es99.js";
-import o from "./index.es95.js";
-import l from "./index.es97.js";
-import a from "./index.es105.js";
-import m from "./index.es106.js";
-function d(e) {
-  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
-    throw new l(null, e);
-}
-function q(e) {
-  return d(e), e.headers = a.from(e.headers), e.data = r.call(
-    e,
-    e.transformRequest
-  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
-    return d(e), t.data = r.call(
-      e,
-      e.transformResponse,
-      t
-    ), t.headers = a.from(t.headers), t;
-  }, function(t) {
-    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
-      e,
-      e.transformResponse,
-      t.response
-    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
-  });
-}
+import { __extends as p } from "./index.es92.js";
+var l = (
+  /** @class */
+  function(a) {
+    p(i, a);
+    function i(e, n, o, h) {
+      var s, r = a.call(this, e) || this;
+      if (r.message = e, r.path = n, r.query = o, r.variables = h, Array.isArray(r.path)) {
+        r.missing = r.message;
+        for (var t = r.path.length - 1; t >= 0; --t)
+          r.missing = (s = {}, s[r.path[t]] = r.missing, s);
+      } else
+        r.missing = r.path;
+      return r.__proto__ = i.prototype, r;
+    }
+    return i;
+  }(Error)
+);
 export {
-  q as default
+  l as MissingFieldError
 };
 //# sourceMappingURL=index.es172.js.map

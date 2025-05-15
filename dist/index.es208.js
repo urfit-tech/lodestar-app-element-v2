@@ -1,15 +1,24 @@
-import { __require as t } from "./index.es206.js";
-var r, n;
-function l() {
-  if (n) return r;
-  n = 1;
-  const a = t();
-  return r = (i, s) => {
-    const e = a(i.trim().replace(/^[=v]+/, ""), s);
-    return e ? e.version : null;
-  }, r;
+import f from "./index.es118.js";
+import d from "./index.es287.js";
+function l(e) {
+  return encodeURIComponent(e).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+}
+function m(e, c, i) {
+  if (!c)
+    return e;
+  const t = i && i.encode || l;
+  f.isFunction(i) && (i = {
+    serialize: i
+  });
+  const n = i && i.serialize;
+  let r;
+  if (n ? r = n(c, i) : r = f.isURLSearchParams(c) ? c.toString() : new d(c, i).toString(t), r) {
+    const a = e.indexOf("#");
+    a !== -1 && (e = e.slice(0, a)), e += (e.indexOf("?") === -1 ? "?" : "&") + r;
+  }
+  return e;
 }
 export {
-  l as __require
+  m as default
 };
 //# sourceMappingURL=index.es208.js.map

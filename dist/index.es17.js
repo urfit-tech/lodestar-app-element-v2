@@ -1,19 +1,19 @@
-import { __assign as g, __rest as F } from "./index.es63.js";
-import { invariant as x } from "./index.es116.js";
-import "./index.es117.js";
-import { r as h } from "./index.es244.js";
-import { useSyncExternalStore as I } from "./index.es246.js";
-import { equal as S } from "./index.es164.js";
-import { ApolloError as M } from "./index.es67.js";
-import { verifyDocumentType as L, DocumentType as W } from "./index.es158.js";
-import { useApolloClient as _ } from "./index.es245.js";
-import { wrapHook as q } from "./index.es247.js";
-import { getApolloContext as z } from "./index.es243.js";
-import { NetworkStatus as P } from "./index.es165.js";
-import { maybeDeepFreeze as b } from "./index.es135.js";
-import { compact as V } from "./index.es143.js";
-import { mergeOptions as B } from "./index.es146.js";
-import { isNonEmptyArray as A } from "./index.es131.js";
+import { __assign as g, __rest as F } from "./index.es92.js";
+import { invariant as x } from "./index.es93.js";
+import "./index.es94.js";
+import { r as h } from "./index.es204.js";
+import { useSyncExternalStore as I } from "./index.es206.js";
+import { equal as S } from "./index.es103.js";
+import { ApolloError as M } from "./index.es112.js";
+import { verifyDocumentType as L, DocumentType as W } from "./index.es115.js";
+import { useApolloClient as _ } from "./index.es205.js";
+import { wrapHook as q } from "./index.es207.js";
+import { getApolloContext as z } from "./index.es203.js";
+import { NetworkStatus as P } from "./index.es104.js";
+import { maybeDeepFreeze as b } from "./index.es178.js";
+import { compact as V } from "./index.es110.js";
+import { mergeOptions as B } from "./index.es99.js";
+import { isNonEmptyArray as A } from "./index.es165.js";
 var G = Object.prototype.hasOwnProperty;
 function E() {
 }

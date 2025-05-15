@@ -1,15 +1,9 @@
-function u() {
-  for (var e = [], r = 0; r < arguments.length; r++)
-    e[r] = arguments[r];
-  var n = /* @__PURE__ */ Object.create(null);
-  return e.forEach(function(t) {
-    t && Object.keys(t).forEach(function(a) {
-      var c = t[a];
-      c !== void 0 && (n[a] = c);
-    });
-  }), n;
+import { __require as s } from "./index.es142.js";
+var e, r;
+function m() {
+  return r || (r = 1, e = s().satisfies(process.version, ">=15.7.0")), e;
 }
 export {
-  u as compact
+  m as __require
 };
 //# sourceMappingURL=index.es143.js.map

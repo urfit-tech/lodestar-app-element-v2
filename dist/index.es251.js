@@ -1,29 +1,12 @@
-import { parentEntrySlot as c } from "./index.es194.js";
-import { hasOwnProperty as d, arrayFromSet as f, maybeUnsubscribe as u } from "./index.es292.js";
-const a = {
-  setDirty: !0,
-  dispose: !0,
-  forget: !0
-  // Fully remove parent Entry from LRU cache and computation graph
-};
-function g(y) {
-  const r = /* @__PURE__ */ new Map();
-  function s(n) {
-    const e = c.getValue();
-    if (e) {
-      let t = r.get(n);
-      t || r.set(n, t = /* @__PURE__ */ new Set()), e.dependOn(t);
-    }
-  }
-  return s.dirty = function(e, t) {
-    const o = r.get(e);
-    if (o) {
-      const i = t && d.call(a, t) ? t : "setDirty";
-      f(o).forEach((p) => p[i]()), r.delete(e), u(o);
-    }
-  }, s;
+import { __require as a } from "./index.es241.js";
+var e, r;
+function s() {
+  if (r) return e;
+  r = 1;
+  const t = a();
+  return e = (i, o, u) => t(i, o, u) >= 0, e;
 }
 export {
-  g as dep
+  s as __require
 };
 //# sourceMappingURL=index.es251.js.map

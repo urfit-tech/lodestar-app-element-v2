@@ -1,12 +1,14 @@
-import { __require as a } from "./index.es215.js";
-var r, e;
-function s() {
-  if (e) return r;
-  e = 1;
-  const t = a();
-  return r = (i, o, u) => t(i, o, u) < 0, r;
+let t;
+const e = new Uint8Array(16);
+function o() {
+  if (!t) {
+    if (typeof crypto > "u" || !crypto.getRandomValues)
+      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+    t = crypto.getRandomValues.bind(crypto);
+  }
+  return t(e);
 }
 export {
-  s as __require
+  o as default
 };
 //# sourceMappingURL=index.es222.js.map

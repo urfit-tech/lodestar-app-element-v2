@@ -1,1 +1,1 @@
-{"version":3,"file":"index.es100.js","sources":["../node_modules/axios/lib/env/data.js"],"sourcesContent":["export const VERSION = \"1.8.4\";"],"names":["VERSION"],"mappings":"AAAY,MAACA,IAAU;","x_google_ignoreList":[0]}
+{"version":3,"file":"index.es100.js","sources":["../../node_modules/@apollo/client/link/core/execute.js"],"sourcesContent":["import { ApolloLink } from \"./ApolloLink.js\";\nexport var execute = ApolloLink.execute;\n//# sourceMappingURL=execute.js.map"],"names":["execute","ApolloLink"],"mappings":";AACU,IAACA,IAAUC,EAAW;","x_google_ignoreList":[0]}

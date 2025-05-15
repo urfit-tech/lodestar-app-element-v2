@@ -1,31 +1,18 @@
-import { __exports as r } from "./index.es150.js";
-import { __require as u } from "./index.es151.js";
-import { __require as f } from "./index.es152.js";
-var t;
-function c() {
-  if (t) return r;
-  t = 1;
-  var S = u(), e = f(), a = [
-    "HS256",
-    "HS384",
-    "HS512",
-    "RS256",
-    "RS384",
-    "RS512",
-    "PS256",
-    "PS384",
-    "PS512",
-    "ES256",
-    "ES384",
-    "ES512"
-  ];
-  return r.ALGORITHMS = a, r.sign = S.sign, r.verify = e.verify, r.decode = e.decode, r.isValid = e.isValid, r.createSign = function(i) {
-    return new S(i);
-  }, r.createVerify = function(i) {
-    return new e(i);
-  }, r;
+import { __require as i } from "./index.es141.js";
+var e, a;
+function s() {
+  if (a) return e;
+  a = 1;
+  var u = i();
+  return e = function(r, f) {
+    var n = f || Math.floor(Date.now() / 1e3);
+    if (typeof r == "string") {
+      var t = u(r);
+      return typeof t > "u" ? void 0 : Math.floor(n + t / 1e3);
+    } else return typeof r == "number" ? n + r : void 0;
+  }, e;
 }
 export {
-  c as __require
+  s as __require
 };
 //# sourceMappingURL=index.es73.js.map

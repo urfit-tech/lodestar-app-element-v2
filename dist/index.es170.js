@@ -1,24 +1,61 @@
-import f from "./index.es91.js";
-import d from "./index.es272.js";
-function l(e) {
-  return encodeURIComponent(e).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+import { Trie as w } from "./index.es277.js";
+import { Entry as K } from "./index.es174.js";
+import { parentEntrySlot as j } from "./index.es175.js";
+import { StrongCache as z } from "./index.es278.js";
+let d;
+function E(...u) {
+  return (d || (d = new w(typeof WeakMap == "function"))).lookupArray(u);
 }
-function m(e, c, i) {
-  if (!c)
-    return e;
-  const t = i && i.encode || l;
-  f.isFunction(i) && (i = {
-    serialize: i
+const i = /* @__PURE__ */ new Set();
+function O(u, { max: f = Math.pow(2, 16), keyArgs: l, makeCacheKey: o = E, normalizeResult: a, subscribe: c, cache: p = z } = /* @__PURE__ */ Object.create(null)) {
+  const r = typeof p == "function" ? new p(f, (e) => e.dispose()) : p, n = function() {
+    const e = o.apply(null, l ? l.apply(null, arguments) : arguments);
+    if (e === void 0)
+      return u.apply(null, arguments);
+    let t = r.get(e);
+    t || (r.set(e, t = new K(u)), t.normalizeResult = a, t.subscribe = c, t.forget = () => r.delete(e));
+    const m = t.recompute(Array.prototype.slice.call(arguments));
+    return r.set(e, t), i.add(r), j.hasValue() || (i.forEach((b) => b.clean()), i.clear()), m;
+  };
+  Object.defineProperty(n, "size", {
+    get: () => r.size,
+    configurable: !1,
+    enumerable: !1
+  }), Object.freeze(n.options = {
+    max: f,
+    keyArgs: l,
+    makeCacheKey: o,
+    normalizeResult: a,
+    subscribe: c,
+    cache: r
   });
-  const n = i && i.serialize;
-  let r;
-  if (n ? r = n(c, i) : r = f.isURLSearchParams(c) ? c.toString() : new d(c, i).toString(t), r) {
-    const a = e.indexOf("#");
-    a !== -1 && (e = e.slice(0, a)), e += (e.indexOf("?") === -1 ? "?" : "&") + r;
+  function s(e) {
+    const t = e && r.get(e);
+    t && t.setDirty();
   }
-  return e;
+  n.dirtyKey = s, n.dirty = function() {
+    s(o.apply(null, arguments));
+  };
+  function y(e) {
+    const t = e && r.get(e);
+    if (t)
+      return t.peek();
+  }
+  n.peekKey = y, n.peek = function() {
+    return y(o.apply(null, arguments));
+  };
+  function g(e) {
+    return e ? r.delete(e) : !1;
+  }
+  return n.forgetKey = g, n.forget = function() {
+    return g(o.apply(null, arguments));
+  }, n.makeCacheKey = o, n.getKey = l ? function() {
+    return o.apply(null, l.apply(null, arguments));
+  } : o, Object.freeze(n);
 }
 export {
-  m as default
+  w as KeyTrie,
+  E as defaultMakeCacheKey,
+  O as wrap
 };
 //# sourceMappingURL=index.es170.js.map

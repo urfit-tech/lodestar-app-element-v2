@@ -1,29 +1,20 @@
-var E, _;
-function A() {
-  if (_) return E;
-  _ = 1;
-  const n = "2.0.0", r = 256, t = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
-  9007199254740991, e = 16, o = r - 6;
-  return E = {
-    MAX_LENGTH: r,
-    MAX_SAFE_COMPONENT_LENGTH: e,
-    MAX_SAFE_BUILD_LENGTH: o,
-    MAX_SAFE_INTEGER: t,
-    RELEASE_TYPES: [
-      "major",
-      "premajor",
-      "minor",
-      "preminor",
-      "patch",
-      "prepatch",
-      "prerelease"
-    ],
-    SEMVER_SPEC_VERSION: n,
-    FLAG_INCLUDE_PRERELEASE: 1,
-    FLAG_LOOSE: 2
-  }, E;
+import * as r from "./index.es204.js";
+import { r as t } from "./index.es204.js";
+import { invariant as a } from "./index.es93.js";
+import "./index.es94.js";
+import { canUseSymbol as n } from "./index.es179.js";
+var o = n ? Symbol.for("__APOLLO_CONTEXT__") : "__APOLLO_CONTEXT__";
+function f() {
+  a("createContext" in r, 45);
+  var e = t.createContext[o];
+  return e || (Object.defineProperty(t.createContext, o, {
+    value: e = t.createContext({}),
+    enumerable: !1,
+    writable: !1,
+    configurable: !0
+  }), e.displayName = "ApolloContext"), e;
 }
 export {
-  A as __require
+  f as getApolloContext
 };
 //# sourceMappingURL=index.es203.js.map

@@ -1,31 +1,54 @@
-import a from "./index.es97.js";
-import s from "./index.es102.js";
-import m from "./index.es91.js";
-const h = (e, t) => {
-  const { length: l } = e = e ? e.filter(Boolean) : [];
-  if (t || l) {
-    let u = new AbortController(), f;
-    const n = function(r) {
-      if (!f) {
-        f = !0, i();
-        const o = r instanceof Error ? r : this.reason;
-        u.abort(o instanceof s ? o : new a(o instanceof Error ? o.message : o));
+import { canUseAsyncIteratorSymbol as h } from "./index.es179.js";
+function p(e) {
+  var o = null, u = null, f = !1, a = [], i = [];
+  function l(n) {
+    if (!u) {
+      if (i.length) {
+        var r = i.shift();
+        if (Array.isArray(r) && r[0])
+          return r[0]({ value: n, done: !1 });
       }
-    };
-    let c = t && setTimeout(() => {
-      c = null, n(new s(`timeout ${t} of ms exceeded`, s.ETIMEDOUT));
-    }, t);
-    const i = () => {
-      e && (c && clearTimeout(c), c = null, e.forEach((r) => {
-        r.unsubscribe ? r.unsubscribe(n) : r.removeEventListener("abort", n);
-      }), e = null);
-    };
-    e.forEach((r) => r.addEventListener("abort", n));
-    const { signal: b } = u;
-    return b.unsubscribe = () => m.asap(i), b;
+      a.push(n);
+    }
   }
-};
+  function c(n) {
+    u = n;
+    var r = i.slice();
+    r.forEach(function(s) {
+      s[1](n);
+    }), !o || o();
+  }
+  function t() {
+    f = !0;
+    var n = i.slice();
+    n.forEach(function(r) {
+      r[0]({ value: void 0, done: !0 });
+    }), !o || o();
+  }
+  o = function() {
+    o = null, e.removeListener("data", l), e.removeListener("error", c), e.removeListener("end", t), e.removeListener("finish", t), e.removeListener("close", t);
+  }, e.on("data", l), e.on("error", c), e.on("end", t), e.on("finish", t), e.on("close", t);
+  function d() {
+    return new Promise(function(n, r) {
+      if (u)
+        return r(u);
+      if (a.length)
+        return n({ value: a.shift(), done: !1 });
+      if (f)
+        return n({ value: void 0, done: !0 });
+      i.push([n, r]);
+    });
+  }
+  var v = {
+    next: function() {
+      return d();
+    }
+  };
+  return h && (v[Symbol.asyncIterator] = function() {
+    return this;
+  }), v;
+}
 export {
-  h as default
+  p as default
 };
 //# sourceMappingURL=index.es282.js.map

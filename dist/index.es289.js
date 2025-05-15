@@ -1,11 +1,7 @@
-var e, r;
-function _() {
-  if (r) return e;
-  r = 1;
-  var t = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-  return e = t, e;
+function e(t) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
 }
 export {
-  _ as __require
+  e as default
 };
 //# sourceMappingURL=index.es289.js.map

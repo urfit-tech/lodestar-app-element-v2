@@ -1,14 +1,9 @@
-import { getOperationName as a } from "./index.es36.js";
-function t(r) {
-  var e = {
-    variables: r.variables || {},
-    extensions: r.extensions || {},
-    operationName: r.operationName,
-    query: r.query
-  };
-  return e.operationName || (e.operationName = typeof e.query != "string" ? a(e.query) || void 0 : ""), e;
-}
-export {
-  t as transformOperation
-};
+var l = (i, f) => () => (f || i((f = { exports: {} }).exports, f), f.exports);
+import n from "./index.es280.js";
+var d = l((r, o) => {
+  var e;
+  typeof self < "u" ? e = self : typeof window < "u" ? e = window : typeof global < "u" ? e = global : typeof o < "u" ? e = o : e = Function("return this")();
+  n(e);
+});
+export default d();
 //# sourceMappingURL=index.es190.js.map

@@ -1,7 +1,11 @@
-function e(t) {
-  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
+var e, r;
+function _() {
+  if (r) return e;
+  r = 1;
+  var t = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
+  return e = t, e;
 }
 export {
-  e as default
+  _ as __require
 };
 //# sourceMappingURL=index.es274.js.map

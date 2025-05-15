@@ -1,151 +1,96 @@
-import { __require as G } from "./index.es295.js";
-import { __require as j } from "./index.es197.js";
-import C from "./index.es77.js";
-import { __require as M } from "./index.es296.js";
-import { __require as O } from "./index.es201.js";
-var _, w;
-function z() {
-  if (w) return _;
-  w = 1;
-  var P = G(), u = j().Buffer, o = C, m = M(), y = O(), b = `"%s" is not a valid algorithm.
-  Supported algorithms are:
-  "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "ES256", "ES384", "ES512" and "none".`, s = "secret must be a string or buffer", c = "key must be a string or a buffer", q = "key must be a string, a buffer or an object", v = typeof o.createPublicKey == "function";
-  v && (c += " or a KeyObject", s += "or a KeyObject");
-  function E(r) {
-    if (!u.isBuffer(r) && typeof r != "string" && (!v || typeof r != "object" || typeof r.type != "string" || typeof r.asymmetricKeyType != "string" || typeof r.export != "function"))
-      throw a(c);
-  }
-  function A(r) {
-    if (!u.isBuffer(r) && typeof r != "string" && typeof r != "object")
-      throw a(q);
-  }
-  function h(r) {
-    if (!u.isBuffer(r)) {
-      if (typeof r == "string")
-        return r;
-      if (!v || typeof r != "object" || r.type !== "secret" || typeof r.export != "function")
-        throw a(s);
+import { __rest as J, __assign as A } from "./index.es92.js";
+import { invariant as K } from "./index.es93.js";
+import { maybe as U } from "./index.es191.js";
+import "./index.es94.js";
+import { serializeFetchParameter as O } from "./index.es195.js";
+import { selectURI as W } from "./index.es198.js";
+import { readMultipartBody as X, parseAndCheckHttpResponse as Y, handleError as Z } from "./index.es192.js";
+import { checkFetcher as $ } from "./index.es197.js";
+import { selectHttpOptionsAndBodyInternal as ee, defaultPrinter as re, fallbackHttpConfig as te } from "./index.es196.js";
+import { rewriteURIForGET as ie } from "./index.es200.js";
+import { ApolloLink as ne } from "./index.es101.js";
+import { hasDirectives as D } from "./index.es159.js";
+import { removeClientSetsFromDocument as oe } from "./index.es158.js";
+import { fromError as h } from "./index.es201.js";
+import { filterOperationVariables as ae } from "./index.es202.js";
+import { getMainDefinition as se } from "./index.es36.js";
+import { Observable as fe } from "./index.es107.js";
+import "./index.es108.js";
+var I = U(function() {
+  return fetch;
+}), Te = function(t) {
+  t === void 0 && (t = {});
+  var v = t.uri, G = v === void 0 ? "/graphql" : v, b = t.fetch, y = t.print, V = y === void 0 ? re : y, R = t.includeExtensions, S = t.preserveHeaderCase, L = t.useGETForQueries, g = t.includeUnusedVariables, M = g === void 0 ? !1 : g, f = J(t, ["uri", "fetch", "print", "includeExtensions", "preserveHeaderCase", "useGETForQueries", "includeUnusedVariables"]);
+  globalThis.__DEV__ !== !1 && $(b || I);
+  var P = {
+    http: { includeExtensions: R, preserveHeaderCase: S },
+    options: f.fetchOptions,
+    credentials: f.credentials,
+    headers: f.headers
+  };
+  return new ne(function(e) {
+    var l = W(e, G), n = e.getContext(), u = {};
+    if (n.clientAwareness) {
+      var E = n.clientAwareness, q = E.name, x = E.version;
+      q && (u["apollographql-client-name"] = q), x && (u["apollographql-client-version"] = x);
     }
-  }
-  function g(r) {
-    return r.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
-  }
-  function l(r) {
-    r = r.toString();
-    var i = 4 - r.length % 4;
-    if (i !== 4)
-      for (var e = 0; e < i; ++e)
-        r += "=";
-    return r.replace(/\-/g, "+").replace(/_/g, "/");
-  }
-  function a(r) {
-    var i = [].slice.call(arguments, 1), e = y.format.bind(y, r).apply(null, i);
-    return new TypeError(e);
-  }
-  function D(r) {
-    return u.isBuffer(r) || typeof r == "string";
-  }
-  function S(r) {
-    return D(r) || (r = JSON.stringify(r)), r;
-  }
-  function d(r) {
-    return function(e, t) {
-      h(t), e = S(e);
-      var n = o.createHmac("sha" + r, t), f = (n.update(e), n.digest("base64"));
-      return g(f);
+    var j = A(A({}, u), n.headers), B = {
+      http: n.http,
+      options: n.fetchOptions,
+      credentials: n.credentials,
+      headers: j
     };
-  }
-  function H(r) {
-    return function(e, t, n) {
-      var f = d(r)(e, n);
-      return P(u.from(t), u.from(f));
-    };
-  }
-  function I(r) {
-    return function(e, t) {
-      A(t), e = S(e);
-      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign(t, "base64"));
-      return g(f);
-    };
-  }
-  function R(r) {
-    return function(e, t, n) {
-      E(n), e = S(e), t = l(t);
-      var f = o.createVerify("RSA-SHA" + r);
-      return f.update(e), f.verify(n, t, "base64");
-    };
-  }
-  function K(r) {
-    return function(e, t) {
-      A(t), e = S(e);
-      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign({
-        key: t,
-        padding: o.constants.RSA_PKCS1_PSS_PADDING,
-        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
-      }, "base64"));
-      return g(f);
-    };
-  }
-  function L(r) {
-    return function(e, t, n) {
-      E(n), e = S(e), t = l(t);
-      var f = o.createVerify("RSA-SHA" + r);
-      return f.update(e), f.verify({
-        key: n,
-        padding: o.constants.RSA_PKCS1_PSS_PADDING,
-        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
-      }, t, "base64");
-    };
-  }
-  function N(r) {
-    var i = I(r);
-    return function() {
-      var t = i.apply(null, arguments);
-      return t = m.derToJose(t, "ES" + r), t;
-    };
-  }
-  function V(r) {
-    var i = R(r);
-    return function(t, n, f) {
-      n = m.joseToDer(n, "ES" + r).toString("base64");
-      var p = i(t, n, f);
-      return p;
-    };
-  }
-  function T() {
-    return function() {
-      return "";
-    };
-  }
-  function B() {
-    return function(i, e) {
-      return e === "";
-    };
-  }
-  return _ = function(i) {
-    var e = {
-      hs: d,
-      rs: I,
-      ps: K,
-      es: N,
-      none: T
-    }, t = {
-      hs: H,
-      rs: R,
-      ps: L,
-      es: V,
-      none: B
-    }, n = i.match(/^(RS|PS|ES|HS)(256|384|512)$|^(none)$/i);
-    if (!n)
-      throw a(b, i);
-    var f = (n[1] || n[3]).toLowerCase(), p = n[2];
-    return {
-      sign: e[f](p),
-      verify: t[f](p)
-    };
-  }, _;
-}
+    if (D(["client"], e.query)) {
+      var C = oe(e.query);
+      if (!C)
+        return h(new Error("HttpLink: Trying to send a client-only query to the server. To send to the server, ensure a non-client field is added to the query or set the `transformOptions.removeClientFields` option to `true`."));
+      e.query = C;
+    }
+    var _ = ee(e, V, te, P, B), i = _.options, s = _.body;
+    s.variables && !M && (s.variables = ae(s.variables, e.query));
+    var o;
+    !i.signal && typeof AbortController < "u" && (o = new AbortController(), i.signal = o.signal);
+    var Q = function(r) {
+      return r.kind === "OperationDefinition" && r.operation === "mutation";
+    }, k = function(r) {
+      return r.kind === "OperationDefinition" && r.operation === "subscription";
+    }, c = k(se(e.query)), d = D(["defer"], e.query);
+    if (L && !e.query.definitions.some(Q) && (i.method = "GET"), d || c) {
+      i.headers = i.headers || {};
+      var p = "multipart/mixed;";
+      c && d && globalThis.__DEV__ !== !1 && K.warn(38), c ? p += "boundary=graphql;subscriptionSpec=1.0,application/json" : d && (p += "deferSpec=20220824,application/json"), i.headers.accept = p;
+    }
+    if (i.method === "GET") {
+      var F = ie(l, s), z = F.newURI, w = F.parseError;
+      if (w)
+        return h(w);
+      l = z;
+    } else
+      try {
+        i.body = O(s, "Payload");
+      } catch (r) {
+        return h(r);
+      }
+    return new fe(function(r) {
+      var N = b || U(function() {
+        return fetch;
+      }) || I, T = r.next.bind(r);
+      return N(l, i).then(function(a) {
+        var m;
+        e.setContext({ response: a });
+        var H = (m = a.headers) === null || m === void 0 ? void 0 : m.get("content-type");
+        return H !== null && /^multipart\/mixed/i.test(H) ? X(a, T) : Y(e)(a).then(T);
+      }).then(function() {
+        o = void 0, r.complete();
+      }).catch(function(a) {
+        o = void 0, Z(a, r);
+      }), function() {
+        o && o.abort();
+      };
+    });
+  });
+};
 export {
-  z as __require
+  Te as createHttpLink
 };
 //# sourceMappingURL=index.es199.js.map

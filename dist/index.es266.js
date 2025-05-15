@@ -1,10 +1,12 @@
-import { newInvariantError as e } from "./index.es116.js";
-import "./index.es117.js";
-var n = function(r) {
-  if (!r && typeof fetch > "u")
-    throw e(37);
-};
+import { __require as c } from "./index.es256.js";
+var n, i;
+function q() {
+  if (i) return n;
+  i = 1;
+  const s = c();
+  return n = (e, r, t) => (e = new s(e, t), r = new s(r, t), e.intersects(r, t)), n;
+}
 export {
-  n as checkFetcher
+  q as __require
 };
 //# sourceMappingURL=index.es266.js.map

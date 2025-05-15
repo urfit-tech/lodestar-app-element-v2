@@ -1,51 +1,54 @@
-import { __spreadArray as h, __assign as m } from "./index.es63.js";
-import { isNonNullObject as f } from "./index.es69.js";
-var g = Object.prototype.hasOwnProperty;
-function v() {
-  for (var n = [], r = 0; r < arguments.length; r++)
-    n[r] = arguments[r];
-  return l(n);
-}
-function l(n) {
-  var r = n[0] || {}, t = n.length;
-  if (t > 1)
-    for (var o = new y(), i = 1; i < t; ++i)
-      r = o.merge(r, n[i]);
-  return r;
-}
-var c = function(n, r, t) {
-  return this.merge(n[t], r[t]);
-}, y = (
-  /** @class */
-  function() {
-    function n(r) {
-      r === void 0 && (r = c), this.reconciler = r, this.isObject = f, this.pastCopies = /* @__PURE__ */ new Set();
+import a from "./index.es118.js";
+import h from "./index.es217.js";
+import m from "./index.es218.js";
+import u from "./index.es219.js";
+import d from "./index.es129.js";
+const s = {
+  http: h,
+  xhr: m,
+  fetch: u
+};
+a.forEach(s, (e, n) => {
+  if (e) {
+    try {
+      Object.defineProperty(e, "name", { value: n });
+    } catch {
     }
-    return n.prototype.merge = function(r, t) {
-      for (var o = this, i = [], p = 2; p < arguments.length; p++)
-        i[p - 2] = arguments[p];
-      return f(t) && f(r) ? (Object.keys(t).forEach(function(e) {
-        if (g.call(r, e)) {
-          var s = r[e];
-          if (t[e] !== s) {
-            var a = o.reconciler.apply(o, h([
-              r,
-              t,
-              e
-            ], i, !1));
-            a !== s && (r = o.shallowCopyForMerge(r), r[e] = a);
-          }
-        } else
-          r = o.shallowCopyForMerge(r), r[e] = t[e];
-      }), r) : t;
-    }, n.prototype.shallowCopyForMerge = function(r) {
-      return f(r) && (this.pastCopies.has(r) || (Array.isArray(r) ? r = r.slice(0) : r = m({ __proto__: Object.getPrototypeOf(r) }, r), this.pastCopies.add(r))), r;
-    }, n;
-  }()
-);
+    Object.defineProperty(e, "adapterName", { value: n });
+  }
+});
+const c = (e) => `- ${e}`, b = (e) => a.isFunction(e) || e === null || e === !1, y = {
+  getAdapter: (e) => {
+    e = a.isArray(e) ? e : [e];
+    const { length: n } = e;
+    let o, r;
+    const p = {};
+    for (let t = 0; t < n; t++) {
+      o = e[t];
+      let i;
+      if (r = o, !b(o) && (r = s[(i = String(o)).toLowerCase()], r === void 0))
+        throw new d(`Unknown adapter '${i}'`);
+      if (r)
+        break;
+      p[i || "#" + t] = r;
+    }
+    if (!r) {
+      const t = Object.entries(p).map(
+        ([f, l]) => `adapter ${f} ` + (l === !1 ? "is not supported by the environment" : "is not available in the build")
+      );
+      let i = n ? t.length > 1 ? `since :
+` + t.map(c).join(`
+`) : " " + c(t[0]) : "as no adapter specified";
+      throw new d(
+        "There is no suitable adapter to dispatch the request " + i,
+        "ERR_NOT_SUPPORT"
+      );
+    }
+    return r;
+  },
+  adapters: s
+};
 export {
-  y as DeepMerger,
-  v as mergeDeep,
-  l as mergeDeepArray
+  y as default
 };
 //# sourceMappingURL=index.es133.js.map

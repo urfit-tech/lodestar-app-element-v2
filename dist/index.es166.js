@@ -1,63 +1,51 @@
-import { __rest as D } from "./index.es63.js";
-import { equal as M } from "./index.es164.js";
-import { createFragmentMap as S, getFragmentFromSelection as N } from "./index.es125.js";
-import { getFragmentDefinitions as q, getMainDefinition as A } from "./index.es36.js";
-import { shouldInclude as B } from "./index.es118.js";
-import { isField as d, resultKeyNameFromField as w } from "./index.es126.js";
-function I(e, a, t, n) {
-  var v = a.data, r = D(a, ["data"]), o = t.data, i = D(t, ["data"]);
-  return M(r, i) && u(A(e).selectionSet, v, o, {
-    fragmentMap: S(q(e)),
-    variables: n
-  });
+import { __spreadArray as h, __assign as m } from "./index.es92.js";
+import { isNonNullObject as f } from "./index.es113.js";
+var g = Object.prototype.hasOwnProperty;
+function v() {
+  for (var n = [], r = 0; r < arguments.length; r++)
+    n[r] = arguments[r];
+  return l(n);
 }
-function u(e, a, t, n) {
-  if (a === t)
-    return !0;
-  var v = /* @__PURE__ */ new Set();
-  return e.selections.every(function(r) {
-    if (v.has(r) || (v.add(r), !B(r, n.variables)) || s(r))
-      return !0;
-    if (d(r)) {
-      var o = w(r), i = a && a[o], f = t && t[o], p = r.selectionSet;
-      if (!p)
-        return M(i, f);
-      var F = Array.isArray(i), c = Array.isArray(f);
-      if (F !== c)
-        return !1;
-      if (F && c) {
-        var y = i.length;
-        if (f.length !== y)
-          return !1;
-        for (var m = 0; m < y; ++m)
-          if (!u(p, i[m], f[m], n))
-            return !1;
-        return !0;
-      }
-      return u(p, i, f, n);
-    } else {
-      var g = N(r, n.fragmentMap);
-      if (g)
-        return s(g) ? !0 : u(
-          g.selectionSet,
-          // Notice that we reuse the same aResult and bResult values here,
-          // since the fragment ...spread does not specify a field name, but
-          // consists of multiple fields (within the fragment's selection set)
-          // that should be applied to the current result value(s).
-          a,
-          t,
-          n
-        );
+function l(n) {
+  var r = n[0] || {}, t = n.length;
+  if (t > 1)
+    for (var o = new y(), i = 1; i < t; ++i)
+      r = o.merge(r, n[i]);
+  return r;
+}
+var c = function(n, r, t) {
+  return this.merge(n[t], r[t]);
+}, y = (
+  /** @class */
+  function() {
+    function n(r) {
+      r === void 0 && (r = c), this.reconciler = r, this.isObject = f, this.pastCopies = /* @__PURE__ */ new Set();
     }
-  });
-}
-function s(e) {
-  return !!e.directives && e.directives.some(H);
-}
-function H(e) {
-  return e.name.value === "nonreactive";
-}
+    return n.prototype.merge = function(r, t) {
+      for (var o = this, i = [], p = 2; p < arguments.length; p++)
+        i[p - 2] = arguments[p];
+      return f(t) && f(r) ? (Object.keys(t).forEach(function(e) {
+        if (g.call(r, e)) {
+          var s = r[e];
+          if (t[e] !== s) {
+            var a = o.reconciler.apply(o, h([
+              r,
+              t,
+              e
+            ], i, !1));
+            a !== s && (r = o.shallowCopyForMerge(r), r[e] = a);
+          }
+        } else
+          r = o.shallowCopyForMerge(r), r[e] = t[e];
+      }), r) : t;
+    }, n.prototype.shallowCopyForMerge = function(r) {
+      return f(r) && (this.pastCopies.has(r) || (Array.isArray(r) ? r = r.slice(0) : r = m({ __proto__: Object.getPrototypeOf(r) }, r), this.pastCopies.add(r))), r;
+    }, n;
+  }()
+);
 export {
-  I as equalByQuery
+  y as DeepMerger,
+  v as mergeDeep,
+  l as mergeDeepArray
 };
 //# sourceMappingURL=index.es166.js.map

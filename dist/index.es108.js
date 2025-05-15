@@ -1,8 +1,10 @@
-import { getDefaultExportFromCjs as r } from "./index.es72.js";
-import { __require as o } from "./index.es184.js";
-var p = /* @__PURE__ */ o();
-const s = /* @__PURE__ */ r(p);
+import { Observable as t } from "./index.es107.js";
+import "./index.es190.js";
+var r = t.prototype, o = "@@observable";
+r[o] || (r[o] = function() {
+  return this;
+});
 export {
-  s as default
+  t as Observable
 };
 //# sourceMappingURL=index.es108.js.map

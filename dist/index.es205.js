@@ -1,17 +1,12 @@
-var n, o;
-function f() {
-  if (o) return n;
-  o = 1;
-  const s = /^[0-9]+$/, c = (e, r) => {
-    const i = s.test(e), t = s.test(r);
-    return i && t && (e = +e, r = +r), e === r ? 0 : i && !t ? -1 : t && !i ? 1 : e < r ? -1 : 1;
-  };
-  return n = {
-    compareIdentifiers: c,
-    rcompareIdentifiers: (e, r) => c(r, e)
-  }, n;
+import { invariant as e } from "./index.es93.js";
+import "./index.es94.js";
+import { r as n } from "./index.es204.js";
+import { getApolloContext as i } from "./index.es203.js";
+function c(o) {
+  var r = n.useContext(i()), t = o || r.client;
+  return e(!!t, 49), t;
 }
 export {
-  f as __require
+  c as useApolloClient
 };
 //# sourceMappingURL=index.es205.js.map

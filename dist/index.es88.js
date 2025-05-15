@@ -1,7 +1,7 @@
-function e(t) {
-  return Object.prototype.toString.call(t) === "[object Object]";
+function r(t) {
+  return t && t.toString().replace(/^\s+|\s+$/g, "");
 }
 export {
-  e as default
+  r as default
 };
 //# sourceMappingURL=index.es88.js.map

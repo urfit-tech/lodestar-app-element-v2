@@ -1,9 +1,28 @@
-var e, r;
-function u() {
-  return r || (r = 1, e = typeof process == "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...s) => console.error("SEMVER", ...s) : () => {
-  }), e;
+import { __require as l } from "./index.es300.js";
+var a, i;
+function B() {
+  if (i) return a;
+  i = 1;
+  var r = l().Buffer, o = l().SlowBuffer;
+  a = t;
+  function t(e, u) {
+    if (!r.isBuffer(e) || !r.isBuffer(u) || e.length !== u.length)
+      return !1;
+    for (var n = 0, f = 0; f < e.length; f++)
+      n |= e[f] ^ u[f];
+    return n === 0;
+  }
+  t.install = function() {
+    r.prototype.equal = o.prototype.equal = function(u) {
+      return t(this, u);
+    };
+  };
+  var q = r.prototype.equal, p = o.prototype.equal;
+  return t.restore = function() {
+    r.prototype.equal = q, o.prototype.equal = p;
+  }, a;
 }
 export {
-  u as __require
+  B as __require
 };
 //# sourceMappingURL=index.es301.js.map

@@ -1,15 +1,18 @@
-import a from "./index.es87.js";
-import f from "./index.es90.js";
-var h = /* @__PURE__ */ a(function(o, i, e) {
-  var t = {}, r;
-  i = i || {}, e = e || {};
-  for (r in i)
-    f(r, i) && (t[r] = f(r, e) ? o(r, i[r], e[r]) : i[r]);
-  for (r in e)
-    f(r, e) && !f(r, t) && (t[r] = e[r]);
-  return t;
-});
+var l = !1;
+function u(e) {
+  if (!l) {
+    l = !0;
+    var s = "https://www.google-analytics.com/analytics.js";
+    e && e.gaAddress ? s = e.gaAddress : e && e.debug && (s = "https://www.google-analytics.com/analytics_debug.js");
+    var g = e && e.onerror;
+    (function(a, c, d, o, r, t, n) {
+      a.GoogleAnalyticsObject = r, a[r] = a[r] || function() {
+        (a[r].q = a[r].q || []).push(arguments);
+      }, a[r].l = 1 * /* @__PURE__ */ new Date(), t = c.createElement(d), n = c.getElementsByTagName(d)[0], t.async = 1, t.src = o, t.onerror = g, n.parentNode.insertBefore(t, n);
+    })(window, document, "script", s, "ga");
+  }
+}
 export {
-  h as default
+  u as default
 };
 //# sourceMappingURL=index.es89.js.map

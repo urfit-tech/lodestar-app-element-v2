@@ -1,33 +1,16 @@
-import r from "./index.es91.js";
-import c from "./index.es177.js";
-const p = c.hasStandardBrowserEnv ? (
-  // Standard browser envs support document.cookie
-  {
-    write(e, t, n, i, s, u) {
-      const o = [e + "=" + encodeURIComponent(t)];
-      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
-    },
-    read(e) {
-      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
-      return t ? decodeURIComponent(t[3]) : null;
-    },
-    remove(e) {
-      this.write(e, "", Date.now() - 864e5);
-    }
-  }
-) : (
-  // Non-standard browser env (web workers, react-native) lack needed support.
-  {
-    write() {
-    },
-    read() {
-      return null;
-    },
-    remove() {
-    }
-  }
-);
+function h(r, a) {
+  let s = 0, u = 1e3 / a, e, t;
+  const n = (l, o = Date.now()) => {
+    s = o, e = null, t && (clearTimeout(t), t = null), r.apply(null, l);
+  };
+  return [(...l) => {
+    const o = Date.now(), i = o - s;
+    i >= u ? n(l, o) : (e = l, t || (t = setTimeout(() => {
+      t = null, n(e);
+    }, u - i)));
+  }, () => e && n(e)];
+}
 export {
-  p as default
+  h as default
 };
 //# sourceMappingURL=index.es317.js.map

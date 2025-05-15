@@ -1,31 +1,53 @@
-import { __exports as n } from "./index.es327.js";
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-var d;
-function q() {
-  return d ? n : (d = 1, n.read = function(s, a, N, w, M) {
-    var t, r, h = M * 8 - w - 1, e = (1 << h) - 1, f = e >> 1, i = -7, o = N ? M - 1 : 0, x = N ? -1 : 1, p = s[a + o];
-    for (o += x, t = p & (1 << -i) - 1, p >>= -i, i += h; i > 0; t = t * 256 + s[a + o], o += x, i -= 8)
-      ;
-    for (r = t & (1 << -i) - 1, t >>= -i, i += w; i > 0; r = r * 256 + s[a + o], o += x, i -= 8)
-      ;
-    if (t === 0)
-      t = 1 - f;
-    else {
-      if (t === e)
-        return r ? NaN : (p ? -1 : 1) * (1 / 0);
-      r = r + Math.pow(2, w), t = t - f;
-    }
-    return (p ? -1 : 1) * r * Math.pow(2, t - w);
-  }, n.write = function(s, a, N, w, M, t) {
-    var r, h, e, f = t * 8 - M - 1, i = (1 << f) - 1, o = i >> 1, x = M === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0, p = w ? 0 : t - 1, c = w ? 1 : -1, I = a < 0 || a === 0 && 1 / a < 0 ? 1 : 0;
-    for (a = Math.abs(a), isNaN(a) || a === 1 / 0 ? (h = isNaN(a) ? 1 : 0, r = i) : (r = Math.floor(Math.log(a) / Math.LN2), a * (e = Math.pow(2, -r)) < 1 && (r--, e *= 2), r + o >= 1 ? a += x / e : a += x * Math.pow(2, 1 - o), a * e >= 2 && (r++, e /= 2), r + o >= i ? (h = 0, r = i) : r + o >= 1 ? (h = (a * e - 1) * Math.pow(2, M), r = r + o) : (h = a * Math.pow(2, o - 1) * Math.pow(2, M), r = 0)); M >= 8; s[N + p] = h & 255, p += c, h /= 256, M -= 8)
-      ;
-    for (r = r << M | h, f += M; f > 0; s[N + p] = r & 255, p += c, r /= 256, f -= 8)
-      ;
-    s[N + p - c] |= I * 128;
-  }, n);
+import { __exports as F } from "./index.es326.js";
+var A;
+function _() {
+  if (A) return F;
+  A = 1, F.byteLength = y, F.toByteArray = C, F.fromByteArray = B;
+  for (var c = [], n = [], l = typeof Uint8Array < "u" ? Uint8Array : Array, d = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", s = 0, p = d.length; s < p; ++s)
+    c[s] = d[s], n[d.charCodeAt(s)] = s;
+  n[45] = 62, n[95] = 63;
+  function x(r) {
+    var e = r.length;
+    if (e % 4 > 0)
+      throw new Error("Invalid string. Length must be a multiple of 4");
+    var a = r.indexOf("=");
+    a === -1 && (a = e);
+    var o = a === e ? 0 : 4 - a % 4;
+    return [a, o];
+  }
+  function y(r) {
+    var e = x(r), a = e[0], o = e[1];
+    return (a + o) * 3 / 4 - o;
+  }
+  function i(r, e, a) {
+    return (e + a) * 3 / 4 - a;
+  }
+  function C(r) {
+    var e, a = x(r), o = a[0], v = a[1], t = new l(i(r, o, v)), h = 0, u = v > 0 ? o - 4 : o, f;
+    for (f = 0; f < u; f += 4)
+      e = n[r.charCodeAt(f)] << 18 | n[r.charCodeAt(f + 1)] << 12 | n[r.charCodeAt(f + 2)] << 6 | n[r.charCodeAt(f + 3)], t[h++] = e >> 16 & 255, t[h++] = e >> 8 & 255, t[h++] = e & 255;
+    return v === 2 && (e = n[r.charCodeAt(f)] << 2 | n[r.charCodeAt(f + 1)] >> 4, t[h++] = e & 255), v === 1 && (e = n[r.charCodeAt(f)] << 10 | n[r.charCodeAt(f + 1)] << 4 | n[r.charCodeAt(f + 2)] >> 2, t[h++] = e >> 8 & 255, t[h++] = e & 255), t;
+  }
+  function L(r) {
+    return c[r >> 18 & 63] + c[r >> 12 & 63] + c[r >> 6 & 63] + c[r & 63];
+  }
+  function g(r, e, a) {
+    for (var o, v = [], t = e; t < a; t += 3)
+      o = (r[t] << 16 & 16711680) + (r[t + 1] << 8 & 65280) + (r[t + 2] & 255), v.push(L(o));
+    return v.join("");
+  }
+  function B(r) {
+    for (var e, a = r.length, o = a % 3, v = [], t = 16383, h = 0, u = a - o; h < u; h += t)
+      v.push(g(r, h, h + t > u ? u : h + t));
+    return o === 1 ? (e = r[a - 1], v.push(
+      c[e >> 2] + c[e << 4 & 63] + "=="
+    )) : o === 2 && (e = (r[a - 2] << 8) + r[a - 1], v.push(
+      c[e >> 10] + c[e >> 4 & 63] + c[e << 2 & 63] + "="
+    )), v.join("");
+  }
+  return F;
 }
 export {
-  q as __require
+  _ as __require
 };
 //# sourceMappingURL=index.es322.js.map

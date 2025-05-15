@@ -1,22 +1,33 @@
-import { canUseAsyncIteratorSymbol as u } from "./index.es121.js";
-function f(t) {
-  var e = !1, r = {
-    next: function() {
-      return e ? Promise.resolve({
-        value: void 0,
-        done: !0
-      }) : (e = !0, new Promise(function(n, o) {
-        t.then(function(a) {
-          n({ value: a, done: !1 });
-        }).catch(o);
-      }));
+var s, i;
+function u() {
+  if (i) return s;
+  i = 1;
+  class r {
+    constructor() {
+      this.max = 1e3, this.map = /* @__PURE__ */ new Map();
     }
-  };
-  return u && (r[Symbol.asyncIterator] = function() {
-    return this;
-  }), r;
+    get(e) {
+      const t = this.map.get(e);
+      if (t !== void 0)
+        return this.map.delete(e), this.map.set(e, t), t;
+    }
+    delete(e) {
+      return this.map.delete(e);
+    }
+    set(e, t) {
+      if (!this.delete(e) && t !== void 0) {
+        if (this.map.size >= this.max) {
+          const a = this.map.keys().next().value;
+          this.delete(a);
+        }
+        this.map.set(e, t);
+      }
+      return this;
+    }
+  }
+  return s = r, s;
 }
 export {
-  f as default
+  u as __require
 };
 //# sourceMappingURL=index.es309.js.map

@@ -1,14 +1,13 @@
-import { __require as p } from "./index.es58.js";
-var e, t;
-function a() {
-  if (t) return e;
-  t = 1;
-  var o = p(), r = function(i, n) {
-    o.call(this, i), this.name = "TokenExpiredError", this.expiredAt = n;
+var o, n;
+function c() {
+  if (n) return o;
+  n = 1;
+  var r = function(e, t) {
+    Error.call(this, e), Error.captureStackTrace && Error.captureStackTrace(this, this.constructor), this.name = "JsonWebTokenError", this.message = e, t && (this.inner = t);
   };
-  return r.prototype = Object.create(o.prototype), r.prototype.constructor = r, e = r, e;
+  return r.prototype = Object.create(Error.prototype), r.prototype.constructor = r, o = r, o;
 }
 export {
-  a as __require
+  c as __require
 };
 //# sourceMappingURL=index.es60.js.map

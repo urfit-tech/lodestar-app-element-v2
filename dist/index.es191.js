@@ -1,20 +1,10 @@
-import { newInvariantError as a } from "./index.es116.js";
-import "./index.es117.js";
-function f(e) {
-  for (var o = [
-    "query",
-    "operationName",
-    "variables",
-    "extensions",
-    "context"
-  ], r = 0, t = Object.keys(e); r < t.length; r++) {
-    var n = t[r];
-    if (o.indexOf(n) < 0)
-      throw a(43, n);
+function a(t) {
+  try {
+    return t();
+  } catch {
   }
-  return e;
 }
 export {
-  f as validateOperation
+  a as maybe
 };
 //# sourceMappingURL=index.es191.js.map

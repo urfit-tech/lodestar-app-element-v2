@@ -1,14 +1,32 @@
-import { __require as f } from "./index.es294.js";
-var e, t;
-function s() {
-  if (t) return e;
-  t = 1;
-  var i = f().Buffer;
-  return e = function(r) {
-    return typeof r == "string" ? r : typeof r == "number" || i.isBuffer(r) ? r.toString() : JSON.stringify(r);
-  }, e;
+import { serializeFetchParameter as u } from "./index.es195.js";
+function q(e, r) {
+  var o = [], t = function(a, c) {
+    o.push("".concat(a, "=").concat(encodeURIComponent(c)));
+  };
+  if ("query" in r && t("query", r.query), r.operationName && t("operationName", r.operationName), r.variables) {
+    var s = void 0;
+    try {
+      s = u(r.variables, "Variables map");
+    } catch (a) {
+      return { parseError: a };
+    }
+    t("variables", s);
+  }
+  if (r.extensions) {
+    var m = void 0;
+    try {
+      m = u(r.extensions, "Extensions map");
+    } catch (a) {
+      return { parseError: a };
+    }
+    t("extensions", m);
+  }
+  var p = "", n = e, i = e.indexOf("#");
+  i !== -1 && (p = e.substr(i), n = e.substr(0, i));
+  var f = n.indexOf("?") === -1 ? "?" : "&", v = n + f + o.join("&") + p;
+  return { newURI: v };
 }
 export {
-  s as __require
+  q as rewriteURIForGET
 };
 //# sourceMappingURL=index.es200.js.map

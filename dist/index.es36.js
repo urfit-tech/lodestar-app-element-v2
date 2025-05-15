@@ -1,6 +1,6 @@
-import { newInvariantError as u, invariant as r } from "./index.es116.js";
-import "./index.es117.js";
-import { valueToObjectRepresentation as l } from "./index.es126.js";
+import { newInvariantError as u, invariant as r } from "./index.es93.js";
+import "./index.es94.js";
+import { valueToObjectRepresentation as l } from "./index.es160.js";
 function o(t) {
   r(t && t.kind === "Document", 76);
   var n = t.definitions.filter(function(i) {

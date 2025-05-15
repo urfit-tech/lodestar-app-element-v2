@@ -1,14 +1,29 @@
-import e from "./index.es91.js";
-import n from "./index.es101.js";
-import r from "./index.es177.js";
-function c(o, i) {
-  return n(o, new r.classes.URLSearchParams(), Object.assign({
-    visitor: function(t, s, f, a) {
-      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
+import { parentEntrySlot as c } from "./index.es175.js";
+import { hasOwnProperty as d, arrayFromSet as f, maybeUnsubscribe as u } from "./index.es312.js";
+const a = {
+  setDirty: !0,
+  dispose: !0,
+  forget: !0
+  // Fully remove parent Entry from LRU cache and computation graph
+};
+function g(y) {
+  const r = /* @__PURE__ */ new Map();
+  function s(n) {
+    const e = c.getValue();
+    if (e) {
+      let t = r.get(n);
+      t || r.set(n, t = /* @__PURE__ */ new Set()), e.dependOn(t);
     }
-  }, i));
+  }
+  return s.dirty = function(e, t) {
+    const o = r.get(e);
+    if (o) {
+      const i = t && d.call(a, t) ? t : "setDirty";
+      f(o).forEach((p) => p[i]()), r.delete(e), u(o);
+    }
+  }, s;
 }
 export {
-  c as default
+  g as dep
 };
 //# sourceMappingURL=index.es176.js.map

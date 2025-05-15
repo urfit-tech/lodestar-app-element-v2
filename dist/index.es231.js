@@ -1,19 +1,17 @@
-import { __require as u } from "./index.es230.js";
-var r, s;
-function c() {
-  if (s) return r;
-  s = 1;
-  const i = u();
-  return r = (t, e, a) => {
-    try {
-      e = new i(e, a);
-    } catch {
-      return !1;
-    }
-    return e.test(t);
-  }, r;
+var n, o;
+function f() {
+  if (o) return n;
+  o = 1;
+  const s = /^[0-9]+$/, c = (e, r) => {
+    const i = s.test(e), t = s.test(r);
+    return i && t && (e = +e, r = +r), e === r ? 0 : i && !t ? -1 : t && !i ? 1 : e < r ? -1 : 1;
+  };
+  return n = {
+    compareIdentifiers: c,
+    rcompareIdentifiers: (e, r) => c(r, e)
+  }, n;
 }
 export {
-  c as __require
+  f as __require
 };
 //# sourceMappingURL=index.es231.js.map

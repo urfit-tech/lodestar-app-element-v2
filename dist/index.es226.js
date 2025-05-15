@@ -1,10 +1,12 @@
-import { __require as a } from "./index.es215.js";
-var e, r;
+import { __require as f } from "./index.es300.js";
+var e, t;
 function s() {
-  if (r) return e;
-  r = 1;
-  const t = a();
-  return e = (i, o, u) => t(i, o, u) <= 0, e;
+  if (t) return e;
+  t = 1;
+  var i = f().Buffer;
+  return e = function(r) {
+    return typeof r == "string" ? r : typeof r == "number" || i.isBuffer(r) ? r.toString() : JSON.stringify(r);
+  }, e;
 }
 export {
   s as __require

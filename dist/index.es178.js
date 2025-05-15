@@ -1,31 +1,27 @@
-import n from "./index.es91.js";
-const a = n.toObjectSet([
-  "age",
-  "authorization",
-  "content-length",
-  "content-type",
-  "etag",
-  "expires",
-  "from",
-  "host",
-  "if-modified-since",
-  "if-unmodified-since",
-  "last-modified",
-  "location",
-  "max-forwards",
-  "proxy-authorization",
-  "referer",
-  "retry-after",
-  "user-agent"
-]), u = (s) => {
-  const t = {};
-  let e, r, i;
-  return s && s.split(`
-`).forEach(function(o) {
-    i = o.indexOf(":"), e = o.substring(0, i).trim().toLowerCase(), r = o.substring(i + 1).trim(), !(!e || t[e] && a[e]) && (e === "set-cookie" ? t[e] ? t[e].push(r) : t[e] = [r] : t[e] = t[e] ? t[e] + ", " + r : r);
-  }), t;
-};
+import { isNonNullObject as f } from "./index.es113.js";
+function i(e) {
+  var t = /* @__PURE__ */ new Set([e]);
+  return t.forEach(function(r) {
+    f(r) && c(r) === r && Object.getOwnPropertyNames(r).forEach(function(n) {
+      f(r[n]) && t.add(r[n]);
+    });
+  }), e;
+}
+function c(e) {
+  if (globalThis.__DEV__ !== !1 && !Object.isFrozen(e))
+    try {
+      Object.freeze(e);
+    } catch (t) {
+      if (t instanceof TypeError)
+        return null;
+      throw t;
+    }
+  return e;
+}
+function a(e) {
+  return globalThis.__DEV__ !== !1 && i(e), e;
+}
 export {
-  u as default
+  a as maybeDeepFreeze
 };
 //# sourceMappingURL=index.es178.js.map

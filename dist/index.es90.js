@@ -1,7 +1,7 @@
-function r(t, e) {
-  return Object.prototype.hasOwnProperty.call(e, t);
+function a(o) {
+  console.info("[react-ga]", o);
 }
 export {
-  r as default
+  a as default
 };
 //# sourceMappingURL=index.es90.js.map

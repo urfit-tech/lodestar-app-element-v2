@@ -1,12 +1,15 @@
-import { __require as c } from "./index.es230.js";
-var n, i;
-function q() {
-  if (i) return n;
-  i = 1;
-  const s = c();
-  return n = (e, r, t) => (e = new s(e, t), r = new s(r, t), e.intersects(r, t)), n;
+import { __require as t } from "./index.es232.js";
+var r, s;
+function i() {
+  if (s) return r;
+  s = 1;
+  const a = t();
+  return r = (l, n) => {
+    const e = a(l, n);
+    return e && e.prerelease.length ? e.prerelease : null;
+  }, r;
 }
 export {
-  q as __require
+  i as __require
 };
 //# sourceMappingURL=index.es240.js.map

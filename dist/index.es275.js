@@ -1,7 +1,8 @@
-function n(e, c) {
-  return c ? e.replace(/\/?\/$/, "") + "/" + c.replace(/^\/+/, "") : e;
+var r, e;
+function a() {
+  return e || (e = 1, r = Function.call.bind(Object.prototype.hasOwnProperty)), r;
 }
 export {
-  n as default
+  a as __require
 };
 //# sourceMappingURL=index.es275.js.map

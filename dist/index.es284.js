@@ -1,7 +1,15 @@
-function e(t) {
-  return typeof t == "string" && t.indexOf("@") !== -1;
+import { canUseAsyncIteratorSymbol as e } from "./index.es179.js";
+function o(t) {
+  var r = {
+    next: function() {
+      return t.read();
+    }
+  };
+  return e && (r[Symbol.asyncIterator] = function() {
+    return this;
+  }), r;
 }
 export {
-  e as default
+  o as default
 };
 //# sourceMappingURL=index.es284.js.map

@@ -1,9 +1,8 @@
-var y = Array.isArray;
-function a(r) {
-  return Array.isArray(r) && r.length > 0;
+import i from "./index.es118.js";
+function o(r) {
+  return i.isObject(r) && r.isAxiosError === !0;
 }
 export {
-  y as isArray,
-  a as isNonEmptyArray
+  o as default
 };
 //# sourceMappingURL=index.es131.js.map

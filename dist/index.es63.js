@@ -1,134 +1,165 @@
-var y = function(c, a) {
-  return y = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(e, n) {
-    e.__proto__ = n;
-  } || function(e, n) {
-    for (var o in n) Object.prototype.hasOwnProperty.call(n, o) && (e[o] = n[o]);
-  }, y(c, a);
-};
-function h(c, a) {
-  if (typeof a != "function" && a !== null)
-    throw new TypeError("Class extends value " + String(a) + " is not a constructor or null");
-  y(c, a);
-  function e() {
-    this.constructor = c;
+import L, { Component as E } from "react";
+import c from "./index.es84.js";
+import R from "./index.es85.js";
+function p(e) {
+  "@babel/helpers - typeof";
+  return p = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(t) {
+    return typeof t;
+  } : function(t) {
+    return t && typeof Symbol == "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
+  }, p(e);
+}
+var C = ["to", "target"];
+function m(e, t) {
+  var n = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var r = Object.getOwnPropertySymbols(e);
+    t && (r = r.filter(function(o) {
+      return Object.getOwnPropertyDescriptor(e, o).enumerable;
+    })), n.push.apply(n, r);
   }
-  c.prototype = a === null ? Object.create(a) : (e.prototype = a.prototype, new e());
+  return n;
 }
-var p = function() {
-  return p = Object.assign || function(a) {
-    for (var e, n = 1, o = arguments.length; n < o; n++) {
-      e = arguments[n];
-      for (var t in e) Object.prototype.hasOwnProperty.call(e, t) && (a[t] = e[t]);
-    }
-    return a;
-  }, p.apply(this, arguments);
-};
-function _(c, a) {
-  var e = {};
-  for (var n in c) Object.prototype.hasOwnProperty.call(c, n) && a.indexOf(n) < 0 && (e[n] = c[n]);
-  if (c != null && typeof Object.getOwnPropertySymbols == "function")
-    for (var o = 0, n = Object.getOwnPropertySymbols(c); o < n.length; o++)
-      a.indexOf(n[o]) < 0 && Object.prototype.propertyIsEnumerable.call(c, n[o]) && (e[n[o]] = c[n[o]]);
-  return e;
-}
-function w(c, a, e, n) {
-  function o(t) {
-    return t instanceof e ? t : new e(function(l) {
-      l(t);
+function v(e) {
+  for (var t = 1; t < arguments.length; t++) {
+    var n = arguments[t] != null ? arguments[t] : {};
+    t % 2 ? m(Object(n), !0).forEach(function(r) {
+      y(e, r, n[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n)) : m(Object(n)).forEach(function(r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(n, r));
     });
   }
-  return new (e || (e = Promise))(function(t, l) {
-    function i(u) {
-      try {
-        r(n.next(u));
-      } catch (s) {
-        l(s);
-      }
-    }
-    function f(u) {
-      try {
-        r(n.throw(u));
-      } catch (s) {
-        l(s);
-      }
-    }
-    function r(u) {
-      u.done ? t(u.value) : o(u.value).then(i, f);
-    }
-    r((n = n.apply(c, a || [])).next());
-  });
+  return e;
 }
-function b(c, a) {
-  var e = { label: 0, sent: function() {
-    if (t[0] & 1) throw t[1];
-    return t[1];
-  }, trys: [], ops: [] }, n, o, t, l;
-  return l = { next: i(0), throw: i(1), return: i(2) }, typeof Symbol == "function" && (l[Symbol.iterator] = function() {
-    return this;
-  }), l;
-  function i(r) {
-    return function(u) {
-      return f([r, u]);
-    };
+function D(e, t) {
+  if (e == null) return {};
+  var n = N(e, t), r, o;
+  if (Object.getOwnPropertySymbols) {
+    var i = Object.getOwnPropertySymbols(e);
+    for (o = 0; o < i.length; o++)
+      r = i[o], !(t.indexOf(r) >= 0) && Object.prototype.propertyIsEnumerable.call(e, r) && (n[r] = e[r]);
   }
-  function f(r) {
-    if (n) throw new TypeError("Generator is already executing.");
-    for (; l && (l = 0, r[0] && (e = 0)), e; ) try {
-      if (n = 1, o && (t = r[0] & 2 ? o.return : r[0] ? o.throw || ((t = o.return) && t.call(o), 0) : o.next) && !(t = t.call(o, r[1])).done) return t;
-      switch (o = 0, t && (r = [r[0] & 2, t.value]), r[0]) {
-        case 0:
-        case 1:
-          t = r;
-          break;
-        case 4:
-          return e.label++, { value: r[1], done: !1 };
-        case 5:
-          e.label++, o = r[1], r = [0];
-          continue;
-        case 7:
-          r = e.ops.pop(), e.trys.pop();
-          continue;
-        default:
-          if (t = e.trys, !(t = t.length > 0 && t[t.length - 1]) && (r[0] === 6 || r[0] === 2)) {
-            e = 0;
-            continue;
-          }
-          if (r[0] === 3 && (!t || r[1] > t[0] && r[1] < t[3])) {
-            e.label = r[1];
-            break;
-          }
-          if (r[0] === 6 && e.label < t[1]) {
-            e.label = t[1], t = r;
-            break;
-          }
-          if (t && e.label < t[2]) {
-            e.label = t[2], e.ops.push(r);
-            break;
-          }
-          t[2] && e.ops.pop(), e.trys.pop();
-          continue;
-      }
-      r = a.call(c, e);
-    } catch (u) {
-      r = [6, u], o = 0;
-    } finally {
-      n = t = 0;
-    }
-    if (r[0] & 5) throw r[1];
-    return { value: r[0] ? r[1] : void 0, done: !0 };
+  return n;
+}
+function N(e, t) {
+  if (e == null) return {};
+  var n = {}, r = Object.keys(e), o, i;
+  for (i = 0; i < r.length; i++)
+    o = r[i], !(t.indexOf(o) >= 0) && (n[o] = e[o]);
+  return n;
+}
+function T(e, t) {
+  if (!(e instanceof t))
+    throw new TypeError("Cannot call a class as a function");
+}
+function x(e, t) {
+  for (var n = 0; n < t.length; n++) {
+    var r = t[n];
+    r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(e, r.key, r);
   }
 }
-function d(c, a, e) {
-  if (e || arguments.length === 2) for (var n = 0, o = a.length, t; n < o; n++)
-    (t || !(n in a)) && (t || (t = Array.prototype.slice.call(a, 0, n)), t[n] = a[n]);
-  return c.concat(t || Array.prototype.slice.call(a));
+function I(e, t, n) {
+  return t && x(e.prototype, t), Object.defineProperty(e, "prototype", { writable: !1 }), e;
 }
+function K(e, t) {
+  if (typeof t != "function" && t !== null)
+    throw new TypeError("Super expression must either be null or a function");
+  e.prototype = Object.create(t && t.prototype, { constructor: { value: e, writable: !0, configurable: !0 } }), Object.defineProperty(e, "prototype", { writable: !1 }), t && s(e, t);
+}
+function s(e, t) {
+  return s = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(r, o) {
+    return r.__proto__ = o, r;
+  }, s(e, t);
+}
+function $(e) {
+  var t = W();
+  return function() {
+    var r = l(e), o;
+    if (t) {
+      var i = l(this).constructor;
+      o = Reflect.construct(r, arguments, i);
+    } else
+      o = r.apply(this, arguments);
+    return B(this, o);
+  };
+}
+function B(e, t) {
+  if (t && (p(t) === "object" || typeof t == "function"))
+    return t;
+  if (t !== void 0)
+    throw new TypeError("Derived constructors may only return object or undefined");
+  return P(e);
+}
+function P(e) {
+  if (e === void 0)
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+function W() {
+  if (typeof Reflect > "u" || !Reflect.construct || Reflect.construct.sham) return !1;
+  if (typeof Proxy == "function") return !0;
+  try {
+    return Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    })), !0;
+  } catch {
+    return !1;
+  }
+}
+function l(e) {
+  return l = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function(n) {
+    return n.__proto__ || Object.getPrototypeOf(n);
+  }, l(e);
+}
+function y(e, t, n) {
+  return t in e ? Object.defineProperty(e, t, { value: n, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = n, e;
+}
+var d = "_blank", q = 1, b = /* @__PURE__ */ function(e) {
+  K(n, e);
+  var t = $(n);
+  function n() {
+    var r;
+    T(this, n);
+    for (var o = arguments.length, i = new Array(o), u = 0; u < o; u++)
+      i[u] = arguments[u];
+    return r = t.call.apply(t, [this].concat(i)), y(P(r), "handleClick", function(f) {
+      var a = r.props, _ = a.target, w = a.eventLabel, k = a.to, O = a.onClick, h = a.trackerNames, g = {
+        label: w
+      }, j = _ !== d, S = !(f.ctrlKey || f.shiftKey || f.metaKey || f.button === q);
+      j && S ? (f.preventDefault(), n.trackLink(g, function() {
+        window.location.href = k;
+      }, h)) : n.trackLink(g, function() {
+      }, h), O && O(f);
+    }), r;
+  }
+  return I(n, [{
+    key: "render",
+    value: function() {
+      var o = this.props, i = o.to, u = o.target, f = D(o, C), a = v(v({}, f), {}, {
+        target: u,
+        href: i,
+        onClick: this.handleClick
+      });
+      return u === d && (a.rel = "".concat(a.rel ? a.rel : "", " noopener noreferrer").trim()), delete a.eventLabel, delete a.trackerNames, /* @__PURE__ */ L.createElement("a", a);
+    }
+  }]), n;
+}(E);
+y(b, "trackLink", function() {
+  R("ga tracking not enabled");
+});
+b.propTypes = {
+  eventLabel: c.string.isRequired,
+  target: c.string,
+  to: c.string,
+  onClick: c.func,
+  trackerNames: c.arrayOf(c.string)
+};
+b.defaultProps = {
+  target: null,
+  to: null,
+  onClick: null,
+  trackerNames: null
+};
 export {
-  p as __assign,
-  w as __awaiter,
-  h as __extends,
-  b as __generator,
-  _ as __rest,
-  d as __spreadArray
+  b as default
 };
 //# sourceMappingURL=index.es63.js.map

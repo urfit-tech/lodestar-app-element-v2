@@ -1,10 +1,44 @@
-const e = typeof window < "u" && typeof document < "u", o = typeof navigator == "object" && navigator || void 0, n = e && (!o || ["ReactNative", "NativeScript", "NS"].indexOf(o.product) < 0), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
-self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
+const l = () => /* @__PURE__ */ Object.create(null), { forEach: c, slice: h } = Array.prototype, { hasOwnProperty: k } = Object.prototype;
+class o {
+  constructor(e = !0, t = l) {
+    this.weakness = e, this.makeData = t;
+  }
+  lookup(...e) {
+    return this.lookupArray(e);
+  }
+  lookupArray(e) {
+    let t = this;
+    return c.call(e, (a) => t = t.getChildTrie(a)), k.call(t, "data") ? t.data : t.data = this.makeData(h.call(e));
+  }
+  peek(...e) {
+    return this.peekArray(e);
+  }
+  peekArray(e) {
+    let t = this;
+    for (let a = 0, i = e.length; t && a < i; ++a) {
+      const r = this.weakness && n(e[a]) ? t.weak : t.strong;
+      t = r && r.get(e[a]);
+    }
+    return t && t.data;
+  }
+  getChildTrie(e) {
+    const t = this.weakness && n(e) ? this.weak || (this.weak = /* @__PURE__ */ new WeakMap()) : this.strong || (this.strong = /* @__PURE__ */ new Map());
+    let a = t.get(e);
+    return a || t.set(e, a = new o(this.weakness, this.makeData)), a;
+  }
+}
+function n(s) {
+  switch (typeof s) {
+    case "object":
+      if (s === null)
+        break;
+    // Fall through to return true...
+    case "function":
+      return !0;
+  }
+  return !1;
+}
 export {
-  e as hasBrowserEnv,
-  n as hasStandardBrowserEnv,
-  t as hasStandardBrowserWebWorkerEnv,
-  o as navigator,
-  r as origin
+  o as Trie
 };
 //# sourceMappingURL=index.es277.js.map

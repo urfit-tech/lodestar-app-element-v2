@@ -1,6 +1,5 @@
-import a from "./index.es272.js";
-const e = typeof URLSearchParams < "u" ? URLSearchParams : a;
+var e = {};
 export {
-  e as default
+  e as __exports
 };
 //# sourceMappingURL=index.es311.js.map

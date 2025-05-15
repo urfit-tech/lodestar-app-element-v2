@@ -1,25 +1,32 @@
-import { __require as h } from "./index.es206.js";
-var o, u;
-function v() {
-  if (u) return o;
-  u = 1;
-  const t = h();
-  return o = (p, m) => {
-    const r = t(p, null, !0), e = t(m, null, !0), a = r.compare(e);
-    if (a === 0)
-      return null;
-    const s = a > 0, f = s ? r : e, n = s ? e : r, c = !!f.prerelease.length;
-    if (!!n.prerelease.length && !c) {
-      if (!n.patch && !n.minor)
-        return "major";
-      if (n.compareMain(f) === 0)
-        return n.minor && !n.patch ? "minor" : "patch";
-    }
-    const i = c ? "pre" : "";
-    return r.major !== e.major ? i + "major" : r.minor !== e.minor ? i + "minor" : r.patch !== e.patch ? i + "patch" : "prerelease";
-  }, o;
+import r from "./index.es288.js";
+import p from "./index.es126.js";
+import o from "./index.es122.js";
+import l from "./index.es124.js";
+import a from "./index.es132.js";
+import m from "./index.es133.js";
+function d(e) {
+  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
+    throw new l(null, e);
+}
+function q(e) {
+  return d(e), e.headers = a.from(e.headers), e.data = r.call(
+    e,
+    e.transformRequest
+  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
+    return d(e), t.data = r.call(
+      e,
+      e.transformResponse,
+      t
+    ), t.headers = a.from(t.headers), t;
+  }, function(t) {
+    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
+      e,
+      e.transformResponse,
+      t.response
+    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
+  });
 }
 export {
-  v as __require
+  q as default
 };
 //# sourceMappingURL=index.es210.js.map

@@ -1,11 +1,5 @@
-import { Observable as e } from "./index.es65.js";
-import "./index.es66.js";
-function f(r) {
-  return new e(function(o) {
-    o.error(r);
-  });
-}
+var e = { exports: {} };
 export {
-  f as fromError
+  e as __module
 };
 //# sourceMappingURL=index.es270.js.map

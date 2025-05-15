@@ -1,10 +1,11 @@
-const i = [];
-for (let n = 0; n < 256; ++n)
-  i.push((n + 256).toString(16).slice(1));
-function c(n, u = 0) {
-  return (i[n[u + 0]] + i[n[u + 1]] + i[n[u + 2]] + i[n[u + 3]] + "-" + i[n[u + 4]] + i[n[u + 5]] + "-" + i[n[u + 6]] + i[n[u + 7]] + "-" + i[n[u + 8]] + i[n[u + 9]] + "-" + i[n[u + 10]] + i[n[u + 11]] + i[n[u + 12]] + i[n[u + 13]] + i[n[u + 14]] + i[n[u + 15]]).toLowerCase();
+import e from "./index.es88.js";
+var t = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
+function u(o) {
+  return e(o).replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(r, s, a) {
+    return s > 0 && s + r.length !== a.length && r.search(t) > -1 && a.charAt(s - 2) !== ":" && (a.charAt(s + r.length) !== "-" || a.charAt(s - 1) === "-") && a.charAt(s - 1).search(/[^\s-]/) < 0 ? r.toLowerCase() : r.substr(1).search(/[A-Z]|\../) > -1 ? r : r.charAt(0).toUpperCase() + r.substr(1);
+  });
 }
 export {
-  c as unsafeStringify
+  u as default
 };
 //# sourceMappingURL=index.es147.js.map

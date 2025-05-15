@@ -1,20 +1,12 @@
-import * as r from "./index.es244.js";
-import { r as t } from "./index.es244.js";
-import { invariant as a } from "./index.es116.js";
-import "./index.es117.js";
-import { canUseSymbol as n } from "./index.es121.js";
-var o = n ? Symbol.for("__APOLLO_CONTEXT__") : "__APOLLO_CONTEXT__";
-function f() {
-  a("createContext" in r, 45);
-  var e = t.createContext[o];
-  return e || (Object.defineProperty(t.createContext, o, {
-    value: e = t.createContext({}),
-    enumerable: !1,
-    writable: !1,
-    configurable: !0
-  }), e.displayName = "ApolloContext"), e;
+import { __require as m } from "./index.es241.js";
+var e, r;
+function i() {
+  if (r) return e;
+  r = 1;
+  const o = m();
+  return e = (a, s) => o(a, s, !0), e;
 }
 export {
-  f as getApolloContext
+  i as __require
 };
 //# sourceMappingURL=index.es243.js.map

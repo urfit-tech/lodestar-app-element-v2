@@ -1,12 +1,9 @@
-import { __require as i } from "./index.es204.js";
-var r, e;
-function n() {
-  if (e) return r;
-  e = 1;
-  const t = i();
-  return r = (a, c) => new t(a, c).patch, r;
-}
+const r = {
+  silentJSONParsing: !0,
+  forcedJSONParsing: !0,
+  clarifyTimeoutError: !1
+};
 export {
-  n as __require
+  r as default
 };
 //# sourceMappingURL=index.es213.js.map

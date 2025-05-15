@@ -1,28 +1,36 @@
-import { __require as l } from "./index.es294.js";
-var a, i;
-function B() {
-  if (i) return a;
-  i = 1;
-  var r = l().Buffer, o = l().SlowBuffer;
-  a = t;
-  function t(e, u) {
-    if (!r.isBuffer(e) || !r.isBuffer(u) || e.length !== u.length)
-      return !1;
-    for (var n = 0, f = 0; f < e.length; f++)
-      n |= e[f] ^ u[f];
-    return n === 0;
-  }
-  t.install = function() {
-    r.prototype.equal = o.prototype.equal = function(u) {
-      return t(this, u);
+import i from "./index.es316.js";
+import m from "./index.es317.js";
+import f from "./index.es118.js";
+const h = (t, o, a = 3) => {
+  let r = 0;
+  const c = i(50, 250);
+  return m((s) => {
+    const n = s.loaded, e = s.lengthComputable ? s.total : void 0, l = n - r, d = c(l), p = n <= e;
+    r = n;
+    const u = {
+      loaded: n,
+      total: e,
+      progress: e ? n / e : void 0,
+      bytes: l,
+      rate: d || void 0,
+      estimated: d && e && p ? (e - n) / d : void 0,
+      event: s,
+      lengthComputable: e != null,
+      [o ? "download" : "upload"]: !0
     };
-  };
-  var q = r.prototype.equal, p = o.prototype.equal;
-  return t.restore = function() {
-    r.prototype.equal = q, o.prototype.equal = p;
-  }, a;
-}
+    t(u);
+  }, a);
+}, v = (t, o) => {
+  const a = t != null;
+  return [(r) => o[0]({
+    lengthComputable: a,
+    total: t,
+    loaded: r
+  }), o[1]];
+}, C = (t) => (...o) => f.asap(() => t(...o));
 export {
-  B as __require
+  C as asyncDecorator,
+  v as progressEventDecorator,
+  h as progressEventReducer
 };
 //# sourceMappingURL=index.es295.js.map

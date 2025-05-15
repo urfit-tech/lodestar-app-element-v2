@@ -1,23 +1,15 @@
-import { __require as o } from "./index.es204.js";
-import { __require as c } from "./index.es230.js";
-var a, u;
-function q() {
-  if (u) return a;
-  u = 1;
-  const f = o(), m = c();
-  return a = (s, l, i) => {
-    let r = null, n = null, t = null;
-    try {
-      t = new m(l, i);
-    } catch {
-      return null;
-    }
-    return s.forEach((e) => {
-      t.test(e) && (!r || n.compare(e) === -1) && (r = e, n = new f(r, i));
-    }), r;
-  }, a;
+import { __require as s } from "./index.es232.js";
+var r, i;
+function l() {
+  if (i) return r;
+  i = 1;
+  const a = s();
+  return r = (n, u) => {
+    const e = a(n, u);
+    return e ? e.version : null;
+  }, r;
 }
 export {
-  q as __require
+  l as __require
 };
 //# sourceMappingURL=index.es233.js.map

@@ -1,16 +1,12 @@
-import { newInvariantError as n } from "./index.es116.js";
-import "./index.es117.js";
-var s = function(a, i) {
-  var r;
-  try {
-    r = JSON.stringify(a);
-  } catch (t) {
-    var e = n(39, i, t.message);
-    throw e.parseError = t, e;
-  }
-  return r;
-};
+import { __require as s } from "./index.es263.js";
+var r, e;
+function q() {
+  if (e) return r;
+  e = 1;
+  const t = s();
+  return r = (i, u, o) => t(i, u, ">", o), r;
+}
 export {
-  s as serializeFetchParameter
+  q as __require
 };
 //# sourceMappingURL=index.es264.js.map

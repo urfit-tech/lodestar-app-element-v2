@@ -1,10 +1,8 @@
-import { bind as p, noContext as x } from "./index.es258.js";
-import { Slot as t } from "./index.es257.js";
-const n = new t();
+var a = function(e, o, t) {
+  var r = new Error(t);
+  throw r.name = "ServerError", r.response = e, r.statusCode = e.status, r.result = o, r;
+};
 export {
-  t as Slot,
-  p as bindContext,
-  x as noContext,
-  n as parentEntrySlot
+  a as throwServerError
 };
 //# sourceMappingURL=index.es194.js.map
