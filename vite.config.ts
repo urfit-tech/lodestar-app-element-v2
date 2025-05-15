@@ -35,8 +35,6 @@ export default defineConfig({
           'react-dom': 'ReactDOM',
           'styled-components': 'styled',
         },
-        preserveModules: true,
-        preserveModulesRoot: 'src',
       },
     },
     sourcemap: true,

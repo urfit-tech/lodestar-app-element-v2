@@ -1,6 +1,6 @@
 export * from './components/common/Responsive';
 export * from './contexts/ApiContext';
-export * from './contexts/AppContext';
+export { useApp, AppProvider } from './contexts/AppContext';
 export * from './contexts/AppThemeContext';
 export * from './contexts/AuthContext';
 export * from './contexts/LanguageContext';

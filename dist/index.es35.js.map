@@ -1,1 +1,0 @@
-{"version":3,"file":"index.es35.js","sources":["../../node_modules/@apollo/client/link/core/split.js"],"sourcesContent":["import { ApolloLink } from \"./ApolloLink.js\";\nexport var split = ApolloLink.split;\n//# sourceMappingURL=split.js.map"],"names":["split","ApolloLink"],"mappings":";AACU,IAACA,IAAQC,EAAW;","x_google_ignoreList":[0]}
