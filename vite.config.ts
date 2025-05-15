@@ -1,16 +1,23 @@
+import dts from 'vite-plugin-dts'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      outDir: 'dist',
+      insertTypesEntry: true,
+    }),
+  ],
   build: {
     target: 'es2020',
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'LodestarAppElement',
       fileName: format => `index.${format}.js`,
-      formats: ['es'],
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
       external: [
