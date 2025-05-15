@@ -1,72 +1,84 @@
-import { invariant as l, newInvariantError as h } from "./index.es93.js";
-import "./index.es94.js";
-import { Observable as i } from "./index.es107.js";
-import "./index.es108.js";
-import { createOperation as q } from "./index.es187.js";
-import { transformOperation as w } from "./index.es188.js";
-import { validateOperation as g } from "./index.es189.js";
-function m(t, r) {
-  return r ? r(t) : i.of();
+import t from "./index.es91.js";
+import E from "./index.es102.js";
+function p(i) {
+  return t.isPlainObject(i) || t.isArray(i);
 }
-function s(t) {
-  return typeof t == "function" ? new v(t) : t;
+function h(i) {
+  return t.endsWith(i, "[]") ? i.slice(0, -2) : i;
 }
-function a(t) {
-  return t.request.length <= 1;
+function O(i, e, s) {
+  return i ? i.concat(e).map(function(o, d) {
+    return o = h(o), !s && d ? "[" + o + "]" : o;
+  }).join(s ? "." : "") : e;
 }
-var v = (
-  /** @class */
-  function() {
-    function t(r) {
-      r && (this.request = r);
+function T(i) {
+  return t.isArray(i) && !i.some(p);
+}
+const S = t.toFlatObject(t, {}, null, function(e) {
+  return /^is[A-Z]/.test(e);
+});
+function W(i, e, s) {
+  if (!t.isObject(i))
+    throw new TypeError("target must be an object");
+  e = e || new FormData(), s = t.toFlatObject(s, {
+    metaTokens: !0,
+    dots: !1,
+    indexes: !1
+  }, !1, function(n, u) {
+    return !t.isUndefined(u[n]);
+  });
+  const B = s.metaTokens, o = s.visitor || j, d = s.dots, m = s.indexes, w = (s.Blob || typeof Blob < "u" && Blob) && t.isSpecCompliantForm(e);
+  if (!t.isFunction(o))
+    throw new TypeError("visitor must be a function");
+  function l(r) {
+    if (r === null) return "";
+    if (t.isDate(r))
+      return r.toISOString();
+    if (!w && t.isBlob(r))
+      throw new E("Blob is not supported. Use a Buffer instead.");
+    return t.isArrayBuffer(r) || t.isTypedArray(r) ? w && typeof Blob == "function" ? new Blob([r]) : Buffer.from(r) : r;
+  }
+  function j(r, n, u) {
+    let c = r;
+    if (r && !u && typeof r == "object") {
+      if (t.endsWith(n, "{}"))
+        n = B ? n : n.slice(0, -2), r = JSON.stringify(r);
+      else if (t.isArray(r) && T(r) || (t.isFileList(r) || t.endsWith(n, "[]")) && (c = t.toArray(r)))
+        return n = h(n), c.forEach(function(b, x) {
+          !(t.isUndefined(b) || b === null) && e.append(
+            // eslint-disable-next-line no-nested-ternary
+            m === !0 ? O([n], x, d) : m === null ? n : n + "[]",
+            l(b)
+          );
+        }), !1;
     }
-    return t.empty = function() {
-      return new t(function() {
-        return i.of();
-      });
-    }, t.from = function(r) {
-      return r.length === 0 ? t.empty() : r.map(s).reduce(function(n, e) {
-        return n.concat(e);
-      });
-    }, t.split = function(r, n, e) {
-      var u = s(n), f = s(e || new t(m)), c;
-      return a(u) && a(f) ? c = new t(function(o) {
-        return r(o) ? u.request(o) || i.of() : f.request(o) || i.of();
-      }) : c = new t(function(o, p) {
-        return r(o) ? u.request(o, p) || i.of() : f.request(o, p) || i.of();
-      }), Object.assign(c, { left: u, right: f });
-    }, t.execute = function(r, n) {
-      return r.request(q(n.context, w(g(n)))) || i.of();
-    }, t.concat = function(r, n) {
-      var e = s(r);
-      if (a(e))
-        return globalThis.__DEV__ !== !1 && l.warn(35, e), e;
-      var u = s(n), f;
-      return a(u) ? f = new t(function(c) {
-        return e.request(c, function(o) {
-          return u.request(o) || i.of();
-        }) || i.of();
-      }) : f = new t(function(c, o) {
-        return e.request(c, function(p) {
-          return u.request(p, o) || i.of();
-        }) || i.of();
-      }), Object.assign(f, { left: e, right: u });
-    }, t.prototype.split = function(r, n, e) {
-      return this.concat(t.split(r, n, e || new t(m)));
-    }, t.prototype.concat = function(r) {
-      return t.concat(this, r);
-    }, t.prototype.request = function(r, n) {
-      throw h(36);
-    }, t.prototype.onError = function(r, n) {
-      if (n && n.error)
-        return n.error(r), !1;
-      throw r;
-    }, t.prototype.setOnError = function(r) {
-      return this.onError = r, this;
-    }, t;
-  }()
-);
+    return p(r) ? !0 : (e.append(O(u, n, d), l(r)), !1);
+  }
+  const a = [], F = Object.assign(S, {
+    defaultVisitor: j,
+    convertValue: l,
+    isVisitable: p
+  });
+  function A(r, n) {
+    if (!t.isUndefined(r)) {
+      if (a.indexOf(r) !== -1)
+        throw Error("Circular reference detected in " + n.join("."));
+      a.push(r), t.forEach(r, function(c, f) {
+        (!(t.isUndefined(c) || c === null) && o.call(
+          e,
+          c,
+          t.isString(f) ? f.trim() : f,
+          n,
+          F
+        )) === !0 && A(c, n ? n.concat(f) : [f]);
+      }), a.pop();
+    }
+  }
+  if (!t.isObject(i))
+    throw new TypeError("data must be an object");
+  return A(i), e;
+}
 export {
-  v as ApolloLink
+  W as default
 };
 //# sourceMappingURL=index.es101.js.map

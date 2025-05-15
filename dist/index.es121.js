@@ -1,71 +1,29 @@
-import i from "./index.es118.js";
-import h from "./index.es132.js";
-const c = (s) => s instanceof h ? { ...s } : s;
-function C(s, a) {
-  a = a || {};
-  const u = {};
-  function d(t, e, r, o) {
-    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: o }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
-  }
-  function l(t, e, r, o) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t, r, o);
-    } else return d(t, e, r, o);
-  }
-  function f(t, e) {
-    if (!i.isUndefined(e))
-      return d(void 0, e);
-  }
-  function n(t, e) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t);
-    } else return d(void 0, e);
-  }
-  function m(t, e, r) {
-    if (r in a)
-      return d(t, e);
-    if (r in s)
-      return d(void 0, t);
-  }
-  const g = {
-    url: f,
-    method: f,
-    data: f,
-    baseURL: n,
-    transformRequest: n,
-    transformResponse: n,
-    paramsSerializer: n,
-    timeout: n,
-    timeoutMessage: n,
-    withCredentials: n,
-    withXSRFToken: n,
-    adapter: n,
-    responseType: n,
-    xsrfCookieName: n,
-    xsrfHeaderName: n,
-    onUploadProgress: n,
-    onDownloadProgress: n,
-    decompress: n,
-    maxContentLength: n,
-    maxBodyLength: n,
-    beforeRedirect: n,
-    transport: n,
-    httpAgent: n,
-    httpsAgent: n,
-    cancelToken: n,
-    socketPath: n,
-    responseEncoding: n,
-    validateStatus: m,
-    headers: (t, e, r) => l(c(t), c(e), r, !0)
-  };
-  return i.forEach(Object.keys(Object.assign({}, s, a)), function(e) {
-    const r = g[e] || l, o = r(s[e], a[e], e);
-    i.isUndefined(o) && r !== m || (u[e] = o);
-  }), u;
-}
+import "./index.es116.js";
+import { maybe as e } from "./index.es142.js";
+import "./index.es117.js";
+var t = e(function() {
+  return navigator.product;
+}) == "ReactNative", i = typeof WeakMap == "function" && !(t && !global.HermesInternal), u = typeof WeakSet == "function", a = typeof Symbol == "function" && typeof Symbol.for == "function", m = a && Symbol.asyncIterator, n = typeof e(function() {
+  return window.document.createElement;
+}) == "function", o = (
+  // Following advice found in this comment from @domenic (maintainer of jsdom):
+  // https://github.com/jsdom/jsdom/issues/1537#issuecomment-229405327
+  //
+  // Since we control the version of Jest and jsdom used when running Apollo
+  // Client tests, and that version is recent enought to include " jsdom/x.y.z"
+  // at the end of the user agent string, I believe this case is all we need to
+  // check. Testing for "Node.js" was recommended for backwards compatibility
+  // with older version of jsdom, but we don't have that problem.
+  e(function() {
+    return navigator.userAgent.indexOf("jsdom") >= 0;
+  }) || !1
+), s = (n || t) && !o;
 export {
-  C as default
+  m as canUseAsyncIteratorSymbol,
+  n as canUseDOM,
+  s as canUseLayoutEffect,
+  a as canUseSymbol,
+  i as canUseWeakMap,
+  u as canUseWeakSet
 };
 //# sourceMappingURL=index.es121.js.map

@@ -1,12 +1,22 @@
-import { invariant as e } from "./index.es93.js";
-import "./index.es94.js";
-import { r as n } from "./index.es204.js";
-import { getApolloContext as i } from "./index.es203.js";
-function c(o) {
-  var r = n.useContext(i()), t = o || r.client;
-  return e(!!t, 49), t;
-}
+import { __extends as p } from "./index.es65.js";
+var l = (
+  /** @class */
+  function(a) {
+    p(i, a);
+    function i(e, n, o, h) {
+      var s, r = a.call(this, e) || this;
+      if (r.message = e, r.path = n, r.query = o, r.variables = h, Array.isArray(r.path)) {
+        r.missing = r.message;
+        for (var t = r.path.length - 1; t >= 0; --t)
+          r.missing = (s = {}, s[r.path[t]] = r.missing, s);
+      } else
+        r.missing = r.path;
+      return r.__proto__ = i.prototype, r;
+    }
+    return i;
+  }(Error)
+);
 export {
-  c as useApolloClient
+  l as MissingFieldError
 };
 //# sourceMappingURL=index.es205.js.map

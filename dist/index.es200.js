@@ -1,32 +1,34 @@
-import { serializeFetchParameter as u } from "./index.es195.js";
-function q(e, r) {
-  var o = [], t = function(a, c) {
-    o.push("".concat(a, "=").concat(encodeURIComponent(c)));
-  };
-  if ("query" in r && t("query", r.query), r.operationName && t("operationName", r.operationName), r.variables) {
-    var s = void 0;
-    try {
-      s = u(r.variables, "Variables map");
-    } catch (a) {
-      return { parseError: a };
-    }
-    t("variables", s);
+import { invariant as c } from "./index.es116.js";
+import "./index.es117.js";
+import * as l from "./index.es198.js";
+import { r as o } from "./index.es198.js";
+import { canUseLayoutEffect as v } from "./index.es121.js";
+var u = !1, h = "useSyncExternalStore", S = l[h], g = S || function(a, e, f) {
+  var r = e();
+  // DEVIATION: Using __DEV__
+  globalThis.__DEV__ !== !1 && !u && // DEVIATION: Not using Object.is because we know our snapshots will never
+  // be exotic primitive values like NaN, which is !== itself.
+  r !== e() && (u = !0, globalThis.__DEV__ !== !1 && c.error(59));
+  var s = o.useState({
+    inst: { value: r, getSnapshot: e }
+  }), t = s[0].inst, n = s[1];
+  return v ? o.useLayoutEffect(function() {
+    Object.assign(t, { value: r, getSnapshot: e }), i(t) && n({ inst: t });
+  }, [a, r, e]) : Object.assign(t, { value: r, getSnapshot: e }), o.useEffect(function() {
+    return i(t) && n({ inst: t }), a(function() {
+      i(t) && n({ inst: t });
+    });
+  }, [a]), r;
+};
+function i(a) {
+  var e = a.value, f = a.getSnapshot;
+  try {
+    return e !== f();
+  } catch {
+    return !0;
   }
-  if (r.extensions) {
-    var m = void 0;
-    try {
-      m = u(r.extensions, "Extensions map");
-    } catch (a) {
-      return { parseError: a };
-    }
-    t("extensions", m);
-  }
-  var p = "", n = e, i = e.indexOf("#");
-  i !== -1 && (p = e.substr(i), n = e.substr(0, i));
-  var f = n.indexOf("?") === -1 ? "?" : "&", v = n + f + o.join("&") + p;
-  return { newURI: v };
 }
 export {
-  q as rewriteURIForGET
+  g as useSyncExternalStore
 };
 //# sourceMappingURL=index.es200.js.map

@@ -1,46 +1,36 @@
-import { invariant as v } from "./index.es93.js";
-import "./index.es94.js";
-import { visit as l, BREAK as f } from "graphql";
-function p(e, r) {
-  var i = e.directives;
-  return !i || !i.length ? !0 : m(i).every(function(n) {
-    var a = n.directive, u = n.ifArgument, t = !1;
-    return u.value.kind === "Variable" ? (t = r && r[u.value.name.value], v(t !== void 0, 69, a.name.value)) : t = u.value.value, a.name.value === "skip" ? !t : t;
-  });
-}
-function o(e, r, i) {
-  var n = new Set(e), a = n.size;
-  return l(r, {
-    Directive: function(u) {
-      if (n.delete(u.name.value) && (!i || !n.size))
-        return f;
+import { __extends as u } from "./index.es65.js";
+var i = "Invariant Violation", a = Object.setPrototypeOf, c = a === void 0 ? function(r, o) {
+  return r.__proto__ = o, r;
+} : a, p = (
+  /** @class */
+  function(r) {
+    u(o, r);
+    function o(t) {
+      t === void 0 && (t = i);
+      var n = r.call(this, typeof t == "number" ? i + ": " + t + " (see https://github.com/apollographql/invariant-packages)" : t) || this;
+      return n.framesToPop = 1, n.name = i, c(n, o.prototype), n;
     }
-  }), i ? !n.size : n.size < a;
+    return o;
+  }(Error)
+);
+function l(r, o) {
+  if (!r)
+    throw new p(o);
 }
-function h(e) {
-  return e && o(["client", "export"], e, !0);
-}
-function s(e) {
-  var r = e.name.value;
-  return r === "skip" || r === "include";
-}
-function m(e) {
-  var r = [];
-  return e && e.length && e.forEach(function(i) {
-    if (s(i)) {
-      var n = i.arguments, a = i.name.value;
-      v(n && n.length === 1, 70, a);
-      var u = n[0];
-      v(u.name && u.name.value === "if", 71, a);
-      var t = u.value;
-      v(t && (t.kind === "Variable" || t.kind === "BooleanValue"), 72, a), r.push({ directive: i, ifArgument: u });
+var f = ["debug", "log", "warn", "error", "silent"], v = f.indexOf("log");
+function e(r) {
+  return function() {
+    if (f.indexOf(r) >= v) {
+      var o = console[r] || console.log;
+      return o.apply(console, arguments);
     }
-  }), r;
+  };
 }
+(function(r) {
+  r.debug = e("debug"), r.log = e("log"), r.warn = e("warn"), r.error = e("error");
+})(l || (l = {}));
 export {
-  m as getInclusionDirectives,
-  h as hasClientExports,
-  o as hasDirectives,
-  p as shouldInclude
+  p as InvariantError,
+  l as invariant
 };
 //# sourceMappingURL=index.es159.js.map

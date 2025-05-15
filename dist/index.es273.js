@@ -1,55 +1,79 @@
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-var f, i;
-function p() {
-  if (i) return f;
-  i = 1;
-  var u = Object.getOwnPropertySymbols, b = Object.prototype.hasOwnProperty, l = Object.prototype.propertyIsEnumerable;
-  function O(n) {
-    if (n == null)
-      throw new TypeError("Object.assign cannot be called with null or undefined");
-    return Object(n);
-  }
-  function j() {
-    try {
-      if (!Object.assign)
-        return !1;
-      var n = new String("abc");
-      if (n[5] = "de", Object.getOwnPropertyNames(n)[0] === "5")
-        return !1;
-      for (var s = {}, r = 0; r < 10; r++)
-        s["_" + String.fromCharCode(r)] = r;
-      var a = Object.getOwnPropertyNames(s).map(function(e) {
-        return s[e];
-      });
-      if (a.join("") !== "0123456789")
-        return !1;
-      var t = {};
-      return "abcdefghijklmnopqrst".split("").forEach(function(e) {
-        t[e] = e;
-      }), Object.keys(Object.assign({}, t)).join("") === "abcdefghijklmnopqrst";
-    } catch {
-      return !1;
-    }
-  }
-  return f = j() ? Object.assign : function(n, s) {
-    for (var r, a = O(n), t, e = 1; e < arguments.length; e++) {
-      r = Object(arguments[e]);
-      for (var c in r)
-        b.call(r, c) && (a[c] = r[c]);
-      if (u) {
-        t = u(r);
-        for (var o = 0; o < t.length; o++)
-          l.call(r, t[o]) && (a[t[o]] = r[t[o]]);
+import { __exports as r } from "./index.es311.js";
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var _;
+function g() {
+  if (_) return r;
+  _ = 1;
+  var t = typeof Symbol == "function" && Symbol.for, a = t ? Symbol.for("react.element") : 60103, b = t ? Symbol.for("react.portal") : 60106, n = t ? Symbol.for("react.fragment") : 60107, c = t ? Symbol.for("react.strict_mode") : 60108, f = t ? Symbol.for("react.profiler") : 60114, i = t ? Symbol.for("react.provider") : 60109, s = t ? Symbol.for("react.context") : 60110, d = t ? Symbol.for("react.async_mode") : 60111, u = t ? Symbol.for("react.concurrent_mode") : 60111, y = t ? Symbol.for("react.forward_ref") : 60112, l = t ? Symbol.for("react.suspense") : 60113, x = t ? Symbol.for("react.suspense_list") : 60120, m = t ? Symbol.for("react.memo") : 60115, p = t ? Symbol.for("react.lazy") : 60116, C = t ? Symbol.for("react.block") : 60121, M = t ? Symbol.for("react.fundamental") : 60117, v = t ? Symbol.for("react.responder") : 60118, w = t ? Symbol.for("react.scope") : 60119;
+  function o(e) {
+    if (typeof e == "object" && e !== null) {
+      var S = e.$$typeof;
+      switch (S) {
+        case a:
+          switch (e = e.type, e) {
+            case d:
+            case u:
+            case n:
+            case f:
+            case c:
+            case l:
+              return e;
+            default:
+              switch (e = e && e.$$typeof, e) {
+                case s:
+                case y:
+                case p:
+                case m:
+                case i:
+                  return e;
+                default:
+                  return S;
+              }
+          }
+        case b:
+          return S;
       }
     }
-    return a;
-  }, f;
+  }
+  function $(e) {
+    return o(e) === u;
+  }
+  return r.AsyncMode = d, r.ConcurrentMode = u, r.ContextConsumer = s, r.ContextProvider = i, r.Element = a, r.ForwardRef = y, r.Fragment = n, r.Lazy = p, r.Memo = m, r.Portal = b, r.Profiler = f, r.StrictMode = c, r.Suspense = l, r.isAsyncMode = function(e) {
+    return $(e) || o(e) === d;
+  }, r.isConcurrentMode = $, r.isContextConsumer = function(e) {
+    return o(e) === s;
+  }, r.isContextProvider = function(e) {
+    return o(e) === i;
+  }, r.isElement = function(e) {
+    return typeof e == "object" && e !== null && e.$$typeof === a;
+  }, r.isForwardRef = function(e) {
+    return o(e) === y;
+  }, r.isFragment = function(e) {
+    return o(e) === n;
+  }, r.isLazy = function(e) {
+    return o(e) === p;
+  }, r.isMemo = function(e) {
+    return o(e) === m;
+  }, r.isPortal = function(e) {
+    return o(e) === b;
+  }, r.isProfiler = function(e) {
+    return o(e) === f;
+  }, r.isStrictMode = function(e) {
+    return o(e) === c;
+  }, r.isSuspense = function(e) {
+    return o(e) === l;
+  }, r.isValidElementType = function(e) {
+    return typeof e == "string" || typeof e == "function" || e === n || e === u || e === f || e === c || e === l || e === x || typeof e == "object" && e !== null && (e.$$typeof === p || e.$$typeof === m || e.$$typeof === i || e.$$typeof === s || e.$$typeof === y || e.$$typeof === M || e.$$typeof === v || e.$$typeof === w || e.$$typeof === C);
+  }, r.typeOf = o, r;
 }
 export {
-  p as __require
+  g as __require
 };
 //# sourceMappingURL=index.es273.js.map

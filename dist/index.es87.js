@@ -1,7 +1,17 @@
-function r(e) {
-  return e.substring(0, 1) === "/" ? e.substring(1) : e;
+var e, t;
+function c() {
+  if (t) return e;
+  t = 1;
+  var o = "[object Number]", n = Object.prototype, i = n.toString;
+  function u(r) {
+    return !!r && typeof r == "object";
+  }
+  function b(r) {
+    return typeof r == "number" || u(r) && i.call(r) == o;
+  }
+  return e = b, e;
 }
 export {
-  r as default
+  c as __require
 };
 //# sourceMappingURL=index.es87.js.map

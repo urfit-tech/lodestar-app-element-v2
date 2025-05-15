@@ -1,8 +1,5 @@
-import { Slot as o } from "./index.es183.js";
-const { bind: n, noContext: r } = o;
+const t = null;
 export {
-  o as Slot,
-  n as bind,
-  r as noContext
+  t as default
 };
 //# sourceMappingURL=index.es184.js.map

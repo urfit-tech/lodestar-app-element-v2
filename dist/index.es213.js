@@ -1,9 +1,8 @@
-const r = {
-  silentJSONParsing: !0,
-  forcedJSONParsing: !0,
-  clarifyTimeoutError: !1
-};
+import { Slot as o } from "./index.es212.js";
+const { bind: n, noContext: r } = o;
 export {
-  r as default
+  o as Slot,
+  n as bind,
+  r as noContext
 };
 //# sourceMappingURL=index.es213.js.map

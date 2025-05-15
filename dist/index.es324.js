@@ -1,11 +1,23 @@
-var r, a;
+var t, n;
 function i() {
-  if (a) return r;
-  a = 1;
-  var e = {}.toString;
-  return r = Array.isArray || function(t) {
-    return e.call(t) == "[object Array]";
-  }, r;
+  if (n) return t;
+  n = 1;
+  function e(r) {
+    var a = (r / 8 | 0) + (r % 8 === 0 ? 0 : 1);
+    return a;
+  }
+  var o = {
+    ES256: e(256),
+    ES384: e(384),
+    ES512: e(521)
+  };
+  function u(r) {
+    var a = o[r];
+    if (a)
+      return a;
+    throw new Error('Unknown algorithm "' + r + '"');
+  }
+  return t = u, t;
 }
 export {
   i as __require

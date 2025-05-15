@@ -1,86 +1,33 @@
-var o, d;
-function w() {
-  if (d) return o;
-  d = 1;
-  var n = 1e3, t = n * 60, c = t * 60, a = c * 24, f = a * 7, h = a * 365.25;
-  o = function(e, r) {
-    r = r || {};
-    var s = typeof e;
-    if (s === "string" && e.length > 0)
-      return m(e);
-    if (s === "number" && isFinite(e))
-      return r.long ? l(e) : y(e);
-    throw new Error(
-      "val is not a non-empty string or a valid number. val=" + JSON.stringify(e)
-    );
-  };
-  function m(e) {
-    if (e = String(e), !(e.length > 100)) {
-      var r = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
-        e
-      );
-      if (r) {
-        var s = parseFloat(r[1]), i = (r[2] || "ms").toLowerCase();
-        switch (i) {
-          case "years":
-          case "year":
-          case "yrs":
-          case "yr":
-          case "y":
-            return s * h;
-          case "weeks":
-          case "week":
-          case "w":
-            return s * f;
-          case "days":
-          case "day":
-          case "d":
-            return s * a;
-          case "hours":
-          case "hour":
-          case "hrs":
-          case "hr":
-          case "h":
-            return s * c;
-          case "minutes":
-          case "minute":
-          case "mins":
-          case "min":
-          case "m":
-            return s * t;
-          case "seconds":
-          case "second":
-          case "secs":
-          case "sec":
-          case "s":
-            return s * n;
-          case "milliseconds":
-          case "millisecond":
-          case "msecs":
-          case "msec":
-          case "ms":
-            return s;
-          default:
-            return;
-        }
-      }
+import { isNonNullObject as s } from "./index.es71.js";
+import { isNonEmptyArray as p } from "./index.es131.js";
+import { DeepMerger as h } from "./index.es133.js";
+function u(t) {
+  return "incremental" in t;
+}
+function d(t) {
+  return "hasNext" in t && "data" in t;
+}
+function E(t) {
+  return u(t) || d(t);
+}
+function v(t) {
+  return s(t) && "payload" in t;
+}
+function P(t, n) {
+  var r = t, f = new h();
+  return u(n) && p(n.incremental) && n.incremental.forEach(function(i) {
+    for (var e = i.data, o = i.path, a = o.length - 1; a >= 0; --a) {
+      var c = o[a], l = !isNaN(+c), m = l ? [] : {};
+      m[c] = e, e = m;
     }
-  }
-  function y(e) {
-    var r = Math.abs(e);
-    return r >= a ? Math.round(e / a) + "d" : r >= c ? Math.round(e / c) + "h" : r >= t ? Math.round(e / t) + "m" : r >= n ? Math.round(e / n) + "s" : e + "ms";
-  }
-  function l(e) {
-    var r = Math.abs(e);
-    return r >= a ? u(e, r, a, "day") : r >= c ? u(e, r, c, "hour") : r >= t ? u(e, r, t, "minute") : r >= n ? u(e, r, n, "second") : e + " ms";
-  }
-  function u(e, r, s, i) {
-    var v = r >= s * 1.5;
-    return Math.round(e / s) + " " + i + (v ? "s" : "");
-  }
-  return o;
+    r = f.merge(r, e);
+  }), r;
 }
 export {
-  w as __require
+  v as isApolloPayloadResult,
+  u as isExecutionPatchIncrementalResult,
+  d as isExecutionPatchInitialResult,
+  E as isExecutionPatchResult,
+  P as mergeIncrementalData
 };
 //# sourceMappingURL=index.es141.js.map

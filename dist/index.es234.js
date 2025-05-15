@@ -1,15 +1,17 @@
-import { __require as t } from "./index.es232.js";
-var r, n;
-function l() {
-  if (n) return r;
-  n = 1;
-  const a = t();
-  return r = (i, s) => {
-    const e = a(i.trim().replace(/^[=v]+/, ""), s);
-    return e ? e.version : null;
-  }, r;
+var n, o;
+function f() {
+  if (o) return n;
+  o = 1;
+  const s = /^[0-9]+$/, c = (e, r) => {
+    const i = s.test(e), t = s.test(r);
+    return i && t && (e = +e, r = +r), e === r ? 0 : i && !t ? -1 : t && !i ? 1 : e < r ? -1 : 1;
+  };
+  return n = {
+    compareIdentifiers: c,
+    rcompareIdentifiers: (e, r) => c(r, e)
+  }, n;
 }
 export {
-  l as __require
+  f as __require
 };
 //# sourceMappingURL=index.es234.js.map

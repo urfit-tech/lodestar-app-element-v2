@@ -1,12 +1,41 @@
-import { __require as i } from "./index.es142.js";
-var r, e;
-function p() {
-  if (e) return r;
-  e = 1;
-  var s = i();
-  return r = s.satisfies(process.version, "^6.12.0 || >=8.0.0"), r;
+import m from "./index.es160.js";
+import c from "./index.es73.js";
+import t from "./index.es161.js";
+function _(e) {
+  return function f(u, n, i) {
+    switch (arguments.length) {
+      case 0:
+        return f;
+      case 1:
+        return t(u) ? f : c(function(r, o) {
+          return e(u, r, o);
+        });
+      case 2:
+        return t(u) && t(n) ? f : t(u) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : m(function(r) {
+          return e(u, n, r);
+        });
+      default:
+        return t(u) && t(n) && t(i) ? f : t(u) && t(n) ? c(function(r, o) {
+          return e(r, o, i);
+        }) : t(u) && t(i) ? c(function(r, o) {
+          return e(r, n, o);
+        }) : t(n) && t(i) ? c(function(r, o) {
+          return e(u, r, o);
+        }) : t(u) ? m(function(r) {
+          return e(r, n, i);
+        }) : t(n) ? m(function(r) {
+          return e(u, r, i);
+        }) : t(i) ? m(function(r) {
+          return e(u, n, r);
+        }) : e(u, n, i);
+    }
+  };
 }
 export {
-  p as __require
+  _ as default
 };
 //# sourceMappingURL=index.es75.js.map

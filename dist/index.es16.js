@@ -1,8 +1,8 @@
-import { __assign as l } from "./index.es92.js";
-import { invariant as c } from "./index.es93.js";
-import "./index.es94.js";
-import { r } from "./index.es204.js";
-import { getApolloContext as m } from "./index.es203.js";
+import { __assign as l } from "./index.es65.js";
+import { invariant as c } from "./index.es116.js";
+import "./index.es117.js";
+import { r } from "./index.es198.js";
+import { getApolloContext as m } from "./index.es199.js";
 var s = function(e) {
   var o = e.client, a = e.children, n = m(), t = r.useContext(n), i = r.useMemo(function() {
     return l(l({}, t), { client: o || t.client });

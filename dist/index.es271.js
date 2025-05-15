@@ -1,79 +1,95 @@
-import { __exports as r } from "./index.es310.js";
-/** @license React v16.13.1
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var _;
-function g() {
-  if (_) return r;
-  _ = 1;
-  var t = typeof Symbol == "function" && Symbol.for, a = t ? Symbol.for("react.element") : 60103, b = t ? Symbol.for("react.portal") : 60106, n = t ? Symbol.for("react.fragment") : 60107, c = t ? Symbol.for("react.strict_mode") : 60108, f = t ? Symbol.for("react.profiler") : 60114, i = t ? Symbol.for("react.provider") : 60109, s = t ? Symbol.for("react.context") : 60110, d = t ? Symbol.for("react.async_mode") : 60111, u = t ? Symbol.for("react.concurrent_mode") : 60111, y = t ? Symbol.for("react.forward_ref") : 60112, l = t ? Symbol.for("react.suspense") : 60113, x = t ? Symbol.for("react.suspense_list") : 60120, m = t ? Symbol.for("react.memo") : 60115, p = t ? Symbol.for("react.lazy") : 60116, C = t ? Symbol.for("react.block") : 60121, M = t ? Symbol.for("react.fundamental") : 60117, v = t ? Symbol.for("react.responder") : 60118, w = t ? Symbol.for("react.scope") : 60119;
-  function o(e) {
-    if (typeof e == "object" && e !== null) {
-      var S = e.$$typeof;
-      switch (S) {
-        case a:
-          switch (e = e.type, e) {
-            case d:
-            case u:
-            case n:
-            case f:
-            case c:
-            case l:
-              return e;
-            default:
-              switch (e = e && e.$$typeof, e) {
-                case s:
-                case y:
-                case p:
-                case m:
-                case i:
-                  return e;
-                default:
-                  return S;
-              }
-          }
-        case b:
-          return S;
+import { __require as L } from "./index.es259.js";
+import { __require as N } from "./index.es258.js";
+import { __require as V } from "./index.es260.js";
+import { __require as x } from "./index.es244.js";
+var S, D;
+function k() {
+  if (D) return S;
+  D = 1;
+  const _ = L(), m = N(), { ANY: c } = m, u = V(), p = x(), j = (t, r, s = {}) => {
+    if (t === r)
+      return !0;
+    t = new _(t, s), r = new _(r, s);
+    let o = !1;
+    e: for (const l of t.set) {
+      for (const n of r.set) {
+        const f = R(l, n, s);
+        if (o = o || f !== null, f)
+          continue e;
       }
+      if (o)
+        return !1;
     }
-  }
-  function $(e) {
-    return o(e) === u;
-  }
-  return r.AsyncMode = d, r.ConcurrentMode = u, r.ContextConsumer = s, r.ContextProvider = i, r.Element = a, r.ForwardRef = y, r.Fragment = n, r.Lazy = p, r.Memo = m, r.Portal = b, r.Profiler = f, r.StrictMode = c, r.Suspense = l, r.isAsyncMode = function(e) {
-    return $(e) || o(e) === d;
-  }, r.isConcurrentMode = $, r.isContextConsumer = function(e) {
-    return o(e) === s;
-  }, r.isContextProvider = function(e) {
-    return o(e) === i;
-  }, r.isElement = function(e) {
-    return typeof e == "object" && e !== null && e.$$typeof === a;
-  }, r.isForwardRef = function(e) {
-    return o(e) === y;
-  }, r.isFragment = function(e) {
-    return o(e) === n;
-  }, r.isLazy = function(e) {
-    return o(e) === p;
-  }, r.isMemo = function(e) {
-    return o(e) === m;
-  }, r.isPortal = function(e) {
-    return o(e) === b;
-  }, r.isProfiler = function(e) {
-    return o(e) === f;
-  }, r.isStrictMode = function(e) {
-    return o(e) === c;
-  }, r.isSuspense = function(e) {
-    return o(e) === l;
-  }, r.isValidElementType = function(e) {
-    return typeof e == "string" || typeof e == "function" || e === n || e === u || e === f || e === c || e === l || e === x || typeof e == "object" && e !== null && (e.$$typeof === p || e.$$typeof === m || e.$$typeof === i || e.$$typeof === s || e.$$typeof === y || e.$$typeof === M || e.$$typeof === v || e.$$typeof === w || e.$$typeof === C);
-  }, r.typeOf = o, r;
+    return !0;
+  }, C = [new m(">=0.0.0-0")], w = [new m(">=0.0.0")], R = (t, r, s) => {
+    if (t === r)
+      return !0;
+    if (t.length === 1 && t[0].semver === c) {
+      if (r.length === 1 && r[0].semver === c)
+        return !0;
+      s.includePrerelease ? t = C : t = w;
+    }
+    if (r.length === 1 && r[0].semver === c) {
+      if (s.includePrerelease)
+        return !0;
+      r = w;
+    }
+    const o = /* @__PURE__ */ new Set();
+    let l, n;
+    for (const e of t)
+      e.operator === ">" || e.operator === ">=" ? l = P(l, e, s) : e.operator === "<" || e.operator === "<=" ? n = T(n, e, s) : o.add(e.semver);
+    if (o.size > 1)
+      return null;
+    let f;
+    if (l && n) {
+      if (f = p(l.semver, n.semver, s), f > 0)
+        return null;
+      if (f === 0 && (l.operator !== ">=" || n.operator !== "<="))
+        return null;
+    }
+    for (const e of o) {
+      if (l && !u(e, String(l), s) || n && !u(e, String(n), s))
+        return null;
+      for (const G of r)
+        if (!u(e, String(G), s))
+          return !1;
+      return !0;
+    }
+    let v, h, g, q, a = n && !s.includePrerelease && n.semver.prerelease.length ? n.semver : !1, i = l && !s.includePrerelease && l.semver.prerelease.length ? l.semver : !1;
+    a && a.prerelease.length === 1 && n.operator === "<" && a.prerelease[0] === 0 && (a = !1);
+    for (const e of r) {
+      if (q = q || e.operator === ">" || e.operator === ">=", g = g || e.operator === "<" || e.operator === "<=", l) {
+        if (i && e.semver.prerelease && e.semver.prerelease.length && e.semver.major === i.major && e.semver.minor === i.minor && e.semver.patch === i.patch && (i = !1), e.operator === ">" || e.operator === ">=") {
+          if (v = P(l, e, s), v === e && v !== l)
+            return !1;
+        } else if (l.operator === ">=" && !u(l.semver, String(e), s))
+          return !1;
+      }
+      if (n) {
+        if (a && e.semver.prerelease && e.semver.prerelease.length && e.semver.major === a.major && e.semver.minor === a.minor && e.semver.patch === a.patch && (a = !1), e.operator === "<" || e.operator === "<=") {
+          if (h = T(n, e, s), h === e && h !== n)
+            return !1;
+        } else if (n.operator === "<=" && !u(n.semver, String(e), s))
+          return !1;
+      }
+      if (!e.operator && (n || l) && f !== 0)
+        return !1;
+    }
+    return !(l && g && !n && f !== 0 || n && q && !l && f !== 0 || i || a);
+  }, P = (t, r, s) => {
+    if (!t)
+      return r;
+    const o = p(t.semver, r.semver, s);
+    return o > 0 ? t : o < 0 || r.operator === ">" && t.operator === ">=" ? r : t;
+  }, T = (t, r, s) => {
+    if (!t)
+      return r;
+    const o = p(t.semver, r.semver, s);
+    return o < 0 ? t : o > 0 || r.operator === "<" && t.operator === "<=" ? r : t;
+  };
+  return S = j, S;
 }
 export {
-  g as __require
+  k as __require
 };
 //# sourceMappingURL=index.es271.js.map

@@ -1,112 +1,72 @@
-import { invariant as J } from "./index.es93.js";
-import "./index.es94.js";
-import { hasOwn as N } from "./index.es177.js";
-import { isNonEmptyArray as h, isArray as l } from "./index.es165.js";
-import { argumentsObjectFromField as w } from "./index.es160.js";
-import { DeepMerger as C } from "./index.es166.js";
-import { isNonNullObject as I } from "./index.es113.js";
-var S = /* @__PURE__ */ Object.create(null);
-function v(r) {
-  var e = JSON.stringify(r);
-  return S[e] || (S[e] = /* @__PURE__ */ Object.create(null));
-}
-function G(r) {
-  var e = v(r);
-  return e.keyFieldsFn || (e.keyFieldsFn = function(f, n) {
-    var i = function(t, u) {
-      return n.readField(u, t);
-    }, o = n.keyObject = m(r, function(t) {
-      var u = c(
-        n.storeObject,
-        t,
-        // Using context.readField to extract paths from context.storeObject
-        // allows the extraction to see through Reference objects and respect
-        // custom read functions.
-        i
-      );
-      return u === void 0 && f !== n.storeObject && N.call(f, t[0]) && (u = c(f, t, b)), J(u !== void 0, 4, t.join("."), f), u;
-    });
-    return "".concat(n.typename, ":").concat(JSON.stringify(o));
-  });
-}
-function H(r) {
-  var e = v(r);
-  return e.keyArgsFn || (e.keyArgsFn = function(f, n) {
-    var i = n.field, o = n.variables, t = n.fieldName, u = m(r, function(a) {
-      var s = a[0], d = s.charAt(0);
-      if (d === "@") {
-        if (i && h(i.directives)) {
-          var A = s.slice(1), F = i.directives.find(function(E) {
-            return E.name.value === A;
-          }), O = F && w(F, o);
-          return O && c(
-            O,
-            // If keyPath.length === 1, this code calls extractKeyPath with an
-            // empty path, which works because it uses directiveArgs as the
-            // extracted value.
-            a.slice(1)
-          );
-        }
-        return;
-      }
-      if (d === "$") {
-        var g = s.slice(1);
-        if (o && N.call(o, g)) {
-          var y = a.slice(0);
-          return y[0] = g, c(o, y);
-        }
-        return;
-      }
-      if (f)
-        return c(f, a);
-    }), p = JSON.stringify(u);
-    return (f || p !== "{}") && (t += ":" + p), t;
-  });
-}
-function m(r, e) {
-  var f = new C();
-  return k(r).reduce(function(n, i) {
-    var o, t = e(i);
-    if (t !== void 0) {
-      for (var u = i.length - 1; u >= 0; --u)
-        t = (o = {}, o[i[u]] = t, o);
-      n = f.merge(n, t);
+import b from "./index.es91.js";
+import D from "./index.es285.js";
+import L from "./index.es180.js";
+import r from "./index.es102.js";
+import v from "./index.es97.js";
+import y from "./index.es286.js";
+import O from "./index.es182.js";
+import H from "./index.es105.js";
+import { progressEventReducer as q } from "./index.es287.js";
+import U from "./index.es288.js";
+const N = typeof XMLHttpRequest < "u", Q = N && function(n) {
+  return new Promise(function(A, s) {
+    const t = U(n);
+    let c = t.data;
+    const E = H.from(t.headers).normalize();
+    let { responseType: i, onUploadProgress: T, onDownloadProgress: R } = t, a, h, w, u, p;
+    function g() {
+      u && u(), p && p(), t.cancelToken && t.cancelToken.unsubscribe(a), t.signal && t.signal.removeEventListener("abort", a);
     }
-    return n;
-  }, /* @__PURE__ */ Object.create(null));
-}
-function k(r) {
-  var e = v(r);
-  if (!e.paths) {
-    var f = e.paths = [], n = [];
-    r.forEach(function(i, o) {
-      l(i) ? (k(i).forEach(function(t) {
-        return f.push(n.concat(t));
-      }), n.length = 0) : (n.push(i), l(r[o + 1]) || (f.push(n.slice(0)), n.length = 0));
-    });
-  }
-  return e.paths;
-}
-function b(r, e) {
-  return r[e];
-}
-function c(r, e, f) {
-  return f = f || b, j(e.reduce(function n(i, o) {
-    return l(i) ? i.map(function(t) {
-      return n(t, o);
-    }) : i && f(i, o);
-  }, r));
-}
-function j(r) {
-  return I(r) ? l(r) ? r.map(j) : m(Object.keys(r).sort(), function(e) {
-    return c(r, e);
-  }) : r;
-}
+    let e = new XMLHttpRequest();
+    e.open(t.method.toUpperCase(), t.url, !0), e.timeout = t.timeout;
+    function x() {
+      if (!e)
+        return;
+      const o = H.from(
+        "getAllResponseHeaders" in e && e.getAllResponseHeaders()
+      ), d = {
+        data: !i || i === "text" || i === "json" ? e.responseText : e.response,
+        status: e.status,
+        statusText: e.statusText,
+        headers: o,
+        config: n,
+        request: e
+      };
+      D(function(m) {
+        A(m), g();
+      }, function(m) {
+        s(m), g();
+      }, d), e = null;
+    }
+    "onloadend" in e ? e.onloadend = x : e.onreadystatechange = function() {
+      !e || e.readyState !== 4 || e.status === 0 && !(e.responseURL && e.responseURL.indexOf("file:") === 0) || setTimeout(x);
+    }, e.onabort = function() {
+      e && (s(new r("Request aborted", r.ECONNABORTED, n, e)), e = null);
+    }, e.onerror = function() {
+      s(new r("Network Error", r.ERR_NETWORK, n, e)), e = null;
+    }, e.ontimeout = function() {
+      let l = t.timeout ? "timeout of " + t.timeout + "ms exceeded" : "timeout exceeded";
+      const d = t.transitional || L;
+      t.timeoutErrorMessage && (l = t.timeoutErrorMessage), s(new r(
+        l,
+        d.clarifyTimeoutError ? r.ETIMEDOUT : r.ECONNABORTED,
+        n,
+        e
+      )), e = null;
+    }, c === void 0 && E.setContentType(null), "setRequestHeader" in e && b.forEach(E.toJSON(), function(l, d) {
+      e.setRequestHeader(d, l);
+    }), b.isUndefined(t.withCredentials) || (e.withCredentials = !!t.withCredentials), i && i !== "json" && (e.responseType = t.responseType), R && ([w, p] = q(R, !0), e.addEventListener("progress", w)), T && e.upload && ([h, u] = q(T), e.upload.addEventListener("progress", h), e.upload.addEventListener("loadend", u)), (t.cancelToken || t.signal) && (a = (o) => {
+      e && (s(!o || o.type ? new v(null, n, e) : o), e.abort(), e = null);
+    }, t.cancelToken && t.cancelToken.subscribe(a), t.signal && (t.signal.aborted ? a() : t.signal.addEventListener("abort", a)));
+    const f = y(t.url);
+    if (f && O.protocols.indexOf(f) === -1) {
+      s(new r("Unsupported protocol " + f + ":", r.ERR_BAD_REQUEST, n));
+      return;
+    }
+    e.send(c || null);
+  });
+};
 export {
-  m as collectSpecifierPaths,
-  c as extractKeyPath,
-  k as getSpecifierPaths,
-  H as keyArgsFnFromSpecifier,
-  G as keyFieldsFnFromSpecifier
+  Q as default
 };
 //# sourceMappingURL=index.es185.js.map

@@ -1,31 +1,41 @@
-import n from "./index.es118.js";
-const a = n.toObjectSet([
-  "age",
-  "authorization",
-  "content-length",
-  "content-type",
-  "etag",
-  "expires",
-  "from",
-  "host",
-  "if-modified-since",
-  "if-unmodified-since",
-  "last-modified",
-  "location",
-  "max-forwards",
-  "proxy-authorization",
-  "referer",
-  "retry-after",
-  "user-agent"
-]), u = (s) => {
-  const t = {};
-  let e, r, i;
-  return s && s.split(`
-`).forEach(function(o) {
-    i = o.indexOf(":"), e = o.substring(0, i).trim().toLowerCase(), r = o.substring(i + 1).trim(), !(!e || t[e] && a[e]) && (e === "set-cookie" ? t[e] ? t[e].push(r) : t[e] = [r] : t[e] = t[e] ? t[e] + ", " + r : r);
-  }), t;
-};
+import o from "./index.es296.js";
+import a from "./index.es297.js";
+import n from "./index.es298.js";
+import t from "./index.es299.js";
+import { canUseAsyncIteratorSymbol as i } from "./index.es121.js";
+function f(r) {
+  return !!r.body;
+}
+function s(r) {
+  return !!r.getReader;
+}
+function m(r) {
+  return !!(i && r[Symbol.asyncIterator]);
+}
+function u(r) {
+  return !!r.stream;
+}
+function b(r) {
+  return !!r.arrayBuffer;
+}
+function d(r) {
+  return !!r.pipe;
+}
+function R(r) {
+  var e = r;
+  if (f(r) && (e = r.body), m(e))
+    return o(e);
+  if (s(e))
+    return t(e.getReader());
+  if (u(e))
+    return t(e.stream().getReader());
+  if (b(e))
+    return n(e.arrayBuffer());
+  if (d(e))
+    return a(e);
+  throw new Error("Unknown body type for responseIterator. Please pass a streamable response.");
+}
 export {
-  u as default
+  R as responseIterator
 };
 //# sourceMappingURL=index.es216.js.map

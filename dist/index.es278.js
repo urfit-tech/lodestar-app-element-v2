@@ -1,46 +1,55 @@
-function n() {
-}
-class l {
-  constructor(t = 1 / 0, e = n) {
-    this.max = t, this.dispose = e, this.map = /* @__PURE__ */ new Map(), this.newest = null, this.oldest = null;
+import { __require as E } from "./index.es276.js";
+import { __require as _ } from "./index.es277.js";
+var f, v;
+function P() {
+  if (v) return f;
+  v = 1;
+  var o = function() {
+  };
+  if (process.env.NODE_ENV !== "production") {
+    var y = /* @__PURE__ */ E(), t = {}, d = /* @__PURE__ */ _();
+    o = function(n) {
+      var a = "Warning: " + n;
+      typeof console < "u" && console.error(a);
+      try {
+        throw new Error(a);
+      } catch {
+      }
+    };
   }
-  has(t) {
-    return this.map.has(t);
-  }
-  get(t) {
-    const e = this.getNode(t);
-    return e && e.value;
-  }
-  get size() {
-    return this.map.size;
-  }
-  getNode(t) {
-    const e = this.map.get(t);
-    if (e && e !== this.newest) {
-      const { older: s, newer: i } = e;
-      i && (i.older = s), s && (s.newer = i), e.older = this.newest, e.older.newer = e, e.newer = null, this.newest = e, e === this.oldest && (this.oldest = i);
+  function u(n, a, i, s, c) {
+    if (process.env.NODE_ENV !== "production") {
+      for (var e in n)
+        if (d(n, e)) {
+          var r;
+          try {
+            if (typeof n[e] != "function") {
+              var h = Error(
+                (s || "React class") + ": " + i + " type `" + e + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof n[e] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
+              );
+              throw h.name = "Invariant Violation", h;
+            }
+            r = n[e](a, e, s, i, null, y);
+          } catch (l) {
+            r = l;
+          }
+          if (r && !(r instanceof Error) && o(
+            (s || "React class") + ": type specification of " + i + " `" + e + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof r + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
+          ), r instanceof Error && !(r.message in t)) {
+            t[r.message] = !0;
+            var p = c ? c() : "";
+            o(
+              "Failed " + i + " type: " + r.message + (p ?? "")
+            );
+          }
+        }
     }
-    return e;
   }
-  set(t, e) {
-    let s = this.getNode(t);
-    return s ? s.value = e : (s = {
-      key: t,
-      value: e,
-      newer: null,
-      older: this.newest
-    }, this.newest && (this.newest.newer = s), this.newest = s, this.oldest = this.oldest || s, this.map.set(t, s), s.value);
-  }
-  clean() {
-    for (; this.oldest && this.map.size > this.max; )
-      this.delete(this.oldest.key);
-  }
-  delete(t) {
-    const e = this.map.get(t);
-    return e ? (e === this.newest && (this.newest = e.older), e === this.oldest && (this.oldest = e.newer), e.newer && (e.newer.older = e.older), e.older && (e.older.newer = e.newer), this.map.delete(t), this.dispose(e.value, t), !0) : !1;
-  }
+  return u.resetWarningCache = function() {
+    process.env.NODE_ENV !== "production" && (t = {});
+  }, f = u, f;
 }
 export {
-  l as StrongCache
+  P as __require
 };
 //# sourceMappingURL=index.es278.js.map

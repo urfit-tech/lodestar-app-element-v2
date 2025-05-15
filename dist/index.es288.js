@@ -1,14 +1,34 @@
-import i from "./index.es118.js";
-import m from "./index.es122.js";
-import s from "./index.es132.js";
-function h(f, t) {
-  const o = this || m, r = t || o, n = s.from(r.headers);
-  let a = r.data;
-  return i.forEach(f, function(e) {
-    a = e.call(o, a, n.normalize(), t ? t.status : void 0);
-  }), n.normalize(), a;
-}
+import n from "./index.es182.js";
+import l from "./index.es91.js";
+import h from "./index.es318.js";
+import c from "./index.es319.js";
+import w from "./index.es178.js";
+import C from "./index.es94.js";
+import b from "./index.es105.js";
+import S from "./index.es175.js";
+const v = (s) => {
+  const e = C({}, s);
+  let { data: p, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
+  e.headers = r = b.from(r), e.url = S(w(e.baseURL, e.url, e.allowAbsoluteUrls), s.params, s.paramsSerializer), t && r.set(
+    "Authorization",
+    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
+  );
+  let i;
+  if (l.isFormData(p)) {
+    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
+      r.setContentType(void 0);
+    else if ((i = r.getContentType()) !== !1) {
+      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
+      r.setContentType([a || "multipart/form-data", ...d].join("; "));
+    }
+  }
+  if (n.hasStandardBrowserEnv && (o && l.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
+    const a = m && f && c.read(f);
+    a && r.set(m, a);
+  }
+  return e;
+};
 export {
-  h as default
+  v as default
 };
 //# sourceMappingURL=index.es288.js.map

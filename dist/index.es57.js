@@ -1,4 +1,4 @@
-import { __require as n } from "./index.es72.js";
+import { __require as n } from "./index.es79.js";
 var t, d;
 function l() {
   if (d) return t;

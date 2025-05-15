@@ -1,23 +1,23 @@
-import { __extends as C, __assign as o } from "./index.es92.js";
-import { invariant as b } from "./index.es93.js";
-import "./index.es94.js";
-import { wrap as T } from "./index.es170.js";
-import { equal as W } from "./index.es103.js";
-import { ApolloCache as R } from "./index.es169.js";
-import { MissingFieldError as _ } from "./index.es172.js";
-import { StoreReader as x } from "./index.es180.js";
-import { StoreWriter as w } from "./index.es181.js";
-import { EntityStore as S, supportsResultCaching as O } from "./index.es173.js";
-import { makeVar as z, recallCache as E, forgetCache as g } from "./index.es168.js";
-import { Policies as I } from "./index.es182.js";
-import { normalizeConfig as M, shouldCanonizeResults as U, hasOwn as v } from "./index.es177.js";
-import { getInMemoryCacheMemoryInternals as B } from "./index.es98.js";
-import { DocumentTransform as P } from "./index.es156.js";
-import { addTypenameToDocument as k } from "./index.es158.js";
-import { cacheSizes as F } from "./index.es117.js";
-import { canonicalStringify as l } from "./index.es162.js";
-import { print as Q } from "./index.es137.js";
-import { isReference as V } from "./index.es160.js";
+import { __extends as C, __assign as o } from "./index.es65.js";
+import { invariant as b } from "./index.es116.js";
+import "./index.es117.js";
+import { wrap as T } from "./index.es122.js";
+import { equal as W } from "./index.es156.js";
+import { ApolloCache as R } from "./index.es204.js";
+import { MissingFieldError as _ } from "./index.es205.js";
+import { StoreReader as x } from "./index.es209.js";
+import { StoreWriter as w } from "./index.es210.js";
+import { EntityStore as S, supportsResultCaching as O } from "./index.es206.js";
+import { makeVar as z, recallCache as E, forgetCache as g } from "./index.es203.js";
+import { Policies as I } from "./index.es211.js";
+import { normalizeConfig as M, shouldCanonizeResults as U, hasOwn as v } from "./index.es208.js";
+import { getInMemoryCacheMemoryInternals as B } from "./index.es127.js";
+import { DocumentTransform as P } from "./index.es119.js";
+import { addTypenameToDocument as k } from "./index.es130.js";
+import { cacheSizes as F } from "./index.es123.js";
+import { canonicalStringify as l } from "./index.es129.js";
+import { print as Q } from "./index.es70.js";
+import { isReference as V } from "./index.es126.js";
 var A = (
   /** @class */
   function(y) {

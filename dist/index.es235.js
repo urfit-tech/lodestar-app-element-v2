@@ -1,22 +1,22 @@
-import { __require as _ } from "./index.es230.js";
-var c, a;
-function s() {
-  if (a) return c;
+import { __require as i } from "./index.es233.js";
+var e, a;
+function o() {
+  if (a) return e;
   a = 1;
-  const u = _();
-  return c = (e, q, r, n, t) => {
-    typeof r == "string" && (t = n, n = r, r = void 0);
+  const t = i();
+  return e = (r, u, n = !1) => {
+    if (r instanceof t)
+      return r;
     try {
-      return new u(
-        e instanceof u ? e.version : e,
-        r
-      ).inc(q, n, t).version;
-    } catch {
-      return null;
+      return new t(r, u);
+    } catch (s) {
+      if (!n)
+        return null;
+      throw s;
     }
-  }, c;
+  }, e;
 }
 export {
-  s as __require
+  o as __require
 };
 //# sourceMappingURL=index.es235.js.map

@@ -1,6 +1,5 @@
-import { ApolloLink as e } from "./index.es101.js";
-var r = e.execute;
+const o = "1.8.4";
 export {
-  r as execute
+  o as VERSION
 };
 //# sourceMappingURL=index.es100.js.map

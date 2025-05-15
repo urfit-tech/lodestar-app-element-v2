@@ -1,9 +1,7 @@
-var a = /* @__PURE__ */ new Map();
-function c(t) {
-  var n = a.get(t) || 1;
-  return a.set(t, n + 1), "".concat(t, ":").concat(n, ":").concat(Math.random().toString(36).slice(2));
+function l(e) {
+  return e != null && typeof e == "object" && e["@@functional/placeholder"] === !0;
 }
 export {
-  c as makeUniqueId
+  l as default
 };
 //# sourceMappingURL=index.es161.js.map

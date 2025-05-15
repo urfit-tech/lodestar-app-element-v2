@@ -1,45 +1,23 @@
-import { __require as C } from "./index.es230.js";
-import { __require as E } from "./index.es255.js";
-import { __require as G } from "./index.es256.js";
-import { __require as L } from "./index.es257.js";
-import { __require as O } from "./index.es247.js";
-import { __require as x } from "./index.es248.js";
-import { __require as y } from "./index.es252.js";
-import { __require as A } from "./index.es251.js";
-var q, d;
-function F() {
-  if (d) return q;
-  d = 1;
-  const h = C(), _ = E(), { ANY: v } = _, w = G(), g = L(), c = O(), p = x(), R = y(), S = A();
-  return q = (s, i, b, u) => {
-    s = new h(s, u), i = new w(i, u);
-    let m, a, o, f, l;
-    switch (b) {
-      case ">":
-        m = c, a = R, o = p, f = ">", l = ">=";
-        break;
-      case "<":
-        m = p, a = S, o = c, f = "<", l = "<=";
-        break;
-      default:
-        throw new TypeError('Must provide a hilo val of "<" or ">"');
+import { __require as o } from "./index.es233.js";
+import { __require as c } from "./index.es259.js";
+var i, u;
+function _() {
+  if (u) return i;
+  u = 1;
+  const f = o(), m = c();
+  return i = (s, l, n) => {
+    let r = null, t = null, a = null;
+    try {
+      a = new m(l, n);
+    } catch {
+      return null;
     }
-    if (g(s, i, u))
-      return !1;
-    for (let n = 0; n < i.set.length; ++n) {
-      const k = i.set[n];
-      let t = null, e = null;
-      if (k.forEach((r) => {
-        r.semver === v && (r = new _(">=0.0.0")), t = t || r, e = e || r, m(r.semver, t.semver, u) ? t = r : o(r.semver, e.semver, u) && (e = r);
-      }), t.operator === f || t.operator === l || (!e.operator || e.operator === f) && a(s, e.semver))
-        return !1;
-      if (e.operator === l && o(s, e.semver))
-        return !1;
-    }
-    return !0;
-  }, q;
+    return s.forEach((e) => {
+      a.test(e) && (!r || t.compare(e) === 1) && (r = e, t = new f(r, n));
+    }), r;
+  }, i;
 }
 export {
-  F as __require
+  _ as __require
 };
 //# sourceMappingURL=index.es263.js.map

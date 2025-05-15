@@ -1,10 +1,13 @@
-import { __require as m } from "./index.es241.js";
-var e, r;
+import { __require as t } from "./index.es235.js";
+var r, s;
 function i() {
-  if (r) return e;
-  r = 1;
-  const o = m();
-  return e = (a, s) => o(a, s, !0), e;
+  if (s) return r;
+  s = 1;
+  const a = t();
+  return r = (l, n) => {
+    const e = a(l, n);
+    return e && e.prerelease.length ? e.prerelease : null;
+  }, r;
 }
 export {
   i as __require

@@ -1,17 +1,12 @@
-var t, i;
-function g() {
-  if (i) return t;
-  i = 1;
-  var n = "[object String]", o = Object.prototype, e = o.toString, s = Array.isArray;
-  function a(r) {
-    return !!r && typeof r == "object";
-  }
-  function c(r) {
-    return typeof r == "string" || !s(r) && a(r) && e.call(r) == n;
-  }
-  return t = c, t;
+import { __require as i } from "./index.es168.js";
+var r, e;
+function p() {
+  if (e) return r;
+  e = 1;
+  var s = i();
+  return r = s.satisfies(process.version, "^6.12.0 || >=8.0.0"), r;
 }
 export {
-  g as __require
+  p as __require
 };
 //# sourceMappingURL=index.es82.js.map

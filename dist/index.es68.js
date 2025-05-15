@@ -1,7 +1,10 @@
-function e(t) {
-  return Object.prototype.toString.call(t) === "[object Object]";
-}
+import { Observable as t } from "./index.es67.js";
+import "./index.es132.js";
+var r = t.prototype, o = "@@observable";
+r[o] || (r[o] = function() {
+  return this;
+});
 export {
-  e as default
+  t as Observable
 };
 //# sourceMappingURL=index.es68.js.map

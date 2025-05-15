@@ -1,22 +1,16 @@
-import { canUseAsyncIteratorSymbol as u } from "./index.es179.js";
-function f(t) {
-  var e = !1, r = {
-    next: function() {
-      return e ? Promise.resolve({
-        value: void 0,
-        done: !0
-      }) : (e = !0, new Promise(function(n, o) {
-        t.then(function(a) {
-          n({ value: a, done: !1 });
-        }).catch(o);
-      }));
-    }
-  };
-  return u && (r[Symbol.asyncIterator] = function() {
-    return this;
-  }), r;
-}
+import o from "./index.es313.js";
+import r from "./index.es314.js";
+import t from "./index.es315.js";
+const l = {
+  isBrowser: !0,
+  classes: {
+    URLSearchParams: o,
+    FormData: r,
+    Blob: t
+  },
+  protocols: ["http", "https", "file", "blob", "url", "data"]
+};
 export {
-  f as default
+  l as default
 };
 //# sourceMappingURL=index.es283.js.map

@@ -1,11 +1,9 @@
-var r, t;
-function i() {
-  if (t) return r;
-  t = 1;
-  const s = Object.freeze({ loose: !0 }), n = Object.freeze({});
-  return r = (e) => e ? typeof e != "object" ? s : e : n, r;
+var e, r;
+function u() {
+  return r || (r = 1, e = typeof process == "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...s) => console.error("SEMVER", ...s) : () => {
+  }), e;
 }
 export {
-  i as __require
+  u as __require
 };
 //# sourceMappingURL=index.es308.js.map

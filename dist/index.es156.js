@@ -1,70 +1,116 @@
-import { Trie as o } from "./index.es155.js";
-import { canUseWeakSet as i, canUseWeakMap as f } from "./index.es179.js";
-import { checkDocument as s } from "./index.es36.js";
-import { invariant as h } from "./index.es93.js";
-import "./index.es94.js";
-import { wrap as m } from "./index.es170.js";
-import { cacheSizes as u } from "./index.es117.js";
-import { WeakCache as p } from "./index.es171.js";
-function y(r) {
-  return r;
+const { toString: f, hasOwnProperty: h } = Object.prototype, l = Function.prototype.toString, i = /* @__PURE__ */ new Map();
+function b(e, t) {
+  try {
+    return u(e, t);
+  } finally {
+    i.clear();
+  }
 }
-var K = (
-  /** @class */
-  function() {
-    function r(e, t) {
-      t === void 0 && (t = /* @__PURE__ */ Object.create(null)), this.resultCache = i ? /* @__PURE__ */ new WeakSet() : /* @__PURE__ */ new Set(), this.transform = e, t.getCacheKey && (this.getCacheKey = t.getCacheKey), this.cached = t.cache !== !1, this.resetCache();
-    }
-    return r.prototype.getCacheKey = function(e) {
-      return [e];
-    }, r.identity = function() {
-      return new r(y, { cache: !1 });
-    }, r.split = function(e, t, n) {
-      return n === void 0 && (n = r.identity()), Object.assign(new r(
-        function(a) {
-          var c = e(a) ? t : n;
-          return c.transformDocument(a);
-        },
-        // Reasonably assume both `left` and `right` transforms handle their own caching
-        { cache: !1 }
-      ), { left: t, right: n });
-    }, r.prototype.resetCache = function() {
-      var e = this;
-      if (this.cached) {
-        var t = new o(f);
-        this.performWork = m(r.prototype.performWork.bind(this), {
-          makeCacheKey: function(n) {
-            var a = e.getCacheKey(n);
-            if (a)
-              return h(Array.isArray(a), 68), t.lookupArray(a);
-          },
-          max: u["documentTransform.cache"],
-          cache: p
-        });
+function u(e, t) {
+  if (e === t)
+    return !0;
+  const n = f.call(e), g = f.call(t);
+  if (n !== g)
+    return !1;
+  switch (n) {
+    case "[object Array]":
+      if (e.length !== t.length)
+        return !1;
+    // Fall through to object case...
+    case "[object Object]": {
+      if (j(e, t))
+        return !0;
+      const r = y(e), a = y(t), o = r.length;
+      if (o !== a.length)
+        return !1;
+      for (let c = 0; c < o; ++c)
+        if (!h.call(t, r[c]))
+          return !1;
+      for (let c = 0; c < o; ++c) {
+        const s = r[c];
+        if (!u(e[s], t[s]))
+          return !1;
       }
-    }, r.prototype.performWork = function(e) {
-      return s(e), this.transform(e);
-    }, r.prototype.transformDocument = function(e) {
-      if (this.resultCache.has(e))
-        return e;
-      var t = this.performWork(e);
-      return this.resultCache.add(t), t;
-    }, r.prototype.concat = function(e) {
-      var t = this;
-      return Object.assign(new r(
-        function(n) {
-          return e.transformDocument(t.transformDocument(n));
-        },
-        // Reasonably assume both transforms handle their own caching
-        { cache: !1 }
-      ), {
-        left: this,
-        right: e
-      });
-    }, r;
-  }()
-);
+      return !0;
+    }
+    case "[object Error]":
+      return e.name === t.name && e.message === t.message;
+    case "[object Number]":
+      if (e !== e)
+        return t !== t;
+    // Fall through to shared +a === +b case...
+    case "[object Boolean]":
+    case "[object Date]":
+      return +e == +t;
+    case "[object RegExp]":
+    case "[object String]":
+      return e == `${t}`;
+    case "[object Map]":
+    case "[object Set]": {
+      if (e.size !== t.size)
+        return !1;
+      if (j(e, t))
+        return !0;
+      const r = e.entries(), a = n === "[object Map]";
+      for (; ; ) {
+        const o = r.next();
+        if (o.done)
+          break;
+        const [c, s] = o.value;
+        if (!t.has(c) || a && !u(s, t.get(c)))
+          return !1;
+      }
+      return !0;
+    }
+    case "[object Uint16Array]":
+    case "[object Uint8Array]":
+    // Buffer, in Node.js.
+    case "[object Uint32Array]":
+    case "[object Int32Array]":
+    case "[object Int8Array]":
+    case "[object Int16Array]":
+    case "[object ArrayBuffer]":
+      e = new Uint8Array(e), t = new Uint8Array(t);
+    // Fall through...
+    case "[object DataView]": {
+      let r = e.byteLength;
+      if (r === t.byteLength)
+        for (; r-- && e[r] === t[r]; )
+          ;
+      return r === -1;
+    }
+    case "[object AsyncFunction]":
+    case "[object GeneratorFunction]":
+    case "[object AsyncGeneratorFunction]":
+    case "[object Function]": {
+      const r = l.call(e);
+      return r !== l.call(t) ? !1 : !A(r, p);
+    }
+  }
+  return !1;
+}
+function y(e) {
+  return Object.keys(e).filter(d, e);
+}
+function d(e) {
+  return this[e] !== void 0;
+}
+const p = "{ [native code] }";
+function A(e, t) {
+  const n = e.length - t.length;
+  return n >= 0 && e.indexOf(t, n) === n;
+}
+function j(e, t) {
+  let n = i.get(e);
+  if (n) {
+    if (n.has(t))
+      return !0;
+  } else
+    i.set(e, n = /* @__PURE__ */ new Set());
+  return n.add(t), !1;
+}
 export {
-  K as DocumentTransform
+  b as default,
+  b as equal
 };
 //# sourceMappingURL=index.es156.js.map

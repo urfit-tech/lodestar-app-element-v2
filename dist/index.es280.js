@@ -1,20 +1,14 @@
-function s(o) {
-  var b, e = o.Symbol;
-  if (typeof e == "function")
-    if (e.observable)
-      b = e.observable;
-    else {
-      typeof e.for == "function" ? b = e.for("https://github.com/benlesh/symbol-observable") : b = e("https://github.com/benlesh/symbol-observable");
-      try {
-        e.observable = b;
-      } catch {
-      }
-    }
-  else
-    b = "@@observable";
-  return b;
+import i from "./index.es91.js";
+import m from "./index.es95.js";
+import s from "./index.es105.js";
+function h(f, t) {
+  const o = this || m, r = t || o, n = s.from(r.headers);
+  let a = r.data;
+  return i.forEach(f, function(e) {
+    a = e.call(o, a, n.normalize(), t ? t.status : void 0);
+  }), n.normalize(), a;
 }
 export {
-  s as default
+  h as default
 };
 //# sourceMappingURL=index.es280.js.map

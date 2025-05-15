@@ -1,10 +1,14 @@
-const e = typeof window < "u" && typeof document < "u", o = typeof navigator == "object" && navigator || void 0, n = e && (!o || ["ReactNative", "NativeScript", "NS"].indexOf(o.product) < 0), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
-self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
+const { hasOwnProperty: t } = Object.prototype, c = Array.from || function(r) {
+  const o = [];
+  return r.forEach((n) => o.push(n)), o;
+};
+function s(r) {
+  const { unsubscribe: o } = r;
+  typeof o == "function" && (r.unsubscribe = void 0, o());
+}
 export {
-  e as hasBrowserEnv,
-  n as hasStandardBrowserEnv,
-  t as hasStandardBrowserWebWorkerEnv,
-  o as navigator,
-  r as origin
+  c as arrayFromSet,
+  t as hasOwnProperty,
+  s as maybeUnsubscribe
 };
 //# sourceMappingURL=index.es292.js.map

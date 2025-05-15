@@ -1,39 +1,32 @@
-import { __module as a } from "./index.es299.js";
-import { __require as s } from "./index.es300.js";
-/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-var l;
-function w() {
-  return l ? a.exports : (l = 1, function(p, i) {
-    var n = s(), e = n.Buffer;
-    function m(r, f) {
-      for (var u in r)
-        f[u] = r[u];
+import { serializeFetchParameter as u } from "./index.es218.js";
+function q(e, r) {
+  var o = [], t = function(a, c) {
+    o.push("".concat(a, "=").concat(encodeURIComponent(c)));
+  };
+  if ("query" in r && t("query", r.query), r.operationName && t("operationName", r.operationName), r.variables) {
+    var s = void 0;
+    try {
+      s = u(r.variables, "Variables map");
+    } catch (a) {
+      return { parseError: a };
     }
-    e.from && e.alloc && e.allocUnsafe && e.allocUnsafeSlow ? p.exports = n : (m(n, i), i.Buffer = o);
-    function o(r, f, u) {
-      return e(r, f, u);
+    t("variables", s);
+  }
+  if (r.extensions) {
+    var m = void 0;
+    try {
+      m = u(r.extensions, "Extensions map");
+    } catch (a) {
+      return { parseError: a };
     }
-    o.prototype = Object.create(e.prototype), m(e, o), o.from = function(r, f, u) {
-      if (typeof r == "number")
-        throw new TypeError("Argument must not be a number");
-      return e(r, f, u);
-    }, o.alloc = function(r, f, u) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      var t = e(r);
-      return f !== void 0 ? typeof u == "string" ? t.fill(f, u) : t.fill(f) : t.fill(0), t;
-    }, o.allocUnsafe = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return e(r);
-    }, o.allocUnsafeSlow = function(r) {
-      if (typeof r != "number")
-        throw new TypeError("Argument must be a number");
-      return n.SlowBuffer(r);
-    };
-  }(a, a.exports), a.exports);
+    t("extensions", m);
+  }
+  var p = "", n = e, i = e.indexOf("#");
+  i !== -1 && (p = e.substr(i), n = e.substr(0, i));
+  var f = n.indexOf("?") === -1 ? "?" : "&", v = n + f + o.join("&") + p;
+  return { newURI: v };
 }
 export {
-  w as __require
+  q as rewriteURIForGET
 };
 //# sourceMappingURL=index.es223.js.map

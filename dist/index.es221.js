@@ -1,5 +1,8 @@
-const o = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), t = { randomUUID: o };
+var u = function(t, e) {
+  var n = t.getContext(), r = n.uri;
+  return r || (typeof e == "function" ? e(t) : e || "/graphql");
+};
 export {
-  t as default
+  u as selectURI
 };
 //# sourceMappingURL=index.es221.js.map

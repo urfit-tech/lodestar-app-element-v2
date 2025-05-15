@@ -1,17 +1,18 @@
-var e, t;
-function c() {
-  if (t) return e;
-  t = 1;
-  var o = "[object Number]", n = Object.prototype, i = n.toString;
-  function u(r) {
-    return !!r && typeof r == "object";
-  }
-  function b(r) {
-    return typeof r == "number" || u(r) && i.call(r) == o;
-  }
-  return e = b, e;
+import { __require as i } from "./index.es165.js";
+var e, a;
+function s() {
+  if (a) return e;
+  a = 1;
+  var u = i();
+  return e = function(r, f) {
+    var n = f || Math.floor(Date.now() / 1e3);
+    if (typeof r == "string") {
+      var t = u(r);
+      return typeof t > "u" ? void 0 : Math.floor(n + t / 1e3);
+    } else return typeof r == "number" ? n + r : void 0;
+  }, e;
 }
 export {
-  c as __require
+  s as __require
 };
 //# sourceMappingURL=index.es80.js.map

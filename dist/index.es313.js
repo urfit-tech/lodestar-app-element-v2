@@ -1,4 +1,4 @@
-import a from "./index.es287.js";
+import a from "./index.es279.js";
 const e = typeof URLSearchParams < "u" ? URLSearchParams : a;
 export {
   e as default

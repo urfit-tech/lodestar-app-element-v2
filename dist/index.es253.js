@@ -1,40 +1,12 @@
-import { __require as p } from "./index.es249.js";
-import { __require as _ } from "./index.es250.js";
-import { __require as a } from "./index.es247.js";
-import { __require as v } from "./index.es251.js";
-import { __require as y } from "./index.es248.js";
-import { __require as j } from "./index.es252.js";
-var i, c;
-function L() {
-  if (c) return i;
-  c = 1;
-  const n = p(), o = _(), s = a(), q = v(), f = y(), m = j();
-  return i = (r, u, e, t) => {
-    switch (u) {
-      case "===":
-        return typeof r == "object" && (r = r.version), typeof e == "object" && (e = e.version), r === e;
-      case "!==":
-        return typeof r == "object" && (r = r.version), typeof e == "object" && (e = e.version), r !== e;
-      case "":
-      case "=":
-      case "==":
-        return n(r, e, t);
-      case "!=":
-        return o(r, e, t);
-      case ">":
-        return s(r, e, t);
-      case ">=":
-        return q(r, e, t);
-      case "<":
-        return f(r, e, t);
-      case "<=":
-        return m(r, e, t);
-      default:
-        throw new TypeError(`Invalid operator: ${u}`);
-    }
-  }, i;
+import { __require as u } from "./index.es244.js";
+var e, r;
+function s() {
+  if (r) return e;
+  r = 1;
+  const q = u();
+  return e = (n, i, o) => q(n, i, o) !== 0, e;
 }
 export {
-  L as __require
+  s as __require
 };
 //# sourceMappingURL=index.es253.js.map

@@ -1,18 +1,24 @@
-import { __require as i } from "./index.es141.js";
-var e, a;
-function s() {
-  if (a) return e;
-  a = 1;
-  var u = i();
-  return e = function(r, f) {
-    var n = f || Math.floor(Date.now() / 1e3);
-    if (typeof r == "string") {
-      var t = u(r);
-      return typeof t > "u" ? void 0 : Math.floor(n + t / 1e3);
-    } else return typeof r == "number" ? n + r : void 0;
-  }, e;
+import o from "./index.es160.js";
+import u from "./index.es161.js";
+function s(e) {
+  return function c(r, n) {
+    switch (arguments.length) {
+      case 0:
+        return c;
+      case 1:
+        return u(r) ? c : o(function(t) {
+          return e(r, t);
+        });
+      default:
+        return u(r) && u(n) ? c : u(r) ? o(function(t) {
+          return e(t, n);
+        }) : u(n) ? o(function(t) {
+          return e(r, t);
+        }) : e(r, n);
+    }
+  };
 }
 export {
-  s as __require
+  s as default
 };
 //# sourceMappingURL=index.es73.js.map

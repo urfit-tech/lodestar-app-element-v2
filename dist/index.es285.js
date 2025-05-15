@@ -1,12 +1,15 @@
-import { __module as e } from "./index.es286.js";
-import E from "react";
-var r;
-function N() {
-  return r ? e.exports : (r = 1, function(_) {
-    _.exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = void 0, _.exports.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, _.exports.__SERVER_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = void 0, Object.assign(_.exports, E);
-  }(e), e.exports);
+import a from "./index.es102.js";
+function E(i, f, t) {
+  const u = t.config.validateStatus;
+  !t.status || !u || u(t.status) ? i(t) : f(new a(
+    "Request failed with status code " + t.status,
+    [a.ERR_BAD_REQUEST, a.ERR_BAD_RESPONSE][Math.floor(t.status / 100) - 4],
+    t.config,
+    t.request,
+    t
+  ));
 }
 export {
-  N as __require
+  E as default
 };
 //# sourceMappingURL=index.es285.js.map

@@ -1,15 +1,12 @@
-import { __require as t } from "./index.es232.js";
-var r, s;
-function i() {
-  if (s) return r;
-  s = 1;
-  const a = t();
-  return r = (l, n) => {
-    const e = a(l, n);
-    return e && e.prerelease.length ? e.prerelease : null;
-  }, r;
+import { __require as m } from "./index.es233.js";
+var r, e;
+function t() {
+  if (e) return r;
+  e = 1;
+  const o = m();
+  return r = (a, i) => new o(a, i).major, r;
 }
 export {
-  i as __require
+  t as __require
 };
 //# sourceMappingURL=index.es240.js.map

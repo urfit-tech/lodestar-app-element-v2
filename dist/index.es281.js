@@ -1,14 +1,7 @@
-function a(r) {
-  var t, n = r[Symbol.asyncIterator]();
-  return t = {
-    next: function() {
-      return n.next();
-    }
-  }, t[Symbol.asyncIterator] = function() {
-    return this;
-  }, t;
+function e(t) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
 }
 export {
-  a as default
+  e as default
 };
 //# sourceMappingURL=index.es281.js.map

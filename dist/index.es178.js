@@ -1,27 +1,10 @@
-import { isNonNullObject as f } from "./index.es113.js";
-function i(e) {
-  var t = /* @__PURE__ */ new Set([e]);
-  return t.forEach(function(r) {
-    f(r) && c(r) === r && Object.getOwnPropertyNames(r).forEach(function(n) {
-      f(r[n]) && t.add(r[n]);
-    });
-  }), e;
-}
-function c(e) {
-  if (globalThis.__DEV__ !== !1 && !Object.isFrozen(e))
-    try {
-      Object.freeze(e);
-    } catch (t) {
-      if (t instanceof TypeError)
-        return null;
-      throw t;
-    }
-  return e;
-}
-function a(e) {
-  return globalThis.__DEV__ !== !1 && i(e), e;
+import r from "./index.es281.js";
+import f from "./index.es282.js";
+function u(l, i, t) {
+  let o = !r(i);
+  return l && (o || t == !1) ? f(l, i) : i;
 }
 export {
-  a as maybeDeepFreeze
+  u as default
 };
 //# sourceMappingURL=index.es178.js.map

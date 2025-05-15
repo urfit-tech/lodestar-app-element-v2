@@ -1,15 +1,10 @@
-function u() {
-  for (var e = [], r = 0; r < arguments.length; r++)
-    e[r] = arguments[r];
-  var n = /* @__PURE__ */ Object.create(null);
-  return e.forEach(function(t) {
-    t && Object.keys(t).forEach(function(a) {
-      var c = t[a];
-      c !== void 0 && (n[a] = c);
-    });
-  }), n;
+import n from "./index.es190.js";
+import m from "./index.es191.js";
+function g() {
+  var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, a = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !0, e = t || "";
+  return r && (e = m(t)), a && (e = n(e)), e;
 }
 export {
-  u as compact
+  g as default
 };
 //# sourceMappingURL=index.es110.js.map

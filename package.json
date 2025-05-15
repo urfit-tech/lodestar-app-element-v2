@@ -3,23 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "dist-types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist-types/index.d.ts"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "dist-types"
   ],
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "clean": "rm -rf dist",
-    "build": "yarn clean && tsc && vite build"
+    "clean": "rm -rf dist dist-types",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build": "yarn clean && vite build && yarn build:types"
   },
   "dependencies": {
     "@bobthered/tailwindcss-palette-generator": "^4.0.0",

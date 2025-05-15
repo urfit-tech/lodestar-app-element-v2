@@ -1,22 +1,71 @@
-import { maybe as n } from "./index.es191.js";
-const r = n(function() {
-  return globalThis;
-}) || n(function() {
-  return window;
-}) || n(function() {
-  return self;
-}) || n(function() {
-  return global;
-}) || // We don't expect the Function constructor ever to be invoked at runtime, as
-// long as at least one of globalThis, window, self, or global is defined, so
-// we are under no obligation to make it easy for static analysis tools to
-// detect syntactic usage of the Function constructor. If you think you can
-// improve your static analysis to detect this obfuscation, think again. This
-// is an arms race you cannot win, at least not in JavaScript.
-n(function() {
-  return n.constructor("return this")();
-});
+import i from "./index.es91.js";
+import h from "./index.es105.js";
+const c = (s) => s instanceof h ? { ...s } : s;
+function C(s, a) {
+  a = a || {};
+  const u = {};
+  function d(t, e, r, o) {
+    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: o }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
+  }
+  function l(t, e, r, o) {
+    if (i.isUndefined(e)) {
+      if (!i.isUndefined(t))
+        return d(void 0, t, r, o);
+    } else return d(t, e, r, o);
+  }
+  function f(t, e) {
+    if (!i.isUndefined(e))
+      return d(void 0, e);
+  }
+  function n(t, e) {
+    if (i.isUndefined(e)) {
+      if (!i.isUndefined(t))
+        return d(void 0, t);
+    } else return d(void 0, e);
+  }
+  function m(t, e, r) {
+    if (r in a)
+      return d(t, e);
+    if (r in s)
+      return d(void 0, t);
+  }
+  const g = {
+    url: f,
+    method: f,
+    data: f,
+    baseURL: n,
+    transformRequest: n,
+    transformResponse: n,
+    paramsSerializer: n,
+    timeout: n,
+    timeoutMessage: n,
+    withCredentials: n,
+    withXSRFToken: n,
+    adapter: n,
+    responseType: n,
+    xsrfCookieName: n,
+    xsrfHeaderName: n,
+    onUploadProgress: n,
+    onDownloadProgress: n,
+    decompress: n,
+    maxContentLength: n,
+    maxBodyLength: n,
+    beforeRedirect: n,
+    transport: n,
+    httpAgent: n,
+    httpsAgent: n,
+    cancelToken: n,
+    socketPath: n,
+    responseEncoding: n,
+    validateStatus: m,
+    headers: (t, e, r) => l(c(t), c(e), r, !0)
+  };
+  return i.forEach(Object.keys(Object.assign({}, s, a)), function(e) {
+    const r = g[e] || l, o = r(s[e], a[e], e);
+    i.isUndefined(o) && r !== m || (u[e] = o);
+  }), u;
+}
 export {
-  r as default
+  C as default
 };
 //# sourceMappingURL=index.es94.js.map

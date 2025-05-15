@@ -1,33 +1,151 @@
-import { __module as T } from "./index.es306.js";
-import { __require as X } from "./index.es229.js";
-import { __require as c } from "./index.es307.js";
-var D;
-function f() {
-  return D ? T.exports : (D = 1, function(C, N) {
-    const {
-      MAX_SAFE_COMPONENT_LENGTH: e,
-      MAX_SAFE_BUILD_LENGTH: r,
-      MAX_LENGTH: P
-    } = X(), F = c();
-    N = C.exports = {};
-    const t = N.re = [], G = N.safeRe = [], E = N.src = [], n = N.safeSrc = [], I = N.t = {};
-    let U = 0;
-    const S = "[a-zA-Z0-9-]", M = [
-      ["\\s", 1],
-      ["\\d", P],
-      [S, r]
-    ], o = (O) => {
-      for (const [L, A] of M)
-        O = O.split(`${L}*`).join(`${L}{0,${A}}`).split(`${L}+`).join(`${L}{1,${A}}`);
-      return O;
-    }, R = (O, L, A) => {
-      const s = o(L), $ = U++;
-      F(O, $, L), I[O] = $, E[$] = L, n[$] = s, t[$] = new RegExp(L, A ? "g" : void 0), G[$] = new RegExp(s, A ? "g" : void 0);
+import { __require as G } from "./index.es302.js";
+import { __require as j } from "./index.es226.js";
+import C from "./index.es83.js";
+import { __require as M } from "./index.es303.js";
+import { __require as O } from "./index.es230.js";
+var _, w;
+function z() {
+  if (w) return _;
+  w = 1;
+  var P = G(), u = j().Buffer, o = C, m = M(), y = O(), b = `"%s" is not a valid algorithm.
+  Supported algorithms are:
+  "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "ES256", "ES384", "ES512" and "none".`, s = "secret must be a string or buffer", c = "key must be a string or a buffer", q = "key must be a string, a buffer or an object", v = typeof o.createPublicKey == "function";
+  v && (c += " or a KeyObject", s += "or a KeyObject");
+  function E(r) {
+    if (!u.isBuffer(r) && typeof r != "string" && (!v || typeof r != "object" || typeof r.type != "string" || typeof r.asymmetricKeyType != "string" || typeof r.export != "function"))
+      throw a(c);
+  }
+  function A(r) {
+    if (!u.isBuffer(r) && typeof r != "string" && typeof r != "object")
+      throw a(q);
+  }
+  function h(r) {
+    if (!u.isBuffer(r)) {
+      if (typeof r == "string")
+        return r;
+      if (!v || typeof r != "object" || r.type !== "secret" || typeof r.export != "function")
+        throw a(s);
+    }
+  }
+  function g(r) {
+    return r.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+  }
+  function l(r) {
+    r = r.toString();
+    var i = 4 - r.length % 4;
+    if (i !== 4)
+      for (var e = 0; e < i; ++e)
+        r += "=";
+    return r.replace(/\-/g, "+").replace(/_/g, "/");
+  }
+  function a(r) {
+    var i = [].slice.call(arguments, 1), e = y.format.bind(y, r).apply(null, i);
+    return new TypeError(e);
+  }
+  function D(r) {
+    return u.isBuffer(r) || typeof r == "string";
+  }
+  function S(r) {
+    return D(r) || (r = JSON.stringify(r)), r;
+  }
+  function d(r) {
+    return function(e, t) {
+      h(t), e = S(e);
+      var n = o.createHmac("sha" + r, t), f = (n.update(e), n.digest("base64"));
+      return g(f);
     };
-    R("NUMERICIDENTIFIER", "0|[1-9]\\d*"), R("NUMERICIDENTIFIERLOOSE", "\\d+"), R("NONNUMERICIDENTIFIER", `\\d*[a-zA-Z-]${S}*`), R("MAINVERSION", `(${E[I.NUMERICIDENTIFIER]})\\.(${E[I.NUMERICIDENTIFIER]})\\.(${E[I.NUMERICIDENTIFIER]})`), R("MAINVERSIONLOOSE", `(${E[I.NUMERICIDENTIFIERLOOSE]})\\.(${E[I.NUMERICIDENTIFIERLOOSE]})\\.(${E[I.NUMERICIDENTIFIERLOOSE]})`), R("PRERELEASEIDENTIFIER", `(?:${E[I.NUMERICIDENTIFIER]}|${E[I.NONNUMERICIDENTIFIER]})`), R("PRERELEASEIDENTIFIERLOOSE", `(?:${E[I.NUMERICIDENTIFIERLOOSE]}|${E[I.NONNUMERICIDENTIFIER]})`), R("PRERELEASE", `(?:-(${E[I.PRERELEASEIDENTIFIER]}(?:\\.${E[I.PRERELEASEIDENTIFIER]})*))`), R("PRERELEASELOOSE", `(?:-?(${E[I.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${E[I.PRERELEASEIDENTIFIERLOOSE]})*))`), R("BUILDIDENTIFIER", `${S}+`), R("BUILD", `(?:\\+(${E[I.BUILDIDENTIFIER]}(?:\\.${E[I.BUILDIDENTIFIER]})*))`), R("FULLPLAIN", `v?${E[I.MAINVERSION]}${E[I.PRERELEASE]}?${E[I.BUILD]}?`), R("FULL", `^${E[I.FULLPLAIN]}$`), R("LOOSEPLAIN", `[v=\\s]*${E[I.MAINVERSIONLOOSE]}${E[I.PRERELEASELOOSE]}?${E[I.BUILD]}?`), R("LOOSE", `^${E[I.LOOSEPLAIN]}$`), R("GTLT", "((?:<|>)?=?)"), R("XRANGEIDENTIFIERLOOSE", `${E[I.NUMERICIDENTIFIERLOOSE]}|x|X|\\*`), R("XRANGEIDENTIFIER", `${E[I.NUMERICIDENTIFIER]}|x|X|\\*`), R("XRANGEPLAIN", `[v=\\s]*(${E[I.XRANGEIDENTIFIER]})(?:\\.(${E[I.XRANGEIDENTIFIER]})(?:\\.(${E[I.XRANGEIDENTIFIER]})(?:${E[I.PRERELEASE]})?${E[I.BUILD]}?)?)?`), R("XRANGEPLAINLOOSE", `[v=\\s]*(${E[I.XRANGEIDENTIFIERLOOSE]})(?:\\.(${E[I.XRANGEIDENTIFIERLOOSE]})(?:\\.(${E[I.XRANGEIDENTIFIERLOOSE]})(?:${E[I.PRERELEASELOOSE]})?${E[I.BUILD]}?)?)?`), R("XRANGE", `^${E[I.GTLT]}\\s*${E[I.XRANGEPLAIN]}$`), R("XRANGELOOSE", `^${E[I.GTLT]}\\s*${E[I.XRANGEPLAINLOOSE]}$`), R("COERCEPLAIN", `(^|[^\\d])(\\d{1,${e}})(?:\\.(\\d{1,${e}}))?(?:\\.(\\d{1,${e}}))?`), R("COERCE", `${E[I.COERCEPLAIN]}(?:$|[^\\d])`), R("COERCEFULL", E[I.COERCEPLAIN] + `(?:${E[I.PRERELEASE]})?(?:${E[I.BUILD]})?(?:$|[^\\d])`), R("COERCERTL", E[I.COERCE], !0), R("COERCERTLFULL", E[I.COERCEFULL], !0), R("LONETILDE", "(?:~>?)"), R("TILDETRIM", `(\\s*)${E[I.LONETILDE]}\\s+`, !0), N.tildeTrimReplace = "$1~", R("TILDE", `^${E[I.LONETILDE]}${E[I.XRANGEPLAIN]}$`), R("TILDELOOSE", `^${E[I.LONETILDE]}${E[I.XRANGEPLAINLOOSE]}$`), R("LONECARET", "(?:\\^)"), R("CARETTRIM", `(\\s*)${E[I.LONECARET]}\\s+`, !0), N.caretTrimReplace = "$1^", R("CARET", `^${E[I.LONECARET]}${E[I.XRANGEPLAIN]}$`), R("CARETLOOSE", `^${E[I.LONECARET]}${E[I.XRANGEPLAINLOOSE]}$`), R("COMPARATORLOOSE", `^${E[I.GTLT]}\\s*(${E[I.LOOSEPLAIN]})$|^$`), R("COMPARATOR", `^${E[I.GTLT]}\\s*(${E[I.FULLPLAIN]})$|^$`), R("COMPARATORTRIM", `(\\s*)${E[I.GTLT]}\\s*(${E[I.LOOSEPLAIN]}|${E[I.XRANGEPLAIN]})`, !0), N.comparatorTrimReplace = "$1$2$3", R("HYPHENRANGE", `^\\s*(${E[I.XRANGEPLAIN]})\\s+-\\s+(${E[I.XRANGEPLAIN]})\\s*$`), R("HYPHENRANGELOOSE", `^\\s*(${E[I.XRANGEPLAINLOOSE]})\\s+-\\s+(${E[I.XRANGEPLAINLOOSE]})\\s*$`), R("STAR", "(<|>)?=?\\s*\\*"), R("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$"), R("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
-  }(T, T.exports), T.exports);
+  }
+  function H(r) {
+    return function(e, t, n) {
+      var f = d(r)(e, n);
+      return P(u.from(t), u.from(f));
+    };
+  }
+  function I(r) {
+    return function(e, t) {
+      A(t), e = S(e);
+      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign(t, "base64"));
+      return g(f);
+    };
+  }
+  function R(r) {
+    return function(e, t, n) {
+      E(n), e = S(e), t = l(t);
+      var f = o.createVerify("RSA-SHA" + r);
+      return f.update(e), f.verify(n, t, "base64");
+    };
+  }
+  function K(r) {
+    return function(e, t) {
+      A(t), e = S(e);
+      var n = o.createSign("RSA-SHA" + r), f = (n.update(e), n.sign({
+        key: t,
+        padding: o.constants.RSA_PKCS1_PSS_PADDING,
+        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
+      }, "base64"));
+      return g(f);
+    };
+  }
+  function L(r) {
+    return function(e, t, n) {
+      E(n), e = S(e), t = l(t);
+      var f = o.createVerify("RSA-SHA" + r);
+      return f.update(e), f.verify({
+        key: n,
+        padding: o.constants.RSA_PKCS1_PSS_PADDING,
+        saltLength: o.constants.RSA_PSS_SALTLEN_DIGEST
+      }, t, "base64");
+    };
+  }
+  function N(r) {
+    var i = I(r);
+    return function() {
+      var t = i.apply(null, arguments);
+      return t = m.derToJose(t, "ES" + r), t;
+    };
+  }
+  function V(r) {
+    var i = R(r);
+    return function(t, n, f) {
+      n = m.joseToDer(n, "ES" + r).toString("base64");
+      var p = i(t, n, f);
+      return p;
+    };
+  }
+  function T() {
+    return function() {
+      return "";
+    };
+  }
+  function B() {
+    return function(i, e) {
+      return e === "";
+    };
+  }
+  return _ = function(i) {
+    var e = {
+      hs: d,
+      rs: I,
+      ps: K,
+      es: N,
+      none: T
+    }, t = {
+      hs: H,
+      rs: R,
+      ps: L,
+      es: V,
+      none: B
+    }, n = i.match(/^(RS|PS|ES|HS)(256|384|512)$|^(none)$/i);
+    if (!n)
+      throw a(b, i);
+    var f = (n[1] || n[3]).toLowerCase(), p = n[2];
+    return {
+      sign: e[f](p),
+      verify: t[f](p)
+    };
+  }, _;
 }
 export {
-  f as __require
+  z as __require
 };
 //# sourceMappingURL=index.es228.js.map

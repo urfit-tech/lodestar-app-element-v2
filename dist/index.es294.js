@@ -1,8 +1,5 @@
-function o(e) {
-  const t = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
-  return t && t[1] || "";
-}
+var e = { exports: {} };
 export {
-  o as default
+  e as __module
 };
 //# sourceMappingURL=index.es294.js.map

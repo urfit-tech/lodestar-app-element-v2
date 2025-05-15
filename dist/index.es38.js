@@ -1,6 +1,6 @@
-import { __extends as e } from "./index.es92.js";
-import { createHttpLink as o } from "./index.es199.js";
-import { ApolloLink as f } from "./index.es101.js";
+import { __extends as e } from "./index.es65.js";
+import { createHttpLink as o } from "./index.es222.js";
+import { ApolloLink as f } from "./index.es66.js";
 var c = (
   /** @class */
   function(r) {
