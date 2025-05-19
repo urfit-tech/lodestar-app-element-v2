@@ -1,3 +1,4 @@
+import { default as React } from 'react';
 import { Permission } from '../types/app';
 import { Member, UserRole } from '../types/data';
 type ProviderType = 'facebook' | 'google' | 'line' | 'parenting' | 'commonhealth' | 'cw';

@@ -1,3 +1,4 @@
+import { default as React } from 'react';
 import { AppProps } from '../types/app';
 type AppContextProps = AppProps & {
     loading: boolean;

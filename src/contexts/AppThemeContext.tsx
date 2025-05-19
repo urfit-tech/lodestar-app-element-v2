@@ -1,3 +1,4 @@
+import React from 'react'
 import paletteGenerator from '@bobthered/tailwindcss-palette-generator'
 import { ChakraProvider, extendTheme, ThemeOverride, useTheme } from '@chakra-ui/react'
 import { mergeDeepRight } from 'ramda'

@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
@@ -47,7 +47,6 @@
     "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "rollup": "^4.40.2",
     "vite": "^6.3.5"
   },
   "peerDependencies": {
