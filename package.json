@@ -30,7 +30,7 @@
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "@types/uuid": "^10.0.0",
-    "axios": "^1.8.4",
+    "axios": "^1.13.5",
     "dayjs": "^1.11.13",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
